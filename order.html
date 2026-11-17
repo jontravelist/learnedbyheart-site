@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Start your story · Learned by Heart</title>
+<link rel="icon" type="image/svg+xml" href="img/logo/icon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="img/logo/favicon-32.png">
+<link rel="apple-touch-icon" href="img/logo/apple-touch-icon.png">
+<meta name="description" content="Tell us about the reader and what they want to learn. About ten minutes, then you pay and we start writing.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Fraunces:opsz,wght,SOFT@9..144,400..650,100&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F8F2F4; --page:#FFFDF8; --ink:#33287A; --soft:#6A6296; --line:#E6DBE4;
+  --pink:#F7A8C4; --butter:#FBE38A; --mint:#A9DEC9;
+  --display:"Fraunces",Georgia,serif; --body:"Nunito",system-ui,sans-serif; --hand:"Caveat","Comic Sans MS",cursive;
+  --wobble:255px 18px 225px 18px/18px 225px 18px 255px;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:1.0625rem;line-height:1.65;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+img{max-width:100%;height:auto;display:block}
+a{color:inherit}
+.wrap{max-width:46rem;margin:0 auto}
+.top{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding-block:1.6rem 0}
+.brand{font-family:var(--display);font-weight:600;font-size:1.45rem;letter-spacing:-.01em;text-decoration:none;display:flex;align-items:center;gap:.4rem}
+.brand svg{width:1.9rem;height:1.9rem;flex:none}
+.top .small{font-size:.92rem;color:var(--soft);text-decoration:none}
+.intro{display:grid;gap:1.8rem;align-items:center;padding-block:2.4rem 1rem}
+@media (min-width:44rem){.intro{grid-template-columns:1.2fr .8fr}}
+.intro>*{min-width:0}
+h1{font-family:var(--display);font-variation-settings:"SOFT" 100;font-weight:500;font-size:clamp(2.1rem,6vw,3rem);line-height:1.08;margin:0 0 .8rem;text-wrap:balance}
+.intro p{margin:0 0 .7rem}
+.hand{font-family:var(--hand);font-size:1.4rem;line-height:1.15;color:var(--soft)}
+.taped{position:relative;background:#fff;padding:.5rem .5rem 0;box-shadow:0 10px 28px rgba(51,40,122,.18);border-radius:2px;transform:rotate(1.6deg);margin:0}
+.taped::before{content:"";position:absolute;top:-12px;left:50%;width:6rem;height:1.6rem;transform:translateX(-50%) rotate(-3deg);background:color-mix(in srgb,var(--pink) 70%,transparent)}
+.taped figcaption{font-family:var(--hand);font-size:1.2rem;color:var(--soft);padding:.4rem .2rem .55rem}
+.steps{list-style:none;display:flex;flex-wrap:wrap;gap:.5rem;padding:0;margin:1rem 0 0}
+.steps li{font-family:var(--hand);font-weight:700;font-size:1.2rem;background:var(--c);padding:.05rem .8rem;border-radius:var(--wobble)}
+.sheet{background:var(--page);border-radius:6px;box-shadow:0 1px 0 var(--line),0 18px 40px rgba(51,40,122,.12);padding:clamp(1rem,4vw,2.4rem);margin-block:1.4rem 3rem}
+.sheet iframe{width:100%;border:0;min-height:900px;display:block}
+.fallback{font-size:.95rem;color:var(--soft);margin:.8rem 0 0}
+footer{padding-block:0 3rem;font-size:.92rem;color:var(--soft)}
+a:focus-visible{outline:3px dashed var(--ink);outline-offset:4px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="./">
+      <svg viewBox="0 0 100 100" aria-hidden="true"><path d="M50 86C31 73 9 58 9 36C9 20 24 12 37 18C44 21 48 26 50 32C52 26 56 21 63 18C76 12 91 20 91 36C91 58 69 73 50 86Z" fill="#F7A8C4" stroke="#33287A" stroke-width="4" stroke-linejoin="round"/><g fill="none" stroke="#33287A" stroke-linecap="round"><path d="M50 32V86" stroke-width="3.2"/><g stroke-width="3"><path d="M50 44C42 33 27 29 18 38"/><path d="M50 56C42 45 29 42 21 50"/><path d="M50 44C58 33 73 29 82 38"/><path d="M50 56C58 45 71 42 79 50"/></g></g></svg>
+      Learned by Heart
+    </a>
+    <a class="small" href="./#prices">Back to prices</a>
+  </header>
+
+  <section class="intro">
+    <div>
+      <h1>Tell us about the reader</h1>
+      <p>It takes about ten minutes. The more you tell us about the books they love, the more it'll feel like it was always theirs.</p>
+      <p class="hand">Everyone in the story gets a made-up name, and places stay at town or city level.</p>
+      <ul class="steps" aria-label="What happens next">
+        <li style="--c:var(--butter)">answer the questions</li>
+        <li style="--c:var(--pink)">pay $12.99</li>
+        <li style="--c:var(--mint)">chapter one in three days</li>
+      </ul>
+    </div>
+    <figure class="taped">
+      <img src="img/bookshelf.jpg" width="1280" height="720" alt="A painted bookshelf of colourful novels with an orange cat asleep on the middle shelf.">
+      <figcaption>Yours goes on the shelf next.</figcaption>
+    </figure>
+  </section>
+
+  <div class="sheet">
+    <iframe id="order-form" data-tally-src="https://tally.so/embed/gbdZ7J?hideTitle=1&amp;transparentBackground=1&amp;dynamicHeight=1&amp;alignLeft=1" loading="lazy" title="Order a Learned by Heart book"></iframe>
+    <p class="fallback">If the questions don't appear, <a href="https://tally.so/r/gbdZ7J">open them in a new tab</a>.</p>
+  </div>
+
+  <footer>By ordering you agree to our <a href="terms.html">terms of sale</a>. Our <a href="privacy.html">privacy note</a> explains how we use your answers. Questions? hello@learnedbyheart.com</footer>
+</div>
+<script src="https://tally.so/widgets/embed.js" async onload="Tally.loadEmbeds()"></script>
+<script>
+// If Tally's script is blocked, load the form directly so the page still works.
+setTimeout(() => { const f = document.getElementById('order-form'); if (!f.src) f.src = f.dataset.tallySrc; }, 2500);
+</script>
+</body>
+</html>

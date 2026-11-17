@@ -1,0 +1,1039 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What She Left Behind</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500&family=Fraunces:opsz,wght,SOFT@9..144,500,100&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=Young+Serif&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F6F2FA;      /* lilac white: impressionist shadows are violet, never black */
+  --paper-deep:#E7DFF0;
+  --ink:#2A2255;        /* petrol */
+  --ink-soft:#5F5A85;
+  --line:#CFC6E0;
+  --sheet:#FFFCF2;      /* letter paper */
+
+  --mum:#EBA91A;    /* curry sauce */
+  --nan:#5DA24F;    /* mushy pea */
+  --danny:#E2452E;  /* saveloy */
+  --carol:#F26FA6;  /* seaside rock */
+  --dad:#7A4A2E;    /* gravy */
+  --jo:#2E73C8;
+  --sam:#2FA39A;  /* verdigris */
+  --nell:#2E73C8;   /* the sea, half past three */
+  --giles:#EFD98F;  /* double cream */
+  --dev:#F27A1A;    /* traffic cone */
+  --note:#8A5BB5;   /* a twenty */     /* the sea */
+
+  --read:34rem;
+  --wide:46rem;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:Literata,Georgia,serif;font-size:1.125rem;line-height:1.7;
+  font-optical-sizing:auto;
+}
+main{padding:0 1.25rem 6rem}
+.col{max-width:var(--read);margin:0 auto}
+.fig{max-width:var(--wide);margin:3.5rem auto}
+p{margin:0 0 1.25em}
+h1,h2{font-family:"Young Serif",Georgia,serif;font-weight:400;line-height:1.08;margin:0}
+h1{font-size:clamp(3.2rem,13vw,6.5rem);letter-spacing:-.02em}
+h2{font-size:clamp(1.7rem,5vw,2.3rem);margin:4.5rem 0 1.4rem}
+.chapter{font-size:1.05rem;color:var(--ink-soft);margin:.9rem 0 0}
+figcaption,.note{font-size:.95rem;line-height:1.5;color:var(--ink-soft)}
+figure{margin:0}
+figcaption{margin-top:.9rem;max-width:var(--read)}
+
+/* cold open: the first screen is only her voice */
+.cold{min-height:100svh;display:grid;align-content:center;padding:3rem 0 6rem}
+.cold .first{font-family:"Young Serif",Georgia,serif;font-size:clamp(2.1rem,8vw,3.5rem);line-height:1.12;letter-spacing:-.01em;margin-bottom:.9em}
+.cold p:last-child{margin-bottom:0}
+@media (max-height:900px){.cold .first{font-size:clamp(1.8rem,6.6vw,2.6rem)}.flow .cold .hint{margin-top:1.2rem}}
+
+/* a childhood memory opens the chapter */
+.memory{font-style:italic;margin:3.5rem 0 0;padding-left:1.1rem;border-left:.35rem solid var(--memory,var(--mum))}
+.memory p:last-child{margin-bottom:0}
+
+/* opening */
+.open{padding:2rem 0 0}
+.sea{display:block;width:100%;height:auto;margin-top:2.5rem;border-radius:4px}
+
+/* character names in the text */
+.who{
+  text-decoration:underline;text-decoration-thickness:.22em;text-underline-offset:.16em;
+  text-decoration-color:var(--c);text-decoration-skip-ink:none;
+}
+[data-who=mum]{--c:var(--mum)}[data-who=nan]{--c:var(--nan)}[data-who=danny]{--c:var(--danny)}
+[data-who=carol]{--c:var(--carol)}[data-who=dad]{--c:var(--dad)}[data-who=jo]{--c:var(--jo)}[data-who=sam]{--c:var(--sam)}[data-who=nell]{--c:var(--nell)}[data-who=giles]{--c:var(--giles)}[data-who=dev]{--c:var(--dev)}
+
+/* the cast: paint chips that fill in as people arrive */
+.cast{
+  position:fixed;z-index:5;left:0;right:0;bottom:0;
+  display:flex;justify-content:center;gap:.5rem;padding:.6rem .75rem calc(.6rem + env(safe-area-inset-bottom));
+  background:color-mix(in srgb,var(--paper) 88%,transparent);backdrop-filter:blur(6px);
+  border-top:1px solid var(--line);
+}
+.chip{
+  width:2.2rem;height:2.2rem;flex:none;border-radius:3px;border:1.5px dashed var(--line);background:transparent;
+  padding:0;cursor:pointer;transition:transform .2s;
+}
+.chip.met{background:var(--c) var(--tex) center/cover;border-color:transparent;border-radius:5px 3px 6px 3px}
+.chip[aria-expanded=true]{transform:translateY(-4px)}
+.chip:focus-visible,.next:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.chip:not(.met){cursor:default}
+.card{
+  position:fixed;z-index:6;left:50%;bottom:4.6rem;transform:translateX(-50%);
+  width:min(22rem,calc(100vw - 2rem));background:var(--sheet);border-radius:4px;
+  border-left:.6rem solid var(--c);padding:1rem 1.1rem;box-shadow:0 10px 30px rgba(42,34,85,.25);
+  font-size:1rem;line-height:1.5;
+}
+.card[hidden]{display:none}
+.card strong{font-family:"Young Serif",serif;font-weight:400;font-size:1.25rem;display:block}
+.card em{color:var(--ink-soft);font-style:normal;font-size:.9rem}
+.card p{margin:.5rem 0 0}
+@media (min-width:64rem){
+  .cast{left:1.5rem;right:auto;top:50%;bottom:auto;transform:translateY(-50%);flex-direction:column;
+    border:0;background:none;backdrop-filter:none;padding:0}
+  .chip[aria-expanded=true]{transform:translateX(4px)}
+  .card{left:5rem;bottom:auto;top:50%;transform:translateY(-50%)}
+}
+
+/* colour definitions list */
+.swatches{list-style:none;padding:0;margin:2rem 0;display:grid;gap:1.4rem}
+.swatches li{display:grid;grid-template-columns:4.5rem 1fr;gap:1.1rem;align-items:start}
+.swatches i{display:block;height:4.5rem;border-radius:3px;background:var(--c) var(--tex) center/cover;filter:url(#rough)}
+.swatches b{font-family:"Young Serif",serif;font-weight:400;font-size:1.2rem;display:block;line-height:1.3}
+.swatches small{display:block;color:var(--ink-soft);font-size:.9rem;margin-bottom:.25rem}
+
+svg{display:block;width:100%;height:auto}
+.fig svg rect,.fig svg path,.fig svg circle,.bar{filter:url(#rough)}
+svg text{font-family:Literata,Georgia,serif;fill:var(--ink)}
+.map{position:relative;border-radius:4px;overflow:hidden}
+.map canvas{position:absolute;inset:0;width:100%;height:100%}
+.map svg{position:relative}
+.legend{list-style:none;padding:0;margin:1.2rem 0 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(13rem,1fr));gap:.5rem 1.5rem;font-size:.95rem;line-height:1.4}
+.legend li{display:flex;gap:.6rem;align-items:baseline}
+.legend i{flex:none;width:.8rem;height:.8rem;border-radius:50%;background:var(--c);transform:translateY(.05rem)}
+
+/* silences chart */
+.silences{display:grid;gap:1.1rem;margin-top:.5rem}
+.row{display:grid;gap:.3rem}
+.row .names{font-size:.98rem}
+.track{position:relative;height:1.5rem;background:var(--paper-deep);border-radius:2px}
+.bar{position:absolute;top:0;bottom:0;left:var(--from);right:var(--to,0%);
+  background:linear-gradient(var(--a) 50%,var(--b) 50%);border-radius:2px;
+  transform-origin:left;transform:scaleX(0);transition:transform 1.4s cubic-bezier(.2,.7,.2,1)}
+.bar.faint{opacity:.45}
+.seen .bar{transform:scaleX(1)}
+.axis{display:flex;justify-content:space-between;font-size:.85rem;color:var(--ink-soft);
+  font-variant-numeric:tabular-nums;border-top:1px solid var(--line);padding-top:.3rem}
+.row .note{font-size:.88rem}
+
+/* the letter */
+.letter{background:var(--sheet);padding:clamp(1.4rem,5vw,2.6rem);border-radius:2px;
+  box-shadow:0 1px 0 #fff inset,0 14px 34px rgba(42,34,85,.18);transform:rotate(-.6deg);
+  font-size:1rem;line-height:1.6;position:relative;max-width:36rem;margin:0 auto}
+.letter .head{font-family:"Young Serif",serif;font-size:1.3rem;border-bottom:2px solid var(--ink);padding-bottom:.5rem;margin-bottom:1.2rem}
+.letter .head small{display:block;font-family:Literata,serif;font-size:.8rem;color:var(--ink-soft)}
+.hand{font-family:Caveat,cursive;color:var(--jo);font-size:1.7rem;line-height:1.1;
+  position:absolute;right:1rem;bottom:1.1rem;transform:rotate(-5deg)}
+.letter mark{background:linear-gradient(transparent 55%,color-mix(in srgb,var(--mum) 55%,transparent) 55%);color:inherit}
+
+.end{margin-top:4rem;padding-top:1.5rem;border-top:1px solid var(--line)}
+.next{font:inherit;font-size:1rem;background:var(--ink);color:var(--paper);border:0;border-radius:3px;padding:.8rem 1.2rem;opacity:.5}
+
+@media (prefers-reduced-motion:reduce){
+  .bar{transition:none;transform:none}.chip{transition:none}
+}
+
+/* ---- the book: fixed pages that turn ---- */
+html,body{height:100%;overflow:hidden}
+main{padding:0}
+#stage{position:fixed;inset:0 0 calc(3.6rem + env(safe-area-inset-bottom,0px)) 0;perspective:2200px;cursor:pointer}
+@media (min-width:64rem){#stage{inset:0}}
+.page{position:absolute;inset:0;overflow:hidden;background:var(--paper);
+  padding-block:calc(1.75rem + env(safe-area-inset-top,0px)) 1.75rem;
+  padding-left:max(1.25rem,env(safe-area-inset-left,0px),calc((100% - 36rem)/2));
+  padding-right:max(1.25rem,env(safe-area-inset-right,0px),calc((100% - 36rem)/2))}
+.leaf{transform-origin:left center;backface-visibility:hidden;pointer-events:none;will-change:transform;
+  box-shadow:18px 0 40px rgba(42,34,85,.22)}
+.leaf::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(90deg,transparent 55%,rgba(42,34,85,.16))}
+.flow{height:100%;column-fill:auto}
+.flow .col,.flow .fig{max-width:none}
+.flow .fig{margin:1.5rem 0}
+.flow h2{margin:2.2rem 0 1rem;break-after:avoid}
+.flow .cold{min-height:100%;height:auto;padding:0;break-after:column}
+.flow .open{padding:0;break-after:column}
+.flow .memory{margin-top:0}
+.flow .end{margin-top:2.5rem}
+.flow p{orphans:2;widows:2}
+.map,.legend li,.row,.axis,.letter,.swatches li,.flow svg,.sea,figcaption{break-inside:avoid}
+.map canvas,.map .town{position:absolute;inset:0;width:100%;height:100%}
+.hint{margin-top:2rem}
+#bar{position:fixed;z-index:7;top:0;left:0;height:3px;width:0;background:var(--ink);transition:width .3s}
+
+.painting{display:block;width:100%;height:auto;border-radius:3px;break-inside:avoid;box-shadow:0 12px 30px rgba(42,34,85,.25)}
+/* the paint card */
+.card-strip{break-inside:avoid;border-radius:3px;overflow:hidden;box-shadow:0 10px 26px rgba(42,34,85,.16)}
+.card-strip div{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;padding:.7rem .9rem;border-bottom:1px solid rgba(42,34,85,.08)}
+.card-strip b{font-family:Caveat,cursive;font-weight:500;font-size:1.45rem;line-height:1;color:var(--nell)}
+.card-strip s{font-size:.8rem;color:var(--ink-soft);white-space:nowrap}
+
+/* the audiobook */
+#listen{position:fixed;z-index:8;bottom:calc(.5rem + env(safe-area-inset-bottom,0px));right:calc(.75rem + env(safe-area-inset-right,0px));width:2.4rem;height:2.4rem;border-radius:50%;border:0;
+  background:var(--ink);color:var(--paper);display:grid;place-items:center;cursor:pointer;
+  box-shadow:0 6px 18px rgba(42,34,85,.3)}
+#listen svg{fill:currentColor;width:18px;height:18px}
+@media (min-width:64rem){#listen{bottom:auto;top:1.2rem;right:1.5rem;width:2.9rem;height:2.9rem}#listen svg{width:22px;height:22px}}
+#listen .i-pause,#listen[aria-pressed=true] .i-play{display:none}
+#listen[aria-pressed=true] .i-pause{display:block}
+#listen:focus-visible{outline:3px solid var(--note);outline-offset:3px}
+.reading{background:color-mix(in srgb,var(--giles) 45%,transparent);box-shadow:0 0 0 .35rem color-mix(in srgb,var(--giles) 45%,transparent);border-radius:2px}
+
+/* chapter openers */
+.flow .chap{break-before:column;break-after:column;height:100%;display:grid;align-content:center}
+.chapno{color:var(--ink-soft);margin:0}
+.flow .chap h2{font-size:clamp(2.4rem,10vw,3.8rem);margin:.4rem 0 0}
+/* the envelope flap */
+.flap{position:relative;background:#EFE3C8;color:#B9A37A;border-radius:2px;aspect-ratio:400/210;break-inside:avoid;
+  box-shadow:0 10px 26px rgba(42,34,85,.18);font-family:Caveat,cursive;transform:rotate(.8deg)}
+.flap svg{position:absolute;inset:0;width:100%;height:100%}
+.flap span{position:absolute;left:0;right:0;text-align:center;color:#2B4FB3}
+.flap .l1{top:6%;font-size:clamp(2rem,9vw,3rem);transform:rotate(-2deg)}
+.flap .l2{top:33%;font-size:clamp(1.2rem,5.2vw,1.7rem);transform:rotate(-1deg)}
+/* her mother's ledger */
+.ledger{background:var(--sheet);padding:1.1rem 1.1rem 1rem;border-radius:2px;break-inside:avoid;box-shadow:0 12px 30px rgba(42,34,85,.2);
+  background-image:repeating-linear-gradient(transparent 0 1.9rem,rgba(46,115,200,.14) 1.9rem calc(1.9rem + 1px))}
+.lrow{display:grid;grid-template-columns:7.2rem 1fr;align-items:center;gap:.6rem;height:1.9rem}
+.lrow span,.ltotal span{font-family:Caveat,cursive;font-size:1.25rem;color:#2B4FB3;white-space:nowrap}
+.lrow i{height:1.05rem;width:var(--w);border-radius:2px;filter:url(#rough);
+  background:repeating-linear-gradient(115deg,var(--c) 0 2px,color-mix(in srgb,var(--c) 62%,transparent) 2px 4px)}
+.ltotal{display:flex;justify-content:space-between;align-items:baseline;margin-top:.9rem;padding-top:.5rem;border-top:3px double #2B4FB3}
+.ltotal b{font-family:Caveat,cursive;font-weight:500;font-size:2rem;color:#2B4FB3}
+#listen[hidden]{display:none}
+@media (max-width:63.99rem){.cast{padding-right:3.6rem}}
+
+/* the front cover */
+.flow .bookcover{break-after:column;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem}
+.flow .bookcover .bc{width:min(100%,calc((100svh - 10rem) * .6667))}
+.bc-hint{margin:0;text-align:center}
+.col .doc{margin:1.2em 0;padding:.9em 1.1em;border:1px solid var(--line,#d9d2c3);border-left:4px solid var(--ink,#33287A);background:var(--paper2,rgba(0,0,0,.025));font-size:.94em;border-radius:3px}
+.col .doc p{margin:.35em 0;text-indent:0}
+.col ul.list{margin:.8em 0 1em;padding-left:1.3em}
+.col ul.list li{margin:.25em 0}
+/* how this book was made */
+.flow .brief{break-before:column;break-after:column}
+.brief h2{margin:.3rem 0 .4rem}
+.brief-kind{color:var(--ink-soft);font-size:.95rem;margin:0 0 1rem}
+.slip{background:var(--sheet);border-radius:4px;padding:.8rem 1rem;box-shadow:0 8px 22px rgba(42,34,85,.14);margin-bottom:1rem;
+  background-image:repeating-linear-gradient(transparent 0 1.6rem,rgba(46,115,200,.10) 1.6rem calc(1.6rem + 1px))}
+.slip dl{margin:0;display:grid;gap:.55rem}
+.slip dt{font-size:.78rem;color:var(--ink-soft);letter-spacing:.04em}
+.slip dd{margin:0;font-family:Caveat,cursive;font-size:1.35rem;line-height:1.15;color:#2B4FB3}
+.brief h3{font-family:"Young Serif",Georgia,serif;font-weight:400;font-size:1.1rem;margin:.8rem 0 .25rem}
+.brief p{font-size:.95rem;line-height:1.45;margin:0}
+.brief2 h3:first-child{margin-top:0}
+.ideas{list-style:none;padding:0;margin:0;display:grid;gap:.3rem;font-size:.92rem;line-height:1.28}
+.ideas li{display:grid;grid-template-columns:4.6rem 1fr;gap:.6rem}
+.ideas span{color:var(--ink-soft);font-size:.85rem;padding-top:.1rem;font-variant-numeric:tabular-nums}
+/* tasters: a guess before the scene, and a bridge between the opening and the scene */
+.flow .guess{break-before:column;break-after:column;break-inside:avoid}
+.guess .ask{font-family:"Young Serif",Georgia,serif;font-size:1.4rem;line-height:1.2;margin:.3rem 0 .8rem}
+.guess-lead{margin:.2rem 0 .6rem}
+.guess .say{font-style:italic;line-height:1.4;margin:.8rem 0 0}
+.guess .opts button.other{opacity:.4}
+.guess .opts button.picked::before{box-shadow:0 0 0 3px var(--paper),0 0 0 6px var(--ink)}
+.guess .opts.text button.picked{border-color:var(--ink);box-shadow:0 0 0 1.5px var(--ink)}
+.flow .bridge{break-before:column;break-after:column;height:100%;display:flex;flex-direction:column;justify-content:center}
+.bridge p:last-child{font-family:"Young Serif",Georgia,serif;font-size:1.35rem;line-height:1.35;margin:.5rem 0 0}
+.guessed{font-style:italic;color:var(--ink-soft);margin:.6rem 0 0}
+/* show the teaching: the lesson lines highlighted, with a pencil note under each */
+body.teach .lesson{background:linear-gradient(transparent 56%,rgba(255,206,84,.7) 56%);-webkit-box-decoration-break:clone;box-decoration-break:clone}
+body.teach .lesson::after{content:"\21B3\00A0" attr(data-note);display:block;font-family:Caveat,cursive;font-size:1.3rem;line-height:1.1;color:#B4321F;
+  margin:.2rem 0 .45rem;font-style:normal;background:none}
+.teach-toggle{font:inherit;display:flex;align-items:center;justify-content:space-between;gap:1rem;width:100%;margin-top:.8rem;padding:.55rem .85rem;
+  border:1.5px solid var(--ink);border-radius:8px;background:var(--sheet);color:var(--ink);cursor:pointer;text-align:left;font-size:1rem;line-height:1.25}
+.teach-toggle .state{flex:none;font-size:.85rem;padding:.15rem .6rem;border-radius:99px;background:var(--paper-deep)}
+.teach-toggle[aria-pressed=true] .state{background:#FFD45E}
+.teach-toggle:focus-visible{outline:3px solid var(--note);outline-offset:2px}
+#menu .teach-toggle{display:flex;margin:0 0 .3rem;border:1px solid var(--line);padding:.6rem .8rem;font-size:1rem}
+#menu .teach-toggle .state{font-size:.8rem}
+/* chapters menu */
+#toc{position:fixed;z-index:8;bottom:calc(.5rem + env(safe-area-inset-bottom,0px));left:calc(.75rem + env(safe-area-inset-left,0px));
+  width:2.4rem;height:2.4rem;border-radius:50%;border:1.5px solid var(--ink);background:var(--paper);color:var(--ink);
+  display:grid;place-items:center;cursor:pointer}
+#toc svg{fill:currentColor}
+#toc:focus-visible{outline:3px solid var(--note);outline-offset:3px}
+#menu{position:fixed;z-index:9;left:.75rem;bottom:calc(3.9rem + env(safe-area-inset-bottom,0px));width:min(20rem,calc(100vw - 1.5rem));
+  background:var(--sheet);border-radius:6px;padding:.4rem;box-shadow:0 14px 40px rgba(42,34,85,.3);display:grid;gap:.15rem;
+  max-height:calc(100svh - 5.2rem - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px));overflow-y:auto;overscroll-behavior:contain}
+#menu[hidden]{display:none}
+#menu button{font:inherit;text-align:left;background:none;border:0;border-radius:4px;padding:.6rem .8rem;cursor:pointer;color:var(--ink);
+  display:grid;gap:.05rem;line-height:1.25}
+#menu button small{font-size:.8rem;color:var(--ink-soft)}
+#menu button b{font-family:"Young Serif",Georgia,serif;font-weight:400;font-size:1.15rem}
+#menu button[aria-current=true]{background:color-mix(in srgb,var(--giles) 45%,transparent)}
+#menu button:focus-visible{outline:3px solid var(--note);outline-offset:-3px}
+@media (max-width:63.99rem){.cast{padding-left:3.6rem;gap:.4rem}.cast .chip{width:1.9rem;height:1.9rem}}
+@media (min-width:64rem){#toc{bottom:auto;top:1.2rem;left:auto;right:5.2rem;width:2.9rem;height:2.9rem}
+  #menu{left:auto;right:1.5rem;bottom:auto;top:4.8rem;max-height:calc(100svh - 6.3rem)}}
+
+/* the biscuit test */
+.flow .test{break-before:column;break-after:column;break-inside:avoid}
+.test .ask{font-family:"Young Serif",Georgia,serif;font-size:1.5rem;line-height:1.2;margin:.2rem 0 .8rem}
+.test > p{margin-bottom:.8em}
+.opts{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:.8rem}
+.opts button{font:inherit;border:0;padding:0;background:none;cursor:pointer;display:block;min-width:0;width:100%;color:var(--ink);text-align:left}
+.opts button span{display:block;margin-top:.3rem}
+.opts button::before{content:"";display:block;aspect-ratio:2.1;border-radius:7px 4px 8px 4px;background:var(--c) var(--tex, none) center/cover;transition:opacity .3s,transform .2s}
+.opts button span{font-family:Caveat,cursive;font-size:1.25rem;line-height:1.1}
+.opts button:focus-visible{outline:3px solid var(--note);outline-offset:3px}
+.opts button.no::before{opacity:.25}
+.opts button.no span{text-decoration:line-through;opacity:.5}
+.opts button.yes::before{box-shadow:0 0 0 3px var(--paper),0 0 0 6px var(--ink)}
+.test.hint .opts button:not(.no):not(.yes)[data-right]::before{animation:nudge 1s ease-in-out infinite}
+.test .say{min-height:2.6em;margin:.7rem 0 .3rem;font-style:italic;line-height:1.4}
+.won{display:flex;align-items:center;gap:.9rem;break-before:avoid;break-inside:avoid}
+.won[hidden]{display:none}
+.won svg{width:3.2rem;height:3.2rem;flex:none}
+.won p{margin:0;font-family:"Young Serif",Georgia,serif;font-size:1.1rem}
+.test.shake{animation:shake .35s}
+@keyframes nudge{50%{transform:scale(1.06)}}
+@keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+#menu button:disabled{opacity:.45;cursor:default}
+#menu a.dl{display:grid;gap:.05rem;line-height:1.25;padding:.7rem .8rem .6rem;margin-top:.3rem;border-top:1px solid var(--line);color:var(--ink);text-decoration:none;border-radius:0 0 4px 4px}
+#menu a.dl small{font-size:.8rem;color:var(--ink-soft)}
+#menu a.dl b{font-family:"Young Serif",Georgia,serif;font-weight:400;font-size:1.15rem}
+#menu a.dl:focus-visible{outline:3px solid var(--note);outline-offset:-3px}
+@media (prefers-reduced-motion:reduce){.test.shake,.test.hint .opts button::before{animation:none}}
+
+/* ledger variations */
+.lhead{font-family:Caveat,cursive;font-size:1.45rem;color:#2B4FB3;line-height:1.9rem;border-bottom:2px solid #2B4FB3;margin-bottom:.4rem}
+.ledger.wide .lrow{grid-template-columns:9.4rem 1fr}
+.lnote{font-family:Caveat,cursive;font-size:1.15rem;color:#C0392B;text-align:right;line-height:1.9rem;transform:rotate(-1.5deg)}
+.lkey{display:grid;grid-template-columns:2.6rem 1fr;gap:.7rem;align-items:start;min-height:1.9rem;padding:.25rem 0}
+.lkey i{height:1.2rem;margin-top:.25rem;border-radius:2px;filter:url(#rough);background:repeating-linear-gradient(115deg,var(--c) 0 2px,color-mix(in srgb,var(--c) 62%,transparent) 2px 4px)}
+.lkey span{font-family:Caveat,cursive;font-size:1.25rem;line-height:1.25;color:#2B4FB3}
+.lkey b{font-weight:500;display:block;color:var(--ink)}
+.lline{display:grid;grid-template-columns:1.5fr .7fr 1fr 1fr;gap:.4rem;font-family:Caveat,cursive;font-size:1.3rem;line-height:1.9rem;color:#6C6A8C}
+.lline.red{color:#C0392B;font-size:1.55rem;font-weight:500;transform:rotate(-.6deg)}
+.lline em{font-style:normal;color:#D9A21A}
+/* text messages */
+.txt,.sms .say:not(:empty),.msg{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;font-size:.95rem;line-height:1.4;font-style:normal;
+  background:var(--paper-deep);border-radius:14px 14px 14px 3px;padding:.6rem .85rem;max-width:88%;width:fit-content}
+.sms .say{min-height:0}
+.sms .say:empty{display:none}
+.msg{background:color-mix(in srgb,var(--giles) 55%,var(--paper))}
+.opts button span{line-height:1.05}
+.note.small{font-size:.8rem;margin-top:1.2rem}
+
+/* keep a whole test on one page */
+.test.sms .opts button::before{aspect-ratio:3.1}
+/* questions answered in words, not colours */
+.opts.text{grid-template-columns:minmax(0,1fr);gap:.45rem}
+.opts.text button{border:1.5px solid var(--line);border-radius:8px;padding:.5rem .75rem;background:var(--sheet);transition:opacity .3s}
+.opts.text button::before{display:none}
+.opts.text button span{font-family:inherit;font-size:.98rem;line-height:1.3;margin:0}
+.opts.text button.no{opacity:.45}
+.opts.text button.yes{border-color:var(--ink);box-shadow:0 0 0 1.5px var(--ink)}
+.test.sms .ask{font-size:1.3rem;margin:.1rem 0 .6rem}
+.test.sms > p{margin-bottom:.55em}
+.test .say{break-inside:avoid}
+.test.sms .won p{font-size:1rem}
+.test.sms .won svg{width:2.4rem;height:2.4rem}
+
+/* seven colours in one bar */
+.lrow i.multi,.opts button.rainbow::before{background:linear-gradient(90deg,#2E73C8 0 22%,#2FA39A 22% 36%,#E9C95A 36% 50%,#E2452E 50% 58%,#8FA86A 58% 70%,#F26FA6 70% 76%,#F08A24 76%)}
+.lrow i{max-width:100%}
+
+/* the tin of everything */
+.tin{display:grid;grid-template-columns:repeat(18,1fr);gap:2px;padding:.6rem;background:#2B2A5C;border-radius:50%/12%;break-inside:avoid;
+  box-shadow:inset 0 0 0 5px #C9A64B,0 12px 30px rgba(42,34,85,.25)}
+.tin i{aspect-ratio:1;border-radius:2px 1px 3px 1px}
+/* the ticket */
+.ticket{position:relative;background:#FBF3E4;border-radius:6px;padding:1rem 1.1rem;break-inside:avoid;transform:rotate(-1.2deg);
+  box-shadow:0 10px 26px rgba(42,34,85,.2);border-top:.55rem solid #E1772A;font-family:system-ui,-apple-system,sans-serif;color:#3A2E2A}
+.trow{display:flex;justify-content:space-between;align-items:baseline;gap:.5rem}
+.trow b{font-size:1.35rem;letter-spacing:.04em}
+.trow.sm{margin-top:.7rem;font-size:.8rem;letter-spacing:.06em;color:#6E5E55}
+.tstamp{position:absolute;right:1rem;bottom:-.6rem;font-family:Caveat,cursive;font-size:1.5rem;color:#C0392B;transform:rotate(-8deg)}
+/* her letter */
+.bluepaper{background:#DCE8F7;color:#1F3A8A;font-family:Caveat,cursive;font-size:1.32rem;line-height:1.55rem;padding:1.1rem 1.2rem 1.3rem;break-inside:avoid;
+  background-image:repeating-linear-gradient(transparent 0 1.5rem,rgba(31,58,138,.18) 1.5rem calc(1.5rem + 1px));border-radius:2px;
+  box-shadow:0 12px 30px rgba(42,34,85,.22);transform:rotate(.5deg)}
+.bluepaper p{margin:0 0 .35rem}
+/* the writing check */
+.flow .wgate{break-before:column;break-after:column;break-inside:avoid}
+.wgate .who-to{color:var(--ink-soft);margin:0 0 .3rem}
+.wgate .ask{font-family:"Young Serif",Georgia,serif;font-size:1.45rem;line-height:1.2;margin:0 0 .5rem}
+.wgate .sub{font-size:.95rem;color:var(--ink-soft);margin:0 0 1rem}
+.wform{display:flex;gap:.6rem;align-items:stretch}
+.wform[hidden]{display:none}
+.wform input{font:inherit;font-size:1.4rem;width:7.5rem;padding:.45rem .7rem;border:2px solid var(--ink);border-radius:6px;background:var(--sheet);color:var(--ink)}
+.wform button{font:inherit;font-size:1rem;border:0;border-radius:6px;padding:.5rem 1rem;background:var(--ink);color:var(--paper);cursor:pointer}
+.wform input:focus-visible,.wform button:focus-visible{outline:3px solid var(--note);outline-offset:2px}
+.wgate .say{font-style:italic;min-height:2.4em;margin:.9rem 0 .6rem}
+.wbar{height:1.3rem;background:var(--paper-deep);border-radius:3px;overflow:hidden;filter:url(#rough)}
+.wbar i{display:block;height:100%;width:var(--w,0%);transition:width .6s;
+  background:repeating-linear-gradient(115deg,#EBA91A 0 2px,color-mix(in srgb,#EBA91A 62%,transparent) 2px 4px)}
+.wbar.full i{background:repeating-linear-gradient(115deg,#5DA24F 0 2px,color-mix(in srgb,#5DA24F 62%,transparent) 2px 4px)}
+.wlabel{display:flex;justify-content:space-between;font-size:.85rem;color:var(--ink-soft);margin-top:.3rem;font-variant-numeric:tabular-nums}
+.wgate .won{margin-top:1rem}
+
+/* fact sheet */
+.factsheet{background:#FFFFFF;color:#2A2A33;border-radius:3px;padding:1rem;break-inside:avoid;box-shadow:0 12px 30px rgba(42,34,85,.2);
+  font-family:system-ui,-apple-system,"Segoe UI",sans-serif;font-size:.82rem;line-height:1.3}
+.fsh{display:flex;justify-content:space-between;align-items:baseline;gap:.5rem;border-bottom:2px solid #2A2A33;padding-bottom:.4rem;margin-bottom:.5rem}
+.fsh b{font-size:.98rem}
+.fsh span{font-size:.72rem;color:#6B6B78;white-space:nowrap}
+.fsrow{display:grid;grid-template-columns:6.4rem 1fr;gap:.5rem;padding:.4rem .5rem;margin:.25rem 0;border-radius:40% 30% 45% 35%/60% 50% 60% 45%}
+.fsrow span{color:#6B6B78}
+.fsrow b{font-weight:600}
+.fsrow.c1{box-shadow:0 0 0 2px #2E73C8}.fsrow.c2{box-shadow:0 0 0 2px #F08A24}.fsrow.c3{box-shadow:0 0 0 2px #D9A21A}.fsrow.c4{box-shadow:0 0 0 2px #5DA24F}
+.fsrow.dim{opacity:.4}
+.fsgraph{position:relative;margin-top:.5rem;color:#9A9AA8}
+.fsgraph svg{width:100%;height:2.4rem}
+.fsgraph i{position:absolute;right:0;top:-.2rem;font-family:Caveat,cursive;font-style:normal;font-size:1.15rem;color:#C0392B;transform:rotate(-3deg)}
+/* inside back cover */
+.flow .backcover{break-before:column;break-inside:avoid}
+.backcover h2{margin:.3rem 0 1rem}
+.ledger.rules .lkey{min-height:0;padding:.3rem 0}
+.ledger.rules .lkey span{font-size:1.15rem}
+.lkey i.multi{background:linear-gradient(90deg,#2E73C8 0 22%,#2FA39A 22% 36%,#E9C95A 36% 50%,#E2452E 50% 58%,#8FA86A 58% 70%,#F26FA6 70% 76%,#F08A24 76%)}
+.btn-end{display:inline-block;font:inherit;font-size:1rem;background:var(--ink);color:var(--paper);padding:.8rem 1.2rem;border-radius:6px;text-decoration:none}
+.btn-end:focus-visible{outline:3px solid var(--note);outline-offset:3px}
+</style>
+<style>:root{--nell:#2E73C8;--mum:#EBA91A;--dad:#7A4A2E;--giles:#EFD98F;--dev:#F27A1A;--sam:#2FA39A;--carol:#F26FA6;--memory:#EBA91A;}[data-who=nell]{--c:var(--nell)}[data-who=mum]{--c:var(--mum)}[data-who=dad]{--c:var(--dad)}[data-who=giles]{--c:var(--giles)}[data-who=dev]{--c:var(--dev)}[data-who=sam]{--c:var(--sam)}[data-who=carol]{--c:var(--carol)}</style>
+<meta name="theme-color" content="#2A2255">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="What She Left">
+<link href="https://fonts.googleapis.com/css2?family=Young+Serif&display=swap" rel="stylesheet">
+<style>
+.bc{position:relative;container-type:inline-size;aspect-ratio:2/3;border-radius:3px 6px 6px 3px;overflow:hidden;
+  box-shadow:0 1px 2px rgba(42,34,85,.2),0 18px 40px rgba(42,34,85,.35),inset 4px 0 0 rgba(255,255,255,.08);background:#2A2255}
+.bc img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.bc::after{content:"";position:absolute;inset:0 auto 0 0;width:3.5%;background:linear-gradient(90deg,rgba(0,0,0,.28),rgba(255,255,255,.12) 60%,transparent)}
+.bc-text{position:absolute;left:0;right:0;top:0;padding:9cqw 8cqw 0;text-align:center;display:flex;flex-direction:column;align-items:center;
+  background:linear-gradient(rgba(10,8,30,.35),rgba(10,8,30,0) 70%)}
+.bc-title{font-family:inherit;font-weight:400;font-size:12.5cqw;line-height:1;letter-spacing:-.01em;margin:0;text-wrap:balance;text-shadow:0 2px 14px rgba(0,0,0,.35)}
+.bc-line{color:var(--lc);font-family:Literata,Georgia,serif;font-style:italic;font-size:4.6cqw;line-height:1.35;text-wrap:balance;margin:4cqw auto 0;max-width:80cqw;text-shadow:0 1px 8px rgba(0,0,0,.5)}
+.bc-brand{position:absolute;left:0;right:0;bottom:0;padding:14cqw 0 5cqw;background:linear-gradient(rgba(10,8,30,0),rgba(10,8,30,.55));margin:0;display:flex;align-items:center;justify-content:center;gap:1.6cqw;font-family:Fraunces,Georgia,serif;font-weight:500;font-variation-settings:'SOFT' 100;font-size:4.4cqw;letter-spacing:.01em;color:#FFFCF2;text-shadow:0 1px 6px rgba(0,0,0,.6)}
+.bc-brand svg{width:5.6cqw;height:5.6cqw;filter:drop-shadow(0 1px 3px rgba(0,0,0,.5))}
+.bc.light .bc-text{background:linear-gradient(rgba(255,252,242,.5),rgba(255,252,242,0) 70%)}
+.bc.light .bc-title,.bc.light .bc-line{text-shadow:0 1px 12px rgba(255,252,242,.7)}
+
+/* tagline treatments */
+.bc-line[data-label]::before{content:attr(data-label);display:block}
+
+.tag-pill{font-size:4.1cqw;padding:2cqw 4.6cqw;border:1px solid currentColor;border-radius:4cqw;max-width:74cqw;margin-top:4.5cqw;background:rgba(20,18,48,.72);text-shadow:none}
+
+.tag-sms{width:fit-content;max-width:68cqw;margin-top:9cqw;text-align:left;font-family:-apple-system,"Helvetica Neue",Arial,sans-serif;font-style:normal;font-size:4.1cqw;line-height:1.3;
+  color:#17171c;background:#ECECF1;padding:2.6cqw 4.2cqw 2.8cqw;border-radius:5cqw 5cqw 5cqw 1.2cqw;text-shadow:none;box-shadow:0 1.6cqw 6cqw rgba(0,0,0,.45);position:relative;text-wrap:pretty}
+.tag-sms[data-label]::before{position:absolute;left:1.4cqw;bottom:100%;margin-bottom:1.4cqw;font-size:3.3cqw;font-weight:600;letter-spacing:.01em;color:#FFFFFF;white-space:nowrap;text-shadow:0 1px 6px rgba(0,0,0,.9)}
+
+.tag-rules{font-family:inherit;font-style:normal;font-variant:small-caps;letter-spacing:.06em;font-size:4.3cqw;line-height:1.4;max-width:76cqw;margin-top:5cqw}
+.tag-rules::before,.tag-rules::after{content:"";display:block;height:1px;width:34cqw;margin:0 auto 2.6cqw;background:linear-gradient(90deg,transparent,currentColor,transparent)}
+.tag-rules::after{margin:2.6cqw auto 0}
+
+.tag-ticket{width:fit-content;max-width:66cqw;margin-top:6cqw;padding:3cqw 4.4cqw 3.4cqw;font-family:"Courier Prime","Courier New",monospace;font-style:normal;font-size:3.7cqw;line-height:1.4;text-align:left;
+  color:#2A2418;background:#F4EBD3;border-radius:.6cqw;text-shadow:none;transform:rotate(-1.6deg);box-shadow:0 1.4cqw 5cqw rgba(0,0,0,.45);outline:1px dashed rgba(42,36,24,.35);outline-offset:-1.6cqw}
+.tag-ticket[data-label]::before{font-weight:700;letter-spacing:.12em;font-size:3.1cqw;margin-bottom:1.4cqw;color:#8A1F2B}
+
+.tag-note{font-family:Caveat,cursive;font-style:normal;font-weight:600;font-size:6.6cqw;line-height:1.08;max-width:74cqw;margin-top:4.5cqw;transform:rotate(-3deg)}
+
+.tag-band{width:fit-content;max-width:80cqw;margin-top:6cqw;padding:2.2cqw 4cqw;font-family:inherit;font-style:normal;text-transform:uppercase;letter-spacing:.03em;font-size:3.5cqw;line-height:1.3;
+  color:var(--tc-dark,#14183A);background:var(--lc);text-shadow:none;transform:rotate(-2deg);box-shadow:.8cqw .8cqw 0 rgba(0,0,0,.25)}
+
+.tag-ticker{width:fit-content;max-width:84cqw;margin-top:6cqw;padding:1.6cqw 3.6cqw 1.4cqw;text-align:left;font-family:inherit;font-style:normal;letter-spacing:.04em;font-size:5.4cqw;line-height:1.1;
+  color:#F1EDE4;background:rgba(10,12,14,.78);border-left:2.4cqw solid var(--lc);text-shadow:none}
+
+.tag-fleuron{margin-top:2.5cqw}
+.tag-fleuron::before{content:"\2767\FE0E";display:block;font-style:normal;font-size:6cqw;line-height:1;margin-bottom:2cqw;opacity:.9}
+
+.tag-deco{font-family:inherit;font-style:italic;font-size:4.4cqw;max-width:76cqw;margin-top:4cqw;padding:2.4cqw 3.4cqw;border-block:.7cqw double currentColor;background:rgba(250,248,242,.8);text-shadow:none}
+
+.tag-rule{margin-top:3cqw;padding:1.6cqw 3cqw;background:rgba(250,248,242,.6);border-radius:1cqw;text-shadow:none}
+.tag-rule::before{content:"";display:block;width:12cqw;height:1px;margin:0 auto 3cqw;background:currentColor;opacity:.7}
+
+.tag-card{width:fit-content;max-width:62cqw;margin-top:6cqw;padding:3cqw 4cqw 3.4cqw;font-family:"Special Elite","Courier New",monospace;font-style:normal;font-size:3.6cqw;line-height:1.45;
+  color:#26303D;background:#FBF6EA;border-top:1.4cqw solid var(--lc);text-shadow:none;transform:rotate(2deg);box-shadow:0 1.4cqw 5cqw rgba(0,0,0,.3)}
+.tag-card[data-label]::before{letter-spacing:.14em;font-size:2.8cqw;margin-bottom:1.6cqw;color:var(--lc)}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><filter id="rough" x="-15%" y="-15%" width="130%" height="130%"><feTurbulence type="fractalNoise" baseFrequency=".04" numOctaves="2" seed="4" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="5" xChannelSelector="R" yChannelSelector="G"/></filter></svg>
+
+<nav class="cast" aria-label="The people">
+  <button class="chip" data-who="nell" aria-expanded="false" aria-label="Nell"></button>
+  <button class="chip" data-who="mum" aria-expanded="false" aria-label="Mum"></button>
+  <button class="chip" data-who="dad" aria-expanded="false" aria-label="Dad"></button>
+  <button class="chip" data-who="giles" aria-expanded="false" aria-label="Giles"></button>
+  <button class="chip" data-who="dev" aria-expanded="false" aria-label="Dev"></button>
+  <button class="chip" data-who="sam" aria-expanded="false" aria-label="Sam"></button>
+  <button class="chip" data-who="carol" aria-expanded="false" aria-label="Auntie Carol"></button>
+</nav>
+<div class="card" id="card" hidden role="status"></div>
+<button id="listen" aria-label="Listen to this chapter" aria-pressed="false">
+  <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path class="i-play" d="M8 5v14l11-7z"/><path class="i-pause" d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>
+</button>
+<audio id="voice" preload="none"></audio>
+<button id="toc" aria-label="Chapters" aria-expanded="false" aria-controls="menu">
+  <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M4 6h16v2H4zM4 11h16v2H4zM4 16h10v2H4z"/></svg>
+</button>
+<div id="menu" hidden></div>
+
+<main><div id="stage"><div class="page" id="book"><div class="flow" id="flow">
+<section class="bookcover" data-noaudio>
+  <div class="bc" role="img" aria-label="Cover: What She Left Behind" style="--lc:#F6C27A"><img src="art/cover.jpg" alt="" draggable="false"><div class="bc-text" style="color:#FFFCF2;font-family:'Young Serif',Georgia,serif"><h1 class="bc-title">What She Left Behind</h1><p class="bc-line tag-plain">My mother dies on a Tuesday, with her coat on.</p></div><p class="bc-brand"><svg viewBox="0 0 100 100" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M50 86C31 73 9 58 9 36C9 20 24 12 37 18C44 21 48 26 50 32C52 26 56 21 63 18C76 12 91 20 91 36C91 58 69 73 50 86Z" stroke-width="4"/><path d="M50 32V86" stroke-width="3.2"/><g stroke-width="3"><path d="M50 44C42 33 27 29 18 38"/><path d="M50 56C42 45 29 42 21 50"/><path d="M50 44C58 33 73 29 82 38"/><path d="M50 56C58 45 71 42 79 50"/></g></g></svg><span>Learned by Heart</span></p></div>
+  <p class="note bc-hint">Tap the right side of the page to open the book.</p>
+</section>
+<section class="brief" data-noaudio>
+  <p class="chapno">Before you start</p><h2>How this book was made</h2>
+  <p class="brief-kind">The real order this book was written for.</p>
+  <div class="slip"><dl><dt>Her favourite authors</dt><dd>Dawn O’Porter, Lily King</dd><dt>She loves</dt><dd>Dark, funny British fiction about messy families, aching love stories, impressionist painting</dd><dt>She wanted to learn</dt><dd>How investing works, without being bored to tears</dd></dl></div>
+  <h3>So we wrote</h3><p>A painter goes home to the seaside after her mother dies, and finds a secret investment club above the launderette. And the man she left at nineteen.</p>
+</section>
+<section class="brief brief2" data-noaudio>
+  <h3>In their style</h3><p>First person, present tense, short plain sentences and no speech marks. The narrator is a painter, so she sees everyone as a colour.</p>
+  <h3>What you’ll learn, and where</h3><ol class="ideas"><li><span>Ch 4</span>What a share is</li><li><span>Ch 5–6</span>Dividends, and the different kinds of share</li><li><span>Ch 7</span>Losses on paper, and why you don’t sell in a fright</li><li><span>Ch 8</span>Don’t put everything in one place</li><li><span>Ch 9, 12</span>Rainy-day money and dear debts come first</li><li><span>Ch 10</span>Index funds: a little of everything</li><li><span>Ch 11, 14</span>What fees really cost you, and where to find them</li><li><span>Ch 13</span>Putting a little in every month</li></ol>
+  <h3>How it’s taught</h3><p>Each idea is taught by someone at the club, in their own words, when the story needs it. Chapter one is pure story; the club starts teaching in chapter four. At the end of each chapter someone asks you one question; get it right and the next chapter opens.</p>
+  <button class="teach-toggle" aria-pressed="false"><span>Highlight the lessons as you read, with a note on each</span><span class="state">Off</span></button>
+</section>
+<section class="cold col">
+  <p class="first">My mother dies on a Tuesday, with her coat on.</p>
+  <p>She is in the back room of the chip shop, in the chair by the potato rumbler. She never wears a coat in the shop. She lives upstairs.</p>
+  <p>I don't know yet. I am ninety miles away, lying to a man who loves me.</p>
+  <p>I have been lying to him since March. I'm good at it. It turns out I get that from her.</p>
+  <p>This is the year I find out what my mother did on Thursdays.</p>
+  <p class="note hint">Tap the right side of the page to turn it.</p>
+</section>
+<section class="guess sms" data-for="share" data-noaudio data-reply="Hold that thought. You&#x27;ll find out in a few pages.">
+  <p class="chapno">Before you read on</p>
+  <p class="guess-lead">Nell is about to find out what her mother was secretly doing every Thursday. First, a quick guess. There&#x27;s no wrong answer yet.</p>
+  <p class="ask">Which of these could you buy a piece of tomorrow morning?</p>
+  <div class="opts">
+    <button style="--c:#7A4A2E" data-opt="shop"><span>Harrow's Fish Bar</span></button>
+    <button style="--c:#2E73C8" data-opt="market"><span>The supermarket on the ring road</span></button>
+    <button style="--c:#9DB7E8" data-opt="laundry"><span>Mrs Pell's launderette</span></button>
+    <button style="--c:#2FA39A" data-opt="pier"><span>The pier</span></button>
+  </div>
+  <p class="say" aria-live="polite"></p>
+</section>
+<section class="bridge" data-noaudio>
+  <p class="chapno">Three chapters later</p>
+  <p>Nell has buried her mother and found her secret: every Thursday, upstairs from the launderette, a club of six women and a ledger. Tonight Nell climbs the stairs.</p>
+</section>
+<article data-noaudio>
+<section class="chap">
+  <p class="chapno">Chapter four</p>
+  <h2>Biscuits</h2>
+</section>
+<div class="col">
+  <h2>Seven chairs</h2>
+  <p>I have brought shortbread. It was that or Jaffa Cakes, and I didn't know where the room stood on whether a Jaffa Cake is a biscuit.</p>
+  <p>Nobody takes one. They are all looking at me, and I am looking at the number.</p>
+  <p>A hundred and thirty-one thousand pounds, I say. Whose is it?</p>
+  <p>Ours, says Mrs Pell.</p>
+  <p>Whose, ours?</p>
+  <p>She points round the table with a teaspoon. Me. Dot. Bernadette. Priti. Kayleigh. Your Auntie Carol, God help us. And your mother. Twenty pounds a month each since March 1999. Kayleigh's only been coming since her nan passed and left her the chair.</p>
+  <p>I do it in my head. I'm not quick. But twenty pounds a month doesn't come to a hundred and thirty-one thousand. It doesn't come to half that.</p>
+  <p>No, says Priti, who hasn't looked up from her laptop. It comes to about forty-six thousand. The rest it made by itself.</p>
+  <p>Made how?</p>
+  <p>And six women who have known me since I was in a pram all breathe in at once, like a choir.</p>
+  <p>One at a time, says Mrs Pell. And plain. That's the rule, and it was your mother's. Nobody up here says a word they couldn't say in the launderette. If you can't explain it to Dot, you've no business putting your twenty pounds in it.</p>
+  <p>I'm sat here, says Dot.</p>
+
+  <h2>A hundred pieces</h2>
+  <p>Start with your father's shop, says Mrs Pell. Who owns it?</p>
+  <p>Dad.</p>
+  <p>How much of it?</p>
+  <p>All of it.</p>
+  <p>Say it was cut up. Say it was a hundred pieces, like a tray of parkin. How many has he got?</p>
+  <p>A hundred.</p>
+  <p>And Linda. Thirty-five years at that range, six days a week, burns up both arms. How many pieces did she have?</p>
+  <p>I don't say anything. The gas fire ticks.</p>
+  <p>None, says Auntie Carol. She had none. She had an apron.</p>
+</div>
+
+<figure class="fig">
+  <div class="ledger wide" role="img" aria-label="A ledger page headed Harrow's Fish Bar, 100 pieces. Keith has a bar that fills the whole row, marked 100. Linda has an empty row, marked 0.">
+    <div class="lhead">Harrow's Fish Bar. 100 pieces.</div>
+    <div class="lrow"><span>Keith, 100</span><i style="--w:100%;--c:#7A4A2E"></i></div>
+    <div class="lrow"><span>Linda, 0</span><i style="--w:0%;--c:#EBA91A"></i></div>
+  </div>
+  <figcaption>The first page of the book, 1999. I think it's the angriest thing she ever drew.</figcaption>
+</figure>
+
+<div class="col">
+  <p>That, says Mrs Pell, is the difference between working in a thing and owning a bit of it. You can work in a business your whole life and all it owes you is a wage, if you're lucky. Own a piece of it and it owes you a piece of whatever it makes. Whether you turned up or not. Whether you're asleep.</p>
+  <p><span class="lesson" data-note="a share is a piece of a business">That's a share. That's all a share is. A piece of a business, with your name on.</span></p>
+  <p>But you can't buy a piece of Dad's shop, I say.</p>
+  <p>No. He's not selling. But the big firms do. A firm wants money, to build a new shop or a factory, so it cuts itself into pieces, millions of them, and sells them to anybody who'll have one. After that the pieces get bought and sold all day long between strangers. <span class="lesson" data-note="and that's the stock market">That's the stock market. It's only a market. People swapping pieces of businesses.</span> There's no room any more, it's all on Priti's laptop.</p>
+  <p>So we own a piece of what?</p>
+  <p>The supermarket, for one. The big one on the ring road. That's the blue. Monday's sea, your mother called it, because it's dull and it's always there. I've shopped in it forty years. I know what's in my trolley and I know what's in everybody else's. So I thought, why am I only ever giving them money? Why aren't they giving me some?</p>
+  <p>How big a piece?</p>
+  <p>Priti turns the laptop round. If the supermarket was your father's tray of parkin, she says, we own a crumb you would need tweezers for. But it's a real crumb. When they make a profit, a crumb of it is ours. When they have a bad year, so do we.</p>
+  <p>Tell her about the price, says Bernadette. She was a nurse for forty-one years and she says it the way you'd say, sharp scratch.</p>
+  <p><span class="lesson" data-note="prices move with moods, not the business">The price of a piece goes up and down every day, says Mrs Pell. Not because the supermarket has changed since yesterday. Because people have changed their minds about what a piece is worth.</span> They get excited, it goes up. They get frightened, it goes down. Some years it has gone down by a third and sat there. <span class="lesson" data-note="and you can lose money">You can lose money. I want you to hear me say that.</span> Anybody who tells you different is selling something.</p>
+  <p>We lost a fortune in 2008, says Carol, cheerfully.</p>
+  <p>We lost it on paper, says Priti.</p>
+  <p>It felt like a fortune, says Carol.</p></div>
+<section class="test sms" data-test="share" data-answer="market">
+  <p>My phone goes before we're past the gasworks. A number I don't know. Mrs Pell has plainly never sent a text before.</p>
+  <p class="txt">ONE THING TO SEE IF IT STUCK</p>
+  <p class="ask">Which of these could you buy a piece of tomorrow morning?</p>
+  <div class="opts">
+    <button style="--c:#7A4A2E" data-opt="shop" data-say="NOT UNLESS KEITH IS SELLING AND KEITH HAS NEVER SOLD A THING HE COULD KEEP. THIS IS CAROL"><span>Harrow's Fish Bar</span></button>
+    <button style="--c:#2E73C8" data-opt="market" data-say="THE SUPERMARKET. IT SOLD ITSELF IN PIECES YEARS AGO AND THEY ARE STILL GOING ROUND. THAT IS A SHARE. BISCUIT."><span>The supermarket on the ring road</span></button>
+    <button style="--c:#9DB7E8" data-opt="laundry" data-say="YOU COULD ASK. I WOULD LAUGH."><span>Mrs Pell's launderette</span></button>
+    <button style="--c:#2FA39A" data-opt="pier" data-say="THE COUNCIL OWNS THE PIER AND THE COUNCIL IS WELCOME TO IT. DOT"><span>The pier</span></button>
+  </div>
+  <p class="say" aria-live="polite"></p>
+  <div class="won" hidden>
+    <svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="28" fill="#E3B66B" stroke="#B9853C" stroke-width="3" stroke-dasharray="5 4"/><g fill="#B9853C"><circle cx="22" cy="24" r="2.4"/><circle cx="32" cy="20" r="2.4"/><circle cx="42" cy="24" r="2.4"/><circle cx="20" cy="36" r="2.4"/><circle cx="32" cy="32" r="2.4"/><circle cx="44" cy="36" r="2.4"/><circle cx="26" cy="45" r="2.4"/><circle cx="38" cy="45" r="2.4"/></g></svg>
+    <p>One biscuit in the tin. Turn the page.</p>
+  </div>
+</section>
+</article>
+<article data-noaudio>
+<section class="chap">
+  <p class="chapno">End of the taster</p>
+  <h2>That's how it works.</h2>
+</section>
+<div class="col">
+  <p>A story you'd want to read anyway, with the lesson inside it, in a voice written for one reader. The whole of What She Left Behind is fifteen chapters like this: shares, funds, fees and why you never sell in a fright, all learned at a table above a launderette.</p>
+  <p>Tell us what you love reading and what you keep meaning to learn, and we'll write yours.</p>
+  <p><a class="btn-end" href="../#order">Get a story written for you</a></p>
+</div>
+</article>
+</div></div></div><div id="bar"></div></main>
+
+<script>
+const BOOK = {"id":"own-sample","title":"What She Left Behind","firstChapter":{"no":"Chapter one","title":"Vinegar"},"memoryColour":"#EBA91A","cast":{"nell":{"name":"Nell","colour":"#2E73C8","colourName":"Half past three","line":"Me. Thirty-four. A painter. The blue of the sea at home, mid-afternoon."},"mum":{"name":"Mum","colour":"#EBA91A","colourName":"Curry sauce","line":"Linda Harrow. Thirty-five years in the chip shop. Yellow with brown in it: lovely while it’s warm."},"dad":{"name":"Dad","colour":"#7A4A2E","colourName":"Inside of a teapot","line":"Keith Harrow. Counts the till twice."},"giles":{"name":"Giles","colour":"#EFD98F","colourName":"Double cream","line":"My fiancé. Thirty-nine. Has never once raised his voice."},"dev":{"name":"Dev","colour":"#F27A1A","colourName":"Traffic cone","line":"Brings me a tea at eleven. Doesn’t know my surname."},"sam":{"name":"Sam","colour":"#2FA39A","colourName":"Verdigris","line":"Sam Reid. Delivers the fish. The green that copper goes when it’s left out in the weather."},"carol":{"name":"Auntie Carol","colour":"#F26FA6","colourName":"Seaside rock","line":"Mum’s sister. They hadn’t spoken since 2011."}},"lockMessage":"Mrs Pell is waiting.","lockLabel":" (the club is waiting)","audio":{"tracks":["audio/ch1-1.mp3","audio/ch1-2.mp3","audio/ch1-3.mp3","audio/ch1-4.mp3","audio/ch1-5.mp3","audio/ch1-6.mp3"],"words":[[["my",0.16,0.32],["mother",0.44,0.56],["dies",0.64,0.88],["on",0.92,0.96],["a",1.04,1.12],["tuesday",1.2,2],["with",2.24,2.32],["her",2.4,2.48],["coat",2.56,2.8],["on",2.88,3.16],["she",4,4.08],["is",4.12,4.16],["in",4.24,4.32],["the",4.36,4.4],["back",4.48,4.64],["room",4.72,4.88],["of",4.92,4.96],["the",5.04,5.08],["chip",5.12,5.36],["shop",5.44,6],["in",6.04,6.08],["the",6.16,6.2],["chair",6.24,6.56],["by",6.6,6.64],["the",6.72,6.76],["potato",6.8,7.2],["rumbler",7.28,8.32],["she",8.4,8.48],["never",8.56,8.8],["wears",8.85,8.96],["a",9.04,9.08],["coat",9.12,9.28],["in",9.36,9.44],["the",9.47,9.49],["shop",9.52,10.32],["she",10.36,10.4],["lives",10.48,10.64],["upstairs",10.72,11.36],["i",12,12.08],["don't",12.12,12.24],["know",12.32,12.4],["yet",12.48,13.36],["i",13.4,13.44],["am",13.52,13.68],["ninety",13.76,14],["miles",14.08,14.32],["away",14.4,14.96],["lying",15.04,15.36],["to",15.44,15.52],["a",15.56,15.6],["man",15.68,15.84],["who",15.92,16],["loves",16.08,16.32],["me",16.4,16.59],["i",17.56,17.6],["have",17.68,17.76],["been",17.84,17.92],["lying",18,18.24],["to",18.32,18.36],["him",18.4,18.56],["since",18.68,18.8],["march",18.96,19.84],["i'm",19.88,20],["good",20.08,20.16],["at",20.24,20.32],["it",20.4,20.96],["it",21.04,21.12],["turns",21.24,21.4],["out",21.44,21.6],["i",21.64,21.68],["get",21.76,21.84],["that",21.92,22],["from",22.08,22.16],["her",22.24,22.59],["this",23.44,23.6],["is",23.68,23.76],["the",23.8,23.84],["year",23.92,24.16],["i",24.24,24.4],["find",24.52,24.64],["out",24.72,24.8],["what",24.88,24.96],["my",25.04,25.2],["mother",25.32,25.44],["did",25.52,25.68],["on",25.76,25.92],["thursdays",26,26.75]],[["when",0.08,0.16],["i",0.32,0.36],["was",0.4,0.56],["seven",0.64,1.04],["my",1.36,1.52],["mother",1.64,1.76],["let",1.84,1.92],["me",2.0,2.08],["do",2.16,2.24],["the",2.28,2.32],["vinegar",2.4,2.84],["it",3.65,3.68],["was",3.76,3.84],["the",3.96,4.08],["best",4.16,4.4],["job",4.48,4.64],["in",4.68,4.72],["the",4.8,4.88],["shop",4.96,5.56],["you",5.84,5.92],["held",6.0,6.16],["the",6.2,6.24],["bottle",6.32,6.64],["upside",6.72,7.04],["down",7.12,7.36],["over",7.44,7.6],["the",7.64,7.68],["chips",7.76,8.16],["and",8.24,8.32],["you",8.36,8.4],["counted",8.48,8.8],["to",8.88,8.96],["three",9.04,9.6],["mum",9.92,10.08],["said",10.16,10.56],["not",10.8,11.04],["so",11.12,11.28],["much",11.36,11.64],["nell",11.68,12.0],["we're",12.08,12.16],["not",12.28,12.4],["made",12.52,12.64],["of",12.68,12.72],["it",12.8,13.28],["then",13.74,13.76],["she",13.84,14.0],["winked",14.08,14.4],["and",14.48,14.56],["let",14.6,14.64],["me",14.72,14.8],["do",14.84,14.88],["it",14.96,15.04],["again",15.2,15.4],["i",16.4,16.44],["stood",16.48,16.64],["on",16.68,16.72],["a",16.8,16.88],["milk",16.92,17.12],["crate",17.2,17.44],["to",17.52,17.6],["reach",17.8,18.48],["the",18.52,18.56],["windows",18.76,18.96],["were",19.08,19.2],["steamed",19.28,19.6],["up",19.68,19.84],["and",19.92,20.0],["the",20.08,20.16],["whole",20.24,20.48],["street",20.64,20.96],["was",21.04,21.12],["a",21.2,21.28],["smear",21.36,21.68],["of",21.8,21.92],["orange",22.12,22.32],["behind",22.4,22.72],["them",22.8,23.28],["and",23.36,23.44],["i",23.68,23.79],["thought",23.9,24.0],["it",24.08,24.16],["was",24.24,24.32],["the",24.36,24.4],["most",24.48,24.8],["beautiful",25.08,25.36],["room",25.44,25.76],["in",25.84,25.92],["england",26.0,26.51],["dad",27.28,27.44],["was",27.52,27.6],["in",27.68,27.76],["the",27.8,27.84],["back",28.0,28.4],["counting",28.52,28.72],["the",28.8,28.88],["till",28.92,29.68],["he",29.76,29.84],["always",30.0,30.16],["counted",30.28,30.48],["it",30.56,30.64],["twice",30.68,31.18],["on",32.0,32.08],["fridays",32.16,32.72],["he",32.8,32.88],["gave",32.96,33.12],["mum",33.16,33.28],["an",33.36,33.44],["envelope",33.52,34.4],["she",34.48,34.56],["said",34.68,35.04],["thank",35.16,35.28],["you",35.32,35.4],["keith",35.44,35.92],["and",36.0,36.08],["put",36.16,36.24],["it",36.28,36.32],["in",36.36,36.4],["her",36.48,36.56],["apron",36.64,37.6],["i",37.68,37.76],["thought",37.84,38.08],["that",38.12,38.16],["was",38.24,38.32],["what",38.4,38.48],["wages",38.56,38.96],["were",39.12,39.31],["it",40.08,40.16],["was",40.24,40.4],["years",40.48,40.8],["before",40.88,41.12],["i",41.28,41.39],["understood",41.5,41.84],["she",41.92,42.08],["had",42.16,42.24],["never",42.32,42.56],["had",42.64,42.8],["any",42.96,43.36]],[["half",0.24,0.48],["past",0.56,0.8],["eight",0.96,1.32],["giles",2.16,2.4],["makes",2.48,2.64],["the",2.68,2.72],["coffee",2.8,3.4],["he",3.6,3.76],["always",3.84,4.16],["makes",4.28,4.4],["the",4.44,4.48],["coffee",4.56,5.12],["he",5.36,5.44],["warms",5.52,5.68],["the",5.76,5.84],["cup",5.92,6.08],["first",6.24,6.64],["because",6.72,6.96],["he",7,7.04],["read",7.12,7.28],["that",7.32,7.36],["you",7.44,7.52],["should",7.6,7.88],["i",8.64,8.68],["do",8.72,8.8],["this",8.88,8.96],["with",9.04,9.2],["everyone",9.28,9.92],["i",10.08,10.11],["can't",10.13,10.32],["help",10.44,10.56],["it",10.64,11.2],["giles",11.24,11.6],["is",11.68,11.84],["cream",11.92,12.72],["not",12.8,12.88],["magnolia",12.96,13.68],["he'd",13.72,13.84],["be",13.92,14],["hurt",14.11,14.72],["proper",14.8,15.28],["double",15.36,15.6],["cream",15.68,16.24],["the",16.28,16.32],["kind",16.4,16.56],["that",16.6,16.64],["costs",16.72,17.12],["more",17.24,17.92],["he",18,18.08],["is",18.16,18.24],["thirty",18.32,18.96],["nine",18.32,18.96],["and",19,19.04],["he",19.12,19.2],["has",19.32,19.44],["never",19.52,19.84],["once",19.92,20.24],["raised",20.36,20.48],["his",20.56,20.64],["voice",20.84,21.36],["and",21.43,21.44],["he",21.52,21.6],["owns",21.68,21.92],["this",22,22.08],["flat",22.16,22.77],["and",22.83,22.88],["the",22.92,22.96],["cup",23.04,23.65],["and",23.71,23.76],["the",23.8,23.84],["coffee",23.92,24.72],["how's",25.04,25.2],["the",25.24,25.28],["big",25.36,25.44],["one",25.52,25.68],["coming",25.84,26.24],["he",26.32,26.4],["says",26.6,27.2],["the",27.36,27.44],["big",27.52,27.6],["one",27.68,27.92],["is",28,28.08],["a",28.12,28.16],["painting",28.32,29.04],["it",29.08,29.12],["is",29.2,29.28],["six",29.36,29.6],["feet",29.64,29.76],["across",29.84,30.4],["it",30.44,30.48],["is",30.56,30.64],["of",30.68,30.72],["the",30.8,30.88],["sea",30.96,31.12],["at",31.16,31.2],["home",31.28,31.84],["and",31.88,31.92],["it",32,32.08],["is",32.16,32.24],["the",32.32,32.4],["centre",32.48,32.8],["of",32.84,32.88],["my",32.96,33.12],["show",33.24,33.36],["in",33.4,33.44],["the",33.52,33.56],["spring",33.6,34.4],["i",34.44,34.48],["have",34.56,34.64],["described",34.72,35.04],["it",35.08,35.12],["to",35.2,35.24],["him",35.28,35.52],["so",35.6,35.76],["many",35.84,36],["times",36.08,36.4],["i",36.44,36.48],["could",36.56,36.64],["draw",36.72,36.96],["it",37.04,37.28],["getting",38.03,38.08],["there",38.2,38.56],["i",38.6,38.64],["say",38.72,39.04],["the",39.36,39.44],["light's",39.56,39.76],["wrong",39.84,39.92],["in",39.96,40],["the",40.04,40.08],["top",40.16,40.32],["third",40.4,40.8],["he",41.42,41.44],["nods",41.48,41.92],["he",42.24,42.4],["loves",42.56,42.8],["this",42.88,43.2],["he",43.52,43.68],["loves",43.76,44],["that",44.08,44.16],["i",44.2,44.24],["have",44.32,44.4],["a",44.44,44.48],["top",44.6,44.72],["third",44.8,45.15],["i",45.82,45.84],["pack",45.96,46.08],["my",46.16,46.24],["bag",46.32,46.56],["in",46.6,46.64],["front",46.72,46.96],["of",47,47.04],["him",47.12,47.36],["brushes",47.76,48.36],["rolled",48.4,48.64],["in",48.68,48.72],["their",48.8,48.88],["canvas",49.16,49.6],["rags",49.76,50.36],["a",50.48,50.56],["flask",50.64,51.36],["the",51.6,51.68],["brushes",51.8,52.08],["are",52.16,52.24],["very",52.32,52.56],["clean",52.64,53.28],["the",53.32,53.36],["bristles",53.44,53.84],["are",53.92,54],["as",54.08,54.16],["soft",54.24,54.48],["as",54.56,54.64],["a",54.68,54.72],["baby's",54.8,55.12],["hair",55.2,55.76],["on",56.16,56.24],["the",56.28,56.32],["shelf",56.4,56.64],["by",56.72,56.8],["the",56.84,56.88],["door",56.96,57.2],["there",57.28,57.36],["is",57.4,57.44],["a",57.52,57.6],["jam",57.72,57.84],["jar",57.92,58.08],["with",58.16,58.32],["twenty",58.48,58.88],["pound",58.48,58.88],["notes",59,59.12],["in",59.2,59.28],["it",59.4,59.92],["giles",60,60.32],["thinks",60.37,60.48],["it's",60.56,60.64],["my",60.72,60.88],["float",61.04,61.68],["he",61.76,61.84],["put",61.88,61.92],["a",62,62.08],["tenner",62.16,62.32],["in",62.4,62.48],["once",62.56,62.96],["to",63.04,63.12],["be",63.16,63.2],["nice",63.28,64.08],["i",64.24,64.29],["took",64.35,64.4],["it",64.44,64.48],["out",64.56,64.72],["when",64.76,64.8],["he'd",64.88,65.04],["gone",65.24,65.44],["and",65.48,65.52],["left",65.6,65.76],["it",65.8,65.84],["on",65.88,65.92],["his",66,66.16],["desk",66.36,66.96],["it",67.04,67.2],["isn't",67.28,67.6],["that",67.72,67.84],["kind",67.96,68.08],["of",68.16,68.24],["jar",68.4,69.2],["my",69.28,69.36],["mother",69.44,69.68],["has",69.8,69.92],["posted",70.08,70.24],["me",70.32,70.4],["twenty",70.48,70.8],["pounds",70.88,71.2],["on",71.24,71.28],["the",71.36,71.44],["first",71.56,71.68],["of",71.76,71.92],["every",72.04,72.16],["month",72.24,72.48],["since",72.56,72.72],["i",72.8,72.85],["was",72.91,72.96],["nineteen",73.04,74.08],["no",74.12,74.16],["letter",74.24,74.96],["just",75.04,75.12],["the",75.2,75.28],["note",75.44,75.84],["folded",75.96,76.16],["in",76.24,76.32],["three",76.4,76.96],["and",77,77.04],["on",77.12,77.2],["the",77.24,77.28],["flap",77.36,77.52],["of",77.6,77.68],["the",77.72,77.76],["envelope",77.84,78.24],["in",78.32,78.4],["biro",78.48,79.28],["for",79.36,79.52],["paints",79.72,80.28],["fifteen",80.72,81.28],["years",81.36,82.32],["i",82.4,82.48],["have",82.6,82.72],["never",82.84,82.96],["asked",83.04,83.28],["her",83.36,83.44],["where",83.52,83.6],["a",83.64,83.68],["woman",83.76,83.92],["on",84,84.08],["housekeeping",84.16,84.72],["gets",84.84,84.96],["twenty",85.12,85.28],["pounds",85.32,85.52],["a",85.56,85.6],["month",85.68,86.4],["you",86.48,86.56],["don't",86.64,87.04],["in",87.08,87.12],["my",87.2,87.36],["family",87.56,88.16],["you",88.2,88.24],["say",88.32,88.4],["thank",88.48,88.72],["you",88.8,89.04],["and",89.12,89.2],["you",89.28,89.36],["put",89.44,89.52],["it",89.56,89.6],["in",89.68,89.76],["your",89.8,89.84],["apron",89.92,90.8],["every",90.88,91.2],["tube",91.4,91.6],["i",91.68,91.72],["have",91.76,92],["ever",92.12,92.24],["squeezed",92.32,93.04],["she",93.12,93.2],["paid",93.28,93.52],["for",93.64,94.24],["including",94.48,94.72],["the",94.76,94.8],["ones",94.88,95.04],["in",95.12,95.2],["this",95.28,96.24],["it's",96.32,96.48],["the",96.56,96.64],["last",96.72,96.96],["thing",97.04,97.12],["i",97.28,97.39],["worked",97.5,97.6],["on",97.68,98.44],["it's",98.48,98.64],["her",98.72,99.31],["on",99.33,99.36],["a",99.44,99.52],["friday",99.88,100.35],["holding",100.45,100.56],["the",100.6,100.64],["envelope",100.72,101.69],["i",101.76,101.84],["have",101.92,102.0],["painted",102.04,102.32],["the",102.4,102.48],["face",102.64,102.8],["eleven",102.88,103.36],["times",103.6,103.84],["and",103.92,104.0],["i",104.08,104.14],["have",104.19,104.24],["scraped",104.32,104.64],["it",104.68,104.72],["off",104.8,105.12],["eleven",105.24,105.6],["times",106.04,106.56],["i",106.64,106.67],["can",106.69,106.72],["do",106.8,106.88],["anyone's",106.96,107.36],["face",107.68,108.03],["i",108.06,108.08],["can",108.12,108.16],["do",108.24,108.28],["a",108.32,108.4],["stranger",108.48,108.8],["on",108.84,108.88],["a",108.96,109.04],["bus",109.16,109.28],["from",109.36,109.52],["memory",109.72,110.64],["i",110.71,110.72],["get",110.8,110.88],["as",110.96,111.12],["far",111.2,111.36],["as",111.44,111.52],["her",111.64,111.76],["mouth",112.0,112.24],["and",112.32,112.4],["i",112.64,112.67],["don't",112.69,112.88],["know",112.96,113.04],["what",113.12,113.2],["it's",113.28,113.44],["doing",113.52,114.48],["giles",114.56,114.88],["hung",114.96,115.04],["it",115.12,115.2],["in",115.24,115.28],["the",115.36,115.44],["hall",115.76,116.12],["he",116.16,116.24],["thinks",116.28,116.48],["the",116.56,116.64],["scraping",116.72,117.12],["is",117.16,117.2],["a",117.44,117.79],["statement",118.14,118.49],["have",118.56,118.64],["a",118.72,118.76],["good",118.8,118.96],["one",119.04,119.5],["he",119.55,119.6],["says",119.96,120.36],["he",120.53,120.56],["kisses",120.6,120.88],["me",120.92,120.96],["on",121.04,121.12],["the",121.16,121.2],["forehead",121.28,121.89],["like",121.95,122.0],["a",122.16,122.24],["man",122.32,122.4],["posting",122.48,122.8],["a",122.88,123.12],["letter",123.36,123.61],["don't",123.68,123.84],["forget",123.96,124.08],["mum's",124.12,124.32],["on",124.4,124.48],["sunday",124.56,125.44],["i",125.6,125.66],["won't",125.71,126.41],["i",126.48,126.56],["love",126.68,126.8],["you",127.16,127.53],["you",127.68,127.76],["too",127.84,128.48],["i",128.56,128.6],["say",128.64,129.04],["which",129.12,129.36],["is",129.44,129.52],["true",129.6,130.32],["and",130.48,130.64],["is",130.72,130.96],["also",131.04,131.52],["not",131.76,132.0],["the",132.04,132.08],["same",132.16,132.4],["thing",132.48,133.12]],[["work",1.28,1.8],["it",2.48,2.64],["takes",2.76,2.88],["me",2.96,3.2],["thirty",3.24,3.84],["five",3.24,3.84],["minutes",4.04,4.24],["to",4.28,4.32],["walk",4.4,4.56],["to",4.64,4.72],["work",4.88,5.52],["i",5.68,5.73],["could",5.79,5.84],["get",5.92,6],["the",6.04,6.08],["bus",6.52,7.04],["i",7.12,7.17],["like",7.23,7.28],["to",7.36,7.44],["arrive",7.56,7.84],["having",7.92,8.16],["earned",8.24,8.48],["it",8.6,9.28],["it's",9.36,9.6],["white",9.8,10.16],["where",10.24,10.32],["i",10.48,10.59],["work",10.69,11.2],["not",11.36,11.52],["one",11.64,11.76],["white",11.84,12.56],["i",12.6,12.64],["counted",12.72,13.04],["once",13.12,13.52],["on",13.56,13.6],["a",13.68,13.72],["slow",13.76,14],["day",14.12,14.56],["and",14.64,14.72],["there",14.76,14.8],["are",14.92,15.04],["sixty",15.2,16.11],["one",15.2,16.11],["and",16.13,16.16],["i",16.32,16.43],["know",16.53,16.64],["every",16.72,16.96],["one",17.04,17.12],["of",17.2,17.28],["them",17.36,17.44],["by",17.52,17.68],["name",17.76,18.16],["and",18.28,18.4],["by",18.48,18.56],["what's",18.64,18.88],["really",19.04,19.2],["in",19.24,19.28],["it",19.36,20.08],["the",20.16,20.24],["warmest",20.36,20.8],["is",20.88,21.04],["mostly",21.24,21.44],["yellow",21.64,21.84],["with",21.92,22],["a",22.04,22.08],["drop",22.2,22.32],["of",22.4,22.48],["black",22.64,23.36],["people",23.44,23.68],["don't",23.72,23.92],["like",24.04,24.16],["being",24.28,24.4],["told",24.44,24.64],["that",24.72,25.52],["it's",26,26.16],["quiet",26.24,26.64],["at",26.68,26.72],["this",26.8,26.96],["hour",27.04,27.76],["it",27.84,27.92],["smells",28,28.24],["of",28.32,28.4],["turps",28.48,28.96],["and",29.08,29.2],["sawdust",29.24,30.4],["i",30.48,30.56],["sit",30.64,30.88],["where",30.96,31.04],["i",31.2,31.24],["always",31.28,31.6],["sit",31.68,32.16],["on",32.24,32.32],["the",32.36,32.4],["floor",32.48,32.99],["with",33.01,33.04],["my",33.12,33.28],["back",33.36,33.44],["against",33.52,33.84],["something",34.04,34.24],["solid",34.72,35.28],["i",35.36,35.39],["get",35.41,35.44],["my",35.52,35.6],["brushes",35.72,35.92],["out",36,36.24],["and",36.32,36.4],["lay",36.48,36.56],["them",36.64,36.72],["in",36.76,36.8],["a",36.88,36.96],["row",37.08,37.2],["on",37.24,37.28],["the",37.36,37.44],["rag",37.64,37.88],["in",37.92,38],["order",38.08,38.24],["of",38.32,38.48],["size",38.92,39.37],["then",39.44,39.76],["i",39.92,39.96],["look",40,40.8],["that's",40.88,41.04],["the",41.12,41.2],["job",41.36,41.92],["people",42,42.24],["think",42.32,42.4],["painting",42.48,42.88],["is",42.96,43.04],["the",43.08,43.12],["bit",43.2,43.28],["with",43.32,43.36],["the",43.44,43.52],["paint",43.88,44.28],["it's",44.32,44.48],["mostly",44.68,44.88],["looking",45.32,45.84],["i",45.92,45.96],["can",46,46.08],["look",46.16,46.32],["for",46.44,46.56],["seven",46.64,46.96],["hours",47.04,47.92],["i",48,48.04],["have",48.08,48.16],["a",48.32,48.37],["flask",48.43,49.44],["at",49.87,49.92],["eleven",50.04,50.4],["dev",50.48,50.72],["brings",50.76,50.96],["me",51.04,51.12],["a",51.16,51.2],["tea",51.28,51.92],["he",51.96,52],["doesn't",52.08,52.24],["ask",52.32,53.01],["he",53.07,53.12],["puts",53.2,53.28],["it",53.36,53.44],["down",53.56,53.68],["by",53.76,53.84],["my",53.92,54],["knee",54.04,54.32],["and",54.4,54.48],["says",54.56,55.12],["any",55.2,55.36],["further",55.4,55.68],["on",55.76,56.32],["i",56.4,56.44],["think",56.48,56.64],["i'm",56.72,56.8],["close",56.88,57.52],["i",57.68,57.76],["say",57.84,58.24],["no",58.32,58.48],["rush",58.56,58.76],["love",58.8,59.28],["he",59.36,59.44],["says",59.6,60.08],["and",60.22,60.24],["goes",60.28,60.4],["away",60.48,60.64],["again",60.72,61.44],["dev",61.82,61.84],["is",61.92,62.0],["the",62.12,62.24],["orange",62.32,62.64],["of",62.72,62.8],["a",62.84,62.88],["traffic",62.96,63.28],["cone",63.36,64.12],["he",64.16,64.24],["has",64.32,64.4],["a",64.48,64.61],["daughter",64.75,64.88],["doing",65.0,65.12],["her",65.2,65.28],["gcses",65.36,66.24],["and",66.32,66.48],["a",66.56,66.6],["bad",66.64,66.8],["knee",66.88,67.81],["he",67.87,67.92],["is",67.96,68.0],["the",68.08,68.16],["person",68.36,68.56],["i",68.72,68.76],["speak",68.8,69.04],["to",69.16,69.28],["most",69.36,69.6],["in",69.68,69.76],["the",69.8,69.84],["world",69.92,70.51],["and",70.53,70.56],["he",70.64,70.72],["doesn't",70.8,71.04],["know",71.12,71.2],["my",71.28,71.36],["surname",71.44,72.08]],[["ten",0.24,0.4],["past",0.48,0.72],["two",0.88,1.2],["my",2.08,2.24],["phone",2.36,2.48],["goes",2.56,2.72],["at",2.8,2.88],["ten",2.96,3.04],["past",3.12,3.36],["two",3.44,3.96],["it",4.24,4.32],["says",4.44,4.56],["dad",4.72,5.32],["my",5.81,5.84],["father",6,6.16],["has",6.24,6.32],["rung",6.4,6.56],["me",6.68,6.8],["four",6.88,7.12],["times",7.32,7.52],["in",7.56,7.6],["my",7.68,7.76],["life",7.92,8.64],["one",8.68,8.72],["of",8.8,8.88],["those",9,9.12],["was",9.2,9.28],["his",9.36,9.44],["pocket",9.52,10.4],["your",10.48,10.56],["mother's",10.68,10.96],["passed",11.16,11.6],["he",11.68,11.76],["says",11.92,12.56],["he",12.71,12.72],["says",12.8,12.88],["it",12.92,12.96],["the",13.04,13.12],["way",13.2,13.28],["he",13.36,13.52],["says",13.6,14.16],["we're",14.2,14.32],["out",14.4,14.48],["of",14.56,14.64],["haddock",14.8,15.68],["i",15.77,15.85],["say",15.96,16.57],["what",16.64,17.36],["this",17.51,17.52],["morning",17.61,18.41],["i",18.48,18.57],["found",18.68,18.8],["her",18.84,18.89],["in",18.93,18.96],["the",19.0,19.05],["back",19.12,19.61],["in",19.64,19.68],["the",19.77,19.84],["chair",20.0,20.73],["doctor",20.89,21.05],["says",21.16,21.29],["heart",21.36,22.16],["says",22.25,22.41],["it'd",22.45,22.57],["have",22.61,22.64],["been",22.73,22.89],["quick",23.05,23.84],["i",23.93,24.01],["look",24.09,24.17],["at",24.21,24.25],["the",24.33,24.41],["whites",24.45,25.45],["i",25.53,25.61],["find",25.69,25.85],["the",25.93,26.01],["one",26.09,26.17],["that's",26.25,26.41],["mostly",26.61,26.81],["yellow",26.89,27.77],["and",27.81,27.85],["i",27.93,28.01],["hold",28.09,28.25],["on",28.33,28.49],["to",28.53,28.57],["it",28.65,29.21],["she",29.35,29.37],["had",29.41,29.45],["her",29.53,29.69],["coat",29.85,30.01],["on",30.09,30.41],["he",30.49,30.57],["says",30.73,31.21],["i",31.25,31.29],["don't",31.33,31.41],["know",31.45,31.61],["what",31.69,31.77],["she",31.85,31.93],["was",32.01,32.09],["playing",32.25,32.41],["at",32.49,33.13],["then",33.21,33.29],["he",33.37,33.45],["tells",33.53,33.69],["me",33.73,33.77],["the",33.85,33.93],["funeral",34.01,34.33],["is",34.41,34.57],["thursday",34.77,34.97],["week",35.05,35.85],["he",35.93,36.01],["tells",36.05,36.17],["me",36.25,36.33],["he's",36.37,36.49],["had",36.57,36.65],["to",36.73,36.81],["shut",36.85,36.97],["the",37.05,37.13],["shop",37.29,37.61],["and",37.65,37.69],["that's",37.77,37.9],["a",37.95,38.01],["day's",38.09,38.33],["takings",38.37,38.81],["gone",38.89,38.97],["already",39.21,39.93],["he",40.06,40.09],["says",40.17,40.25],["that",40.33,40.49],["part",40.61,40.73],["twice",40.81,41.69],["you'll",41.76,41.85],["want",41.93,42.01],["to",42.09,42.17],["come",42.33,42.65],["he",42.73,42.81],["says",42.97,43.61],["i",43.69,43.77],["suppose",43.85,44.81],["my",45.03,45.05],["father",45.29,45.53],["is",45.61,45.69],["the",45.77,45.85],["brown",46.05,46.25],["of",46.33,46.41],["the",46.49,46.57],["inside",46.81,47.05],["of",47.09,47.13],["a",47.17,47.21],["teapot",47.29,48.33],["i",48.41,48.49],["have",48.57,48.65],["never",48.73,48.97],["had",49.05,49.13],["to",49.17,49.21],["change",49.29,49.53],["that",49.61,49.77],["one",50.05,50.33],["i",50.5,50.58],["don't",50.62,50.82],["cry",51.26,51.74],["i",51.78,51.86],["do",51.94,52.02],["what",52.1,52.18],["i",52.34,52.38],["always",52.42,52.74],["do",52.82,53.26],["which",53.3,53.38],["is",53.46,53.62],["think",53.74,53.86],["about",53.94,54.1],["the",54.18,54.26],["wrong",54.42,54.58],["thing",54.66,55.3],["i",55.46,55.54],["think",55.7,56.34],["it's",56.38,56.5],["the",56.58,56.66],["twenty",56.82,57.86],["eighth",56.82,57.86],["she",57.94,58.02],["posts",58.1,58.34],["it",58.42,58.5],["early",58.58,59.06],["in",59.14,59.22],["case",59.42,60.18],["so",60.22,60.26],["it's",60.34,60.42],["already",60.5,60.82],["gone",60.98,61.7],["it's",61.78,61.86],["in",61.9,61.94],["a",62.02,62.1],["sorting",62.3,62.5],["office",62.66,62.82],["somewhere",62.9,63.14],["with",63.22,63.3],["my",63.38,63.54],["name",63.66,63.78],["on",63.82,63.86],["it",63.94,64.02],["in",64.1,64.18],["her",64.26,64.34],["biro",64.46,65.17],["and",65.19,65.22],["on",65.3,65.38],["saturday",65.46,66.02],["it",66.06,66.1],["is",66.18,66.26],["going",66.38,66.5],["to",66.58,66.66],["land",66.78,66.9],["on",66.98,67.06],["the",67.1,67.14],["mat",67.22,68.02],["twenty",68.1,68.42],["pounds",68.5,69.44],["from",69.49,69.54],["a",69.7,69.78],["dead",69.86,69.94],["woman",70.26,70.64],["for",70.69,70.74],["paints",70.82,72.02],["and",72.1,72.18],["then",72.26,72.34],["i",72.42,72.46],["think",72.5,72.66],["about",72.74,72.9],["going",72.98,73.22],["home",73.3,74.26],["i",74.42,74.47],["haven't",74.53,74.66],["been",74.74,74.82],["home",74.9,75.14],["in",75.26,75.38],["seven",75.54,75.7],["years",75.78,76.69],["the",76.72,76.74],["last",76.82,77.06],["time",77.34,77.7],["jess",77.78,77.86],["reid",77.94,78.26],["spat",78.34,78.58],["at",78.62,78.66],["my",78.74,78.9],["feet",78.94,79.14],["outside",79.22,79.54],["the",79.58,79.62],["co",79.7,80.37],["op",79.7,80.37],["in",80.39,80.42],["front",80.5,80.66],["of",80.7,80.74],["her",80.82,80.9],["mother",80.98,81.3],["and",81.34,81.38],["a",81.54,81.62],["man",81.7,81.78],["selling",81.86,82.18],["poppies",82.22,83.22],["nobody",83.3,83.7],["in",83.74,83.78],["that",83.86,84.02],["street",84.1,84.34],["thought",84.42,84.58],["she",84.66,84.74],["was",84.82,84.9],["wrong",84.98,85.7],["including",85.78,86.26],["me",86.34,87.06]],[["aisle",0.24,0.48],["fourteen",0.64,1.32],["you",2.08,2.16],["all",2.2,2.24],["right",2.32,2.52],["love",2.56,2.92],["it's",3.68,4.0],["dev",4.08,4.76],["he's",5.04,5.2],["got",5.28,5.36],["the",5.44,5.52],["trolley",5.56,6.64],["behind",6.72,7.12],["him",7.28,7.44],["a",7.52,7.6],["woman",7.72,7.84],["is",7.92,8.0],["holding",8.2,8.4],["two",8.48,8.56],["tester",8.64,8.96],["pots",9.04,9.28],["up",9.36,9.44],["to",9.52,9.6],["the",9.64,9.68],["strip",9.76,10.0],["light",10.08,10.48],["trying",10.56,10.8],["to",10.88,10.96],["choose",11.16,12.0],["they're",12.04,12.16],["the",12.24,12.32],["same",12.48,12.64],["colour",12.84,13.52],["i",13.68,13.76],["nearly",13.84,14.0],["tell",14.12,14.24],["her",14.36,14.51],["we've",15.34,15.44],["got",15.52,15.6],["to",15.64,15.68],["do",15.76,15.84],["the",15.92,16.0],["bay",16.16,16.48],["he",16.56,16.64],["says",16.72,17.28],["sorry",17.44,17.92],["restock",18.08,18.88],["you",18.92,18.96],["can",19.04,19.12],["have",19.2,19.28],["aisle",19.36,19.6],["nine",19.72,19.84],["till",19.92,20.16],["four",20.32,20.51],["i",21.74,21.76],["should",21.84,21.92],["explain",22.0,22.48],["where",22.56,22.64],["i",22.8,22.84],["am",22.88,23.16],["i",24.07,24.08],["am",24.16,24.24],["on",24.28,24.32],["the",24.4,24.48],["floor",24.56,24.88],["of",24.96,25.04],["aisle",25.12,25.36],["fourteen",25.48,25.84],["of",25.92,26.08],["homefront",26.2,26.88],["on",26.92,26.96],["the",27.04,27.08],["ring",27.12,27.28],["road",27.36,27.84],["between",28.0,28.16],["the",28.19,28.22],["emulsions",28.24,28.88],["and",28.92,28.96],["the",29.04,29.12],["masking",29.24,29.52],["tape",29.6,30.56],["i",30.64,30.72],["have",30.8,30.88],["come",31.0,31.12],["here",31.28,31.44],["every",31.52,31.76],["weekday",31.84,32.32],["since",32.4,32.64],["march",32.72,33.92],["i",34.01,34.09],["haven't",34.17,34.41],["had",34.45,34.49],["a",34.65,34.84],["studio",35.02,35.21],["for",35.33,35.45],["seven",35.61,35.77],["months",36.25,36.81],["i",36.89,36.93],["haven't",36.97,37.21],["finished",37.33,37.45],["a",37.49,37.53],["painting",37.61,38.17],["in",38.29,38.41],["two",38.53,38.65],["years",38.73,39.74],["there",39.8,39.85],["is",39.97,40.09],["no",40.17,40.25],["big",40.33,40.41],["one",40.49,41.09],["there",41.13,41.21],["is",41.29,41.45],["no",41.53,41.61],["top",41.73,41.85],["third",41.93,42.77],["there",42.81,42.89],["is",42.97,43.13],["no",43.25,43.37],["show",43.53,44.49],["the",44.57,44.65],["brushes",44.77,44.97],["are",45.05,45.13],["clean",45.21,45.61],["because",45.77,45.93],["nothing",46.09,46.25],["has",46.33,46.41],["touched",46.49,46.73],["them",46.81,47.85],["my",47.93,48.09],["mum's",48.13,48.49],["died",48.53,48.85],["dev",48.89,49.61],["i",49.69,49.85],["say",49.97,50.89],["and",50.97,51.13],["dev",51.33,51.77],["who",51.81,51.85],["has",51.93,52.01],["watched",52.09,52.33],["me",52.41,52.57],["not",52.69,52.81],["choose",52.93,53.05],["a",53.13,53.17],["white",53.21,53.45],["for",53.53,53.69],["seven",53.77,54.09],["months",54.41,54.77],["puts",54.81,54.97],["the",55.05,55.13],["brake",55.17,55.37],["on",55.41,55.45],["his",55.53,55.69],["trolley",55.82,56.09],["and",56.17,56.25],["sits",56.33,56.57],["down",56.69,56.81],["on",56.85,56.89],["the",56.97,57.05],["floor",57.17,57.29],["of",57.37,57.45],["aisle",57.53,57.77],["fourteen",57.85,58.33],["in",58.41,58.49],["his",58.57,58.65],["orange",58.73,58.97],["apron",59.05,59.77],["bad",59.85,59.93],["knee",60.01,60.25],["and",60.33,60.41],["all",60.49,61.53],["he",61.6,61.61],["doesn't",61.69,61.93],["say",62.01,62.17],["anything",62.41,63.21],["he",63.25,63.29],["gets",63.37,63.53],["a",63.57,63.61],["custard",63.73,64.01],["cream",64.13,64.25],["out",64.33,64.41],["of",64.49,64.57],["his",64.65,64.73],["top",64.85,64.97],["pocket",65.01,65.53],["and",65.61,65.69],["gives",65.74,65.85],["me",65.93,66.01],["half",66.09,67.29],["it",67.37,67.45],["is",67.53,67.61],["the",67.69,67.77],["first",67.85,68.17],["true",68.25,68.57],["thing",68.65,68.89],["i",69.05,69.09],["have",69.13,69.21],["said",69.29,69.45],["to",69.53,69.61],["anyone",69.69,70.25],["since",70.33,70.57],["march",70.65,71.29]]]},"teachDefault":true};
+const P = BOOK.id;
+
+// ---- paint: everything is built from dabs of broken colour ----
+function rng(seed){ return () => (seed = (seed * 1664525 + 1013904223) >>> 0) / 4294967296; }
+function dab(ctx, x, y, len, w, ang, h, s, l, a = .9){
+  ctx.save(); ctx.translate(x, y); ctx.rotate(ang);
+  ctx.fillStyle = `hsla(${h},${s}%,${l}%,${a})`;
+  ctx.beginPath(); ctx.ellipse(0, 0, len / 2, w / 2, 0, 0, 7); ctx.fill(); ctx.restore();
+}
+function hexToHsl(hex){
+  const [r, g, b] = [1, 3, 5].map(i => parseInt(hex.slice(i, i + 2), 16) / 255);
+  const mx = Math.max(r, g, b), mn = Math.min(r, g, b), l = (mx + mn) / 2, d = mx - mn;
+  let h = 0; const s = d ? d / (1 - Math.abs(2 * l - 1)) : 0;
+  if (d) h = mx === r ? ((g - b) / d) % 6 : mx === g ? (b - r) / d + 2 : (r - g) / d + 4;
+  return [(h * 60 + 360) % 360, s * 100, l * 100];
+}
+// one painted swatch per person, used for their chip and their colour sample
+const css = getComputedStyle(document.documentElement);
+let rules = '';
+Object.keys(BOOK.cast).forEach((id, n) => {
+  const [h, s, l] = hexToHsl(css.getPropertyValue('--' + id).trim());
+  const c = document.createElement('canvas'); c.width = c.height = 160;
+  const ctx = c.getContext('2d'), r = rng(11 + n * 97);
+  ctx.fillStyle = `hsl(${h},${s}%,${l}%)`; ctx.fillRect(0, 0, 160, 160);
+  for (let i = 0; i < 240; i++)
+    dab(ctx, r() * 160, r() * 160, 22 + r() * 30, 7 + r() * 8, -.5 + (r() - .5) * 1.1,
+        h + (r() - .5) * 34, Math.min(100, s + (r() - .5) * 20), l + (r() - .5) * 26);
+  rules += `[data-who=${id}]{--tex:url(${c.toDataURL()})}`;
+});
+document.head.appendChild(Object.assign(document.createElement('style'), {textContent: rules}));
+
+
+function toImage(cv, cls){
+  const im = new Image(cv.width, cv.height);
+  im.className = cls; im.alt = cv.getAttribute('aria-label') || ''; im.draggable = false;
+  im.src = cv.toDataURL('image/jpeg', .9); cv.replaceWith(im);
+}
+
+
+const cast = Object.fromEntries(Object.entries(BOOK.cast).map(([k, v]) => [k, [v.name, v.colourName, v.line]]));
+const card = document.getElementById('card');
+const chips = [...document.querySelectorAll('.chip')];
+const chipFor = id => chips.find(c => c.dataset.who === id);
+
+function closeCard(){ card.hidden = true; chips.forEach(c => c.setAttribute('aria-expanded','false')); }
+chips.forEach(chip => chip.addEventListener('click', e => {
+  e.stopPropagation();
+  if (!chip.classList.contains('met')) return;
+  const open = chip.getAttribute('aria-expanded') === 'true';
+  closeCard();
+  if (open) return;
+  const [name, colour, line] = cast[chip.dataset.who];
+  card.dataset.who = chip.dataset.who;
+  card.innerHTML = `<strong>${name}</strong>${colour ? `<em>${colour}</em>` : ''}<p>${line}</p>`;
+  card.hidden = false;
+  chip.setAttribute('aria-expanded','true');
+}));
+document.addEventListener('click', closeCard);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeCard(); });
+
+// ---- pages ----
+const stage = document.getElementById('stage'), book = document.getElementById('book'),
+      flow = document.getElementById('flow'), bar = document.getElementById('bar'),
+      chart = document.getElementById('silences');
+const still = matchMedia('(prefers-reduced-motion: reduce)');
+let page = 0, pages = 1, step = 0, busy = false;
+let unmet = [...document.querySelectorAll('.who')];
+
+function arrive(){
+  // a chip fills in once that person's name has turned up on a page she has reached
+  unmet = unmet.filter(el => {
+    if (el.getBoundingClientRect().left > innerWidth - 1) return true;
+    const chip = chipFor(el.dataset.who);
+    chip.classList.add('met');
+    chip.setAttribute('aria-label', cast[el.dataset.who][0] + ', tap for who they are');
+    return false;
+  });
+  if (chart && chart.getBoundingClientRect().left < innerWidth - 1) chart.classList.add('seen');
+}
+function show(){
+  flow.style.transform = `translateX(${-page * step}px)`;
+  bar.style.width = (pages > 1 ? page / (pages - 1) * 100 : 0) + '%';
+  if (typeof booted !== 'undefined' && booted) try { localStorage.setItem(P + '.ch1.at', String(units.indexOf(firstOnPage()))); } catch (e) {}
+  arrive();
+  if (typeof units !== 'undefined' && typeof voice !== 'undefined') listen.hidden = firstOnPage().t < 0 && voice.paused;
+}
+function layout(){
+  // keep her place by paragraph while the pages are re-cut
+  const anchor = (typeof units !== 'undefined' && step) ? firstOnPage() : null;
+  const pad = parseFloat(getComputedStyle(book).paddingLeft), w = book.clientWidth - 2 * pad;
+  flow.style.columnWidth = w + 'px'; flow.style.columnGap = 2 * pad + 'px';
+  step = book.clientWidth; page = 0; flow.style.transform = 'translateX(0px)';
+  pages = Math.max(1, Math.round((flow.scrollWidth + 2 * pad) / step));
+  if (anchor) page = Math.min(pages - 1, pageOf(anchor.el));
+  if (typeof maxPage === 'function') page = Math.min(page, maxPage());
+  show();
+}
+function turn(dir, auto){
+  const to = page + dir;
+  if (busy || to < 0 || to >= pages) return;
+  if (dir > 0 && to > maxPage()){
+    const t = [...tests, ...Object.values(gates)].find(t => pageOf(t) === page);
+    if (t){ t.classList.remove('shake'); void t.offsetWidth; t.classList.add('shake'); t.querySelector('.say').textContent = t.querySelector('.say').textContent || BOOK.lockMessage; }
+    return;
+  }
+  closeCard(); if (typeof closeMenu === 'function') closeMenu();
+  if (!auto) setTimeout(() => window.seekToPage && seekToPage(), 0);
+  if (still.matches){ page = to; show(); return; }
+  busy = true;
+  const leaf = document.createElement('div'); leaf.className = 'page leaf';
+  const copy = flow.cloneNode(true);
+  copy.removeAttribute('id'); copy.querySelectorAll('[id]').forEach(e => e.removeAttribute('id'));
+  copy.style.transform = `translateX(${-(dir > 0 ? page : to) * step}px)`;
+  leaf.append(copy); stage.append(leaf);
+  const done = () => { leaf.remove(); busy = false; };
+  if (dir > 0){
+    page = to; show();
+    leaf.animate([{transform: 'rotateY(0)'}, {transform: 'rotateY(-90deg)'}], {duration: 480, easing: 'ease-in'}).onfinish = done;
+  } else {
+    leaf.animate([{transform: 'rotateY(-90deg)'}, {transform: 'rotateY(0)'}], {duration: 480, easing: 'ease-out'})
+      .onfinish = () => { page = to; show(); done(); };
+  }
+}
+stage.addEventListener('click', e => {
+  if (e.target.closest('button, a, input, form, label')) return;
+  turn(e.clientX < innerWidth * .3 ? -1 : 1);
+});
+let x0 = null;
+stage.addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, {passive: true});
+stage.addEventListener('touchend', e => {
+  if (x0 === null) return;
+  const dx = e.changedTouches[0].clientX - x0; x0 = null;
+  if (Math.abs(dx) > 45){ e.preventDefault(); turn(dx < 0 ? 1 : -1); }
+});
+addEventListener('keydown', e => {
+  if (e.target.matches && e.target.matches('input, textarea')) return;
+  if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown'){ e.preventDefault(); turn(1); }
+  if (e.key === 'ArrowLeft' || e.key === 'PageUp'){ e.preventDefault(); turn(-1); }
+});
+// ---- audiobook: six tracks with word timings; pages turn themselves, a hand turn moves the audio ----
+const WORDS = BOOK.audio ? BOOK.audio.words : [];
+const voice = document.getElementById('voice'), listen = document.getElementById('listen');
+const TRACKS = BOOK.audio ? BOOK.audio.tracks : [];
+const units = []; let track = -1, nowReading = null, raf = 0;
+(function(){
+  const norm = s => s.toLowerCase().replace(/’/g, "'").replace(/[^a-z0-9']+/g, ' ').trim().split(' ').filter(Boolean);
+  let t = 0; const at = {};
+  flow.querySelectorAll('.bookcover .bc, .brief h2, .brief h3, .brief .slip, .guess .ask, .bridge p, .cold p:not(.note), .open h1, .open .chapter, .memory p, article h2, article .col > p, article .col > .doc, article .col > ul').forEach(el => {
+    if (!BOOK.audio || el.closest('[data-noaudio]')){ units.push({el, t: -1, start: 0, end: 0}); return; }
+    if (el.closest('.memory')) t = 1; else if (el.tagName === 'H2') t = t < 2 ? 2 : t + 1;
+    const said = norm(el.textContent), script = WORDS[t]; let i = at[t] || 0;
+    // line the paragraph up with the recording by its first word, tolerating small slips
+    for (let k = 0; k < 8 && script[i + k]; k++) if (script[i + k][0] === said[0]){ i += k; break; }
+    const last = Math.min(script.length - 1, i + said.length - 1);
+    units.push({el, t, start: script[i] ? script[i][1] : 0, end: script[last] ? script[last][2] : 0});
+    at[t] = last + 1;
+  });
+})();
+const pageOf = el => Math.floor((el.getBoundingClientRect().left + page * step) / step);
+const firstOnPage = () => units.find(u => pageOf(u.el) >= page) || units[units.length - 1];
+function mark(u){
+  if (nowReading === u) return;
+  if (nowReading) nowReading.el.classList.remove('reading');
+  nowReading = u; if (u) u.el.classList.add('reading');
+}
+// Tracks are fetched whole and played from memory, so jumping around works on any host.
+const blobs = {};
+async function load(t, at, play){
+  track = t;
+  try {
+    if (!blobs[t]) blobs[t] = URL.createObjectURL(await (await fetch(TRACKS[t])).blob());
+  } catch (e) { voice.dispatchEvent(new Event('error')); return; }
+  if (track !== t) return;
+  voice.src = blobs[t];
+  voice.addEventListener('loadedmetadata', () => { voice.currentTime = at; if (play) voice.play(); }, {once: true});
+  voice.load();
+}
+function seekToPage(){
+  if (voice.paused && track < 0) return;
+  const u = firstOnPage(), playing = !voice.paused, at = Math.max(0, u.start - .15);
+  if (u.t < 0){ voice.pause(); stopUi(); track = -1; listen.hidden = true; return; }
+  if (u.t === track && voice.duration) voice.currentTime = at; else load(u.t, at, playing);
+  mark(playing ? u : null);
+}
+function follow(){ raf = requestAnimationFrame(follow); sync(); }
+voice.addEventListener('timeupdate', () => sync());
+function sync(){
+  if (voice.paused || !voice.duration) return;
+  const now = voice.currentTime + .12;
+  let u = null;
+  for (const x of units) if (x.t === track && x.start <= now) u = x;
+  if (!u) return;
+  mark(u);
+  const p = pageOf(u.el);
+  if (p !== page && !busy){
+    if (Math.abs(p - page) === 1) turn(p - page, true); else { page = p; show(); }
+  }
+}
+function stopUi(){ listen.setAttribute('aria-pressed', 'false'); listen.setAttribute('aria-label', 'Listen to this chapter'); mark(null); cancelAnimationFrame(raf); }
+voice.addEventListener('ended', () => {
+  if (track < TRACKS.length - 1) load(track + 1, 0, true); else { stopUi(); track = -1; }
+});
+voice.addEventListener('error', stopUi);
+listen.addEventListener('click', e => {
+  e.stopPropagation();
+  if (!voice.paused){ voice.pause(); stopUi(); return; }
+  listen.setAttribute('aria-pressed', 'true'); listen.setAttribute('aria-label', 'Pause');
+  cancelAnimationFrame(raf); follow();
+  const u = firstOnPage(), at = Math.max(0, u.start - .15);
+  if (u.t === track && voice.duration){ voice.currentTime = at; voice.play(); } else load(u.t, at, true);
+});
+
+// ---- the biscuit test: one question at a chapter's end; the pages after it stay shut until it's answered ----
+const tests = [...flow.querySelectorAll('.test')];
+let passed = {};
+try { passed = JSON.parse(localStorage.getItem(P + '.tests') || '{}'); } catch (e) {}
+// Optional daily writing check (off unless book.json has "writing"): a word goal before the next chapter opens.
+const W = BOOK.writing || null;
+const GOAL = W ? W.goal : 0;
+const today = () => new Date().toLocaleDateString('en-CA');
+let words = {}, wrote = {};
+try { words = JSON.parse(localStorage.getItem(P + '.words') || '{}'); wrote = JSON.parse(localStorage.getItem(P + '.wrote') || '{}'); } catch (e) {}
+try { // chapters she had already unlocked before this was added stay unlocked
+  if (!localStorage.getItem(P + '.wordsOn')){ Object.keys(passed).forEach(k => wrote[k] = true); localStorage.setItem(P + '.wordsOn', '1'); }
+} catch (e) {}
+const saveWords = () => { try { localStorage.setItem(P + '.words', JSON.stringify(words)); localStorage.setItem(P + '.wrote', JSON.stringify(wrote)); } catch (e) {} };
+function streak(){
+  let n = 0; const d = new Date();
+  if ((words[today()] || 0) < GOAL) d.setDate(d.getDate() - 1);
+  while ((words[d.toLocaleDateString('en-CA')] || 0) >= GOAL){ n++; d.setDate(d.getDate() - 1); }
+  return n;
+}
+const pick = (list, n) => list[Math.abs(n) % list.length];
+const fill = (s, n, r) => s.replace(/\{n\}/g, n).replace(/\{r\}/g, r);
+const cheers = (W ? W.cheers : []).map(s => n => fill(s, n));
+const nudges = (W ? W.nudges : []).map(s => (n, r) => fill(s, n, r));
+const gates = {};
+tests.forEach(t => {
+  const id = t.dataset.test;
+  if (!W || (passed[id] && wrote[id])) return;
+  const g = document.createElement('section');
+  g.className = 'wgate'; g.dataset.for = id;
+  g.innerHTML = `
+    <p class="who-to">${W.intro}</p>
+    <p class="ask">${W.ask}</p>
+    <p class="sub">${W.sub}</p>
+    <form class="wform"><input type="number" inputmode="numeric" min="0" max="50000" id="words-${id}" aria-label="Words written today" placeholder="0"><button type="submit">${W.button}</button></form>
+    <p class="say" aria-live="polite"></p>
+    <div class="wbar"><i></i></div><div class="wlabel"><span class="wn">0 today</span><span>${GOAL}</span></div>
+    <div class="won" hidden><p class="streak"></p></div>`;
+  t.after(g); gates[id] = g;
+  g.querySelector('form').addEventListener('submit', e => {
+    e.preventDefault(); e.stopPropagation();
+    const n = Math.max(0, Math.min(50000, parseInt(g.querySelector('input').value, 10) || 0));
+    words[today()] = n;
+    if (n >= GOAL) wrote[id] = true;
+    saveWords();
+    g.querySelector('.say').textContent = n >= GOAL ? pick(cheers, n)(n) : n === 0
+      ? W.zero
+      : pick(nudges, n)(n, GOAL - n);
+    drawGate(id, true);
+  });
+});
+function drawGate(id, spoken){
+  const g = gates[id]; if (!g) return;
+  const n = words[today()] || 0;
+  if (passed[id] && !wrote[id] && n >= GOAL){ wrote[id] = true; saveWords(); }
+  g.querySelector('.wbar i').style.setProperty('--w', Math.min(100, n / GOAL * 100) + '%');
+  g.querySelector('.wbar').classList.toggle('full', n >= GOAL);
+  g.querySelector('.wn').textContent = `${n} today`;
+  const done = !!wrote[id];
+  g.querySelector('.won').hidden = !done;
+  if (done){
+    const s = streak();
+    g.querySelector('.streak').textContent = (s > 1 ? `${s} days in a row. ` : '') + 'Turn the page.';
+    if (!spoken && !g.querySelector('.say').textContent) g.querySelector('.say').textContent = fill(W.already, n);
+    g.querySelector('form').hidden = true;
+  }
+}
+function maxPage(){
+  for (const t of tests){
+    const id = t.dataset.test;
+    if (!passed[id]) return pageOf(t);
+    if (gates[id] && !wrote[id]) return pageOf(gates[id]);
+  }
+  return pages - 1;
+}
+tests.forEach(t => {
+  const say = t.querySelector('.say'), won = t.querySelector('.won'), opts = [...t.querySelectorAll('.opts button')];
+  const right = opts.find(b => b.dataset.opt === t.dataset.answer); right.dataset.right = '';
+  let wrong = 0;
+  const finish = () => {
+    say.textContent = right.dataset.say; won.hidden = false; t.classList.remove('hint');
+    opts.forEach(b => { b.disabled = true; b.classList.add(b === right ? 'yes' : 'no'); });
+  };
+  if (passed[t.dataset.test]) finish();
+  opts.forEach(b => b.addEventListener('click', e => {
+    e.stopPropagation();
+    say.textContent = b.dataset.say;
+    if (b === right){
+      passed[t.dataset.test] = true;
+      try { localStorage.setItem(P + '.tests', JSON.stringify(passed)); } catch (e) {}
+      finish(); drawGate(t.dataset.test);
+    } else {
+      b.classList.add('no'); b.disabled = true;
+      if (++wrong >= 2) t.classList.add('hint');
+    }
+  }));
+});
+
+Object.keys(gates).forEach(id => drawGate(id));
+
+// ---- guess first (tasters): pick an answer before reading the scene, find out after ----
+const guesses = {};
+flow.querySelectorAll('.guess').forEach(g => {
+  const opts = [...g.querySelectorAll('.opts button')], say = g.querySelector('.say');
+  opts.forEach(b => b.addEventListener('click', e => {
+    e.stopPropagation();
+    opts.forEach(o => { o.disabled = true; o.classList.add(o === b ? 'picked' : 'other'); });
+    guesses[g.dataset.for] = b;
+    say.textContent = g.dataset.reply;
+  }));
+});
+tests.forEach(t => t.querySelectorAll('.opts button').forEach(b => b.addEventListener('click', () => {
+  const g = guesses[t.dataset.test];
+  if (!g || b.dataset.opt !== t.dataset.answer || t.querySelector('.guessed')) return;
+  const p = document.createElement('p'); p.className = 'guessed';
+  p.textContent = g.dataset.opt === t.dataset.answer
+    ? 'You guessed that before you read it. Good instincts.'
+    : `Before the scene, you guessed “${g.textContent.trim()}”. Now you know.`;
+  t.querySelector('.won').before(p);
+})));
+
+// ---- chapters menu ----
+const toc = document.getElementById('toc'), menu = document.getElementById('menu');
+const chapters = [...(flow.querySelector('.brief') ? [{no: 'Before you start', title: 'How this book was made', el: flow.querySelector('.brief')}] : []),
+  {no: BOOK.firstChapter.no, title: BOOK.firstChapter.title, el: flow.querySelector('.cold')},
+  ...[...flow.querySelectorAll('.chap')].map(c => ({no: c.querySelector('.chapno').textContent, title: c.querySelector('h2').textContent, el: c}))];
+function closeMenu(){ menu.hidden = true; toc.setAttribute('aria-expanded', 'false'); }
+function openMenu(){
+  const here = chapters.filter(c => pageOf(c.el) <= page).pop();
+  menu.innerHTML = '';
+  if (hasLessons){
+    const t = document.createElement('button');
+    t.className = 'teach-toggle'; t.setAttribute('aria-pressed', String(teach));
+    t.innerHTML = '<span>Show the teaching</span><span class="state"></span>';
+    t.addEventListener('click', e => { e.stopPropagation(); setTeach(!teach, true); });
+    menu.append(t); paintTeach();
+  }
+  chapters.forEach(c => {
+    const b = document.createElement('button');
+    b.innerHTML = `<small>${c.no}</small><b>${c.title}</b>`;
+    if (c === here) b.setAttribute('aria-current', 'true');
+    if (pageOf(c.el) > maxPage()){ b.disabled = true; b.querySelector('small').textContent += BOOK.lockLabel; }
+    b.addEventListener('click', e => {
+      e.stopPropagation(); closeMenu(); closeCard();
+      page = pageOf(c.el); show(); seekToPage();
+    });
+    menu.append(b);
+  });
+  if (BOOK.epub) {
+    const a = document.createElement('a');
+    a.className = 'dl'; a.href = encodeURI(BOOK.epub); a.setAttribute('download', '');
+    a.innerHTML = '<small>For Apple Books, Kindle, Kobo or Google Play Books</small><b>Download the ebook</b>';
+    a.addEventListener('click', e => e.stopPropagation());
+    menu.append(a);
+  }
+  menu.hidden = false; toc.setAttribute('aria-expanded', 'true');
+  const cur = menu.querySelector('[aria-current=true]');
+  menu.scrollTop = cur ? cur.offsetTop - (menu.clientHeight - cur.offsetHeight) / 2 : 0;
+}
+toc.addEventListener('click', e => { e.stopPropagation(); closeCard(); menu.hidden ? openMenu() : closeMenu(); });
+document.addEventListener('click', closeMenu);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+
+// ---- show the teaching ----
+const hasLessons = !!flow.querySelector('.lesson');
+let teach = !!BOOK.teachDefault;
+try { const s = localStorage.getItem(P + '.teach'); if (s !== null) teach = s === '1'; } catch (e) {}
+function paintTeach(){
+  document.querySelectorAll('.teach-toggle').forEach(b => {
+    b.setAttribute('aria-pressed', String(teach));
+    b.querySelector('.state').textContent = teach ? 'On' : 'Off';
+  });
+}
+function setTeach(on, save){
+  teach = on && hasLessons;
+  document.body.classList.toggle('teach', teach);
+  paintTeach();
+  if (save) try { localStorage.setItem(P + '.teach', teach ? '1' : '0'); } catch (e) {}
+  if (step) layout();
+}
+document.querySelectorAll('.flow .teach-toggle').forEach(b => {
+  if (!hasLessons){ b.remove(); return; }
+  b.addEventListener('click', e => { e.stopPropagation(); setTeach(!teach, true); });
+});
+setTeach(teach, false);
+
+// ---- start up: come back to the paragraph she was on ----
+let booted = false;
+addEventListener('resize', layout);
+layout();
+try {
+  const i = parseInt(localStorage.getItem(P + '.ch1.at'), 10);
+  if (i > 0 && units[i]){ page = Math.min(pageOf(units[i].el), maxPage()); show(); }
+} catch (e) {}
+booted = true;
+document.fonts && document.fonts.ready.then(layout);
+</script>
+<script>
+// Installable app: save pages, pictures and played audio on the phone so the book opens offline.
+if ('serviceWorker' in navigator && location.protocol !== 'file:') navigator.serviceWorker.register('sw.js').catch(() => {});
+</script>
+</body>
+</html>

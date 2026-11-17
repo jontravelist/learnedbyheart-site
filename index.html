@@ -1,0 +1,665 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Learned by Heart</title>
+<link rel="icon" type="image/svg+xml" href="img/logo/icon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="img/logo/favicon-32.png">
+<link rel="apple-touch-icon" href="img/logo/apple-touch-icon.png">
+<meta name="description" content="A novel written just for you, in the style you love, with the thing you've always wanted to learn hidden inside. You learn without noticing.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Fraunces:opsz,wght,SOFT@9..144,400..650,100&family=Literata:ital,opsz,wght@0,7..72,400;1,7..72,400&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* A scrapbook made by someone who loves books: biro ink on soft paper,
+   paintings taped in, sticky notes, notes in the margin. */
+:root{
+  --paper:#F8F2F4;      /* soft paper, a breath of pink */
+  --page:#FFFDF8;       /* a book page */
+  --kraft:#E3C9A3;      /* the brown paper the club sketch is drawn on */
+  --ink:#33287A;        /* blue-violet biro */
+  --soft:#6A6296;
+  --line:#E6DBE4;
+  --highlight:#FFE45C;  /* highlighter pen */
+  --pink:#F7A8C4;
+  --mint:#A9DEC9;
+  --butter:#FBE38A;
+  --berry:#B5384E;      /* holly berry, for Christmas only */
+  --sky:#B9D6F2;
+  --peach:#F9C5A0;
+  --display:"Fraunces",Georgia,serif;
+  --body:"Nunito",system-ui,sans-serif;
+  --book:"Literata",Georgia,serif;
+  --hand:"Caveat","Comic Sans MS",cursive;
+  --wobble:255px 18px 225px 18px/18px 225px 18px 255px;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:1.0625rem;line-height:1.65;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+img{max-width:100%;height:auto;display:block}
+a{color:inherit}
+h1,h2,h3{font-family:var(--display);font-variation-settings:"SOFT" 100;font-weight:500;line-height:1.08;margin:0;text-wrap:balance}
+h2{font-size:clamp(1.9rem,5vw,2.8rem);margin-bottom:1rem}
+p{margin:0 0 1em}
+.wrap{max-width:64rem;margin:0 auto}
+.col{max-width:38rem}
+section{padding-block:clamp(3rem,8vw,5.5rem)}
+.hand{font-family:var(--hand);font-size:1.45rem;line-height:1.15;color:var(--soft)}
+.small{font-size:.92rem;color:var(--soft)}
+.mark{background:linear-gradient(transparent 55%,var(--highlight) 55% 90%,transparent 90%);padding:0 .1em}
+
+/* a hand-drawn squiggle between sections */
+.squiggle{height:18px;max-width:10rem;margin:0 auto;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 18'%3E%3Cpath d='M2 10 C 14 2, 22 2, 30 9 S 46 17, 56 9 S 74 1, 84 9 S 102 17, 112 9 S 130 1, 140 9 S 152 15, 158 8' fill='none' stroke='%2333287A' stroke-width='2.2' stroke-linecap='round' opacity='.55'/%3E%3C/svg%3E") center/contain no-repeat}
+
+/* buttons: drawn, not machined */
+.btn{display:inline-block;font-family:var(--body);font-weight:700;font-size:1.05rem;text-decoration:none;background:var(--ink);color:#fff;
+  padding:.9rem 1.5rem;border-radius:var(--wobble);border:0;cursor:pointer;transition:transform .15s}
+.btn:hover{transform:rotate(-1.2deg) scale(1.03)}
+.btn.ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 2px var(--ink)}
+a:focus-visible,.btn:focus-visible,summary:focus-visible{outline:3px dashed var(--ink);outline-offset:4px}
+.ctas{display:flex;flex-wrap:wrap;gap:.9rem;align-items:center}
+
+/* paintings, taped in */
+.taped{position:relative;background:#fff;padding:.6rem .6rem 0;box-shadow:0 10px 28px rgba(51,40,122,.18);border-radius:2px}
+.taped::before{content:"";position:absolute;top:-14px;left:50%;width:7.5rem;height:1.9rem;transform:translateX(-50%) rotate(-3deg);
+  background:color-mix(in srgb,var(--pink) 70%,transparent);border-radius:2px}
+.taped figcaption{font-family:var(--hand);font-size:1.3rem;line-height:1.2;color:var(--soft);padding:.5rem .3rem .7rem}
+.tilt-l{transform:rotate(-1.6deg)}
+.tilt-r{transform:rotate(1.4deg)}
+
+/* hero */
+.hero{padding-block:1.6rem clamp(3rem,8vw,5rem)}
+.top{display:flex;justify-content:space-between;align-items:center;gap:1rem;margin-bottom:clamp(2rem,6vw,3.5rem)}
+.brand{font-family:var(--display);font-weight:600;font-size:1.45rem;letter-spacing:-.01em;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:.4rem}
+.brand svg{width:1.9rem;height:1.9rem;flex:none}
+.top a.small{text-decoration:none}
+.hero-grid{display:grid;gap:clamp(2.5rem,6vw,4rem);align-items:center}
+.hero-grid>*,.arrives>*,.free>*,.prices>*,.cards>*{min-width:0}
+@media (min-width:56rem){.hero-grid{grid-template-columns:.9fr 1.1fr}}
+.hero h1{font-size:clamp(2.3rem,5.4vw,3.35rem);letter-spacing:-.015em;margin-bottom:1.3rem}
+.hero .lead{font-size:1.2rem;max-width:33rem;margin-bottom:1.8rem}
+.hero .note{margin-top:1.2rem}
+
+/* sticky notes */
+.notes{display:grid;grid-template-columns:repeat(auto-fill,minmax(10.5rem,1fr));gap:1.1rem;margin:2.2rem 0 2.4rem;padding:0;list-style:none}
+.notes li{font-family:var(--hand);font-size:1.5rem;line-height:1.1;padding:1.1rem 1rem 1.5rem;min-height:7.2rem;background:var(--c);
+  box-shadow:0 6px 14px rgba(51,40,122,.12);border-radius:2px 2px 14px 2px;transform:rotate(var(--r))}
+.notes li:nth-child(4n+1){--c:var(--butter);--r:-2deg}
+.notes li:nth-child(4n+2){--c:var(--pink);--r:1.5deg}
+.notes li:nth-child(4n+3){--c:var(--mint);--r:-1deg}
+.notes li:nth-child(4n+4){--c:var(--sky);--r:2deg}
+.tried{font-size:1.15rem}
+
+/* the annotated page: the one place to linger */
+.page{background:var(--page);border-radius:4px;box-shadow:0 1px 0 var(--line),0 18px 40px rgba(51,40,122,.12);
+  padding:clamp(1.4rem,5vw,3rem);margin-top:2rem;position:relative}
+.page .from{font-family:var(--hand);font-size:1.35rem;color:var(--soft);margin-bottom:1.2rem}
+.para{display:grid;gap:.4rem 2rem;margin-bottom:1rem}
+@media (min-width:52rem){.para{grid-template-columns:minmax(0,1fr) 15rem}}
+.para p{font-family:var(--book);font-size:1.08rem;line-height:1.7;margin:0}
+.margin{font-family:var(--hand);font-size:1.45rem;line-height:1.1;color:#C2325F;align-self:center;position:relative}
+@media (min-width:52rem){.margin{padding-left:1.8rem}
+  .margin::before{content:"";position:absolute;left:0;top:.45rem;width:1.4rem;height:.8rem;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 16'%3E%3Cpath d='M26 8 C 18 9, 10 7, 3 8 M 8 2 L 2 8 L 8 14' fill='none' stroke='%23C2325F' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat}}
+@media (max-width:51.99rem){.margin{transform:rotate(-1deg);padding:.2rem 0 .6rem}}
+.page .after{margin-top:1.6rem;padding-top:1.2rem;border-top:2px dashed var(--line)}
+
+/* one lesson, three books */
+.styles{margin-top:2rem}
+.style-tabs{display:flex;flex-wrap:wrap;gap:.5rem}
+.style-tabs button{font:inherit;font-size:.95rem;font-weight:700;color:var(--ink);background:var(--page);border:2px solid var(--ink);
+  border-radius:var(--wobble);padding:.5rem .9rem;cursor:pointer}
+.style-tabs button[aria-selected=true]{background:var(--ink);color:var(--page)}
+.style-tabs button:focus-visible{outline:3px solid var(--highlight);outline-offset:2px}
+.style-page{margin-top:1rem}
+.style-page p{font-family:var(--book);font-size:1.08rem;line-height:1.7;margin:0 0 .8rem;max-width:40rem}
+.style-page .from{font-family:var(--hand);font-size:1.35rem;color:var(--soft);margin-bottom:1rem}
+.same{margin:1.4rem 0 0;max-width:40rem}
+.same .hand{font-family:var(--hand);font-size:1.4rem;color:#C2325F;margin-right:.3rem}
+
+/* example index cards */
+.cards{display:grid;gap:4.2rem 1.5rem;margin-top:4.6rem}
+@media (min-width:44rem){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:64rem){.cards{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.card{background:var(--page);border-radius:3px;padding:1.3rem 1.3rem 1.4rem;box-shadow:0 8px 22px rgba(51,40,122,.1);
+  position:relative}
+.card:nth-child(odd){transform:rotate(-.6deg)}
+.card:nth-child(even){transform:rotate(.5deg)}
+.card h3{margin:-3.4rem auto 1.2rem;width:8.5rem;position:relative}
+.cover{position:relative;display:block;aspect-ratio:2/3;border-radius:2px 5px 5px 2px;overflow:hidden;
+  box-shadow:inset 6px 0 6px -4px rgba(0,0,0,.35),0 10px 20px rgba(51,40,122,.28);transform:rotate(-2deg)}
+.card:nth-child(even) .cover{transform:rotate(2deg)}
+.cover img{width:100%;height:100%;object-fit:cover}
+.cover::before{content:"";position:absolute;inset:0 auto 0 0;width:7px;background:linear-gradient(90deg,rgba(0,0,0,.28),rgba(255,255,255,.12));z-index:1}
+.cover span{position:absolute;inset:auto 0 0;padding:1.6rem .55rem .6rem .8rem;font-family:var(--display);font-variation-settings:"SOFT" 100;font-weight:600;
+  font-size:1.02rem;line-height:1.1;color:#fff;text-shadow:0 1px 6px rgba(0,0,0,.55);background:linear-gradient(transparent,rgba(20,14,50,.72))}
+.cover span small{display:block;font-family:var(--hand);font-weight:500;font-size:1rem;margin-top:.2rem;opacity:.9}
+.card dl{margin:0;display:grid;gap:.55rem}
+.card dt{font-family:var(--hand);font-size:1.25rem;line-height:1;color:var(--soft)}
+.card dd{margin:0 0 .3rem;font-size:.98rem;line-height:1.5}
+.card dd.story{font-family:var(--book);font-size:1rem}
+.stamp{position:relative;z-index:2;order:2;align-self:center;font-family:var(--hand);font-weight:700;font-size:1.2rem;line-height:1.3;padding:.05rem .8rem;background:var(--mint);border-radius:var(--wobble);transform:rotate(-2deg);margin:-1.1rem 0 1rem}
+.card{display:flex;flex-direction:column}
+.card h3{order:1}
+.card dl{order:3}
+.card.real{background-color:#fff}
+
+/* what arrives */
+.arrives{display:grid;gap:clamp(2rem,5vw,3.5rem);align-items:center}
+@media (min-width:56rem){.arrives{grid-template-columns:.9fr 1.1fr}}
+.things{list-style:none;padding:0;margin:0;display:grid;gap:1.1rem}
+.things li{display:grid;grid-template-columns:2.6rem 1fr;gap:.9rem;align-items:start}
+.things svg{width:2.6rem;height:2.6rem}
+.things b{font-family:var(--display);font-variation-settings:"SOFT" 100;font-weight:600;font-size:1.12rem;display:block;line-height:1.25;margin-bottom:.15rem}
+
+/* free chapter */
+.free{background:var(--kraft);border-radius:var(--wobble);padding:clamp(1.6rem,5vw,3rem);display:grid;gap:1.8rem;align-items:center}
+@media (min-width:52rem){.free{grid-template-columns:1.2fr .8fr}}
+.free .first{font-family:var(--book);font-size:clamp(1.4rem,3.6vw,1.9rem);line-height:1.3;margin-bottom:.9rem}
+.free .book{font-family:var(--book);font-size:1.05rem}
+
+/* steps: a real sequence */
+.steps{list-style:none;padding:0;margin:2rem 0 0;display:grid;gap:1.6rem;counter-reset:s}
+@media (min-width:56rem){.steps{grid-template-columns:repeat(3,1fr);gap:2rem}}
+.steps li{counter-increment:s}
+.steps li::before{content:counter(s);display:grid;place-items:center;width:2.6rem;height:2.6rem;margin-bottom:.8rem;font-family:var(--hand);font-weight:700;font-size:1.7rem;
+  border:2px solid var(--ink);border-radius:var(--wobble)}
+.steps h3{font-size:1.25rem;margin-bottom:.4rem}
+.steps p{margin:0}
+
+/* prices */
+.prices{display:grid;gap:1.8rem;margin-top:2rem}
+@media (min-width:52rem){.prices{grid-template-columns:1fr 1fr}}
+.price{background:var(--page);border-radius:6px;padding:clamp(1.4rem,4vw,2.2rem);box-shadow:0 10px 26px rgba(51,40,122,.1);display:flex;flex-direction:column}
+.price.member{background:#fff;box-shadow:0 0 0 2px var(--ink),0 10px 26px rgba(51,40,122,.1)}
+.price h3{font-size:1.6rem;margin-bottom:.3rem}
+.amount{font-family:var(--display);font-variation-settings:"SOFT" 100;font-size:3rem;line-height:1;margin:.6rem 0 1rem}
+.amount small{font-family:var(--body);font-size:1rem;color:var(--soft)}
+.price ul{padding-left:1.2rem;margin:0 0 1.4rem}
+.price li{margin-bottom:.45rem}
+.price .btn{align-self:flex-start;margin-top:auto}
+.price .small{margin:.9rem 0 0}
+.tag{display:inline-block;align-self:flex-start;font-family:var(--hand);font-weight:700;font-size:1.2rem;background:var(--butter);padding:.05rem .7rem;border-radius:var(--wobble);margin-bottom:.6rem}
+
+/* questions */
+details{border-bottom:2px dashed var(--line);padding:1rem 0}
+summary{cursor:pointer;font-family:var(--display);font-variation-settings:"SOFT" 100;font-size:1.15rem;font-weight:500}
+details p{margin:.6rem 0 0}
+
+/* Christmas banner across the top */
+.xbar{background:var(--berry);color:#fff;margin-left:calc(-1 * max(16px,env(safe-area-inset-left,0px)));margin-right:calc(-1 * max(16px,env(safe-area-inset-right,0px)));
+  padding:.7rem max(16px,env(safe-area-inset-right,0px)) .7rem max(16px,env(safe-area-inset-left,0px))}
+.xbar-in{max-width:64rem;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:.4rem 1.4rem;text-align:center}
+.xbar svg{width:1.6rem;height:auto;flex:none}
+.xbar p{margin:0;font-size:.98rem;line-height:1.4}
+.xbar b{font-family:var(--display);font-variation-settings:"SOFT" 100;font-weight:600;font-size:1.08rem}
+.xbar .clock{font-variant-numeric:tabular-nums;white-space:nowrap;display:flex;align-items:center;gap:.3rem}
+.mini{display:inline-flex;align-items:baseline;gap:1px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);border-radius:5px;padding:.12rem .4rem;min-width:2.6rem;justify-content:center}
+.mini span{font-family:var(--display);font-variation-settings:"SOFT" 100;font-weight:600;font-size:1.05rem}
+.mini small{font-size:.75rem;opacity:.85}
+.xbar a{color:var(--berry);background:#fff;text-decoration:none;font-weight:700;font-size:.95rem;padding:.4rem 1rem;border-radius:var(--wobble);white-space:nowrap}
+.xbar a:hover{background:var(--butter)}
+.xbar a:focus-visible{outline:3px dashed #fff;outline-offset:3px}
+.xbar.closed .open-only{display:none}
+.xbar .closed-only{display:none}
+.xbar.closed .closed-only{display:block}
+/* Christmas: a gift tag on the page, with tear-off calendar tiles */
+.xmas{padding-block:clamp(1.5rem,5vw,3rem)}
+.xmas-card{position:relative;background:var(--page);border-radius:6px;padding:clamp(1.6rem,5vw,3.2rem);
+  box-shadow:0 1px 0 var(--line),0 22px 50px rgba(51,40,122,.14);display:grid;gap:clamp(1.6rem,4vw,2.6rem);align-items:center;overflow:hidden}
+@media (min-width:56rem){.xmas-card{grid-template-columns:1.15fr .85fr}}
+.xmas-card>*{min-width:0}
+.xmas-card::before{content:"";position:absolute;inset:10px;border:1.5px dashed color-mix(in srgb,var(--berry) 45%,transparent);border-radius:4px;pointer-events:none}
+.xmas .holly{width:4.2rem;height:auto;margin-bottom:.4rem}
+.xmas h2{font-size:clamp(2.1rem,5.4vw,3.2rem);margin-bottom:.8rem}
+.xmas .lead{font-size:1.15rem;max-width:32rem}
+.xmas .hand{color:var(--berry)}
+.count{display:flex;align-items:flex-start;justify-content:flex-start;gap:.35rem;margin:0 0 1.2rem}
+@media (min-width:56rem){.count{justify-content:center}}
+.unit{display:flex;flex-direction:column;align-items:center;gap:.4rem}
+.digits{display:flex;gap:3px}
+.fcard{position:relative;width:2.3rem;height:3.2rem;border-radius:6px;background:linear-gradient(#fff 0 50%,#F6F1F3 50% 100%);
+  box-shadow:0 1px 0 rgba(51,40,122,.08),0 6px 14px rgba(51,40,122,.14);overflow:hidden;display:grid;place-items:center}
+.fcard::after{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:rgba(51,40,122,.14)}
+.fcard i{font-style:normal;font-family:var(--display);font-variation-settings:"SOFT" 100;font-weight:600;font-size:2.1rem;line-height:1;color:var(--ink);font-variant-numeric:tabular-nums}
+.fcard i.flip{animation:flip .45s cubic-bezier(.2,.8,.2,1)}
+@keyframes flip{from{transform:translateY(-55%);opacity:0}to{transform:none;opacity:1}}
+.unit small{font-family:var(--hand);font-size:1.1rem;color:var(--soft);line-height:1}
+.sep{font-family:var(--display);font-size:1.8rem;color:var(--berry);line-height:3.2rem;padding:0 .1rem}
+@media (max-width:30rem){.fcard{width:1.85rem;height:2.7rem}.fcard i{font-size:1.75rem}.sep{line-height:2.7rem;font-size:1.4rem}}
+@media (prefers-reduced-motion:reduce){.fcard i.flip{animation:none}}
+/* ten books on a shelf: the taken ones fade */
+.shelf{display:flex;align-items:flex-end;justify-content:flex-start;gap:3px;margin:0 0 .5rem;padding:0 0 4px;border-bottom:4px solid #C9A27A;width:max-content;max-width:100%}
+@media (min-width:56rem){.shelf{margin-left:auto;margin-right:auto}}
+.spine{width:15px;border-radius:2px 2px 1px 1px;background:var(--c);box-shadow:inset -3px 0 0 rgba(0,0,0,.12);position:relative}
+.spine::before{content:"";position:absolute;left:3px;right:3px;top:22%;height:2px;background:rgba(255,255,255,.65)}
+.spine.taken{opacity:.22;filter:grayscale(1)}
+.shelf-note{font-size:.95rem;margin:0 0 1.2rem;text-align:left}
+@media (min-width:56rem){.shelf-note{text-align:center}}
+.count-note{text-align:left;margin:0 0 1rem}
+@media (min-width:56rem){.count-note{text-align:center}}
+.xmas .btn{background:var(--berry)}
+@media (min-width:56rem){.xmas-cta{text-align:center}}
+.xmas-closed .count,.xmas-closed .xmas-open{display:none}
+.xmas-closed-msg{display:none}
+.xmas-closed .xmas-closed-msg{display:block}
+footer{padding-block:2.5rem 3rem;font-size:.92rem;color:var(--soft)}
+footer nav{display:flex;flex-wrap:wrap;gap:.4rem 1.4rem;margin-bottom:.6rem}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn{transition:none}}
+</style>
+</head>
+<body>
+
+<aside class="xbar" id="xbar" aria-label="Christmas offer">
+  <div class="xbar-in">
+    <svg viewBox="0 0 84 48" aria-hidden="true"><path d="M40 30 C 30 14, 14 18, 6 10 C 10 22, 2 26, 8 34 C 18 30, 26 38, 40 30 Z" fill="#9FD3B5" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/><path d="M44 30 C 54 14, 70 18, 78 10 C 74 22, 82 26, 76 34 C 66 30, 58 38, 44 30 Z" fill="#9FD3B5" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/><circle cx="38" cy="34" r="5.5" fill="#FFE45C" stroke="#fff" stroke-width="1.5"/><circle cx="47" cy="35" r="5.5" fill="#FFE45C" stroke="#fff" stroke-width="1.5"/><circle cx="42.5" cy="42" r="5.5" fill="#FFE45C" stroke="#fff" stroke-width="1.5"/></svg>
+    <p class="open-only"><b>Only <span data-left>10</span> Christmas <span data-plural>books</span> left.</b> A novel written for someone you love, from $12.99, under the tree by the 23rd.</p>
+    <p class="open-only clock" aria-label="Time left to order">Orders close in
+      <span class="mini"><span data-unit="d">--</span><small>d</small></span>
+      <span class="mini"><span data-unit="h">--</span><small>h</small></span>
+      <span class="mini"><span data-unit="m">--</span><small>m</small></span>
+      <span class="mini"><span data-unit="s">--</span><small>s</small></span></p>
+    <a class="open-only" href="#" data-link="form">Order now</a>
+    <p class="closed-only"><b>Christmas orders have closed.</b> Thank you. We open again in January.</p>
+  </div>
+</aside>
+
+<header class="hero wrap">
+  <div class="top">
+    <a class="brand" href="#">
+      <svg viewBox="0 0 100 100" aria-hidden="true"><path d="M50 86C31 73 9 58 9 36C9 20 24 12 37 18C44 21 48 26 50 32C52 26 56 21 63 18C76 12 91 20 91 36C91 58 69 73 50 86Z" fill="#F7A8C4" stroke="#33287A" stroke-width="4" stroke-linejoin="round"/><g fill="none" stroke="#33287A" stroke-linecap="round"><path d="M50 32V86" stroke-width="3.2"/><g stroke-width="3"><path d="M50 44C42 33 27 29 18 38"/><path d="M50 56C42 45 29 42 21 50"/><path d="M50 44C58 33 73 29 82 38"/><path d="M50 56C58 45 71 42 79 50"/></g></g></svg>
+      Learned by Heart
+    </a>
+    <a class="small" href="#prices">Prices</a>
+  </div>
+  <div class="hero-grid">
+    <div>
+      <h1>A story written just for you, with the thing you've always wanted to learn hidden inside.</h1>
+      <p class="lead">Tell us the books you love and the thing you keep meaning to get your head around. We write you an illustrated novel in that style, with an audiobook if you'd like one.</p>
+      <div class="ctas">
+        <a class="btn" href="#prices">Get your story, $12.99</a>
+        <a class="btn ghost" href="what-she-left-behind/" data-link="sample">Try a free taster</a>
+      </div>
+      <p class="hand note">For you, or for someone you love.</p>
+    </div>
+    <figure class="taped tilt-r" style="margin:0">
+      <img src="img/bookshelf.jpg" width="1280" height="720" alt="A painted bookshelf crammed with colourful novels, with titles like The Pension Heist, Mitochondria, My Love, The Witness Was a Tablet, Six Queens' Worth of Thread and Plankton, and an orange cat asleep on the middle shelf.">
+      <figcaption>Every one teaches something. Which would be yours?</figcaption>
+    </figure>
+  </div>
+</header>
+
+<section class="xmas wrap" id="christmas" aria-labelledby="xmas-h">
+  <div class="xmas-card">
+    <div>
+      <svg class="holly" viewBox="0 0 84 48" aria-hidden="true"><path d="M40 30 C 30 14, 14 18, 6 10 C 10 22, 2 26, 8 34 C 18 30, 26 38, 40 30 Z" fill="#7FB59A" stroke="#33287A" stroke-width="1.6" stroke-linejoin="round"/><path d="M44 30 C 54 14, 70 18, 78 10 C 74 22, 82 26, 76 34 C 66 30, 58 38, 44 30 Z" fill="#7FB59A" stroke="#33287A" stroke-width="1.6" stroke-linejoin="round"/><circle cx="38" cy="34" r="5.5" fill="#B5384E" stroke="#33287A" stroke-width="1.5"/><circle cx="47" cy="35" r="5.5" fill="#B5384E" stroke="#33287A" stroke-width="1.5"/><circle cx="42.5" cy="42" r="5.5" fill="#B5384E" stroke="#33287A" stroke-width="1.5"/></svg>
+      <h2 id="xmas-h">A story under the tree</h2>
+      <p class="lead">A novel written for one person you love, in the style of their favourite authors, teaching the thing they've always meant to learn. It comes with a dedication from you and a gift card to print and wrap.</p>
+      <p class="hand xmas-open">Only ten Christmas books this year, each one written slowly and with care.</p>
+      <p class="xmas-closed-msg">Christmas orders have now closed. Thank you to everyone who ordered. We open again in January.</p>
+    </div>
+    <div>
+      <div class="count" role="timer" aria-label="Time left to order for Christmas">
+        <div class="unit"><div class="digits" data-flip="d"></div><small>days</small></div><span class="sep" aria-hidden="true">:</span>
+        <div class="unit"><div class="digits" data-flip="h"></div><small>hours</small></div><span class="sep" aria-hidden="true">:</span>
+        <div class="unit"><div class="digits" data-flip="m"></div><small>mins</small></div><span class="sep" aria-hidden="true">:</span>
+        <div class="unit"><div class="digits" data-flip="s"></div><small>secs</small></div>
+      </div>
+      <p class="count-note xmas-open">until Christmas orders close, on 16 December. Every book arrives by the 23rd, or on Christmas morning if you'd like.</p>
+      <div class="shelf xmas-open" data-shelf aria-hidden="true"></div>
+      <p class="shelf-note xmas-open"><b><span data-left>10</span> of 10</b> Christmas books still to be written.</p>
+      <p class="xmas-open xmas-cta"><a class="btn" href="#" data-link="form">Order a Christmas story, $12.99</a></p>
+    </div>
+  </div>
+</section>
+
+<div class="squiggle" role="presentation"></div>
+
+<section class="wrap" aria-labelledby="meant-h">
+  <div class="col">
+    <h2 id="meant-h">There's something you've been meaning to learn for years</h2>
+    <p class="tried">You've tried. The video you paused at four minutes. The course you paid for and opened twice. The book with the serious cover, still by the bed.</p>
+  </div>
+  <ul class="notes" aria-label="Things people often mean to learn">
+    <li>what's actually in my pension</li>
+    <li>how ChatGPT really works</li>
+    <li>the Tudors, properly</li>
+    <li>why the sea is getting warmer</li>
+    <li>what an ETF even is</li>
+    <li>how to price my own work</li>
+    <li>the Cold War, start to finish</li>
+    <li>what stress does to my body</li>
+  </ul>
+  <p class="col" style="font-size:1.2rem">So we hide it inside a story you can't put down, written the way your favourite authors write.</p>
+</section>
+
+<section class="wrap" aria-labelledby="hidden-h">
+  <div class="col">
+    <h2 id="hidden-h">You never get a lesson. You get a scene.</h2>
+    <p>Every idea arrives because someone in the story needs it. Here's a page from What She Left Behind, where a retired nurse explains her investment club with a tin of sweets.</p>
+  </div>
+  <div class="page">
+    <p class="from">What She Left Behind, chapter ten</p>
+    <div class="para">
+      <p>Now. Say you had to put all your money into one sweet in this tin. Which one would you choose?</p>
+      <span class="margin">picking one company is risky</span>
+    </div>
+    <div class="para">
+      <p>I wouldn't, I say.</p>
+    </div>
+    <div class="para">
+      <p>No, says Bernadette. Neither would I. I nursed for forty-one years, I'm not stupid, but I don't know which firm is going to do best next year. Nobody does. <span class="mark">So I don't pick. I buy the tin.</span></p>
+      <span class="margin">spreading it out: that's diversifying</span>
+    </div>
+    <div class="para">
+      <p>It's a fund, she says. Hundreds of people put their money in together, and the fund buys a little of everything on a list. <span class="mark">The list is called an index.</span></p>
+      <span class="margin">and that's an index fund</span>
+    </div>
+    <div class="para">
+      <p>Nobody's paid to be clever. That's why it's cheap. <span class="mark">The orange costs us about a fifth of one per cent a year to own.</span></p>
+      <span class="margin">low fees matter (chapter eleven shows why)</span>
+    </div>
+    <div class="para">
+      <div><p>So it can't go down, I say.</p>
+      <p style="margin-top:1rem">Everyone in the room says, oh, it can.</p></div>
+      <span class="margin">and nothing is guaranteed</span>
+    </div>
+    <p class="after">At the end of each chapter, a character asks you one question. Get it right and the next chapter opens. It's the only quiz you'll ever look forward to.</p>
+  </div>
+</section>
+
+<section class="wrap" aria-labelledby="three-h">
+  <div class="col">
+    <h2 id="three-h">One lesson, three different books</h2>
+    <p>That was index funds for a reader who loves dark, funny family fiction. Here's the same lesson written for three other readers. Pick the one that sounds like you.</p>
+  </div>
+  <div class="styles">
+    <div class="style-tabs" role="tablist" aria-label="Choose a reader">
+      <button role="tab" id="st-1" aria-controls="sp-1" aria-selected="true">If you love Richard Osman</button>
+      <button role="tab" id="st-2" aria-controls="sp-2" aria-selected="false" tabindex="-1">If you love Sally Rooney</button>
+      <button role="tab" id="st-3" aria-controls="sp-3" aria-selected="false" tabindex="-1">If you love Sarah J. Maas</button>
+    </div>
+    <div class="page style-page" role="tabpanel" id="sp-1" aria-labelledby="st-1">
+      <p class="from">a cosy crime at a bowls club</p>
+      <p>&ldquo;So you don&rsquo;t pick the winners,&rdquo; said Marjorie.</p>
+      <p>&ldquo;Nobody picks anything,&rdquo; said Clive, who had been a bank manager for thirty-one years and still dressed like one. &ldquo;That&rsquo;s the beauty of it. <span class="mark">You buy a sliver of every company on the list.</span> All five hundred. The good, the bad, and the one that makes those dreadful scented candles.&rdquo;</p>
+      <p>&ldquo;Even the candles?&rdquo;</p>
+      <p>&ldquo;Especially the candles. Some will go bust and some will go through the roof. You don&rsquo;t need to know which, because you own both. <span class="mark">And nobody clever is paid to choose, so it costs about the price of a biscuit a year.</span>&rdquo; He paused. &ldquo;A cheap biscuit.&rdquo;</p>
+      <p>Marjorie wrote it down. &ldquo;And it can&rsquo;t go down?&rdquo;</p>
+      <p>Clive looked at her over his glasses. <span class="mark">&ldquo;Marjorie. Everything can go down.&rdquo;</span></p>
+    </div>
+    <div class="page style-page" role="tabpanel" id="sp-2" aria-labelledby="st-2" hidden>
+      <p class="from">a quiet love story in Dublin</p>
+      <p>They were lying on his bed with the window open. Outside, someone was failing to start a car.</p>
+      <p>You don&rsquo;t have to choose, Cian said. That&rsquo;s the whole point. <span class="mark">You just buy a tiny bit of every company on the list. It&rsquo;s called an index fund.</span></p>
+      <p>She turned this over. It seemed too simple, like a trick she would be embarrassed to have missed.</p>
+      <p>So no one is being clever, she said.</p>
+      <p>No. <span class="mark">That&rsquo;s why it&rsquo;s cheap. Clever costs money.</span></p>
+      <p>And if they all go down?</p>
+      <p><span class="mark">Then it goes down,</span> he said. Then you wait.</p>
+      <p>He said it the way he said most things, as if he had already accepted the worst version and wasn&rsquo;t frightened of it. She wanted, suddenly, to be like that about something.</p>
+    </div>
+    <div class="page style-page" role="tabpanel" id="sp-3" aria-labelledby="st-3" hidden>
+      <p class="from">a romantasy with a dragon&rsquo;s hoard</p>
+      <p>The hoard filled the cavern: crowns, swords, a single golden spoon.</p>
+      <p>&ldquo;You could have taken the crown,&rdquo; Kael said, leaning against the rock with his wings folded, infuriating.</p>
+      <p>&ldquo;And if the crown is cursed, I&rsquo;m cursed with it.&rdquo; I opened my hand. <span class="mark">One coin from every kingdom on the map.</span> Copper, silver, gold, the green ones from the drowned realm. &ldquo;If one kingdom falls, I still have the rest. I don&rsquo;t have to guess which king survives the war.&rdquo;</p>
+      <p>&ldquo;Nobody&rsquo;s ever stolen like that.&rdquo;</p>
+      <p>&ldquo;Nobody&rsquo;s ever been this poor. <span class="mark">It costs me nothing to carry.</span>&rdquo; I closed my fingers. <span class="mark">&ldquo;And if the whole world burns, it burns with it.&rdquo;</span></p>
+      <p>His mouth curved. &ldquo;Then we&rsquo;ll make sure it doesn&rsquo;t.&rdquo;</p>
+    </div>
+    <p class="same"><span class="hand">Same lesson every time:</span> an index fund buys a little of every company on a list, nobody is paid to pick, so it&rsquo;s cheap, and it can still fall.</p>
+  </div>
+</section>
+
+<section class="wrap" aria-labelledby="you-h">
+  <div class="col">
+    <h2 id="you-h">Written for one reader: you</h2>
+    <p>This isn't a template with your name dropped in. You tell us what you love reading and what you want to finally understand. We work out what makes those books work for you, then write a new one: the voice, the humour, the darkness, the setting, the people you'll root for. Tell us what to avoid and it never appears.</p>
+    <p>What She Left Behind is the one we've already written. The others are ideas, to show what yours could be.</p>
+  </div>
+  <div class="cards">
+    <article class="card real">
+      <span class="stamp" style="background:var(--mint)">teaches money</span>
+      <h3><span class="cover"><img src="img/cover-her-own.jpg" width="400" height="600" loading="lazy" alt=""><span>What She Left Behind<small>a novel</small></span></span></h3>
+      <dl>
+        <dt>Her favourite authors</dt><dd>Dawn O'Porter, Lily King</dd>
+        <dt>She loves</dt><dd>dark, funny British fiction about messy families, aching love stories, impressionist painting</dd>
+        <dt>She wanted to learn</dt><dd>how investing works, without being bored to tears</dd>
+        <dt>So we wrote</dt><dd class="story">A painter goes home to the seaside after her mother dies, and finds a secret investment club above the launderette. And the man she left at nineteen.</dd>
+      </dl>
+    </article>
+    <article class="card">
+      <span class="stamp" style="background:var(--sky)">teaches AI</span>
+      <h3><span class="cover"><img src="img/cover-witness.jpg" width="400" height="600" loading="lazy" alt=""><span>The Witness Was a Tablet<small>a novel</small></span></span></h3>
+      <dl>
+        <dt>Favourite authors</dt><dd>Richard Osman, Agatha Christie</dd>
+        <dt>Loves</dt><dd>cosy crime, clever pensioners, a pot of tea</dd>
+        <dt>Wants to learn</dt><dd>how AI actually works</dd>
+        <dt>We'd write</dt><dd class="story">A murder at a seaside retirement village. The only witness is the chatbot on the residents' new tablet, and four pensioners have to work out what it saw, what it's guessing, and why it lies so confidently.</dd>
+      </dl>
+    </article>
+    <article class="card">
+      <span class="stamp" style="background:var(--peach)">teaches history</span>
+      <h3><span class="cover"><img src="img/cover-six-queens.jpg" width="400" height="600" loading="lazy" alt=""><span>Six Queens' Worth of Thread<small>a novel</small></span></span></h3>
+      <dl>
+        <dt>Favourite authors</dt><dd>Philippa Gregory, Julia Quinn</dd>
+        <dt>Loves</dt><dd>scandal, ballgowns, whispered rivalries</dd>
+        <dt>Wants to learn</dt><dd>the Tudors, properly</dd>
+        <dt>We'd write</dt><dd class="story">A seamstress at Henry VIII's court sews for six queens, and keeps a little book of who's rising and who's about to fall.</dd>
+      </dl>
+    </article>
+    <article class="card">
+      <span class="stamp" style="background:var(--mint)">teaches climate science</span>
+      <h3><span class="cover"><img src="img/cover-plankton.jpg" width="400" height="600" loading="lazy" alt=""><span>Plankton<small>a novel</small></span></span></h3>
+      <dl>
+        <dt>Favourite authors</dt><dd>Sally Rooney, Claire Keegan</dd>
+        <dt>Loves</dt><dd>quiet, intense love stories, Ireland, things left unsaid</dd>
+        <dt>Wants to learn</dt><dd>climate science</dd>
+        <dt>We'd write</dt><dd class="story">Two ex-lovers spend a summer on a research boat off the west of Ireland, counting plankton and not talking about it. By September you know why the sea is warming, and what it does to the rain.</dd>
+      </dl>
+    </article>
+    <article class="card">
+      <span class="stamp" style="background:var(--pink)">teaches the body</span>
+      <h3><span class="cover"><img src="img/cover-hamstring.jpg" width="400" height="600" loading="lazy" alt=""><span>Hamstring<small>a novel</small></span></span></h3>
+      <dl>
+        <dt>Favourite authors</dt><dd>Nick Hornby, Roddy Doyle</dd>
+        <dt>Loves</dt><dd>football, underdogs, banter in the dressing room</dd>
+        <dt>Wants to learn</dt><dd>how the body works</dd>
+        <dt>We'd write</dt><dd class="story">A League Two striker with a dodgy hamstring meets a new physio who explains everything: muscle, sleep, and why his heart races before a penalty.</dd>
+      </dl>
+    </article>
+    <article class="card">
+      <span class="stamp" style="background:var(--butter)">teaches business</span>
+      <h3><span class="cover"><img src="img/cover-plant-shop.jpg" width="400" height="600" loading="lazy" alt=""><span>The Plant Shop in Kyoto<small>a novel</small></span></span></h3>
+      <dl>
+        <dt>Favourite authors</dt><dd>Toshikazu Kawaguchi, Sosuke Natsukawa</dd>
+        <dt>Loves</dt><dd>gentle stories, gardens, cats, Studio Ghibli</dd>
+        <dt>Wants to learn</dt><dd>how to run a small business</dd>
+        <dt>We'd write</dt><dd class="story">A young woman inherits her grandmother's struggling plant shop, and learns pricing, cash flow and why the rent always comes first, with help from a very opinionated cat.</dd>
+      </dl>
+    </article>
+  </div>
+</section>
+
+<section class="wrap" aria-labelledby="arrives-h">
+  <div class="arrives">
+    <figure class="taped tilt-l" style="margin:0">
+      <img src="img/club-sketch.jpg" width="1360" height="768" loading="lazy" alt="A biro sketch on crumpled brown paper of six older women around a table with a teapot and a plate of biscuits.">
+      <figcaption>Every book has its own pictures, made for your story.</figcaption>
+    </figure>
+    <div>
+      <h2 id="arrives-h">What you get</h2>
+      <ul class="things">
+        <li><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M6 9 C 12 7, 17 8, 20 11 C 23 8, 28 7, 34 9 L 34 31 C 28 29, 23 30, 20 33 C 17 30, 12 29, 6 31 Z M20 11 L20 33" fill="#FBE38A" stroke="#33287A" stroke-width="1.8" stroke-linejoin="round"/></svg>
+          <div><b>A whole novel, three to four hours of reading</b>Around 40,000 words, in the style you love: funny, dark, romantic, cosy, crime.</div></li>
+        <li><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M8 22 C 8 12, 32 12, 32 22 M8 22 L8 30 C 8 32, 13 32, 13 30 L13 23 C 13 21, 8 21, 8 23 M32 22 L32 30 C 32 32, 27 32, 27 30 L27 23 C 27 21, 32 21, 32 23" fill="#A9DEC9" stroke="#33287A" stroke-width="1.8" stroke-linejoin="round"/></svg>
+          <div><b>Read aloud, if you like</b>Add the audiobook for $6.99 and listen on the bus, or read along as the words light up.</div></li>
+        <li><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M7 10 L33 9 L32 31 L8 32 Z M10 27 L17 19 L22 24 L26 20 L30 26" fill="#F7A8C4" stroke="#33287A" stroke-width="1.8" stroke-linejoin="round"/><circle cx="25" cy="15" r="2.4" fill="#FBE38A" stroke="#33287A" stroke-width="1.5"/></svg>
+          <div><b>Paintings made for your story</b>Three or four, in a style that suits it.</div></li>
+        <li><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M7 11 C 7 8, 33 8, 33 11 L 33 24 C 33 27, 22 27, 18 27 L 11 32 L 12 27 C 9 27, 7 26, 7 24 Z" fill="#B9D6F2" stroke="#33287A" stroke-width="1.8" stroke-linejoin="round"/><path d="M17 15 C 17 12, 23 12, 23 15 C 23 17, 20 17, 20 20 M20 22.5 L20 23" fill="none" stroke="#33287A" stroke-width="1.8" stroke-linecap="round"/></svg>
+          <div><b>A question from a character at the end of each chapter</b>Answer it and the next chapter opens. That's how you know it stuck.</div></li>
+        <li><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M8 14 L32 14 L32 33 L8 33 Z M6 9 L34 9 L34 14 L6 14 Z M20 9 L20 33 M20 9 C 15 3, 10 6, 14 9 M20 9 C 25 3, 30 6, 26 9" fill="#F9C5A0" stroke="#33287A" stroke-width="1.8" stroke-linejoin="round"/></svg>
+          <div><b>A dedication and a gift card, if it's a present</b>Your words on the first page, and a card to print and put under the tree.</div></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="wrap" aria-labelledby="free-h">
+  <div class="free">
+    <div>
+      <p class="hand" style="color:var(--ink)">How What She Left Behind begins</p>
+      <p class="first">My mother dies on a Tuesday, with her coat on.</p>
+      <p class="book">She is in the back room of the chip shop, in the chair by the potato rumbler. She never wears a coat in the shop. She lives upstairs.</p>
+      <p class="book" style="margin:0">I don't know yet. I am ninety miles away, lying to a man who loves me.</p>
+    </div>
+    <div>
+      <h2 id="free-h" style="font-size:clamp(1.6rem,4vw,2.1rem)">Try it in three minutes, free</h2>
+      <p>The opening page, one scene where a lesson lands, and the question at the end. Make a guess before you read, and see if you change your mind. No sign-up.</p>
+      <a class="btn" href="what-she-left-behind/" data-link="sample">Start the taster</a>
+      <p style="margin-top:.8rem"><a href="witness-taster/">Or try the AI one: The Witness Was a Tablet</a></p>
+    </div>
+  </div>
+</section>
+
+<section class="wrap" aria-labelledby="how-h">
+  <h2 id="how-h">How it works</h2>
+  <ol class="steps">
+    <li><h3>Tell us about the reader</h3><p>About ten minutes of questions: the books and films they love, what to avoid, where a story should be set, and what they want to learn. The reader can be you.</p></li>
+    <li><h3>Read chapter one first</h3><p>Each book is designed and written with care, so it takes time: chapter one reaches you in three days. If it isn't right, we change it.</p></li>
+    <li><h3>The whole book arrives</h3><p>A few days after you approve chapter one, as a private link to read on any phone, with the audiobook if you added it. You can also download it as an ebook for Apple Books, Kindle, Kobo or Google Play Books. For Christmas, order by 16 December.</p></li>
+  </ol>
+</section>
+
+<section class="wrap" id="prices" aria-labelledby="prices-h">
+  <h2 id="prices-h">Get your story</h2>
+  <div class="prices">
+    <div class="price" id="order">
+      <span class="tag">10 left before Christmas</span>
+      <h3>One story, written for you</h3>
+      <p class="amount">$12.99 <small>once</small></p>
+      <ul>
+        <li>A whole illustrated novel, three to four hours of reading</li>
+        <li>Chapter one read aloud; add the whole audiobook for $6.99</li>
+        <li>For you, or as a gift with a dedication</li>
+        <li>Read online, or download the ebook for your e-reader</li>
+        <li>Chapter one to approve in three days, then the rest</li>
+      </ul>
+      <a class="btn" href="#" data-link="form">Start your story</a>
+      <p class="small">Answer the questions, then pay. Checkout shows your own currency.</p>
+    </div>
+    <div class="price member">
+      <span class="tag" style="background:var(--pink)">Founding members: 20 places</span>
+      <h3>A new story every month</h3>
+      <p class="amount">$19 <small>a month, cancel any time</small></p>
+      <ul>
+        <li>One novel a month written for you, new or remixed from the library</li>
+        <li>Every library book, as they arrive</li>
+        <li>Every chapter read aloud</li>
+        <li>Your $19 never goes up while you stay</li>
+      </ul>
+      <a class="btn" href="#" data-link="member">Become a founding member</a>
+      <p class="small">Learn something new each month. An unused month's novel doesn't carry over.</p>
+    </div>
+  </div>
+</section>
+
+<section class="wrap" aria-labelledby="faq-h">
+  <div class="col">
+    <h2 id="faq-h">Questions</h2>
+    <details><summary>What can I learn?</summary><p>Most things that can be explained in a good conversation: money and investing, how AI works, a slice of history, science basics like the body, space or the climate, running a small business. Tell us your subject and we'll say honestly if a story can teach it well.</p></details>
+    <details><summary>Is it accurate?</summary><p>Every book is built on a checked outline of the facts it teaches, and each chapter is checked against it before you see it. It's still a story, not professional advice. Money books never recommend particular companies or products, and the figures in them are made-up examples.</p></details>
+    <details><summary>Who writes it?</summary><p>We write each story with the help of AI tools, from your answers and a story design we plan first. A person reads every book before it's delivered, and you see chapter one before the rest is finished.</p></details>
+    <details><summary>Can it be dark? Can it avoid things?</summary><p>Yes to both. You choose how dark it can go, from gentle to properly messy, and list anything to avoid. We never include anything on that list.</p></details>
+    <details><summary>Can I listen instead of reading?</summary><p>Yes. Chapter one is read aloud for everyone. Add the audiobook for $6.99 when you pay and every chapter is, so you can switch between reading and listening whenever you like. Members get the audiobook included.</p></details>
+    <details><summary>How long does it take?</summary><p>At least three days, and usually about a week. We design your story, write chapter one and send it to you in three days, then finish the book once you're happy with it.</p></details>
+    <details><summary>Will it arrive in time for Christmas?</summary><p>Yes, if you order by 16 December while places are open. It arrives by 23 December, or we can schedule the link for Christmas morning.</p></details>
+    <details><summary>Will you use real names?</summary><p>No. Everyone in your story gets a name we make up, and places stay at the level of a town, city or country. Your own words appear only in the dedication, if you write one.</p></details>
+    <details><summary>Will my story be shared?</summary><p>It's yours alone for six months. After that, a library edition may join the Learned by Heart library for other readers, with the dedication removed and anything that could point to you changed. You can untick this when you order, or opt out by email any time before then.</p></details>
+    <details><summary>What do you do with what I tell you?</summary><p>We use your answers only to write the book, and delete them 60 days after delivery unless you ask us to keep them. Please don't include health or other sensitive details. The privacy note has the details.</p></details>
+    <details><summary>What if I don't like chapter one?</summary><p>Tell us and we'll change it. If it still isn't right before we've written the rest, we'll refund you.</p></details>
+    <details><summary>Can I get it printed?</summary><p>Printed hardbacks are coming later. Every book can be printed once they are.</p></details>
+  </div>
+</section>
+
+<div class="squiggle" role="presentation"></div>
+
+<footer class="wrap">
+  <nav><a href="#" data-link="terms">Terms</a><a href="#" data-link="privacy">Privacy</a><a href="#" data-link="contact">Contact</a></nav>
+  <p>Learned by Heart. Stories written for one reader, that teach the thing they've always meant to learn.</p>
+</footer>
+
+<script>
+// Every link marked data-link="name" gets its address from here.
+// Empty ones stay pointing at this page until the account or page exists.
+const LINKS = {
+  form: 'order.html',     // our order page, with the Tally questions inside; it goes on to the $12.99 payment (audiobook optional, $6.99)
+  member: 'https://buy.stripe.com/28E4gA3vZ0jigOo5yjc3m01',   // $19 a month founding membership (live)
+  sample: 'what-she-left-behind/',   // free taster: opening page, one teaching scene and its question
+  terms: 'terms.html', privacy: 'privacy.html', contact: 'mailto:hello@learnedbyheart.com'
+};
+// Christmas: orders close at the end of 16 December (UK time).
+// Update XMAS_LEFT by hand as Christmas orders come in. At 0 the offer shows as sold out.
+const XMAS_LEFT = 10;
+(function(){
+  const close = new Date('2026-12-16T23:59:00Z').getTime();
+  const boxes = [document.getElementById('christmas'), document.getElementById('xbar')].filter(Boolean);
+  document.querySelectorAll('[data-left]').forEach(e => e.textContent = XMAS_LEFT);
+  document.querySelectorAll('[data-plural]').forEach(e => e.textContent = XMAS_LEFT === 1 ? 'book' : 'books');
+  // the shelf: ten books, the taken ones fade
+  const colours = ['#F7A8C4','#A9DEC9','#FBE38A','#B9D6F2','#F9C5A0','#C9B8E8','#A9DEC9','#F7A8C4','#FBE38A','#B9D6F2'];
+  const heights = [44,52,40,48,56,42,50,46,54,41];
+  document.querySelectorAll('[data-shelf]').forEach(shelf => {
+    shelf.innerHTML = colours.map((c,i) => `<span class="spine${i >= XMAS_LEFT ? ' taken' : ''}" style="--c:${c};height:${heights[i]}px"></span>`).join('');
+  });
+  const pad = n => String(n).padStart(2,'0');
+  function shut(){ boxes.forEach(b => b.classList.add(b.id === 'xbar' ? 'closed' : 'xmas-closed')); }
+  if (XMAS_LEFT <= 0){
+    shut();
+    document.querySelectorAll('.xbar .closed-only, .xmas-closed-msg').forEach(e => e.innerHTML = '<b>All ten Christmas books are spoken for.</b> Thank you. We open again in January.');
+    return;
+  }
+  // flip-clock cards: one card per digit; a digit animates only when it changes
+  function setFlip(el, text){
+    if (el.children.length !== text.length) el.innerHTML = [...text].map(() => '<span class="fcard"><i></i></span>').join('');
+    [...text].forEach((ch, i) => {
+      const n = el.children[i].firstChild;
+      if (n.textContent !== ch){ n.textContent = ch; n.classList.remove('flip'); void n.offsetWidth; n.classList.add('flip'); }
+    });
+  }
+  function tick(){
+    const left = close - Date.now();
+    if (left <= 0){ shut(); return; }
+    const sec = Math.floor(left/1000);
+    const v = {d: String(Math.floor(sec/86400)), h: pad(Math.floor(sec/3600)%24), m: pad(Math.floor(sec/60)%60), s: pad(sec%60)};
+    if (v.d.length < 2) v.d = pad(v.d);
+    document.querySelectorAll('[data-unit]').forEach(e => e.textContent = v[e.dataset.unit]);
+    document.querySelectorAll('[data-flip]').forEach(e => setFlip(e, v[e.dataset.flip]));
+    setTimeout(tick, 1000 - (Date.now() % 1000) + 20);
+  }
+  tick();
+})();
+document.querySelectorAll('[data-link]').forEach(a => { const url = LINKS[a.dataset.link]; if (url) a.href = url; });
+</script>
+<script>
+// one lesson, three books: switch reader
+(function(){
+  const tabs = [...document.querySelectorAll('.style-tabs [role=tab]')];
+  const pick = t => tabs.forEach(b => {
+    const on = b === t; b.setAttribute('aria-selected', on); b.tabIndex = on ? 0 : -1;
+    document.getElementById(b.getAttribute('aria-controls')).hidden = !on;
+  });
+  tabs.forEach((t, i) => {
+    t.addEventListener('click', () => pick(t));
+    t.addEventListener('keydown', e => {
+      const d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+      if (d){ const n = tabs[(i + d + tabs.length) % tabs.length]; pick(n); n.focus(); }
+    });
+  });
+})();
+</script>
+</body>
+</html>

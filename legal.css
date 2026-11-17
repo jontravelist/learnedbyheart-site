@@ -1,0 +1,27 @@
+:root{
+  --paper:#F8F2F4; --page:#FFFDF8; --ink:#33287A; --soft:#6A6296; --line:#E6DBE4; --pink:#F7A8C4;
+  --display:"Fraunces",Georgia,serif; --body:"Nunito",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:1.0625rem;line-height:1.65;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+a{color:inherit}
+.wrap{max-width:46rem;margin:0 auto}
+.top{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding-block:1.6rem 0}
+.brand{font-family:var(--display);font-weight:600;font-size:1.45rem;letter-spacing:-.01em;text-decoration:none;display:flex;align-items:center;gap:.4rem}
+.brand svg{width:1.9rem;height:1.9rem;flex:none}
+.top .small{font-size:.92rem;color:var(--soft);text-decoration:none}
+.sheet{background:var(--page);border-radius:6px;box-shadow:0 1px 0 var(--line),0 18px 40px rgba(51,40,122,.12);padding:clamp(1.2rem,5vw,2.8rem);margin-block:1.6rem 2rem}
+h1{font-family:var(--display);font-variation-settings:"SOFT" 100;font-weight:500;font-size:clamp(2rem,6vw,2.7rem);line-height:1.1;margin:0;text-wrap:balance}
+.updated{color:var(--soft);font-size:.92rem;margin:.4rem 0 1.6rem}
+h2{font-family:var(--display);font-weight:600;font-size:1.3rem;margin:2rem 0 .5rem;text-wrap:balance}
+h3{font-size:1.02rem;margin:1.2rem 0 .3rem}
+p{margin:0 0 .8rem;max-width:65ch}
+ul{padding-left:1.2rem;margin:0 0 .9rem;max-width:65ch}
+li{margin-bottom:.35rem}
+table{border-collapse:collapse;width:100%;font-size:.95rem;margin:.4rem 0 1rem}
+.tbl{overflow-x:auto}
+th,td{text-align:left;vertical-align:top;padding:.45rem .6rem;border-bottom:1px solid var(--line)}
+.addr{font-weight:700;user-select:all;overflow-wrap:anywhere}
+footer{padding-block:0 3rem;font-size:.92rem;color:var(--soft)}
+a:focus-visible{outline:3px dashed var(--ink);outline-offset:4px}
