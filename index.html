@@ -143,6 +143,7 @@ a:focus-visible,.btn:focus-visible,summary:focus-visible{outline:3px dashed var(
 .library a{text-decoration:none;display:block}
 .library img{width:100%;aspect-ratio:2/3;object-fit:cover;border-radius:2px 5px 5px 2px;box-shadow:0 10px 22px rgba(51,40,122,.18);transition:transform .2s}
 .library a:hover img,.library a:focus-visible img{transform:translateY(-4px) rotate(-1deg)}
+.authors-note{font-size:.88rem;color:var(--soft);margin:1.8rem 0 0;max-width:46rem}
 .library .fans{display:block;font-size:.88rem;color:var(--soft);margin-top:.7rem;line-height:1.35}
 .library .teach{display:block;font-family:var(--hand);font-size:1.2rem;line-height:1.15;margin-top:.15rem}
 .cover span small{display:block;font-family:var(--hand);font-weight:500;font-size:1rem;margin-top:.2rem;opacity:.9}
@@ -507,17 +508,18 @@ footer nav{display:flex;flex-wrap:wrap;gap:.4rem 1.4rem;margin-bottom:.6rem}
     <p>Ten more books, each written for a different kind of reader. Chapter one of every book is free, and you don&rsquo;t need to sign up. Tap a cover to start reading.</p>
   </div>
   <ul class="library">
-    <li><a href="library/click-here-to-verify/"><img src="img/library/click-here-to-verify.jpg" width="600" height="900" loading="lazy" alt="Click Here to Verify"><span class="fans">For fans of Freida McFadden</span><span class="teach">teaches scams and fraud</span></a></li>
-    <li><a href="library/the-knife-table/"><img src="img/library/the-knife-table.jpg" width="600" height="900" loading="lazy" alt="The Knife Table"><span class="fans">For fans of Sarah J. Maas and Rebecca Yarros</span><span class="teach">teaches negotiation</span></a></li>
-    <li><a href="library/reserve-price/"><img src="img/library/reserve-price.jpg" width="600" height="900" loading="lazy" alt="Reserve Price"><span class="fans">For fans of Taylor Jenkins Reid</span><span class="teach">teaches money across a lifetime</span></a></li>
-    <li><a href="library/turn-towards-me/"><img src="img/library/turn-towards-me.jpg" width="600" height="900" loading="lazy" alt="Turn Towards Me"><span class="fans">For fans of Emily Henry</span><span class="teach">teaches the science of relationships</span></a></li>
-    <li><a href="library/oxygen-mostly/"><img src="img/library/oxygen-mostly.jpg" width="600" height="900" loading="lazy" alt="Oxygen, Mostly"><span class="fans">For fans of Andy Weir</span><span class="teach">teaches how the body works</span></a></li>
-    <li><a href="library/the-lantern-hour/"><img src="img/library/the-lantern-hour.jpg" width="600" height="900" loading="lazy" alt="The Lantern Hour"><span class="fans">For fans of Suzanne Collins</span><span class="teach">teaches propaganda and misinformation</span></a></li>
-    <li><a href="library/the-hedge-cooks-daughter/"><img src="img/library/the-hedge-cooks-daughter.jpg" width="600" height="900" loading="lazy" alt="The Hedge-Cook’s Daughter"><span class="fans">For fans of J.K. Rowling and J.R.R. Tolkien</span><span class="teach">teaches everyday chemistry</span></a></li>
-    <li><a href="library/a-trade-in-wind/"><img src="img/library/a-trade-in-wind.jpg" width="600" height="900" loading="lazy" alt="A Trade in Wind"><span class="fans">For fans of F. Scott Fitzgerald</span><span class="teach">teaches bubbles and crashes</span></a></li>
-    <li><a href="library/water-on-the-wrong-side/"><img src="img/library/water-on-the-wrong-side.jpg" width="600" height="900" loading="lazy" alt="Water on the Wrong Side"><span class="fans">For fans of Delia Owens</span><span class="teach">teaches wetlands, weather and climate</span></a></li>
-    <li><a href="library/the-chance-machine/"><img src="img/library/the-chance-machine.jpg" width="600" height="900" loading="lazy" alt="The Chance Machine"><span class="fans">For fans of Matt Haig</span><span class="teach">teaches probability and decisions</span></a></li>
+    <li><a href="library/click-here-to-verify/"><img src="img/library/click-here-to-verify.jpg" width="600" height="900" loading="lazy" alt="Click Here to Verify"><span class="fans">A domestic thriller, for readers who love Freida McFadden</span><span class="teach">teaches scams and fraud</span></a></li>
+    <li><a href="library/the-knife-table/"><img src="img/library/the-knife-table.jpg" width="600" height="900" loading="lazy" alt="The Knife Table"><span class="fans">A romantasy, for readers who love Sarah J. Maas and Rebecca Yarros</span><span class="teach">teaches negotiation</span></a></li>
+    <li><a href="library/reserve-price/"><img src="img/library/reserve-price.jpg" width="600" height="900" loading="lazy" alt="Reserve Price"><span class="fans">A film-star saga, for readers who love Taylor Jenkins Reid</span><span class="teach">teaches money across a lifetime</span></a></li>
+    <li><a href="library/turn-towards-me/"><img src="img/library/turn-towards-me.jpg" width="600" height="900" loading="lazy" alt="Turn Towards Me"><span class="fans">A romantic comedy, for readers who love Emily Henry</span><span class="teach">teaches the science of relationships</span></a></li>
+    <li><a href="library/oxygen-mostly/"><img src="img/library/oxygen-mostly.jpg" width="600" height="900" loading="lazy" alt="Oxygen, Mostly"><span class="fans">A funny science survival story, for readers who love Andy Weir</span><span class="teach">teaches how the body works</span></a></li>
+    <li><a href="library/the-lantern-hour/"><img src="img/library/the-lantern-hour.jpg" width="600" height="900" loading="lazy" alt="The Lantern Hour"><span class="fans">A dystopian adventure, for readers who love Suzanne Collins</span><span class="teach">teaches propaganda and misinformation</span></a></li>
+    <li><a href="library/the-hedge-cooks-daughter/"><img src="img/library/the-hedge-cooks-daughter.jpg" width="600" height="900" loading="lazy" alt="The Hedge-Cook’s Daughter"><span class="fans">A storybook fantasy, for readers who love J.K. Rowling and J.R.R. Tolkien</span><span class="teach">teaches everyday chemistry</span></a></li>
+    <li><a href="library/a-trade-in-wind/"><img src="img/library/a-trade-in-wind.jpg" width="600" height="900" loading="lazy" alt="A Trade in Wind"><span class="fans">A Jazz Age novel, for readers who love F. Scott Fitzgerald</span><span class="teach">teaches bubbles and crashes</span></a></li>
+    <li><a href="library/water-on-the-wrong-side/"><img src="img/library/water-on-the-wrong-side.jpg" width="600" height="900" loading="lazy" alt="Water on the Wrong Side"><span class="fans">A marshland mystery, for readers who love Delia Owens</span><span class="teach">teaches wetlands, weather and climate</span></a></li>
+    <li><a href="library/the-chance-machine/"><img src="img/library/the-chance-machine.jpg" width="600" height="900" loading="lazy" alt="The Chance Machine"><span class="fans">A gentle what-if story, for readers who love Matt Haig</span><span class="teach">teaches probability and decisions</span></a></li>
   </ul>
+  <p class="authors-note">Authors are named only to describe the kind of story. None of them is connected with Learned by Heart or has endorsed it, and we never use their words, characters or worlds.</p>
 </section>
 
 <section class="wrap" aria-labelledby="arrives-h">
@@ -626,6 +628,7 @@ footer nav{display:flex;flex-wrap:wrap;gap:.4rem 1.4rem;margin-bottom:.6rem}
 <footer class="wrap">
   <nav><a href="#" data-link="terms">Terms</a><a href="#" data-link="privacy">Privacy</a><a href="#" data-link="contact">Contact</a></nav>
   <p>Learned by Heart. Stories written for one reader, that teach the thing they've always meant to learn.</p>
+  <p>Authors are named only to describe the kind of story. None of them is connected with Learned by Heart or has endorsed it, and we never use their words, characters or worlds.</p>
 </footer>
 
 <script>
