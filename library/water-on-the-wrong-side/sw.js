@@ -1,6 +1,6 @@
 // Offline helper for an installed book. The page itself is fetched fresh when there is a connection,
 // so corrections reach readers; pictures, fonts and audio are kept once seen or played.
-const CACHE = 'wrong-side-1795019866';
+const CACHE = 'wrong-side-1795106899';
 const CORE = ['./', 'index.html', 'manifest.webmanifest', 'icons/icon-192.png', 'icons/icon-512.png'];
 
 self.addEventListener('install', e => {

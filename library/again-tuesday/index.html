@@ -161,10 +161,13 @@ main{padding:0}
   padding-block:calc(1.75rem + env(safe-area-inset-top,0px)) 1.75rem;
   padding-left:max(1.25rem,env(safe-area-inset-left,0px),calc((100% - 36rem)/2));
   padding-right:max(1.25rem,env(safe-area-inset-right,0px),calc((100% - 36rem)/2))}
-.leaf{transform-origin:left center;backface-visibility:hidden;pointer-events:none;will-change:transform;
-  box-shadow:18px 0 40px rgba(42,34,85,.22)}
-.leaf::after{content:"";position:absolute;inset:0;pointer-events:none;
-  background:linear-gradient(90deg,transparent 55%,rgba(42,34,85,.16))}
+.leaf{pointer-events:none;will-change:clip-path}
+/* a turning page folds back from its edge: the leaf is cut along the fold, the flap is the back of the paper */
+.turn-shade,.turn-flap{position:absolute;inset:0;pointer-events:none}
+.turn-shade{background-repeat:no-repeat;background-image:linear-gradient(90deg,rgba(42,34,85,.30),rgba(42,34,85,0))}
+.turn-flap{filter:drop-shadow(-8px 0 12px rgba(42,34,85,.24))}
+.turn-flap i{position:absolute;inset:0;background-color:var(--paper);background-repeat:no-repeat;will-change:clip-path;
+  background-image:linear-gradient(90deg,rgba(42,34,85,.10),rgba(255,255,255,.55) 38%,rgba(255,255,255,0) 62%,rgba(42,34,85,.20))}
 .flow{height:100%;column-fill:auto}
 .flow .col,.flow .fig{max-width:none}
 .flow .fig{margin:1.5rem 0}
@@ -434,7 +437,7 @@ body.teach .lesson::after{content:"\21B3\00A0" attr(data-note);display:block;fon
 .bc::after{content:"";position:absolute;inset:0 auto 0 0;width:3.5%;background:linear-gradient(90deg,rgba(0,0,0,.28),rgba(255,255,255,.12) 60%,transparent)}
 .bc-text{position:absolute;left:0;right:0;top:0;padding:calc(var(--top,9) * 1cqw) 8cqw 0;text-align:center;display:flex;flex-direction:column;align-items:center;
   padding-bottom:6cqw;background:linear-gradient(rgba(10,8,30,.5),rgba(10,8,30,.32) 60%,rgba(10,8,30,0))}
-.bc-title{font-family:inherit;font-weight:400;font-size:12.5cqw;line-height:1;letter-spacing:-.01em;margin:0;text-wrap:balance;text-shadow:0 2px 14px rgba(0,0,0,.35)}
+.bc-title{font-family:inherit;font-weight:400;font-size:calc(12.5cqw * var(--tsz,1));line-height:1;letter-spacing:-.01em;margin:0;text-wrap:balance;text-shadow:0 2px 14px rgba(0,0,0,.35)}
 .bc-line{color:var(--lc);font-family:Literata,Georgia,serif;font-style:italic;font-size:4.6cqw;line-height:1.35;text-wrap:balance;margin:calc(var(--gap,4) * 1cqw) auto 0;max-width:80cqw;text-shadow:0 1px 8px rgba(0,0,0,.5)}
 .bc-brand{position:absolute;left:0;right:0;bottom:0;padding:14cqw 0 5cqw;background:linear-gradient(rgba(10,8,30,0),rgba(10,8,30,.55));margin:0;display:flex;align-items:center;justify-content:center;gap:1.6cqw;font-family:Fraunces,Georgia,serif;font-weight:500;font-variation-settings:'SOFT' 100;font-size:4.4cqw;letter-spacing:.01em;color:#FFFCF2;text-shadow:0 1px 6px rgba(0,0,0,.6)}
 .bc-brand svg{width:5.6cqw;height:5.6cqw;filter:drop-shadow(0 1px 3px rgba(0,0,0,.5))}
@@ -762,43 +765,117 @@ function layout(){
   if (typeof maxPage === 'function') page = Math.min(page, maxPage());
   show();
 }
-function turn(dir, auto){
+// A page turn is a fold that travels across the page: p runs from 0 (flat) to 1 (turned).
+function leafFor(shown){
+  const shade = document.createElement('div'); shade.className = 'turn-shade';
+  const leaf = document.createElement('div'); leaf.className = 'page leaf';
+  const copy = flow.cloneNode(true);
+  copy.removeAttribute('id'); copy.querySelectorAll('[id]').forEach(e => e.removeAttribute('id'));
+  copy.style.transform = `translateX(${-shown * step}px)`;
+  leaf.append(copy);
+  const wrap = document.createElement('div'); wrap.className = 'turn-flap';
+  const flap = document.createElement('i'); wrap.append(flap);
+  stage.append(shade, leaf, wrap);
+  return {
+    set(p){
+      const W = stage.clientWidth, f = W * (1 - p);
+      const tilt = Math.sin(Math.PI * p) * W * .075;      // the fold leans, most in the middle of the turn
+      const ft = f + tilt, fb = f - tilt, back = W - f;
+      leaf.style.clipPath = `polygon(0 0, ${ft}px 0, ${fb}px 100%, 0 100%)`;
+      flap.style.clipPath = `polygon(${ft}px 0, ${fb}px 100%, ${2 * fb - W}px 100%, ${2 * ft - W}px 0)`;
+      flap.style.backgroundSize = `${back + 2 * tilt}px 100%`;
+      flap.style.backgroundPosition = `${f - back - tilt}px 0`;
+      const lift = Math.sin(Math.PI * Math.min(1, p * 1.15));
+      shade.style.backgroundSize = `${Math.min(W * .16, back * .6) + 8}px 100%`;
+      shade.style.backgroundPosition = `${fb}px 0`;
+      shade.style.opacity = lift; wrap.style.opacity = p > .995 ? 0 : 1;
+    },
+    remove(){ shade.remove(); leaf.remove(); wrap.remove(); }
+  };
+}
+function glide(L, a, b, ms, done){
+  const t0 = performance.now();
+  const ease = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  (function tick(now){
+    const t = Math.min(1, (now - t0) / ms);
+    L.set(a + (b - a) * ease(t));
+    if (t < 1) requestAnimationFrame(tick); else done();
+  })(t0);
+}
+function blocked(dir){
   const to = page + dir;
-  if (busy || to < 0 || to >= pages) return;
+  if (to < 0 || to >= pages) return true;
   if (dir > 0 && to > maxPage()){
     const t = [...tests, ...Object.values(gates)].find(t => pageOf(t) === page);
     if (t){ t.classList.remove('shake'); void t.offsetWidth; t.classList.add('shake'); t.querySelector('.say').textContent = t.querySelector('.say').textContent || BOOK.lockMessage; }
-    return;
+    return true;
   }
+  return false;
+}
+function turn(dir, auto){
+  const to = page + dir;
+  if (busy || blocked(dir)) return;
   closeCard(); if (typeof closeMenu === 'function') closeMenu();
   if (!auto) setTimeout(() => window.seekToPage && seekToPage(), 0);
   if (still.matches){ page = to; show(); return; }
   busy = true;
-  const leaf = document.createElement('div'); leaf.className = 'page leaf';
-  const copy = flow.cloneNode(true);
-  copy.removeAttribute('id'); copy.querySelectorAll('[id]').forEach(e => e.removeAttribute('id'));
-  copy.style.transform = `translateX(${-(dir > 0 ? page : to) * step}px)`;
-  leaf.append(copy); stage.append(leaf);
-  const done = () => { leaf.remove(); busy = false; };
+  const L = leafFor(dir > 0 ? page : to);
   if (dir > 0){
-    page = to; show();
-    leaf.animate([{transform: 'rotateY(0)'}, {transform: 'rotateY(-90deg)'}], {duration: 480, easing: 'ease-in'}).onfinish = done;
+    page = to; show(); L.set(0);
+    glide(L, 0, 1, 620, () => { L.remove(); busy = false; });
   } else {
-    leaf.animate([{transform: 'rotateY(-90deg)'}, {transform: 'rotateY(0)'}], {duration: 480, easing: 'ease-out'})
-      .onfinish = () => { page = to; show(); done(); };
+    L.set(1);
+    glide(L, 1, 0, 620, () => { page = to; show(); L.remove(); busy = false; });
   }
 }
 stage.addEventListener('click', e => {
   if (e.target.closest('button, a, input, form, label')) return;
   turn(e.clientX < innerWidth * .3 ? -1 : 1);
 });
-let x0 = null;
-stage.addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, {passive: true});
-stage.addEventListener('touchend', e => {
+// On a touch screen the page follows the finger, and settles or springs back on release.
+let x0 = null, y0 = 0, drag = null;
+stage.addEventListener('touchstart', e => {
+  if (e.touches.length !== 1 || e.target.closest('button, a, input, form, label')){ x0 = null; return; }
+  x0 = e.touches[0].clientX; y0 = e.touches[0].clientY;
+}, {passive: true});
+stage.addEventListener('touchmove', e => {
+  if (x0 === null || still.matches) return;
+  const dx = e.touches[0].clientX - x0, dy = e.touches[0].clientY - y0;
+  if (!drag){
+    if (busy || Math.abs(dx) < 12 || Math.abs(dx) < Math.abs(dy) * 1.2) return;
+    const dir = dx < 0 ? 1 : -1, from = page, to = page + dir;
+    if (to < 0 || to >= pages || (dir > 0 && to > maxPage())) return;      // the tap handler shows why
+    closeCard(); if (typeof closeMenu === 'function') closeMenu();
+    busy = true;
+    drag = {dir, from, to, L: leafFor(dir > 0 ? from : to), p: dir > 0 ? 0 : 1, t: performance.now(), x: e.touches[0].clientX, v: 0};
+    if (dir > 0){ page = to; show(); }
+  }
+  e.preventDefault();
+  const W = stage.clientWidth, now = performance.now(), x = e.touches[0].clientX;
+  drag.v = (x - drag.x) / Math.max(1, now - drag.t); drag.x = x; drag.t = now;
+  const travel = Math.max(0, Math.min(1, Math.abs(dx) / W * 1.2));
+  drag.p = drag.dir > 0 ? (dx < 0 ? travel : 0) : (dx > 0 ? 1 - travel : 1);
+  drag.L.set(drag.p);
+}, {passive: false});
+function release(e){
+  if (drag){
+    const d = drag; drag = null; x0 = null;
+    const flick = Math.abs(d.v) > .45 && (d.v < 0) === (d.dir > 0);
+    const go = flick || (d.dir > 0 ? d.p > .3 : d.p < .7);
+    const end = d.dir > 0 ? (go ? 1 : 0) : (go ? 0 : 1);
+    glide(d.L, d.p, end, 180 + 320 * Math.abs(end - d.p), () => {
+      page = go ? d.to : d.from; show(); d.L.remove(); busy = false;
+      if (go) setTimeout(() => window.seekToPage && seekToPage(), 0);
+    });
+    if (e.cancelable) e.preventDefault();
+    return;
+  }
   if (x0 === null) return;
   const dx = e.changedTouches[0].clientX - x0; x0 = null;
   if (Math.abs(dx) > 45){ e.preventDefault(); turn(dx < 0 ? 1 : -1); }
-});
+}
+stage.addEventListener('touchend', release);
+stage.addEventListener('touchcancel', release);
 addEventListener('keydown', e => {
   if (e.target.matches && e.target.matches('input, textarea')) return;
   if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown'){ e.preventDefault(); turn(1); }
