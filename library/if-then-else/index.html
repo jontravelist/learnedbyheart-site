@@ -1,0 +1,1105 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>If, Then, Else</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500&family=Fraunces:opsz,wght,SOFT@9..144,500,100&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=Young+Serif&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F6F2FA;      /* lilac white: impressionist shadows are violet, never black */
+  --paper-deep:#E7DFF0;
+  --ink:#2A2255;        /* petrol */
+  --ink-soft:#5F5A85;
+  --line:#CFC6E0;
+  --sheet:#FFFCF2;      /* letter paper */
+
+  --mum:#EBA91A;    /* curry sauce */
+  --nan:#5DA24F;    /* mushy pea */
+  --danny:#E2452E;  /* saveloy */
+  --carol:#F26FA6;  /* seaside rock */
+  --dad:#7A4A2E;    /* gravy */
+  --jo:#2E73C8;
+  --sam:#2FA39A;  /* verdigris */
+  --nell:#2E73C8;   /* the sea, half past three */
+  --giles:#EFD98F;  /* double cream */
+  --dev:#F27A1A;    /* traffic cone */
+  --note:#8A5BB5;   /* a twenty */     /* the sea */
+
+  --read:34rem;
+  --wide:46rem;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:Literata,Georgia,serif;font-size:1.125rem;line-height:1.7;
+  font-optical-sizing:auto;
+}
+main{padding:0 1.25rem 6rem}
+.col{max-width:var(--read);margin:0 auto}
+.fig{max-width:var(--wide);margin:3.5rem auto}
+p{margin:0 0 1.25em}
+h1,h2{font-family:"Young Serif",Georgia,serif;font-weight:400;line-height:1.08;margin:0}
+h1{font-size:clamp(3.2rem,13vw,6.5rem);letter-spacing:-.02em}
+h2{font-size:clamp(1.7rem,5vw,2.3rem);margin:4.5rem 0 1.4rem}
+.chapter{font-size:1.05rem;color:var(--ink-soft);margin:.9rem 0 0}
+figcaption,.note{font-size:.95rem;line-height:1.5;color:var(--ink-soft)}
+figure{margin:0}
+figcaption{margin-top:.9rem;max-width:var(--read)}
+
+/* cold open: the first screen is only her voice */
+.cold{min-height:100svh;display:grid;align-content:center;padding:3rem 0 6rem}
+.cold .first{font-family:"Young Serif",Georgia,serif;font-size:clamp(2.1rem,8vw,3.5rem);line-height:1.12;letter-spacing:-.01em;margin-bottom:.9em}
+.cold p:last-child{margin-bottom:0}
+@media (max-height:900px){.cold .first{font-size:clamp(1.8rem,6.6vw,2.6rem)}.flow .cold .hint{margin-top:1.2rem}}
+
+/* a childhood memory opens the chapter */
+.memory{font-style:italic;margin:3.5rem 0 0;padding-left:1.1rem;border-left:.35rem solid var(--memory,var(--mum))}
+.memory p:last-child{margin-bottom:0}
+
+/* opening */
+.open{padding:2rem 0 0}
+.sea{display:block;width:100%;height:auto;margin-top:2.5rem;border-radius:4px}
+
+/* character names in the text */
+.who{
+  text-decoration:underline;text-decoration-thickness:.22em;text-underline-offset:.16em;
+  text-decoration-color:var(--c);text-decoration-skip-ink:none;
+}
+[data-who=mum]{--c:var(--mum)}[data-who=nan]{--c:var(--nan)}[data-who=danny]{--c:var(--danny)}
+[data-who=carol]{--c:var(--carol)}[data-who=dad]{--c:var(--dad)}[data-who=jo]{--c:var(--jo)}[data-who=sam]{--c:var(--sam)}[data-who=nell]{--c:var(--nell)}[data-who=giles]{--c:var(--giles)}[data-who=dev]{--c:var(--dev)}
+
+/* the cast: paint chips that fill in as people arrive */
+.cast{
+  position:fixed;z-index:5;left:0;right:0;bottom:0;
+  display:flex;justify-content:center;gap:.5rem;padding:.6rem .75rem calc(.6rem + env(safe-area-inset-bottom));
+  background:color-mix(in srgb,var(--paper) 88%,transparent);backdrop-filter:blur(6px);
+  border-top:1px solid var(--line);
+}
+.chip{
+  width:2.2rem;height:2.2rem;flex:none;border-radius:3px;border:1.5px dashed var(--line);background:transparent;
+  padding:0;cursor:pointer;transition:transform .2s;
+}
+.chip.met{background:var(--c) var(--tex) center/cover;border-color:transparent;border-radius:5px 3px 6px 3px}
+.chip[aria-expanded=true]{transform:translateY(-4px)}
+.chip:focus-visible,.next:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.chip:not(.met){cursor:default}
+.card{
+  position:fixed;z-index:6;left:50%;bottom:4.6rem;transform:translateX(-50%);
+  width:min(22rem,calc(100vw - 2rem));background:var(--sheet);border-radius:4px;
+  border-left:.6rem solid var(--c);padding:1rem 1.1rem;box-shadow:0 10px 30px rgba(42,34,85,.25);
+  font-size:1rem;line-height:1.5;
+}
+.card[hidden]{display:none}
+.card strong{font-family:"Young Serif",serif;font-weight:400;font-size:1.25rem;display:block}
+.card em{color:var(--ink-soft);font-style:normal;font-size:.9rem}
+.card p{margin:.5rem 0 0}
+@media (min-width:64rem){
+  .cast{left:1.5rem;right:auto;top:50%;bottom:auto;transform:translateY(-50%);flex-direction:column;
+    border:0;background:none;backdrop-filter:none;padding:0}
+  .chip[aria-expanded=true]{transform:translateX(4px)}
+  .card{left:5rem;bottom:auto;top:50%;transform:translateY(-50%)}
+}
+
+/* colour definitions list */
+.swatches{list-style:none;padding:0;margin:2rem 0;display:grid;gap:1.4rem}
+.swatches li{display:grid;grid-template-columns:4.5rem 1fr;gap:1.1rem;align-items:start}
+.swatches i{display:block;height:4.5rem;border-radius:3px;background:var(--c) var(--tex) center/cover;filter:url(#rough)}
+.swatches b{font-family:"Young Serif",serif;font-weight:400;font-size:1.2rem;display:block;line-height:1.3}
+.swatches small{display:block;color:var(--ink-soft);font-size:.9rem;margin-bottom:.25rem}
+
+svg{display:block;width:100%;height:auto}
+.fig svg rect,.fig svg path,.fig svg circle,.bar{filter:url(#rough)}
+svg text{font-family:Literata,Georgia,serif;fill:var(--ink)}
+.map{position:relative;border-radius:4px;overflow:hidden}
+.map canvas{position:absolute;inset:0;width:100%;height:100%}
+.map svg{position:relative}
+.legend{list-style:none;padding:0;margin:1.2rem 0 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(13rem,1fr));gap:.5rem 1.5rem;font-size:.95rem;line-height:1.4}
+.legend li{display:flex;gap:.6rem;align-items:baseline}
+.legend i{flex:none;width:.8rem;height:.8rem;border-radius:50%;background:var(--c);transform:translateY(.05rem)}
+
+/* silences chart */
+.silences{display:grid;gap:1.1rem;margin-top:.5rem}
+.row{display:grid;gap:.3rem}
+.row .names{font-size:.98rem}
+.track{position:relative;height:1.5rem;background:var(--paper-deep);border-radius:2px}
+.bar{position:absolute;top:0;bottom:0;left:var(--from);right:var(--to,0%);
+  background:linear-gradient(var(--a) 50%,var(--b) 50%);border-radius:2px;
+  transform-origin:left;transform:scaleX(0);transition:transform 1.4s cubic-bezier(.2,.7,.2,1)}
+.bar.faint{opacity:.45}
+.seen .bar{transform:scaleX(1)}
+.axis{display:flex;justify-content:space-between;font-size:.85rem;color:var(--ink-soft);
+  font-variant-numeric:tabular-nums;border-top:1px solid var(--line);padding-top:.3rem}
+.row .note{font-size:.88rem}
+
+/* the letter */
+.letter{background:var(--sheet);padding:clamp(1.4rem,5vw,2.6rem);border-radius:2px;
+  box-shadow:0 1px 0 #fff inset,0 14px 34px rgba(42,34,85,.18);transform:rotate(-.6deg);
+  font-size:1rem;line-height:1.6;position:relative;max-width:36rem;margin:0 auto}
+.letter .head{font-family:"Young Serif",serif;font-size:1.3rem;border-bottom:2px solid var(--ink);padding-bottom:.5rem;margin-bottom:1.2rem}
+.letter .head small{display:block;font-family:Literata,serif;font-size:.8rem;color:var(--ink-soft)}
+.hand{font-family:Caveat,cursive;color:var(--jo);font-size:1.7rem;line-height:1.1;
+  position:absolute;right:1rem;bottom:1.1rem;transform:rotate(-5deg)}
+.letter mark{background:linear-gradient(transparent 55%,color-mix(in srgb,var(--mum) 55%,transparent) 55%);color:inherit}
+
+.end{margin-top:4rem;padding-top:1.5rem;border-top:1px solid var(--line)}
+.next{font:inherit;font-size:1rem;background:var(--ink);color:var(--paper);border:0;border-radius:3px;padding:.8rem 1.2rem;opacity:.5}
+
+@media (prefers-reduced-motion:reduce){
+  .bar{transition:none;transform:none}.chip{transition:none}
+}
+
+/* ---- the book: fixed pages that turn ---- */
+html,body{height:100%;overflow:hidden}
+main{padding:0}
+#stage{position:fixed;inset:0 0 calc(3.6rem + env(safe-area-inset-bottom,0px)) 0;perspective:2200px;cursor:pointer}
+@media (min-width:64rem){#stage{inset:0}}
+.page{position:absolute;inset:0;overflow:hidden;background:var(--paper);
+  padding-block:calc(1.75rem + env(safe-area-inset-top,0px)) 1.75rem;
+  padding-left:max(1.25rem,env(safe-area-inset-left,0px),calc((100% - 36rem)/2));
+  padding-right:max(1.25rem,env(safe-area-inset-right,0px),calc((100% - 36rem)/2))}
+.leaf{transform-origin:left center;backface-visibility:hidden;pointer-events:none;will-change:transform;
+  box-shadow:18px 0 40px rgba(42,34,85,.22)}
+.leaf::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(90deg,transparent 55%,rgba(42,34,85,.16))}
+.flow{height:100%;column-fill:auto}
+.flow .col,.flow .fig{max-width:none}
+.flow .fig{margin:1.5rem 0}
+.flow h2{margin:2.2rem 0 1rem;break-after:avoid}
+.flow .cold{min-height:100%;height:auto;padding:0;break-after:column}
+.flow .open{padding:0;break-after:column}
+.flow .memory{margin-top:0}
+.flow .end{margin-top:2.5rem}
+.flow p{orphans:2;widows:2}
+.map,.legend li,.row,.axis,.letter,.swatches li,.flow svg,.sea,figcaption{break-inside:avoid}
+.map canvas,.map .town{position:absolute;inset:0;width:100%;height:100%}
+.hint{margin-top:2rem}
+#bar{position:fixed;z-index:7;top:0;left:0;height:3px;width:0;background:var(--ink);transition:width .3s}
+
+.painting{display:block;width:100%;height:auto;border-radius:3px;break-inside:avoid;box-shadow:0 12px 30px rgba(42,34,85,.25)}
+/* the paint card */
+.card-strip{break-inside:avoid;border-radius:3px;overflow:hidden;box-shadow:0 10px 26px rgba(42,34,85,.16)}
+.card-strip div{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;padding:.7rem .9rem;border-bottom:1px solid rgba(42,34,85,.08)}
+.card-strip b{font-family:Caveat,cursive;font-weight:500;font-size:1.45rem;line-height:1;color:var(--nell)}
+.card-strip s{font-size:.8rem;color:var(--ink-soft);white-space:nowrap}
+
+/* the audiobook */
+#listen{position:fixed;z-index:8;bottom:calc(.5rem + env(safe-area-inset-bottom,0px));right:calc(.75rem + env(safe-area-inset-right,0px));width:2.4rem;height:2.4rem;border-radius:50%;border:0;
+  background:var(--ink);color:var(--paper);display:grid;place-items:center;cursor:pointer;
+  box-shadow:0 6px 18px rgba(42,34,85,.3)}
+#listen svg{fill:currentColor;width:18px;height:18px}
+@media (min-width:64rem){#listen{bottom:auto;top:1.2rem;right:1.5rem;width:2.9rem;height:2.9rem}#listen svg{width:22px;height:22px}}
+#listen .i-pause,#listen[aria-pressed=true] .i-play{display:none}
+#listen[aria-pressed=true] .i-pause{display:block}
+#listen:focus-visible{outline:3px solid var(--note);outline-offset:3px}
+.reading{background:color-mix(in srgb,var(--giles) 45%,transparent);box-shadow:0 0 0 .35rem color-mix(in srgb,var(--giles) 45%,transparent);border-radius:2px}
+
+/* chapter openers */
+.flow .chap{break-before:column;break-after:column;height:100%;display:grid;align-content:center}
+.chapno{color:var(--ink-soft);margin:0}
+.flow .chap h2{font-size:clamp(2.4rem,10vw,3.8rem);margin:.4rem 0 0}
+/* the envelope flap */
+.flap{position:relative;background:#EFE3C8;color:#B9A37A;border-radius:2px;aspect-ratio:400/210;break-inside:avoid;
+  box-shadow:0 10px 26px rgba(42,34,85,.18);font-family:Caveat,cursive;transform:rotate(.8deg)}
+.flap svg{position:absolute;inset:0;width:100%;height:100%}
+.flap span{position:absolute;left:0;right:0;text-align:center;color:#2B4FB3}
+.flap .l1{top:6%;font-size:clamp(2rem,9vw,3rem);transform:rotate(-2deg)}
+.flap .l2{top:33%;font-size:clamp(1.2rem,5.2vw,1.7rem);transform:rotate(-1deg)}
+/* her mother's ledger */
+.ledger{background:var(--sheet);padding:1.1rem 1.1rem 1rem;border-radius:2px;break-inside:avoid;box-shadow:0 12px 30px rgba(42,34,85,.2);
+  background-image:repeating-linear-gradient(transparent 0 1.9rem,rgba(46,115,200,.14) 1.9rem calc(1.9rem + 1px))}
+.lrow{display:grid;grid-template-columns:7.2rem 1fr;align-items:center;gap:.6rem;height:1.9rem}
+.lrow span,.ltotal span{font-family:Caveat,cursive;font-size:1.25rem;color:#2B4FB3;white-space:nowrap}
+.lrow i{height:1.05rem;width:var(--w);border-radius:2px;filter:url(#rough);
+  background:repeating-linear-gradient(115deg,var(--c) 0 2px,color-mix(in srgb,var(--c) 62%,transparent) 2px 4px)}
+.ltotal{display:flex;justify-content:space-between;align-items:baseline;margin-top:.9rem;padding-top:.5rem;border-top:3px double #2B4FB3}
+.ltotal b{font-family:Caveat,cursive;font-weight:500;font-size:2rem;color:#2B4FB3}
+#listen[hidden]{display:none}
+@media (max-width:63.99rem){.cast{padding-right:3.6rem}}
+
+/* the front cover */
+.flow .bookcover{break-after:column;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem}
+.flow .bookcover .bc{width:min(100%,calc((100svh - 10rem) * .6667))}
+.bc-hint{margin:0;text-align:center}
+.col .doc{margin:1.2em 0;padding:.9em 1.1em;border:1px solid var(--line,#d9d2c3);border-left:4px solid var(--ink,#33287A);background:var(--paper2,rgba(0,0,0,.025));font-size:.94em;border-radius:3px}
+.col .doc p{margin:.35em 0;text-indent:0}
+.col ul.list{margin:.8em 0 1em;padding-left:1.3em}
+.col ul.list li{margin:.25em 0}
+/* how this book was made */
+.flow .brief{break-before:column;break-after:column}
+.brief h2{margin:.3rem 0 .4rem}
+.brief-kind{color:var(--ink-soft);font-size:.95rem;margin:0 0 1rem}
+.slip{background:var(--sheet);border-radius:4px;padding:.8rem 1rem;box-shadow:0 8px 22px rgba(42,34,85,.14);margin-bottom:1rem;
+  background-image:repeating-linear-gradient(transparent 0 1.6rem,rgba(46,115,200,.10) 1.6rem calc(1.6rem + 1px))}
+.slip dl{margin:0;display:grid;gap:.55rem}
+.slip dt{font-size:.78rem;color:var(--ink-soft);letter-spacing:.04em}
+.slip dd{margin:0;font-family:Caveat,cursive;font-size:1.35rem;line-height:1.15;color:#2B4FB3}
+.brief h3{font-family:"Young Serif",Georgia,serif;font-weight:400;font-size:1.1rem;margin:.8rem 0 .25rem}
+.brief p{font-size:.95rem;line-height:1.45;margin:0}
+.brief2 h3:first-child{margin-top:0}
+.ideas{list-style:none;padding:0;margin:0;display:grid;gap:.3rem;font-size:.92rem;line-height:1.28}
+.ideas li{display:grid;grid-template-columns:4.6rem 1fr;gap:.6rem}
+.ideas span{color:var(--ink-soft);font-size:.85rem;padding-top:.1rem;font-variant-numeric:tabular-nums}
+/* tasters: a guess before the scene, and a bridge between the opening and the scene */
+.flow .guess{break-before:column;break-after:column;break-inside:avoid}
+.guess .ask{font-family:"Young Serif",Georgia,serif;font-size:1.4rem;line-height:1.2;margin:.3rem 0 .8rem}
+.guess-lead{margin:.2rem 0 .6rem}
+.guess .say{font-style:italic;line-height:1.4;margin:.8rem 0 0}
+.guess .opts button.other{opacity:.4}
+.guess .opts button.picked::before{box-shadow:0 0 0 3px var(--paper),0 0 0 6px var(--ink)}
+.guess .opts.text button.picked{border-color:var(--ink);box-shadow:0 0 0 1.5px var(--ink)}
+.flow .bridge{break-before:column;break-after:column;height:100%;display:flex;flex-direction:column;justify-content:center}
+.bridge p:last-child{font-family:"Young Serif",Georgia,serif;font-size:1.35rem;line-height:1.35;margin:.5rem 0 0}
+.guessed{font-style:italic;color:var(--ink-soft);margin:.6rem 0 0}
+/* show the teaching: the lesson lines highlighted, with a pencil note under each */
+body.teach .lesson{background:linear-gradient(transparent 56%,rgba(255,206,84,.7) 56%);-webkit-box-decoration-break:clone;box-decoration-break:clone}
+body.teach .lesson::after{content:"\21B3\00A0" attr(data-note);display:block;font-family:Caveat,cursive;font-size:1.3rem;line-height:1.1;color:#B4321F;
+  margin:.2rem 0 .45rem;font-style:normal;background:none}
+.teach-toggle{font:inherit;display:flex;align-items:center;justify-content:space-between;gap:1rem;width:100%;margin-top:.8rem;padding:.55rem .85rem;
+  border:1.5px solid var(--ink);border-radius:8px;background:var(--sheet);color:var(--ink);cursor:pointer;text-align:left;font-size:1rem;line-height:1.25}
+.teach-toggle .state{flex:none;font-size:.85rem;padding:.15rem .6rem;border-radius:99px;background:var(--paper-deep)}
+.teach-toggle[aria-pressed=true] .state{background:#FFD45E}
+.teach-toggle:focus-visible{outline:3px solid var(--note);outline-offset:2px}
+#menu .teach-toggle{display:flex;margin:0 0 .3rem;border:1px solid var(--line);padding:.6rem .8rem;font-size:1rem}
+#menu .teach-toggle .state{font-size:.8rem}
+/* chapters menu */
+#toc{position:fixed;z-index:8;bottom:calc(.5rem + env(safe-area-inset-bottom,0px));left:calc(.75rem + env(safe-area-inset-left,0px));
+  width:2.4rem;height:2.4rem;border-radius:50%;border:1.5px solid var(--ink);background:var(--paper);color:var(--ink);
+  display:grid;place-items:center;cursor:pointer}
+#toc svg{fill:currentColor}
+#toc:focus-visible{outline:3px solid var(--note);outline-offset:3px}
+#menu{position:fixed;z-index:9;left:.75rem;bottom:calc(3.9rem + env(safe-area-inset-bottom,0px));width:min(20rem,calc(100vw - 1.5rem));
+  background:var(--sheet);border-radius:6px;padding:.4rem;box-shadow:0 14px 40px rgba(42,34,85,.3);display:grid;gap:.15rem;
+  max-height:calc(100svh - 5.2rem - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px));overflow-y:auto;overscroll-behavior:contain}
+#menu[hidden]{display:none}
+#menu button{font:inherit;text-align:left;background:none;border:0;border-radius:4px;padding:.6rem .8rem;cursor:pointer;color:var(--ink);
+  display:grid;gap:.05rem;line-height:1.25}
+#menu button small{font-size:.8rem;color:var(--ink-soft)}
+#menu button b{font-family:"Young Serif",Georgia,serif;font-weight:400;font-size:1.15rem}
+#menu button[aria-current=true]{background:color-mix(in srgb,var(--giles) 45%,transparent)}
+#menu button:focus-visible{outline:3px solid var(--note);outline-offset:-3px}
+@media (max-width:63.99rem){.cast{padding-left:3.6rem;gap:.4rem}.cast .chip{width:1.9rem;height:1.9rem}}
+@media (min-width:64rem){#toc{bottom:auto;top:1.2rem;left:auto;right:5.2rem;width:2.9rem;height:2.9rem}
+  #menu{left:auto;right:1.5rem;bottom:auto;top:4.8rem;max-height:calc(100svh - 6.3rem)}}
+
+/* the biscuit test */
+.flow .test{break-before:column;break-after:column;break-inside:avoid}
+.test .ask{font-family:"Young Serif",Georgia,serif;font-size:1.5rem;line-height:1.2;margin:.2rem 0 .8rem}
+.test > p{margin-bottom:.8em}
+.opts{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:.8rem}
+.opts button{font:inherit;border:0;padding:0;background:none;cursor:pointer;display:block;min-width:0;width:100%;color:var(--ink);text-align:left}
+.opts button span{display:block;margin-top:.3rem}
+.opts button::before{content:"";display:block;aspect-ratio:2.1;border-radius:7px 4px 8px 4px;background:var(--c) var(--tex, none) center/cover;transition:opacity .3s,transform .2s}
+.opts button span{font-family:Caveat,cursive;font-size:1.25rem;line-height:1.1}
+.opts button:focus-visible{outline:3px solid var(--note);outline-offset:3px}
+.opts button.no::before{opacity:.25}
+.opts button.no span{text-decoration:line-through;opacity:.5}
+.opts button.yes::before{box-shadow:0 0 0 3px var(--paper),0 0 0 6px var(--ink)}
+.test.hint .opts button:not(.no):not(.yes)[data-right]::before{animation:nudge 1s ease-in-out infinite}
+.test .say{min-height:2.6em;margin:.7rem 0 .3rem;font-style:italic;line-height:1.4}
+.won{display:flex;align-items:center;gap:.9rem;break-before:avoid;break-inside:avoid}
+.won[hidden]{display:none}
+.won svg{width:3.2rem;height:3.2rem;flex:none}
+.won p{margin:0;font-family:"Young Serif",Georgia,serif;font-size:1.1rem}
+.test.shake{animation:shake .35s}
+@keyframes nudge{50%{transform:scale(1.06)}}
+@keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+#menu button:disabled{opacity:.45;cursor:default}
+#menu a.dl{display:grid;gap:.05rem;line-height:1.25;padding:.7rem .8rem .6rem;margin-top:.3rem;border-top:1px solid var(--line);color:var(--ink);text-decoration:none;border-radius:0 0 4px 4px}
+#menu a.dl small{font-size:.8rem;color:var(--ink-soft)}
+#menu a.dl b{font-family:"Young Serif",Georgia,serif;font-weight:400;font-size:1.15rem}
+#menu a.dl:focus-visible{outline:3px solid var(--note);outline-offset:-3px}
+@media (prefers-reduced-motion:reduce){.test.shake,.test.hint .opts button::before{animation:none}}
+
+/* ledger variations */
+.lhead{font-family:Caveat,cursive;font-size:1.45rem;color:#2B4FB3;line-height:1.9rem;border-bottom:2px solid #2B4FB3;margin-bottom:.4rem}
+.ledger.wide .lrow{grid-template-columns:9.4rem 1fr}
+.lnote{font-family:Caveat,cursive;font-size:1.15rem;color:#C0392B;text-align:right;line-height:1.9rem;transform:rotate(-1.5deg)}
+.lkey{display:grid;grid-template-columns:2.6rem 1fr;gap:.7rem;align-items:start;min-height:1.9rem;padding:.25rem 0}
+.lkey i{height:1.2rem;margin-top:.25rem;border-radius:2px;filter:url(#rough);background:repeating-linear-gradient(115deg,var(--c) 0 2px,color-mix(in srgb,var(--c) 62%,transparent) 2px 4px)}
+.lkey span{font-family:Caveat,cursive;font-size:1.25rem;line-height:1.25;color:#2B4FB3}
+.lkey b{font-weight:500;display:block;color:var(--ink)}
+.lline{display:grid;grid-template-columns:1.5fr .7fr 1fr 1fr;gap:.4rem;font-family:Caveat,cursive;font-size:1.3rem;line-height:1.9rem;color:#6C6A8C}
+.lline.red{color:#C0392B;font-size:1.55rem;font-weight:500;transform:rotate(-.6deg)}
+.lline em{font-style:normal;color:#D9A21A}
+/* text messages */
+.txt,.sms .say:not(:empty),.msg{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;font-size:.95rem;line-height:1.4;font-style:normal;
+  background:var(--paper-deep);border-radius:14px 14px 14px 3px;padding:.6rem .85rem;max-width:88%;width:fit-content}
+.sms .say{min-height:0}
+.sms .say:empty{display:none}
+.msg{background:color-mix(in srgb,var(--giles) 55%,var(--paper))}
+.opts button span{line-height:1.05}
+.note.small{font-size:.8rem;margin-top:1.2rem}
+
+/* keep a whole test on one page */
+.test.sms .opts button::before{aspect-ratio:3.1}
+/* questions answered in words, not colours */
+.opts.text{grid-template-columns:minmax(0,1fr);gap:.45rem}
+.opts.text button{border:1.5px solid var(--line);border-radius:8px;padding:.5rem .75rem;background:var(--sheet);transition:opacity .3s}
+.opts.text button::before{display:none}
+.opts.text button span{font-family:inherit;font-size:.98rem;line-height:1.3;margin:0}
+.opts.text button.no{opacity:.45}
+.opts.text button.yes{border-color:var(--ink);box-shadow:0 0 0 1.5px var(--ink)}
+.test.sms .ask{font-size:1.3rem;margin:.1rem 0 .6rem}
+.test.sms > p{margin-bottom:.55em}
+.test .say{break-inside:avoid}
+.test.sms .won p{font-size:1rem}
+.test.sms .won svg{width:2.4rem;height:2.4rem}
+
+/* seven colours in one bar */
+.lrow i.multi,.opts button.rainbow::before{background:linear-gradient(90deg,#2E73C8 0 22%,#2FA39A 22% 36%,#E9C95A 36% 50%,#E2452E 50% 58%,#8FA86A 58% 70%,#F26FA6 70% 76%,#F08A24 76%)}
+.lrow i{max-width:100%}
+
+/* the tin of everything */
+.tin{display:grid;grid-template-columns:repeat(18,1fr);gap:2px;padding:.6rem;background:#2B2A5C;border-radius:50%/12%;break-inside:avoid;
+  box-shadow:inset 0 0 0 5px #C9A64B,0 12px 30px rgba(42,34,85,.25)}
+.tin i{aspect-ratio:1;border-radius:2px 1px 3px 1px}
+/* the ticket */
+.ticket{position:relative;background:#FBF3E4;border-radius:6px;padding:1rem 1.1rem;break-inside:avoid;transform:rotate(-1.2deg);
+  box-shadow:0 10px 26px rgba(42,34,85,.2);border-top:.55rem solid #E1772A;font-family:system-ui,-apple-system,sans-serif;color:#3A2E2A}
+.trow{display:flex;justify-content:space-between;align-items:baseline;gap:.5rem}
+.trow b{font-size:1.35rem;letter-spacing:.04em}
+.trow.sm{margin-top:.7rem;font-size:.8rem;letter-spacing:.06em;color:#6E5E55}
+.tstamp{position:absolute;right:1rem;bottom:-.6rem;font-family:Caveat,cursive;font-size:1.5rem;color:#C0392B;transform:rotate(-8deg)}
+/* her letter */
+.bluepaper{background:#DCE8F7;color:#1F3A8A;font-family:Caveat,cursive;font-size:1.32rem;line-height:1.55rem;padding:1.1rem 1.2rem 1.3rem;break-inside:avoid;
+  background-image:repeating-linear-gradient(transparent 0 1.5rem,rgba(31,58,138,.18) 1.5rem calc(1.5rem + 1px));border-radius:2px;
+  box-shadow:0 12px 30px rgba(42,34,85,.22);transform:rotate(.5deg)}
+.bluepaper p{margin:0 0 .35rem}
+/* the writing check */
+.flow .wgate{break-before:column;break-after:column;break-inside:avoid}
+.wgate .who-to{color:var(--ink-soft);margin:0 0 .3rem}
+.wgate .ask{font-family:"Young Serif",Georgia,serif;font-size:1.45rem;line-height:1.2;margin:0 0 .5rem}
+.wgate .sub{font-size:.95rem;color:var(--ink-soft);margin:0 0 1rem}
+.wform{display:flex;gap:.6rem;align-items:stretch}
+.wform[hidden]{display:none}
+.wform input{font:inherit;font-size:1.4rem;width:7.5rem;padding:.45rem .7rem;border:2px solid var(--ink);border-radius:6px;background:var(--sheet);color:var(--ink)}
+.wform button{font:inherit;font-size:1rem;border:0;border-radius:6px;padding:.5rem 1rem;background:var(--ink);color:var(--paper);cursor:pointer}
+.wform input:focus-visible,.wform button:focus-visible{outline:3px solid var(--note);outline-offset:2px}
+.wgate .say{font-style:italic;min-height:2.4em;margin:.9rem 0 .6rem}
+.wbar{height:1.3rem;background:var(--paper-deep);border-radius:3px;overflow:hidden;filter:url(#rough)}
+.wbar i{display:block;height:100%;width:var(--w,0%);transition:width .6s;
+  background:repeating-linear-gradient(115deg,#EBA91A 0 2px,color-mix(in srgb,#EBA91A 62%,transparent) 2px 4px)}
+.wbar.full i{background:repeating-linear-gradient(115deg,#5DA24F 0 2px,color-mix(in srgb,#5DA24F 62%,transparent) 2px 4px)}
+.wlabel{display:flex;justify-content:space-between;font-size:.85rem;color:var(--ink-soft);margin-top:.3rem;font-variant-numeric:tabular-nums}
+.wgate .won{margin-top:1rem}
+
+/* fact sheet */
+.factsheet{background:#FFFFFF;color:#2A2A33;border-radius:3px;padding:1rem;break-inside:avoid;box-shadow:0 12px 30px rgba(42,34,85,.2);
+  font-family:system-ui,-apple-system,"Segoe UI",sans-serif;font-size:.82rem;line-height:1.3}
+.fsh{display:flex;justify-content:space-between;align-items:baseline;gap:.5rem;border-bottom:2px solid #2A2A33;padding-bottom:.4rem;margin-bottom:.5rem}
+.fsh b{font-size:.98rem}
+.fsh span{font-size:.72rem;color:#6B6B78;white-space:nowrap}
+.fsrow{display:grid;grid-template-columns:6.4rem 1fr;gap:.5rem;padding:.4rem .5rem;margin:.25rem 0;border-radius:40% 30% 45% 35%/60% 50% 60% 45%}
+.fsrow span{color:#6B6B78}
+.fsrow b{font-weight:600}
+.fsrow.c1{box-shadow:0 0 0 2px #2E73C8}.fsrow.c2{box-shadow:0 0 0 2px #F08A24}.fsrow.c3{box-shadow:0 0 0 2px #D9A21A}.fsrow.c4{box-shadow:0 0 0 2px #5DA24F}
+.fsrow.dim{opacity:.4}
+.fsgraph{position:relative;margin-top:.5rem;color:#9A9AA8}
+.fsgraph svg{width:100%;height:2.4rem}
+.fsgraph i{position:absolute;right:0;top:-.2rem;font-family:Caveat,cursive;font-style:normal;font-size:1.15rem;color:#C0392B;transform:rotate(-3deg)}
+/* inside back cover */
+.flow .backcover{break-before:column;break-inside:avoid}
+.backcover h2{margin:.3rem 0 1rem}
+.ledger.rules .lkey{min-height:0;padding:.3rem 0}
+.ledger.rules .lkey span{font-size:1.15rem}
+.lkey i.multi{background:linear-gradient(90deg,#2E73C8 0 22%,#2FA39A 22% 36%,#E9C95A 36% 50%,#E2452E 50% 58%,#8FA86A 58% 70%,#F26FA6 70% 76%,#F08A24 76%)}
+.btn-end{display:inline-block;font:inherit;font-size:1rem;background:var(--ink);color:var(--paper);padding:.8rem 1.2rem;border-radius:6px;text-decoration:none}
+.btn-end:focus-visible{outline:3px solid var(--note);outline-offset:3px}
+</style>
+<style>:root{--petra:#2F5D62;--wendell:#8A6E4B;--connie:#C2552D;--zeki:#3E7CB1;--dennis:#6B5B95;--yusra:#2A9D8F;--gaspard:#D4A017;--leonie:#4A4E69;--memory:#2F5D62;}[data-who=petra]{--c:var(--petra)}[data-who=wendell]{--c:var(--wendell)}[data-who=connie]{--c:var(--connie)}[data-who=zeki]{--c:var(--zeki)}[data-who=dennis]{--c:var(--dennis)}[data-who=yusra]{--c:var(--yusra)}[data-who=gaspard]{--c:var(--gaspard)}[data-who=leonie]{--c:var(--leonie)}</style>
+<meta name="theme-color" content="#2A2255">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="If, Then, Else">
+<meta name="description" content="Forty steps, to be followed exactly. Don’t read ahead. Read chapter one of If, Then, Else free: a puzzle mystery that teaches how computers think.">
+<link rel="canonical" href="https://learnedbyheart.com/library/if-then-else/">
+<meta property="og:type" content="book">
+<meta property="og:title" content="If, Then, Else">
+<meta property="og:description" content="Forty steps, to be followed exactly. Don’t read ahead. Read chapter one of If, Then, Else free: a puzzle mystery that teaches how computers think.">
+<meta property="og:url" content="https://learnedbyheart.com/library/if-then-else/">
+<meta property="og:image" content="https://learnedbyheart.com/img/library/if-then-else.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+.bc{position:relative;container-type:inline-size;aspect-ratio:2/3;border-radius:3px 6px 6px 3px;overflow:hidden;
+  box-shadow:0 1px 2px rgba(42,34,85,.2),0 18px 40px rgba(42,34,85,.35),inset 4px 0 0 rgba(255,255,255,.08);background:#2A2255}
+.bc img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.bc::after{content:"";position:absolute;inset:0 auto 0 0;width:3.5%;background:linear-gradient(90deg,rgba(0,0,0,.28),rgba(255,255,255,.12) 60%,transparent)}
+.bc-text{position:absolute;left:0;right:0;top:0;padding:calc(var(--top,9) * 1cqw) 8cqw 0;text-align:center;display:flex;flex-direction:column;align-items:center;
+  padding-bottom:6cqw;background:linear-gradient(rgba(10,8,30,.5),rgba(10,8,30,.32) 60%,rgba(10,8,30,0))}
+.bc-title{font-family:inherit;font-weight:400;font-size:12.5cqw;line-height:1;letter-spacing:-.01em;margin:0;text-wrap:balance;text-shadow:0 2px 14px rgba(0,0,0,.35)}
+.bc-line{color:var(--lc);font-family:Literata,Georgia,serif;font-style:italic;font-size:4.6cqw;line-height:1.35;text-wrap:balance;margin:calc(var(--gap,4) * 1cqw) auto 0;max-width:80cqw;text-shadow:0 1px 8px rgba(0,0,0,.5)}
+.bc-brand{position:absolute;left:0;right:0;bottom:0;padding:14cqw 0 5cqw;background:linear-gradient(rgba(10,8,30,0),rgba(10,8,30,.55));margin:0;display:flex;align-items:center;justify-content:center;gap:1.6cqw;font-family:Fraunces,Georgia,serif;font-weight:500;font-variation-settings:'SOFT' 100;font-size:4.4cqw;letter-spacing:.01em;color:#FFFCF2;text-shadow:0 1px 6px rgba(0,0,0,.6)}
+.bc-brand svg{width:5.6cqw;height:5.6cqw;filter:drop-shadow(0 1px 3px rgba(0,0,0,.5))}
+.bc.light .bc-text{background:linear-gradient(rgba(255,252,242,.7),rgba(255,252,242,.45) 60%,rgba(255,252,242,0))}
+.bc.light .bc-title{text-shadow:0 1px 12px rgba(255,252,242,.7)}
+.bc.light .bc-line{text-shadow:0 0 6px rgba(255,252,242,.95),0 0 16px rgba(255,252,242,.85)}
+
+/* tagline treatments: type only, set on the painting */
+.tag-face{font-family:inherit;font-size:5cqw;line-height:1.3;margin-top:4cqw}
+
+.tag-sans{font-family:inherit;font-style:normal;font-weight:500;font-size:4.5cqw;line-height:1.3;letter-spacing:.01em}
+.bc-line.above{order:-1;margin:0 auto calc(var(--gap,4) * 1cqw)}
+.bc-title.upper{text-transform:uppercase;letter-spacing:.02em}
+
+.tag-caps{font-family:inherit;font-style:normal;text-transform:uppercase;letter-spacing:.16em;font-size:calc(3.5cqw * var(--ts,1));line-height:1.45;max-width:78cqw;margin-top:5.5cqw;text-shadow:0 1px 8px rgba(0,0,0,.75)}
+
+.tag-rules{font-family:inherit;font-style:normal;font-variant:small-caps;letter-spacing:.06em;font-size:4.3cqw;line-height:1.4;max-width:76cqw;margin-top:5cqw}
+.tag-rules::before,.tag-rules::after{content:"";display:block;height:1px;width:34cqw;margin:0 auto 2.6cqw;background:linear-gradient(90deg,transparent,currentColor,transparent)}
+.tag-rules::after{margin:2.6cqw auto 0}
+
+.tag-fleuron{margin-top:2.5cqw}
+.tag-fleuron::before{content:"";display:block;width:30cqw;height:6cqw;margin:0 auto 2.4cqw;background:var(--lc);-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 120 24%27%3E%3Cpath d=%27M60 4c4 6 4 12 0 16-4-4-4-10 0-16zM56 12c-10-7-22-8-34-2 12 0 22 2 34 4zM64 12c10-7 22-8 34-2-12 0-22 2-34 4zM8 12h12M100 12h12%27 fill=%27none%27 stroke=%27black%27 stroke-width=%272.4%27 stroke-linecap=%27round%27/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 120 24%27%3E%3Cpath d=%27M60 4c4 6 4 12 0 16-4-4-4-10 0-16zM56 12c-10-7-22-8-34-2 12 0 22 2 34 4zM64 12c10-7 22-8 34-2-12 0-22 2-34 4zM8 12h12M100 12h12%27 fill=%27none%27 stroke=%27black%27 stroke-width=%272.4%27 stroke-linecap=%27round%27/%3E%3C/svg%3E") center/contain no-repeat;filter:drop-shadow(0 1px 3px rgba(0,0,0,.5))}
+
+.tag-deco{font-family:inherit;font-style:italic;font-size:4.6cqw;max-width:74cqw;margin-top:4cqw;padding:2cqw 1cqw}
+.tag-deco::before,.tag-deco::after{content:"";display:block;width:40cqw;height:.7cqw;margin:0 auto 2.4cqw;border-block:1px solid var(--lc)}
+.tag-deco::after{margin:2.4cqw auto 0}
+
+.tag-rule{margin-top:3cqw}
+.tag-rule::before{content:"";display:block;width:12cqw;height:1px;margin:0 auto 3cqw;background:currentColor;opacity:.7}
+
+.tag-glam{font-family:inherit;font-style:italic;font-size:5cqw;line-height:1.3;max-width:70cqw;margin-top:4cqw;letter-spacing:.005em;text-shadow:0 1px 10px rgba(0,0,0,.6)}
+.tag-glam::before{content:"\25C6";display:block;font-style:normal;font-size:2.6cqw;line-height:1;margin:0 auto 3cqw;width:44cqw;color:var(--lc);
+  background:linear-gradient(90deg,transparent,var(--lc) 30%,transparent 46%,transparent 54%,var(--lc) 70%,transparent) center/100% 1px no-repeat}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><filter id="rough" x="-15%" y="-15%" width="130%" height="130%"><feTurbulence type="fractalNoise" baseFrequency=".04" numOctaves="2" seed="4" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="5" xChannelSelector="R" yChannelSelector="G"/></filter></svg>
+
+<nav class="cast" aria-label="The people">
+  <button class="chip" data-who="petra" aria-expanded="false" aria-label="Petra"></button>
+  <button class="chip" data-who="wendell" aria-expanded="false" aria-label="Wendell"></button>
+  <button class="chip" data-who="connie" aria-expanded="false" aria-label="Connie"></button>
+  <button class="chip" data-who="zeki" aria-expanded="false" aria-label="Zeki"></button>
+  <button class="chip" data-who="dennis" aria-expanded="false" aria-label="Dennis"></button>
+  <button class="chip" data-who="yusra" aria-expanded="false" aria-label="Yusra"></button>
+  <button class="chip" data-who="gaspard" aria-expanded="false" aria-label="Gaspard"></button>
+  <button class="chip" data-who="leonie" aria-expanded="false" aria-label="Leonie"></button>
+</nav>
+<div class="card" id="card" hidden role="status"></div>
+<button id="listen" aria-label="Listen to this chapter" aria-pressed="false">
+  <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path class="i-play" d="M8 5v14l11-7z"/><path class="i-pause" d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>
+</button>
+<audio id="voice" preload="none"></audio>
+<button id="toc" aria-label="Chapters" aria-expanded="false" aria-controls="menu">
+  <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M4 6h16v2H4zM4 11h16v2H4zM4 16h10v2H4z"/></svg>
+</button>
+<div id="menu" hidden></div>
+
+<main><div id="stage"><div class="page" id="book"><div class="flow" id="flow">
+<section class="bookcover" data-noaudio>
+  <div class="bc" role="img" aria-label="Cover: If, Then, Else" style="--lc:#EDEAE0;--ts:1"><img src="art/cover.jpg" alt="" draggable="false"><div class="bc-text" style="color:#F2C14E;font-family:'IBM Plex Mono',Georgia,serif"><h1 class="bc-title" style="font-weight:600">If, Then, Else</h1><p class="bc-line tag-sans">Forty steps, to be followed exactly. Don’t read ahead.</p></div><p class="bc-brand"><svg viewBox="0 0 100 100" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M50 86C31 73 9 58 9 36C9 20 24 12 37 18C44 21 48 26 50 32C52 26 56 21 63 18C76 12 91 20 91 36C91 58 69 73 50 86Z" stroke-width="4"/><path d="M50 32V86" stroke-width="3.2"/><g stroke-width="3"><path d="M50 44C42 33 27 29 18 38"/><path d="M50 56C42 45 29 42 21 50"/><path d="M50 44C58 33 73 29 82 38"/><path d="M50 56C58 45 71 42 79 50"/></g></g></svg><span>Learned by Heart</span></p></div>
+  <p class="note bc-hint">Tap the right side of the page to open the book.</p>
+</section>
+<section class="cold col">
+  <div class="doc">
+    <p><strong>Twelve Hands</strong> &middot; Job 448-207</p>
+    <p>Assemble: bookcase, tall (1)</p>
+    <p>Where: Flat 9C, Merriott Point, Bristol</p>
+    <p>When: Thursday, 9.00 am. Key under the mat. Customer may be out.</p>
+    <p>Note from customer: Please follow the instructions in the box exactly. Do not improve them.</p>
+  </div>
+  <p class="first">I took the job because of the note.</p>
+  <p class="note hint">Tap the right side of the page to turn it.</p>
+</section>
+
+<header class="open col" style="max-width:var(--wide)">
+  <h1>If, Then, Else</h1>
+  <p class="chapter">Chapter one. Do Not Improve the Instructions.</p>
+</header>
+
+<article>
+<div class="col">
+  <h2>The car park</h2>
+  <p>Most people who book an assembler want to supervise. They stand in the bedroom doorway holding a mug and tell me step six is wrong. About a third of the time they're right. The rest of the time I build the wardrobe their way, the doors don't meet in the middle, and I get one star. I have a one-star review on my profile that says, "She did EXACTLY what the leaflet said even when it was obviously wrong. Like a robot." I've never asked the app to take it down. I printed it out and stuck it inside the lid of my toolbox.</p>
+  <p><span class="who" data-who="petra">Petra</span>, the app calls me. Five years assembling, four hundred and twelve jobs, 4.6 stars.</p>
+  <p>Do not improve them. I read that in the back of the van on Monday night and booked the job before anyone else in Bristol could get it.</p>
+  <p>On Thursday I parked at Merriott Point at ten to eight. The car park was free until nine and I'd slept in it anyway, in the back on the camping mat between my sheets of offcut chipboard, with my coat over the sleeping bag because the van heater drains the battery. I've slept in the van since October. Nobody knows that. My sister thinks I rent a room over a dry cleaner's, because that's what I told her, and I described the room to her in some detail.</p>
+  <p>I washed with a flannel and a two-litre bottle of water, and did my armpits under my jumper. Then I sat in the front and looked up at the building.</p>
+  <p>Merriott Point is fourteen storeys of grey concrete panels on a hill on the east side of the city, with a strip of grass round the bottom and a sign on the grass that says NO BALL GAMES. One balcony has a whole drum kit on it under a tarpaulin. I always check a building has a lift before I quote. Merriott Point has two.</p>
+  <p>At twenty to nine I took my toolbag and my drill case and went in.</p>
+</div>
+
+<div class="col">
+  <h2>The lobby</h2>
+  <p>The lobby smelled of floor polish and of something fried a long time ago. There was a glass booth by the door with a woman inside it, and a row of post boxes, and the two lift doors side by side, steel, scratched at hip height by pushchairs. Each door had a sheet of paper stuck to it with parcel tape. OUT OF SERVICE. ENGINEER INFORMED.</p>
+  <p>On the glass of the booth was a poster.</p>
+  <div class="doc">
+    <p><strong>HAVE YOU SEEN WENDELL?</strong></p>
+    <p>Wendell Saar, 67, Flat 9C. Grey hair, glasses, brown anorak, probably slippers. Last seen in Lift A on Tuesday night at 10.14 pm.</p>
+    <p>He has a heart condition and he hasn't got his tablets with him.</p>
+    <p>Anything at all, tell Connie at the desk or ring the police and give the reference number below.</p>
+    <p>Ref: 5226/0219</p>
+  </div>
+  <p>The photograph was of a man at a table holding up a piece of cake on a fork for the camera, as if somebody had asked him to show it. He wasn't smiling. He had very clean glasses.</p>
+  <p>The woman in the booth slid her window open.</p>
+  <p>"Can I help you? Because if you're not a resident I'll need you to sign in, and I'll need the flat you're visiting and the reason, and that isn't me being nosy, that's the fire procedure, if we have to evacuate I have to know who's in the building, I'm the one that stands on the grass with the list." She held up the visitors' book to show me. "Are you a resident?"</p>
+  <p>"No."</p>
+  <p>"So you'll need to sign in."</p>
+  <p>I signed in. Name, flat, reason. I wrote 9C, assembly, and pushed the book back through the gap.</p>
+  <p>She read it. Her badge said <span class="who" data-who="connie">Connie</span>, Concierge, and under that, in smaller letters, Sallow &amp; Pike Residential, Here to Help.</p>
+  <p>"9C is Wendell."</p>
+  <p>"The customer is W. Saar."</p>
+  <p>"Wendell's missing. Did you not see the poster? You're standing right next to it, you've got your elbow on it."</p>
+  <p>"I saw it."</p>
+  <p>"Well, then you can't go up, can you."</p>
+  <p>It wasn't a question, so I didn't answer it. I got my phone out and showed her the job. She read it through the glass with her lips moving, and then she put her hand flat on the counter.</p>
+  <p>"Monday," she said. "He booked you on Monday night."</p>
+  <p>"At eight minutes to midnight."</p>
+  <p>"He never said a word to me. He tells me everything, he told me when he was having his blood taken, he gives me a note for my book if he's having so much as a parcel. And it's not cancelled. If he was going to go off somewhere, he'd have cancelled. He'd have cancelled and then he'd have rung you to say he'd cancelled."</p>
+  <p>"It says not to improve the instructions," I said. "So I think there are instructions."</p>
+  <p>That's when I heard the man by the lifts.</p>
+</div>
+
+<div class="col">
+  <h2>Dennis</h2>
+  <p>He was in a wheelchair at the far end of the lobby, facing the lift doors, in a padded coat done up to the chin. He had a carrier bag from the hospital on his lap and a pair of sunglasses on top of his head, the big wraparound kind they give you after an eye appointment. He hadn't turned round when I came in. He was watching the lift doors.</p>
+  <p>"Is it coming, Connie, or not?"</p>
+  <p>"It's exactly the same as it was ten minutes ago, <span class="who" data-who="dennis">Dennis</span>. I've rung them. They've logged it. The engineer has a four-hour window and the four hours started at eight, so we're looking at noon, worst case, which I know isn't what you want to hear."</p>
+  <p>"I'm fine. I don't mind. I'm waiting for somebody anyway."</p>
+  <p>Connie looked at me. There wasn't anybody.</p>
+  <p>"They go off at this time," she said to me, quietly, as if Dennis couldn't hear her across a lobby with a tiled floor. "Not every day. Most days. He's been down there since ten to eight. They brought him back from the eye hospital in a taxi and he put his fob on the reader, and he's been sat there since."</p>
+  <p>"Was the lift working before that?"</p>
+  <p>"Yes. That's what I'm saying."</p>
+  <p>Dennis turned his chair round then, for the first time, with one hand on the wheel.</p>
+  <p>"You. Are you going up?"</p>
+  <p>"To nine."</p>
+  <p>"I'm on twelve. My tablets are on the kitchen table, white box, by the bread. I should've had them at eight." He held out a key on a hospital lanyard. "She can't leave the booth. Rules. It's three floors more than you're going anyway."</p>
+  <p>I looked at my phone. It was 8.52.</p>
+  <p>"I have to be in 9C at nine."</p>
+  <p>"It's three floors."</p>
+  <p>"It says nine on the job."</p>
+  <p>"Then be late. Five minutes. Who's going to know?"</p>
+  <p>"The app knows," I said. "It records when I arrive."</p>
+  <p>Connie started to say something about the lost property box and a fire marshal on six. I picked up my drill case and went through the door to the stairs. It's a heavy fire door with a square of wired glass in it. On the first half-landing I looked back through the glass, and he'd turned his chair to follow me, and he was still holding the key out at the height of my hand.</p>
+</div>
+
+<div class="col">
+  <h2>The stairs</h2>
+  <p>On the landing of the third floor there was a boy sitting on the steps eating dry cereal out of the box. He was about fourteen, in school trousers and a hoodie and one slider. He got up and came after me.</p>
+  <p>"Are you the police?"</p>
+  <p>"No."</p>
+  <p>"Are you the lift man?"</p>
+  <p>"No."</p>
+  <p>"Because basically the police already came, they came Wednesday, and they went in his flat and they had a look and they did his bathroom cabinet, and basically they think he just walked out, but he didn't, because of the camera. There's a camera in the lift, in the corner, and basically you see him get in on nine, Tuesday night, in his slippers, and he presses the button, and..."</p>
+  <p>"Which button?"</p>
+  <p>"What?"</p>
+  <p>"Which floor did he press?"</p>
+  <p>"You can't see. His back's in the way, he's pressing for ages. Basically the doors shut, and then the next bit of film, same camera, the doors open on the ground floor and there's nobody in it. Nobody. My cousin says he's in the shaft but he isn't, they looked, they had a man with a torch. Are you going to Wendell's?"</p>
+  <p>"Yes."</p>
+  <p>"I'm <span class="who" data-who="zeki">Zeki</span>. I'm off school. I've got a thing with my chest." He coughed. "Is that a drill? What are you going to drill?"</p>
+  <p>"I don't know yet."</p>
+  <p>He thought about that for two flights. The window on the sixth-floor landing didn't shut, so the wind came down the stairs at us, and someone had chained a child's scooter to the rail on the seventh with a lock bigger than the scooter.</p>
+  <p>"I helped him with his laptop once," Zeki said. "He didn't need it, basically, he knew more than me. He just wanted someone in his flat for a bit, I think. He gave me a pound."</p>
+</div>
+
+<div class="col">
+  <h2>9C</h2>
+  <p>The key was under the mat. The mat had no message on it.</p>
+  <p>Inside it was cold, the heating off, and it smelled of carbolic soap and of toast that had caught. It was the tidiest flat I've ever been in, and I've been in four hundred and twelve. A kitchen through an arch, an armchair by the window, a small table with one chair. A bookcase, tall, along the wall, full of ring binders with the years written on their spines in marker, starting at 1994.</p>
+  <p>I checked the bookcase. I check all of them. Somebody had built it properly. The cam locks were turned all the way round. The back panel was nailed every ten centimetres down the edges, not just at the corners. The leaflet always tells you to and hardly anyone does. It didn't move when I pushed it. I remember thinking, good, he's had somebody careful.</p>
+  <p>In the middle of the carpet was a flat-pack box. The brand had been cut off the end with scissors. On the top, in black marker, it said BOOKCASE (1).</p>
+  <p>"Are you allowed to open that?" said Zeki.</p>
+  <p>"It's the job."</p>
+  <p>I cut the tape. There were no panels in it, no fittings bag and no leaflet. There was a hi-vis vest, folded. A torch. A brown envelope, sealed, with 40 written on it. And a ring binder, with one sheet in the front pocket.</p>
+  <div class="doc">
+    <p><strong>ASSEMBLY INSTRUCTIONS</strong>. Bookcase (1). For the assembler.</p>
+    <p>Before you start. Read one step. Do it. Then turn the page. Do not read ahead. Do not leave out a step because it seems pointless. Some of them will seem pointless.</p>
+    <p>1. Put on the vest.</p>
+    <p>2. There is a sandwich in the fridge. Eat it. You won't have had breakfast, and there are a lot of stairs later.</p>
+    <p>3. Sit in the armchair by the window for ten minutes and do nothing else.</p>
+  </div>
+  <p>I put on the vest. It was too big. On the back, in marker, he'd written ASSEMBLER in capitals, and Zeki laughed at it until he started coughing.</p>
+  <p>The fridge had half a pint of milk in it that had thickened, a jar of pickle and a plate with a cling-film dome. Under the film was one sandwich, white bread, cheese, cut into two triangles with the crusts off. The bread was hard at the corners and had lifted away from the cheese. The cheese was sweating.</p>
+  <p>"That's a missing man's sandwich," said Zeki.</p>
+  <p>"It says eat it."</p>
+  <p>"That's basically evidence. You can't eat evidence. That's like, if they find him, that's his last..." He didn't finish. "That's disgusting."</p>
+  <p>I ate it standing up at the counter. It took a long time, because the bread was hard and the middle was soft and wet. He'd buttered it right out to the edges. Zeki watched me the whole time with his hand over his mouth, and once I had to stop and hold the edge of the sink, and then I went on until the plate was empty.</p>
+</div>
+
+<div class="col">
+  <h2>Step 3</h2>
+  <p>The armchair faced the window. From it you could see down over the car park and the grass and the NO BALL GAMES sign, and the main road, and the roofs going down the hill towards the river. You could see my van. From nine floors up you could see the curtain I'd hung across the back windows, and the bucket I keep by the back wheel, and that the van had been there all night, because there was frost on everything except the patch under the exhaust. It made me feel sick, that he could see all that from his chair.</p>
+  <p>On the windowsill there was a pair of binoculars and a notebook with a pencil in the spiral. The step said do nothing else.</p>
+  <p>Zeki picked up the notebook.</p>
+  <p>"Put that down. Step three says do nothing."</p>
+  <p>"It says you do nothing. It doesn't say me." He opened it. "It's just times. It's the lifts. Look."</p>
+  <p>He held it in front of my face, so I read it, which wasn't doing anything.</p>
+  <div class="doc">
+    <p>Mon 13 Jan. 07.48 D in at front door. 07.48 A and B out. 40 min.</p>
+    <p>Thu 16 Jan. 07.51 D in. 07.51 A and B out. 38 min.</p>
+    <p>Mon 20 Jan. 07.50 D in. 07.50 A and B out. 41 min.</p>
+    <p>Mon 20 Jan. 18.02 Y in. 18.02 A and B out. 40 min.</p>
+    <p>Mon 27 Jan. D kept in overnight at hospital. 07.50 both lifts fine.</p>
+    <p>Thu 30 Jan. Taxi late. D in 08.20. 08.20 A and B out. 40 min.</p>
+    <p>Always about 40.</p>
+    <p>Ask Connie for the fob list.</p>
+  </div>
+  <p>"D is Dennis," said Zeki. "That's him today, basically, that's exactly the same thing. Y is <span class="who" data-who="yusra">Yusra</span>. She's on seven. She's a chemist. She's nice, she gave my mum..."</p>
+  <p>"Ten to eight," I said. "They break at ten to eight. It'll be a timer. Something on a timer in a cupboard that somebody set wrong."</p>
+  <p>"Basically, yeah," said Zeki.</p>
+  <p>He turned pages. They were all the same, page after page, times and letters, going back to the start of January, in tiny upright pencil. I sat for the full ten minutes, timed on my phone. Zeki read out every line in January and half of February before he got bored.</p>
+  <p>Then I turned the page.</p>
+</div>
+
+<div class="col">
+  <h2>Steps 4 to 12</h2>
+  <p>They took forty minutes and some of them did seem pointless. I wound the clock on the kitchen wall. I watered a spider plant in the bathroom with exactly one mug of water. I took the batteries out of the smoke alarm, read the date printed on them aloud, and put them back. Zeki said it was like being in a dream where you have to do homework.</p>
+  <p>Step eleven was to write my own name and the time in the binder, on a line he'd left for it. I did. There was a line above it with nothing on it, and above that, faint, in pencil, another name that had been rubbed out with an eraser, and I couldn't read it.</p>
+  <p>Then I turned to the last page in the binder.</p>
+  <div class="doc">
+    <p>12. Take the torch. Put the envelope marked 40 in an inside pocket. Do not open it.</p>
+    <p>14. Go out to the landing. Press the call button for the lifts once. Car B will come in under thirty seconds. Get in. Press nothing.</p>
+    <p>W.S. &middot; Tuesday, 10.05 pm</p>
+  </div>
+  <p>There wasn't a step thirteen. I took that for the same joke as the floor numbers over the lift doors in the lobby, which go 11, 12, 14. Lots of buildings do that. People don't want to live on the thirteenth floor, so you call it the fourteenth and they're happy. He'd struck me as a man who'd enjoy that.</p>
+  <p>I put the envelope in the inside pocket of my coat, under the vest, and went out to the landing with the torch.</p>
+  <p>The lift doors on nine had their own sheets of paper taped to them. OUT OF SERVICE. I pressed the call button once. It didn't light. Zeki said, "It's not going to come, basically, it's broken, Connie said," and I said the step says thirty seconds, and I stood and counted thirty on my phone with the torch in my other hand. Nothing came. Nothing moved behind the doors. There was no sound in the shaft.</p>
+  <p>I didn't know what to do then. Step fourteen hadn't happened, so I couldn't do the part after it, and there wasn't a step for this.</p>
+  <p>Connie came up the stairs. She was breathing hard and holding the rail, and she stopped on the top step when she saw me in the vest.</p>
+  <p>"Yusra's come in off her night and gone up to twelve for his tablets," she said. "He's still sat down there. He asked me if you got there by nine." She came over and looked at the binder in my hand. "That's his writing. That's how he does his sevens, with a line through. What is this, what's he got you doing?"</p>
+  <p>"Assembly."</p>
+  <p>She took the binder off me. I let her. She read the last page standing in front of the dead lift doors, and ran her finger down it to the bottom, and stopped.</p>
+  <p>"Five past ten," she said. "Tuesday."</p>
+  <p>The camera had him stepping into the lift nine minutes later.</p>
+</div>
+</article>
+<article data-noaudio>
+<section class="chap">
+  <p class="chapno">End of chapter one</p>
+  <h2>To be continued.</h2>
+</section>
+<div class="col">
+  <p>That&rsquo;s the first chapter of If, Then, Else. We finish the books readers ask for first.</p>
+  <p><a class="btn-end" href="mailto:hello@learnedbyheart.com?subject=Tell%20me%20when%20If%2C%20Then%2C%20Else%20is%20finished">Tell me when it&rsquo;s finished</a></p>
+  <p>That opens an email to us. Just press send. If nothing opens, write to hello@learnedbyheart.com with the book&rsquo;s name.</p>
+  <p>Every book we write is made for one reader, in the style they love, with the thing they&rsquo;ve always meant to learn inside it. <a href="../../#prices">Have one written for you</a>, or go <a href="../../#library">back to the library</a>.</p>
+</div>
+</article>
+</div></div></div><div id="bar"></div></main>
+
+<script>
+const BOOK = {"id":"if-then-else","title":"If, Then, Else","firstChapter":{"no":"Chapter one","title":"Do Not Improve the Instructions"},"memoryColour":"#2F5D62","cast":{"petra":{"name":"Petra","colour":"#2F5D62","line":"Me. Thirty-one. I put flat-pack furniture together for strangers, through an app. I do exactly what the leaflet says."},"wendell":{"name":"Wendell","colour":"#8A6E4B","line":"Wendell Saar. Sixty-seven. Flat 9C. Wrote the instructions. Got into the lift on Tuesday night and didn't get out."},"connie":{"name":"Connie","colour":"#C2552D","line":"The concierge in the glass booth. Keeps a list of everyone in the building, and will tell you why."},"zeki":{"name":"Zeki","colour":"#3E7CB1","line":"Fourteen. Flat 3A. Off school with his chest. Says basically a lot."},"dennis":{"name":"Dennis","colour":"#6B5B95","line":"Twelfth floor. Drove buses for a living. Uses a wheelchair, and tells you he's fine."},"yusra":{"name":"Yusra","colour":"#2A9D8F","line":"Seventh floor. Pharmacist, works lates. Walks up seven floors when the lifts are off."},"gaspard":{"name":"Gaspard","colour":"#D4A017","line":"Ground floor. Runs the Saturday breakfast in the community room. Knows how everyone takes their eggs."},"leonie":{"name":"Leonie","colour":"#4A4E69","line":"Leonie Farrant. Worked with Wendell for twenty years and still won't say a kind word about him."}},"lockMessage":"There's a step to finish first.","lockLabel":" (answer the question first)","epub":"If-Then-Else.epub"};
+const P = BOOK.id;
+
+// ---- paint: everything is built from dabs of broken colour ----
+function rng(seed){ return () => (seed = (seed * 1664525 + 1013904223) >>> 0) / 4294967296; }
+function dab(ctx, x, y, len, w, ang, h, s, l, a = .9){
+  ctx.save(); ctx.translate(x, y); ctx.rotate(ang);
+  ctx.fillStyle = `hsla(${h},${s}%,${l}%,${a})`;
+  ctx.beginPath(); ctx.ellipse(0, 0, len / 2, w / 2, 0, 0, 7); ctx.fill(); ctx.restore();
+}
+function hexToHsl(hex){
+  const [r, g, b] = [1, 3, 5].map(i => parseInt(hex.slice(i, i + 2), 16) / 255);
+  const mx = Math.max(r, g, b), mn = Math.min(r, g, b), l = (mx + mn) / 2, d = mx - mn;
+  let h = 0; const s = d ? d / (1 - Math.abs(2 * l - 1)) : 0;
+  if (d) h = mx === r ? ((g - b) / d) % 6 : mx === g ? (b - r) / d + 2 : (r - g) / d + 4;
+  return [(h * 60 + 360) % 360, s * 100, l * 100];
+}
+// one painted swatch per person, used for their chip and their colour sample
+const css = getComputedStyle(document.documentElement);
+let rules = '';
+Object.keys(BOOK.cast).forEach((id, n) => {
+  const [h, s, l] = hexToHsl(css.getPropertyValue('--' + id).trim());
+  const c = document.createElement('canvas'); c.width = c.height = 160;
+  const ctx = c.getContext('2d'), r = rng(11 + n * 97);
+  ctx.fillStyle = `hsl(${h},${s}%,${l}%)`; ctx.fillRect(0, 0, 160, 160);
+  for (let i = 0; i < 240; i++)
+    dab(ctx, r() * 160, r() * 160, 22 + r() * 30, 7 + r() * 8, -.5 + (r() - .5) * 1.1,
+        h + (r() - .5) * 34, Math.min(100, s + (r() - .5) * 20), l + (r() - .5) * 26);
+  rules += `[data-who=${id}]{--tex:url(${c.toDataURL()})}`;
+});
+document.head.appendChild(Object.assign(document.createElement('style'), {textContent: rules}));
+
+
+function toImage(cv, cls){
+  const im = new Image(cv.width, cv.height);
+  im.className = cls; im.alt = cv.getAttribute('aria-label') || ''; im.draggable = false;
+  im.src = cv.toDataURL('image/jpeg', .9); cv.replaceWith(im);
+}
+
+
+const cast = Object.fromEntries(Object.entries(BOOK.cast).map(([k, v]) => [k, [v.name, v.colourName, v.line]]));
+const card = document.getElementById('card');
+const chips = [...document.querySelectorAll('.chip')];
+const chipFor = id => chips.find(c => c.dataset.who === id);
+
+function closeCard(){ card.hidden = true; chips.forEach(c => c.setAttribute('aria-expanded','false')); }
+chips.forEach(chip => chip.addEventListener('click', e => {
+  e.stopPropagation();
+  if (!chip.classList.contains('met')) return;
+  const open = chip.getAttribute('aria-expanded') === 'true';
+  closeCard();
+  if (open) return;
+  const [name, colour, line] = cast[chip.dataset.who];
+  card.dataset.who = chip.dataset.who;
+  card.innerHTML = `<strong>${name}</strong>${colour ? `<em>${colour}</em>` : ''}<p>${line}</p>`;
+  card.hidden = false;
+  chip.setAttribute('aria-expanded','true');
+}));
+document.addEventListener('click', closeCard);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeCard(); });
+
+// ---- pages ----
+const stage = document.getElementById('stage'), book = document.getElementById('book'),
+      flow = document.getElementById('flow'), bar = document.getElementById('bar'),
+      chart = document.getElementById('silences');
+const still = matchMedia('(prefers-reduced-motion: reduce)');
+let page = 0, pages = 1, step = 0, busy = false;
+let unmet = [...document.querySelectorAll('.who')];
+
+function arrive(){
+  // a chip fills in once that person's name has turned up on a page she has reached
+  unmet = unmet.filter(el => {
+    if (el.getBoundingClientRect().left > innerWidth - 1) return true;
+    const chip = chipFor(el.dataset.who);
+    chip.classList.add('met');
+    chip.setAttribute('aria-label', cast[el.dataset.who][0] + ', tap for who they are');
+    return false;
+  });
+  if (chart && chart.getBoundingClientRect().left < innerWidth - 1) chart.classList.add('seen');
+}
+function show(){
+  flow.style.transform = `translateX(${-page * step}px)`;
+  bar.style.width = (pages > 1 ? page / (pages - 1) * 100 : 0) + '%';
+  if (typeof booted !== 'undefined' && booted) try { localStorage.setItem(P + '.ch1.at', String(units.indexOf(firstOnPage()))); } catch (e) {}
+  arrive();
+  if (typeof units !== 'undefined' && typeof voice !== 'undefined') listen.hidden = firstOnPage().t < 0 && voice.paused;
+}
+function layout(){
+  // keep her place by paragraph while the pages are re-cut
+  const anchor = (typeof units !== 'undefined' && step) ? firstOnPage() : null;
+  const pad = parseFloat(getComputedStyle(book).paddingLeft), w = book.clientWidth - 2 * pad;
+  flow.style.columnWidth = w + 'px'; flow.style.columnGap = 2 * pad + 'px';
+  step = book.clientWidth; page = 0; flow.style.transform = 'translateX(0px)';
+  pages = Math.max(1, Math.round((flow.scrollWidth + 2 * pad) / step));
+  if (anchor) page = Math.min(pages - 1, pageOf(anchor.el));
+  if (typeof maxPage === 'function') page = Math.min(page, maxPage());
+  show();
+}
+function turn(dir, auto){
+  const to = page + dir;
+  if (busy || to < 0 || to >= pages) return;
+  if (dir > 0 && to > maxPage()){
+    const t = [...tests, ...Object.values(gates)].find(t => pageOf(t) === page);
+    if (t){ t.classList.remove('shake'); void t.offsetWidth; t.classList.add('shake'); t.querySelector('.say').textContent = t.querySelector('.say').textContent || BOOK.lockMessage; }
+    return;
+  }
+  closeCard(); if (typeof closeMenu === 'function') closeMenu();
+  if (!auto) setTimeout(() => window.seekToPage && seekToPage(), 0);
+  if (still.matches){ page = to; show(); return; }
+  busy = true;
+  const leaf = document.createElement('div'); leaf.className = 'page leaf';
+  const copy = flow.cloneNode(true);
+  copy.removeAttribute('id'); copy.querySelectorAll('[id]').forEach(e => e.removeAttribute('id'));
+  copy.style.transform = `translateX(${-(dir > 0 ? page : to) * step}px)`;
+  leaf.append(copy); stage.append(leaf);
+  const done = () => { leaf.remove(); busy = false; };
+  if (dir > 0){
+    page = to; show();
+    leaf.animate([{transform: 'rotateY(0)'}, {transform: 'rotateY(-90deg)'}], {duration: 480, easing: 'ease-in'}).onfinish = done;
+  } else {
+    leaf.animate([{transform: 'rotateY(-90deg)'}, {transform: 'rotateY(0)'}], {duration: 480, easing: 'ease-out'})
+      .onfinish = () => { page = to; show(); done(); };
+  }
+}
+stage.addEventListener('click', e => {
+  if (e.target.closest('button, a, input, form, label')) return;
+  turn(e.clientX < innerWidth * .3 ? -1 : 1);
+});
+let x0 = null;
+stage.addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, {passive: true});
+stage.addEventListener('touchend', e => {
+  if (x0 === null) return;
+  const dx = e.changedTouches[0].clientX - x0; x0 = null;
+  if (Math.abs(dx) > 45){ e.preventDefault(); turn(dx < 0 ? 1 : -1); }
+});
+addEventListener('keydown', e => {
+  if (e.target.matches && e.target.matches('input, textarea')) return;
+  if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown'){ e.preventDefault(); turn(1); }
+  if (e.key === 'ArrowLeft' || e.key === 'PageUp'){ e.preventDefault(); turn(-1); }
+});
+// ---- audiobook: six tracks with word timings; pages turn themselves, a hand turn moves the audio ----
+const WORDS = BOOK.audio ? BOOK.audio.words : [];
+const voice = document.getElementById('voice'), listen = document.getElementById('listen');
+const TRACKS = BOOK.audio ? BOOK.audio.tracks : [];
+const units = []; let track = -1, nowReading = null, raf = 0;
+(function(){
+  const norm = s => s.toLowerCase().replace(/’/g, "'").replace(/[^a-z0-9']+/g, ' ').trim().split(' ').filter(Boolean);
+  let t = 0; const at = {};
+  flow.querySelectorAll('.bookcover .bc, .brief h2, .brief h3, .brief .slip, .guess .ask, .bridge p, .cold p:not(.note), .open h1, .open .chapter, .memory p, article h2, article .col > p, article .col > .doc, article .col > ul').forEach(el => {
+    if (!BOOK.audio || el.closest('[data-noaudio]')){ units.push({el, t: -1, start: 0, end: 0}); return; }
+    if (el.closest('.memory')) t = 1; else if (el.tagName === 'H2') t = t < 2 ? 2 : t + 1;
+    const said = norm(el.textContent), script = WORDS[t]; let i = at[t] || 0;
+    // line the paragraph up with the recording by its first word, tolerating small slips
+    for (let k = 0; k < 8 && script[i + k]; k++) if (script[i + k][0] === said[0]){ i += k; break; }
+    const last = Math.min(script.length - 1, i + said.length - 1);
+    units.push({el, t, start: script[i] ? script[i][1] : 0, end: script[last] ? script[last][2] : 0});
+    at[t] = last + 1;
+  });
+})();
+const pageOf = el => Math.floor((el.getBoundingClientRect().left + page * step) / step);
+const firstOnPage = () => units.find(u => pageOf(u.el) >= page) || units[units.length - 1];
+function mark(u){
+  if (nowReading === u) return;
+  if (nowReading) nowReading.el.classList.remove('reading');
+  nowReading = u; if (u) u.el.classList.add('reading');
+}
+// Tracks are fetched whole and played from memory, so jumping around works on any host.
+const blobs = {};
+async function load(t, at, play){
+  track = t;
+  try {
+    if (!blobs[t]) blobs[t] = URL.createObjectURL(await (await fetch(TRACKS[t])).blob());
+  } catch (e) { voice.dispatchEvent(new Event('error')); return; }
+  if (track !== t) return;
+  voice.src = blobs[t];
+  voice.addEventListener('loadedmetadata', () => { voice.currentTime = at; if (play) voice.play(); }, {once: true});
+  voice.load();
+}
+function seekToPage(){
+  if (voice.paused && track < 0) return;
+  const u = firstOnPage(), playing = !voice.paused, at = Math.max(0, u.start - .15);
+  if (u.t < 0){ voice.pause(); stopUi(); track = -1; listen.hidden = true; return; }
+  if (u.t === track && voice.duration) voice.currentTime = at; else load(u.t, at, playing);
+  mark(playing ? u : null);
+}
+function follow(){ raf = requestAnimationFrame(follow); sync(); }
+voice.addEventListener('timeupdate', () => sync());
+function sync(){
+  if (voice.paused || !voice.duration) return;
+  const now = voice.currentTime + .12;
+  let u = null;
+  for (const x of units) if (x.t === track && x.start <= now) u = x;
+  if (!u) return;
+  mark(u);
+  const p = pageOf(u.el);
+  if (p !== page && !busy){
+    if (Math.abs(p - page) === 1) turn(p - page, true); else { page = p; show(); }
+  }
+}
+function stopUi(){ listen.setAttribute('aria-pressed', 'false'); listen.setAttribute('aria-label', 'Listen to this chapter'); mark(null); cancelAnimationFrame(raf); }
+voice.addEventListener('ended', () => {
+  if (track < TRACKS.length - 1) load(track + 1, 0, true); else { stopUi(); track = -1; }
+});
+voice.addEventListener('error', stopUi);
+listen.addEventListener('click', e => {
+  e.stopPropagation();
+  if (!voice.paused){ voice.pause(); stopUi(); return; }
+  listen.setAttribute('aria-pressed', 'true'); listen.setAttribute('aria-label', 'Pause');
+  cancelAnimationFrame(raf); follow();
+  const u = firstOnPage(), at = Math.max(0, u.start - .15);
+  if (u.t === track && voice.duration){ voice.currentTime = at; voice.play(); } else load(u.t, at, true);
+});
+
+// ---- the biscuit test: one question at a chapter's end; the pages after it stay shut until it's answered ----
+const tests = [...flow.querySelectorAll('.test')];
+let passed = {};
+try { passed = JSON.parse(localStorage.getItem(P + '.tests') || '{}'); } catch (e) {}
+// Optional daily writing check (off unless book.json has "writing"): a word goal before the next chapter opens.
+const W = BOOK.writing || null;
+const GOAL = W ? W.goal : 0;
+const today = () => new Date().toLocaleDateString('en-CA');
+let words = {}, wrote = {};
+try { words = JSON.parse(localStorage.getItem(P + '.words') || '{}'); wrote = JSON.parse(localStorage.getItem(P + '.wrote') || '{}'); } catch (e) {}
+try { // chapters she had already unlocked before this was added stay unlocked
+  if (!localStorage.getItem(P + '.wordsOn')){ Object.keys(passed).forEach(k => wrote[k] = true); localStorage.setItem(P + '.wordsOn', '1'); }
+} catch (e) {}
+const saveWords = () => { try { localStorage.setItem(P + '.words', JSON.stringify(words)); localStorage.setItem(P + '.wrote', JSON.stringify(wrote)); } catch (e) {} };
+function streak(){
+  let n = 0; const d = new Date();
+  if ((words[today()] || 0) < GOAL) d.setDate(d.getDate() - 1);
+  while ((words[d.toLocaleDateString('en-CA')] || 0) >= GOAL){ n++; d.setDate(d.getDate() - 1); }
+  return n;
+}
+const pick = (list, n) => list[Math.abs(n) % list.length];
+const fill = (s, n, r) => s.replace(/\{n\}/g, n).replace(/\{r\}/g, r);
+const cheers = (W ? W.cheers : []).map(s => n => fill(s, n));
+const nudges = (W ? W.nudges : []).map(s => (n, r) => fill(s, n, r));
+const gates = {};
+tests.forEach(t => {
+  const id = t.dataset.test;
+  if (!W || (passed[id] && wrote[id])) return;
+  const g = document.createElement('section');
+  g.className = 'wgate'; g.dataset.for = id;
+  g.innerHTML = `
+    <p class="who-to">${W.intro}</p>
+    <p class="ask">${W.ask}</p>
+    <p class="sub">${W.sub}</p>
+    <form class="wform"><input type="number" inputmode="numeric" min="0" max="50000" id="words-${id}" aria-label="Words written today" placeholder="0"><button type="submit">${W.button}</button></form>
+    <p class="say" aria-live="polite"></p>
+    <div class="wbar"><i></i></div><div class="wlabel"><span class="wn">0 today</span><span>${GOAL}</span></div>
+    <div class="won" hidden><p class="streak"></p></div>`;
+  t.after(g); gates[id] = g;
+  g.querySelector('form').addEventListener('submit', e => {
+    e.preventDefault(); e.stopPropagation();
+    const n = Math.max(0, Math.min(50000, parseInt(g.querySelector('input').value, 10) || 0));
+    words[today()] = n;
+    if (n >= GOAL) wrote[id] = true;
+    saveWords();
+    g.querySelector('.say').textContent = n >= GOAL ? pick(cheers, n)(n) : n === 0
+      ? W.zero
+      : pick(nudges, n)(n, GOAL - n);
+    drawGate(id, true);
+  });
+});
+function drawGate(id, spoken){
+  const g = gates[id]; if (!g) return;
+  const n = words[today()] || 0;
+  if (passed[id] && !wrote[id] && n >= GOAL){ wrote[id] = true; saveWords(); }
+  g.querySelector('.wbar i').style.setProperty('--w', Math.min(100, n / GOAL * 100) + '%');
+  g.querySelector('.wbar').classList.toggle('full', n >= GOAL);
+  g.querySelector('.wn').textContent = `${n} today`;
+  const done = !!wrote[id];
+  g.querySelector('.won').hidden = !done;
+  if (done){
+    const s = streak();
+    g.querySelector('.streak').textContent = (s > 1 ? `${s} days in a row. ` : '') + 'Turn the page.';
+    if (!spoken && !g.querySelector('.say').textContent) g.querySelector('.say').textContent = fill(W.already, n);
+    g.querySelector('form').hidden = true;
+  }
+}
+function maxPage(){
+  for (const t of tests){
+    const id = t.dataset.test;
+    if (!passed[id]) return pageOf(t);
+    if (gates[id] && !wrote[id]) return pageOf(gates[id]);
+  }
+  return pages - 1;
+}
+tests.forEach(t => {
+  const say = t.querySelector('.say'), won = t.querySelector('.won'), opts = [...t.querySelectorAll('.opts button')];
+  const right = opts.find(b => b.dataset.opt === t.dataset.answer); right.dataset.right = '';
+  let wrong = 0;
+  const finish = () => {
+    say.textContent = right.dataset.say; won.hidden = false; t.classList.remove('hint');
+    opts.forEach(b => { b.disabled = true; b.classList.add(b === right ? 'yes' : 'no'); });
+  };
+  if (passed[t.dataset.test]) finish();
+  opts.forEach(b => b.addEventListener('click', e => {
+    e.stopPropagation();
+    say.textContent = b.dataset.say;
+    if (b === right){
+      passed[t.dataset.test] = true;
+      try { localStorage.setItem(P + '.tests', JSON.stringify(passed)); } catch (e) {}
+      finish(); drawGate(t.dataset.test);
+    } else {
+      b.classList.add('no'); b.disabled = true;
+      if (++wrong >= 2) t.classList.add('hint');
+    }
+  }));
+});
+
+Object.keys(gates).forEach(id => drawGate(id));
+
+// ---- guess first (tasters): pick an answer before reading the scene, find out after ----
+const guesses = {};
+flow.querySelectorAll('.guess').forEach(g => {
+  const opts = [...g.querySelectorAll('.opts button')], say = g.querySelector('.say');
+  opts.forEach(b => b.addEventListener('click', e => {
+    e.stopPropagation();
+    opts.forEach(o => { o.disabled = true; o.classList.add(o === b ? 'picked' : 'other'); });
+    guesses[g.dataset.for] = b;
+    say.textContent = g.dataset.reply;
+  }));
+});
+tests.forEach(t => t.querySelectorAll('.opts button').forEach(b => b.addEventListener('click', () => {
+  const g = guesses[t.dataset.test];
+  if (!g || b.dataset.opt !== t.dataset.answer || t.querySelector('.guessed')) return;
+  const p = document.createElement('p'); p.className = 'guessed';
+  p.textContent = g.dataset.opt === t.dataset.answer
+    ? 'You guessed that before you read it. Good instincts.'
+    : `Before the scene, you guessed “${g.textContent.trim()}”. Now you know.`;
+  t.querySelector('.won').before(p);
+})));
+
+// ---- chapters menu ----
+const toc = document.getElementById('toc'), menu = document.getElementById('menu');
+const chapters = [...(flow.querySelector('.brief') ? [{no: 'Before you start', title: 'How this book was made', el: flow.querySelector('.brief')}] : []),
+  {no: BOOK.firstChapter.no, title: BOOK.firstChapter.title, el: flow.querySelector('.cold')},
+  ...[...flow.querySelectorAll('.chap')].map(c => ({no: c.querySelector('.chapno').textContent, title: c.querySelector('h2').textContent, el: c}))];
+function closeMenu(){ menu.hidden = true; toc.setAttribute('aria-expanded', 'false'); }
+function openMenu(){
+  const here = chapters.filter(c => pageOf(c.el) <= page).pop();
+  menu.innerHTML = '';
+  if (hasLessons){
+    const t = document.createElement('button');
+    t.className = 'teach-toggle'; t.setAttribute('aria-pressed', String(teach));
+    t.innerHTML = '<span>Show the teaching</span><span class="state"></span>';
+    t.addEventListener('click', e => { e.stopPropagation(); setTeach(!teach, true); });
+    menu.append(t); paintTeach();
+  }
+  chapters.forEach(c => {
+    const b = document.createElement('button');
+    b.innerHTML = `<small>${c.no}</small><b>${c.title}</b>`;
+    if (c === here) b.setAttribute('aria-current', 'true');
+    if (pageOf(c.el) > maxPage()){ b.disabled = true; b.querySelector('small').textContent += BOOK.lockLabel; }
+    b.addEventListener('click', e => {
+      e.stopPropagation(); closeMenu(); closeCard();
+      page = pageOf(c.el); show(); seekToPage();
+    });
+    menu.append(b);
+  });
+  if (BOOK.epub) {
+    const a = document.createElement('a');
+    a.className = 'dl'; a.href = encodeURI(BOOK.epub); a.setAttribute('download', '');
+    a.innerHTML = '<small>For Apple Books, Kindle, Kobo or Google Play Books</small><b>Download the ebook</b>';
+    a.addEventListener('click', e => e.stopPropagation());
+    menu.append(a);
+  }
+  menu.hidden = false; toc.setAttribute('aria-expanded', 'true');
+  const cur = menu.querySelector('[aria-current=true]');
+  menu.scrollTop = cur ? cur.offsetTop - (menu.clientHeight - cur.offsetHeight) / 2 : 0;
+}
+toc.addEventListener('click', e => { e.stopPropagation(); closeCard(); menu.hidden ? openMenu() : closeMenu(); });
+document.addEventListener('click', closeMenu);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+
+// ---- show the teaching ----
+const hasLessons = !!flow.querySelector('.lesson');
+let teach = !!BOOK.teachDefault;
+try { const s = localStorage.getItem(P + '.teach'); if (s !== null) teach = s === '1'; } catch (e) {}
+function paintTeach(){
+  document.querySelectorAll('.teach-toggle').forEach(b => {
+    b.setAttribute('aria-pressed', String(teach));
+    b.querySelector('.state').textContent = teach ? 'On' : 'Off';
+  });
+}
+function setTeach(on, save){
+  teach = on && hasLessons;
+  document.body.classList.toggle('teach', teach);
+  paintTeach();
+  if (save) try { localStorage.setItem(P + '.teach', teach ? '1' : '0'); } catch (e) {}
+  if (step) layout();
+}
+document.querySelectorAll('.flow .teach-toggle').forEach(b => {
+  if (!hasLessons){ b.remove(); return; }
+  b.addEventListener('click', e => { e.stopPropagation(); setTeach(!teach, true); });
+});
+setTeach(teach, false);
+
+// ---- start up: come back to the paragraph she was on ----
+let booted = false;
+addEventListener('resize', layout);
+layout();
+try {
+  const i = parseInt(localStorage.getItem(P + '.ch1.at'), 10);
+  if (i > 0 && units[i]){ page = Math.min(pageOf(units[i].el), maxPage()); show(); }
+} catch (e) {}
+booted = true;
+document.fonts && document.fonts.ready.then(layout);
+</script>
+<script>
+// Installable app: save pages, pictures and played audio on the phone so the book opens offline.
+if ('serviceWorker' in navigator && location.protocol !== 'file:') navigator.serviceWorker.register('sw.js').catch(() => {});
+</script>
+</body>
+</html>
