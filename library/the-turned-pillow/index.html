@@ -1,0 +1,1034 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Turned Pillow</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500&family=Fraunces:opsz,wght,SOFT@9..144,500,100&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=Young+Serif&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F6F2FA;      /* lilac white: impressionist shadows are violet, never black */
+  --paper-deep:#E7DFF0;
+  --ink:#2A2255;        /* petrol */
+  --ink-soft:#5F5A85;
+  --line:#CFC6E0;
+  --sheet:#FFFCF2;      /* letter paper */
+
+  --mum:#EBA91A;    /* curry sauce */
+  --nan:#5DA24F;    /* mushy pea */
+  --danny:#E2452E;  /* saveloy */
+  --carol:#F26FA6;  /* seaside rock */
+  --dad:#7A4A2E;    /* gravy */
+  --jo:#2E73C8;
+  --sam:#2FA39A;  /* verdigris */
+  --nell:#2E73C8;   /* the sea, half past three */
+  --giles:#EFD98F;  /* double cream */
+  --dev:#F27A1A;    /* traffic cone */
+  --note:#8A5BB5;   /* a twenty */     /* the sea */
+
+  --read:34rem;
+  --wide:46rem;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:Literata,Georgia,serif;font-size:1.125rem;line-height:1.7;
+  font-optical-sizing:auto;
+}
+main{padding:0 1.25rem 6rem}
+.col{max-width:var(--read);margin:0 auto}
+.fig{max-width:var(--wide);margin:3.5rem auto}
+p{margin:0 0 1.25em}
+h1,h2{font-family:"Young Serif",Georgia,serif;font-weight:400;line-height:1.08;margin:0}
+h1{font-size:clamp(3.2rem,13vw,6.5rem);letter-spacing:-.02em}
+h2{font-size:clamp(1.7rem,5vw,2.3rem);margin:4.5rem 0 1.4rem}
+.chapter{font-size:1.05rem;color:var(--ink-soft);margin:.9rem 0 0}
+figcaption,.note{font-size:.95rem;line-height:1.5;color:var(--ink-soft)}
+figure{margin:0}
+figcaption{margin-top:.9rem;max-width:var(--read)}
+
+/* cold open: the first screen is only her voice */
+.cold{min-height:100svh;display:grid;align-content:center;padding:3rem 0 6rem}
+.cold .first{font-family:"Young Serif",Georgia,serif;font-size:clamp(2.1rem,8vw,3.5rem);line-height:1.12;letter-spacing:-.01em;margin-bottom:.9em}
+.cold p:last-child{margin-bottom:0}
+@media (max-height:900px){.cold .first{font-size:clamp(1.8rem,6.6vw,2.6rem)}.flow .cold .hint{margin-top:1.2rem}}
+
+/* a childhood memory opens the chapter */
+.memory{font-style:italic;margin:3.5rem 0 0;padding-left:1.1rem;border-left:.35rem solid var(--memory,var(--mum))}
+.memory p:last-child{margin-bottom:0}
+
+/* opening */
+.open{padding:2rem 0 0}
+.sea{display:block;width:100%;height:auto;margin-top:2.5rem;border-radius:4px}
+
+/* character names in the text */
+.who{
+  text-decoration:underline;text-decoration-thickness:.22em;text-underline-offset:.16em;
+  text-decoration-color:var(--c);text-decoration-skip-ink:none;
+}
+[data-who=mum]{--c:var(--mum)}[data-who=nan]{--c:var(--nan)}[data-who=danny]{--c:var(--danny)}
+[data-who=carol]{--c:var(--carol)}[data-who=dad]{--c:var(--dad)}[data-who=jo]{--c:var(--jo)}[data-who=sam]{--c:var(--sam)}[data-who=nell]{--c:var(--nell)}[data-who=giles]{--c:var(--giles)}[data-who=dev]{--c:var(--dev)}
+
+/* the cast: paint chips that fill in as people arrive */
+.cast{
+  position:fixed;z-index:5;left:0;right:0;bottom:0;
+  display:flex;justify-content:center;gap:.5rem;padding:.6rem .75rem calc(.6rem + env(safe-area-inset-bottom));
+  background:color-mix(in srgb,var(--paper) 88%,transparent);backdrop-filter:blur(6px);
+  border-top:1px solid var(--line);
+}
+.chip{
+  width:2.2rem;height:2.2rem;flex:none;border-radius:3px;border:1.5px dashed var(--line);background:transparent;
+  padding:0;cursor:pointer;transition:transform .2s;
+}
+.chip.met{background:var(--c) var(--tex) center/cover;border-color:transparent;border-radius:5px 3px 6px 3px}
+.chip[aria-expanded=true]{transform:translateY(-4px)}
+.chip:focus-visible,.next:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.chip:not(.met){cursor:default}
+.card{
+  position:fixed;z-index:6;left:50%;bottom:4.6rem;transform:translateX(-50%);
+  width:min(22rem,calc(100vw - 2rem));background:var(--sheet);border-radius:4px;
+  border-left:.6rem solid var(--c);padding:1rem 1.1rem;box-shadow:0 10px 30px rgba(42,34,85,.25);
+  font-size:1rem;line-height:1.5;
+}
+.card[hidden]{display:none}
+.card strong{font-family:"Young Serif",serif;font-weight:400;font-size:1.25rem;display:block}
+.card em{color:var(--ink-soft);font-style:normal;font-size:.9rem}
+.card p{margin:.5rem 0 0}
+@media (min-width:64rem){
+  .cast{left:1.5rem;right:auto;top:50%;bottom:auto;transform:translateY(-50%);flex-direction:column;
+    border:0;background:none;backdrop-filter:none;padding:0}
+  .chip[aria-expanded=true]{transform:translateX(4px)}
+  .card{left:5rem;bottom:auto;top:50%;transform:translateY(-50%)}
+}
+
+/* colour definitions list */
+.swatches{list-style:none;padding:0;margin:2rem 0;display:grid;gap:1.4rem}
+.swatches li{display:grid;grid-template-columns:4.5rem 1fr;gap:1.1rem;align-items:start}
+.swatches i{display:block;height:4.5rem;border-radius:3px;background:var(--c) var(--tex) center/cover;filter:url(#rough)}
+.swatches b{font-family:"Young Serif",serif;font-weight:400;font-size:1.2rem;display:block;line-height:1.3}
+.swatches small{display:block;color:var(--ink-soft);font-size:.9rem;margin-bottom:.25rem}
+
+svg{display:block;width:100%;height:auto}
+.fig svg rect,.fig svg path,.fig svg circle,.bar{filter:url(#rough)}
+svg text{font-family:Literata,Georgia,serif;fill:var(--ink)}
+.map{position:relative;border-radius:4px;overflow:hidden}
+.map canvas{position:absolute;inset:0;width:100%;height:100%}
+.map svg{position:relative}
+.legend{list-style:none;padding:0;margin:1.2rem 0 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(13rem,1fr));gap:.5rem 1.5rem;font-size:.95rem;line-height:1.4}
+.legend li{display:flex;gap:.6rem;align-items:baseline}
+.legend i{flex:none;width:.8rem;height:.8rem;border-radius:50%;background:var(--c);transform:translateY(.05rem)}
+
+/* silences chart */
+.silences{display:grid;gap:1.1rem;margin-top:.5rem}
+.row{display:grid;gap:.3rem}
+.row .names{font-size:.98rem}
+.track{position:relative;height:1.5rem;background:var(--paper-deep);border-radius:2px}
+.bar{position:absolute;top:0;bottom:0;left:var(--from);right:var(--to,0%);
+  background:linear-gradient(var(--a) 50%,var(--b) 50%);border-radius:2px;
+  transform-origin:left;transform:scaleX(0);transition:transform 1.4s cubic-bezier(.2,.7,.2,1)}
+.bar.faint{opacity:.45}
+.seen .bar{transform:scaleX(1)}
+.axis{display:flex;justify-content:space-between;font-size:.85rem;color:var(--ink-soft);
+  font-variant-numeric:tabular-nums;border-top:1px solid var(--line);padding-top:.3rem}
+.row .note{font-size:.88rem}
+
+/* the letter */
+.letter{background:var(--sheet);padding:clamp(1.4rem,5vw,2.6rem);border-radius:2px;
+  box-shadow:0 1px 0 #fff inset,0 14px 34px rgba(42,34,85,.18);transform:rotate(-.6deg);
+  font-size:1rem;line-height:1.6;position:relative;max-width:36rem;margin:0 auto}
+.letter .head{font-family:"Young Serif",serif;font-size:1.3rem;border-bottom:2px solid var(--ink);padding-bottom:.5rem;margin-bottom:1.2rem}
+.letter .head small{display:block;font-family:Literata,serif;font-size:.8rem;color:var(--ink-soft)}
+.hand{font-family:Caveat,cursive;color:var(--jo);font-size:1.7rem;line-height:1.1;
+  position:absolute;right:1rem;bottom:1.1rem;transform:rotate(-5deg)}
+.letter mark{background:linear-gradient(transparent 55%,color-mix(in srgb,var(--mum) 55%,transparent) 55%);color:inherit}
+
+.end{margin-top:4rem;padding-top:1.5rem;border-top:1px solid var(--line)}
+.next{font:inherit;font-size:1rem;background:var(--ink);color:var(--paper);border:0;border-radius:3px;padding:.8rem 1.2rem;opacity:.5}
+
+@media (prefers-reduced-motion:reduce){
+  .bar{transition:none;transform:none}.chip{transition:none}
+}
+
+/* ---- the book: fixed pages that turn ---- */
+html,body{height:100%;overflow:hidden}
+main{padding:0}
+#stage{position:fixed;inset:0 0 calc(3.6rem + env(safe-area-inset-bottom,0px)) 0;perspective:2200px;cursor:pointer}
+@media (min-width:64rem){#stage{inset:0}}
+.page{position:absolute;inset:0;overflow:hidden;background:var(--paper);
+  padding-block:calc(1.75rem + env(safe-area-inset-top,0px)) 1.75rem;
+  padding-left:max(1.25rem,env(safe-area-inset-left,0px),calc((100% - 36rem)/2));
+  padding-right:max(1.25rem,env(safe-area-inset-right,0px),calc((100% - 36rem)/2))}
+.leaf{transform-origin:left center;backface-visibility:hidden;pointer-events:none;will-change:transform;
+  box-shadow:18px 0 40px rgba(42,34,85,.22)}
+.leaf::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(90deg,transparent 55%,rgba(42,34,85,.16))}
+.flow{height:100%;column-fill:auto}
+.flow .col,.flow .fig{max-width:none}
+.flow .fig{margin:1.5rem 0}
+.flow h2{margin:2.2rem 0 1rem;break-after:avoid}
+.flow .cold{min-height:100%;height:auto;padding:0;break-after:column}
+.flow .open{padding:0;break-after:column}
+.flow .memory{margin-top:0}
+.flow .end{margin-top:2.5rem}
+.flow p{orphans:2;widows:2}
+.map,.legend li,.row,.axis,.letter,.swatches li,.flow svg,.sea,figcaption{break-inside:avoid}
+.map canvas,.map .town{position:absolute;inset:0;width:100%;height:100%}
+.hint{margin-top:2rem}
+#bar{position:fixed;z-index:7;top:0;left:0;height:3px;width:0;background:var(--ink);transition:width .3s}
+
+.painting{display:block;width:100%;height:auto;border-radius:3px;break-inside:avoid;box-shadow:0 12px 30px rgba(42,34,85,.25)}
+/* the paint card */
+.card-strip{break-inside:avoid;border-radius:3px;overflow:hidden;box-shadow:0 10px 26px rgba(42,34,85,.16)}
+.card-strip div{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;padding:.7rem .9rem;border-bottom:1px solid rgba(42,34,85,.08)}
+.card-strip b{font-family:Caveat,cursive;font-weight:500;font-size:1.45rem;line-height:1;color:var(--nell)}
+.card-strip s{font-size:.8rem;color:var(--ink-soft);white-space:nowrap}
+
+/* the audiobook */
+#listen{position:fixed;z-index:8;bottom:calc(.5rem + env(safe-area-inset-bottom,0px));right:calc(.75rem + env(safe-area-inset-right,0px));width:2.4rem;height:2.4rem;border-radius:50%;border:0;
+  background:var(--ink);color:var(--paper);display:grid;place-items:center;cursor:pointer;
+  box-shadow:0 6px 18px rgba(42,34,85,.3)}
+#listen svg{fill:currentColor;width:18px;height:18px}
+@media (min-width:64rem){#listen{bottom:auto;top:1.2rem;right:1.5rem;width:2.9rem;height:2.9rem}#listen svg{width:22px;height:22px}}
+#listen .i-pause,#listen[aria-pressed=true] .i-play{display:none}
+#listen[aria-pressed=true] .i-pause{display:block}
+#listen:focus-visible{outline:3px solid var(--note);outline-offset:3px}
+.reading{background:color-mix(in srgb,var(--giles) 45%,transparent);box-shadow:0 0 0 .35rem color-mix(in srgb,var(--giles) 45%,transparent);border-radius:2px}
+
+/* chapter openers */
+.flow .chap{break-before:column;break-after:column;height:100%;display:grid;align-content:center}
+.chapno{color:var(--ink-soft);margin:0}
+.flow .chap h2{font-size:clamp(2.4rem,10vw,3.8rem);margin:.4rem 0 0}
+/* the envelope flap */
+.flap{position:relative;background:#EFE3C8;color:#B9A37A;border-radius:2px;aspect-ratio:400/210;break-inside:avoid;
+  box-shadow:0 10px 26px rgba(42,34,85,.18);font-family:Caveat,cursive;transform:rotate(.8deg)}
+.flap svg{position:absolute;inset:0;width:100%;height:100%}
+.flap span{position:absolute;left:0;right:0;text-align:center;color:#2B4FB3}
+.flap .l1{top:6%;font-size:clamp(2rem,9vw,3rem);transform:rotate(-2deg)}
+.flap .l2{top:33%;font-size:clamp(1.2rem,5.2vw,1.7rem);transform:rotate(-1deg)}
+/* her mother's ledger */
+.ledger{background:var(--sheet);padding:1.1rem 1.1rem 1rem;border-radius:2px;break-inside:avoid;box-shadow:0 12px 30px rgba(42,34,85,.2);
+  background-image:repeating-linear-gradient(transparent 0 1.9rem,rgba(46,115,200,.14) 1.9rem calc(1.9rem + 1px))}
+.lrow{display:grid;grid-template-columns:7.2rem 1fr;align-items:center;gap:.6rem;height:1.9rem}
+.lrow span,.ltotal span{font-family:Caveat,cursive;font-size:1.25rem;color:#2B4FB3;white-space:nowrap}
+.lrow i{height:1.05rem;width:var(--w);border-radius:2px;filter:url(#rough);
+  background:repeating-linear-gradient(115deg,var(--c) 0 2px,color-mix(in srgb,var(--c) 62%,transparent) 2px 4px)}
+.ltotal{display:flex;justify-content:space-between;align-items:baseline;margin-top:.9rem;padding-top:.5rem;border-top:3px double #2B4FB3}
+.ltotal b{font-family:Caveat,cursive;font-weight:500;font-size:2rem;color:#2B4FB3}
+#listen[hidden]{display:none}
+@media (max-width:63.99rem){.cast{padding-right:3.6rem}}
+
+/* the front cover */
+.flow .bookcover{break-after:column;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem}
+.flow .bookcover .bc{width:min(100%,calc((100svh - 10rem) * .6667))}
+.bc-hint{margin:0;text-align:center}
+.col .doc{margin:1.2em 0;padding:.9em 1.1em;border:1px solid var(--line,#d9d2c3);border-left:4px solid var(--ink,#33287A);background:var(--paper2,rgba(0,0,0,.025));font-size:.94em;border-radius:3px}
+.col .doc p{margin:.35em 0;text-indent:0}
+.col ul.list{margin:.8em 0 1em;padding-left:1.3em}
+.col ul.list li{margin:.25em 0}
+/* how this book was made */
+.flow .brief{break-before:column;break-after:column}
+.brief h2{margin:.3rem 0 .4rem}
+.brief-kind{color:var(--ink-soft);font-size:.95rem;margin:0 0 1rem}
+.slip{background:var(--sheet);border-radius:4px;padding:.8rem 1rem;box-shadow:0 8px 22px rgba(42,34,85,.14);margin-bottom:1rem;
+  background-image:repeating-linear-gradient(transparent 0 1.6rem,rgba(46,115,200,.10) 1.6rem calc(1.6rem + 1px))}
+.slip dl{margin:0;display:grid;gap:.55rem}
+.slip dt{font-size:.78rem;color:var(--ink-soft);letter-spacing:.04em}
+.slip dd{margin:0;font-family:Caveat,cursive;font-size:1.35rem;line-height:1.15;color:#2B4FB3}
+.brief h3{font-family:"Young Serif",Georgia,serif;font-weight:400;font-size:1.1rem;margin:.8rem 0 .25rem}
+.brief p{font-size:.95rem;line-height:1.45;margin:0}
+.brief2 h3:first-child{margin-top:0}
+.ideas{list-style:none;padding:0;margin:0;display:grid;gap:.3rem;font-size:.92rem;line-height:1.28}
+.ideas li{display:grid;grid-template-columns:4.6rem 1fr;gap:.6rem}
+.ideas span{color:var(--ink-soft);font-size:.85rem;padding-top:.1rem;font-variant-numeric:tabular-nums}
+/* tasters: a guess before the scene, and a bridge between the opening and the scene */
+.flow .guess{break-before:column;break-after:column;break-inside:avoid}
+.guess .ask{font-family:"Young Serif",Georgia,serif;font-size:1.4rem;line-height:1.2;margin:.3rem 0 .8rem}
+.guess-lead{margin:.2rem 0 .6rem}
+.guess .say{font-style:italic;line-height:1.4;margin:.8rem 0 0}
+.guess .opts button.other{opacity:.4}
+.guess .opts button.picked::before{box-shadow:0 0 0 3px var(--paper),0 0 0 6px var(--ink)}
+.guess .opts.text button.picked{border-color:var(--ink);box-shadow:0 0 0 1.5px var(--ink)}
+.flow .bridge{break-before:column;break-after:column;height:100%;display:flex;flex-direction:column;justify-content:center}
+.bridge p:last-child{font-family:"Young Serif",Georgia,serif;font-size:1.35rem;line-height:1.35;margin:.5rem 0 0}
+.guessed{font-style:italic;color:var(--ink-soft);margin:.6rem 0 0}
+/* show the teaching: the lesson lines highlighted, with a pencil note under each */
+body.teach .lesson{background:linear-gradient(transparent 56%,rgba(255,206,84,.7) 56%);-webkit-box-decoration-break:clone;box-decoration-break:clone}
+body.teach .lesson::after{content:"\21B3\00A0" attr(data-note);display:block;font-family:Caveat,cursive;font-size:1.3rem;line-height:1.1;color:#B4321F;
+  margin:.2rem 0 .45rem;font-style:normal;background:none}
+.teach-toggle{font:inherit;display:flex;align-items:center;justify-content:space-between;gap:1rem;width:100%;margin-top:.8rem;padding:.55rem .85rem;
+  border:1.5px solid var(--ink);border-radius:8px;background:var(--sheet);color:var(--ink);cursor:pointer;text-align:left;font-size:1rem;line-height:1.25}
+.teach-toggle .state{flex:none;font-size:.85rem;padding:.15rem .6rem;border-radius:99px;background:var(--paper-deep)}
+.teach-toggle[aria-pressed=true] .state{background:#FFD45E}
+.teach-toggle:focus-visible{outline:3px solid var(--note);outline-offset:2px}
+#menu .teach-toggle{display:flex;margin:0 0 .3rem;border:1px solid var(--line);padding:.6rem .8rem;font-size:1rem}
+#menu .teach-toggle .state{font-size:.8rem}
+/* chapters menu */
+#toc{position:fixed;z-index:8;bottom:calc(.5rem + env(safe-area-inset-bottom,0px));left:calc(.75rem + env(safe-area-inset-left,0px));
+  width:2.4rem;height:2.4rem;border-radius:50%;border:1.5px solid var(--ink);background:var(--paper);color:var(--ink);
+  display:grid;place-items:center;cursor:pointer}
+#toc svg{fill:currentColor}
+#toc:focus-visible{outline:3px solid var(--note);outline-offset:3px}
+#menu{position:fixed;z-index:9;left:.75rem;bottom:calc(3.9rem + env(safe-area-inset-bottom,0px));width:min(20rem,calc(100vw - 1.5rem));
+  background:var(--sheet);border-radius:6px;padding:.4rem;box-shadow:0 14px 40px rgba(42,34,85,.3);display:grid;gap:.15rem;
+  max-height:calc(100svh - 5.2rem - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px));overflow-y:auto;overscroll-behavior:contain}
+#menu[hidden]{display:none}
+#menu button{font:inherit;text-align:left;background:none;border:0;border-radius:4px;padding:.6rem .8rem;cursor:pointer;color:var(--ink);
+  display:grid;gap:.05rem;line-height:1.25}
+#menu button small{font-size:.8rem;color:var(--ink-soft)}
+#menu button b{font-family:"Young Serif",Georgia,serif;font-weight:400;font-size:1.15rem}
+#menu button[aria-current=true]{background:color-mix(in srgb,var(--giles) 45%,transparent)}
+#menu button:focus-visible{outline:3px solid var(--note);outline-offset:-3px}
+@media (max-width:63.99rem){.cast{padding-left:3.6rem;gap:.4rem}.cast .chip{width:1.9rem;height:1.9rem}}
+@media (min-width:64rem){#toc{bottom:auto;top:1.2rem;left:auto;right:5.2rem;width:2.9rem;height:2.9rem}
+  #menu{left:auto;right:1.5rem;bottom:auto;top:4.8rem;max-height:calc(100svh - 6.3rem)}}
+
+/* the biscuit test */
+.flow .test{break-before:column;break-after:column;break-inside:avoid}
+.test .ask{font-family:"Young Serif",Georgia,serif;font-size:1.5rem;line-height:1.2;margin:.2rem 0 .8rem}
+.test > p{margin-bottom:.8em}
+.opts{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:.8rem}
+.opts button{font:inherit;border:0;padding:0;background:none;cursor:pointer;display:block;min-width:0;width:100%;color:var(--ink);text-align:left}
+.opts button span{display:block;margin-top:.3rem}
+.opts button::before{content:"";display:block;aspect-ratio:2.1;border-radius:7px 4px 8px 4px;background:var(--c) var(--tex, none) center/cover;transition:opacity .3s,transform .2s}
+.opts button span{font-family:Caveat,cursive;font-size:1.25rem;line-height:1.1}
+.opts button:focus-visible{outline:3px solid var(--note);outline-offset:3px}
+.opts button.no::before{opacity:.25}
+.opts button.no span{text-decoration:line-through;opacity:.5}
+.opts button.yes::before{box-shadow:0 0 0 3px var(--paper),0 0 0 6px var(--ink)}
+.test.hint .opts button:not(.no):not(.yes)[data-right]::before{animation:nudge 1s ease-in-out infinite}
+.test .say{min-height:2.6em;margin:.7rem 0 .3rem;font-style:italic;line-height:1.4}
+.won{display:flex;align-items:center;gap:.9rem;break-before:avoid;break-inside:avoid}
+.won[hidden]{display:none}
+.won svg{width:3.2rem;height:3.2rem;flex:none}
+.won p{margin:0;font-family:"Young Serif",Georgia,serif;font-size:1.1rem}
+.test.shake{animation:shake .35s}
+@keyframes nudge{50%{transform:scale(1.06)}}
+@keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+#menu button:disabled{opacity:.45;cursor:default}
+#menu a.dl{display:grid;gap:.05rem;line-height:1.25;padding:.7rem .8rem .6rem;margin-top:.3rem;border-top:1px solid var(--line);color:var(--ink);text-decoration:none;border-radius:0 0 4px 4px}
+#menu a.dl small{font-size:.8rem;color:var(--ink-soft)}
+#menu a.dl b{font-family:"Young Serif",Georgia,serif;font-weight:400;font-size:1.15rem}
+#menu a.dl:focus-visible{outline:3px solid var(--note);outline-offset:-3px}
+@media (prefers-reduced-motion:reduce){.test.shake,.test.hint .opts button::before{animation:none}}
+
+/* ledger variations */
+.lhead{font-family:Caveat,cursive;font-size:1.45rem;color:#2B4FB3;line-height:1.9rem;border-bottom:2px solid #2B4FB3;margin-bottom:.4rem}
+.ledger.wide .lrow{grid-template-columns:9.4rem 1fr}
+.lnote{font-family:Caveat,cursive;font-size:1.15rem;color:#C0392B;text-align:right;line-height:1.9rem;transform:rotate(-1.5deg)}
+.lkey{display:grid;grid-template-columns:2.6rem 1fr;gap:.7rem;align-items:start;min-height:1.9rem;padding:.25rem 0}
+.lkey i{height:1.2rem;margin-top:.25rem;border-radius:2px;filter:url(#rough);background:repeating-linear-gradient(115deg,var(--c) 0 2px,color-mix(in srgb,var(--c) 62%,transparent) 2px 4px)}
+.lkey span{font-family:Caveat,cursive;font-size:1.25rem;line-height:1.25;color:#2B4FB3}
+.lkey b{font-weight:500;display:block;color:var(--ink)}
+.lline{display:grid;grid-template-columns:1.5fr .7fr 1fr 1fr;gap:.4rem;font-family:Caveat,cursive;font-size:1.3rem;line-height:1.9rem;color:#6C6A8C}
+.lline.red{color:#C0392B;font-size:1.55rem;font-weight:500;transform:rotate(-.6deg)}
+.lline em{font-style:normal;color:#D9A21A}
+/* text messages */
+.txt,.sms .say:not(:empty),.msg{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;font-size:.95rem;line-height:1.4;font-style:normal;
+  background:var(--paper-deep);border-radius:14px 14px 14px 3px;padding:.6rem .85rem;max-width:88%;width:fit-content}
+.sms .say{min-height:0}
+.sms .say:empty{display:none}
+.msg{background:color-mix(in srgb,var(--giles) 55%,var(--paper))}
+.opts button span{line-height:1.05}
+.note.small{font-size:.8rem;margin-top:1.2rem}
+
+/* keep a whole test on one page */
+.test.sms .opts button::before{aspect-ratio:3.1}
+/* questions answered in words, not colours */
+.opts.text{grid-template-columns:minmax(0,1fr);gap:.45rem}
+.opts.text button{border:1.5px solid var(--line);border-radius:8px;padding:.5rem .75rem;background:var(--sheet);transition:opacity .3s}
+.opts.text button::before{display:none}
+.opts.text button span{font-family:inherit;font-size:.98rem;line-height:1.3;margin:0}
+.opts.text button.no{opacity:.45}
+.opts.text button.yes{border-color:var(--ink);box-shadow:0 0 0 1.5px var(--ink)}
+.test.sms .ask{font-size:1.3rem;margin:.1rem 0 .6rem}
+.test.sms > p{margin-bottom:.55em}
+.test .say{break-inside:avoid}
+.test.sms .won p{font-size:1rem}
+.test.sms .won svg{width:2.4rem;height:2.4rem}
+
+/* seven colours in one bar */
+.lrow i.multi,.opts button.rainbow::before{background:linear-gradient(90deg,#2E73C8 0 22%,#2FA39A 22% 36%,#E9C95A 36% 50%,#E2452E 50% 58%,#8FA86A 58% 70%,#F26FA6 70% 76%,#F08A24 76%)}
+.lrow i{max-width:100%}
+
+/* the tin of everything */
+.tin{display:grid;grid-template-columns:repeat(18,1fr);gap:2px;padding:.6rem;background:#2B2A5C;border-radius:50%/12%;break-inside:avoid;
+  box-shadow:inset 0 0 0 5px #C9A64B,0 12px 30px rgba(42,34,85,.25)}
+.tin i{aspect-ratio:1;border-radius:2px 1px 3px 1px}
+/* the ticket */
+.ticket{position:relative;background:#FBF3E4;border-radius:6px;padding:1rem 1.1rem;break-inside:avoid;transform:rotate(-1.2deg);
+  box-shadow:0 10px 26px rgba(42,34,85,.2);border-top:.55rem solid #E1772A;font-family:system-ui,-apple-system,sans-serif;color:#3A2E2A}
+.trow{display:flex;justify-content:space-between;align-items:baseline;gap:.5rem}
+.trow b{font-size:1.35rem;letter-spacing:.04em}
+.trow.sm{margin-top:.7rem;font-size:.8rem;letter-spacing:.06em;color:#6E5E55}
+.tstamp{position:absolute;right:1rem;bottom:-.6rem;font-family:Caveat,cursive;font-size:1.5rem;color:#C0392B;transform:rotate(-8deg)}
+/* her letter */
+.bluepaper{background:#DCE8F7;color:#1F3A8A;font-family:Caveat,cursive;font-size:1.32rem;line-height:1.55rem;padding:1.1rem 1.2rem 1.3rem;break-inside:avoid;
+  background-image:repeating-linear-gradient(transparent 0 1.5rem,rgba(31,58,138,.18) 1.5rem calc(1.5rem + 1px));border-radius:2px;
+  box-shadow:0 12px 30px rgba(42,34,85,.22);transform:rotate(.5deg)}
+.bluepaper p{margin:0 0 .35rem}
+/* the writing check */
+.flow .wgate{break-before:column;break-after:column;break-inside:avoid}
+.wgate .who-to{color:var(--ink-soft);margin:0 0 .3rem}
+.wgate .ask{font-family:"Young Serif",Georgia,serif;font-size:1.45rem;line-height:1.2;margin:0 0 .5rem}
+.wgate .sub{font-size:.95rem;color:var(--ink-soft);margin:0 0 1rem}
+.wform{display:flex;gap:.6rem;align-items:stretch}
+.wform[hidden]{display:none}
+.wform input{font:inherit;font-size:1.4rem;width:7.5rem;padding:.45rem .7rem;border:2px solid var(--ink);border-radius:6px;background:var(--sheet);color:var(--ink)}
+.wform button{font:inherit;font-size:1rem;border:0;border-radius:6px;padding:.5rem 1rem;background:var(--ink);color:var(--paper);cursor:pointer}
+.wform input:focus-visible,.wform button:focus-visible{outline:3px solid var(--note);outline-offset:2px}
+.wgate .say{font-style:italic;min-height:2.4em;margin:.9rem 0 .6rem}
+.wbar{height:1.3rem;background:var(--paper-deep);border-radius:3px;overflow:hidden;filter:url(#rough)}
+.wbar i{display:block;height:100%;width:var(--w,0%);transition:width .6s;
+  background:repeating-linear-gradient(115deg,#EBA91A 0 2px,color-mix(in srgb,#EBA91A 62%,transparent) 2px 4px)}
+.wbar.full i{background:repeating-linear-gradient(115deg,#5DA24F 0 2px,color-mix(in srgb,#5DA24F 62%,transparent) 2px 4px)}
+.wlabel{display:flex;justify-content:space-between;font-size:.85rem;color:var(--ink-soft);margin-top:.3rem;font-variant-numeric:tabular-nums}
+.wgate .won{margin-top:1rem}
+
+/* fact sheet */
+.factsheet{background:#FFFFFF;color:#2A2A33;border-radius:3px;padding:1rem;break-inside:avoid;box-shadow:0 12px 30px rgba(42,34,85,.2);
+  font-family:system-ui,-apple-system,"Segoe UI",sans-serif;font-size:.82rem;line-height:1.3}
+.fsh{display:flex;justify-content:space-between;align-items:baseline;gap:.5rem;border-bottom:2px solid #2A2A33;padding-bottom:.4rem;margin-bottom:.5rem}
+.fsh b{font-size:.98rem}
+.fsh span{font-size:.72rem;color:#6B6B78;white-space:nowrap}
+.fsrow{display:grid;grid-template-columns:6.4rem 1fr;gap:.5rem;padding:.4rem .5rem;margin:.25rem 0;border-radius:40% 30% 45% 35%/60% 50% 60% 45%}
+.fsrow span{color:#6B6B78}
+.fsrow b{font-weight:600}
+.fsrow.c1{box-shadow:0 0 0 2px #2E73C8}.fsrow.c2{box-shadow:0 0 0 2px #F08A24}.fsrow.c3{box-shadow:0 0 0 2px #D9A21A}.fsrow.c4{box-shadow:0 0 0 2px #5DA24F}
+.fsrow.dim{opacity:.4}
+.fsgraph{position:relative;margin-top:.5rem;color:#9A9AA8}
+.fsgraph svg{width:100%;height:2.4rem}
+.fsgraph i{position:absolute;right:0;top:-.2rem;font-family:Caveat,cursive;font-style:normal;font-size:1.15rem;color:#C0392B;transform:rotate(-3deg)}
+/* inside back cover */
+.flow .backcover{break-before:column;break-inside:avoid}
+.backcover h2{margin:.3rem 0 1rem}
+.ledger.rules .lkey{min-height:0;padding:.3rem 0}
+.ledger.rules .lkey span{font-size:1.15rem}
+.lkey i.multi{background:linear-gradient(90deg,#2E73C8 0 22%,#2FA39A 22% 36%,#E9C95A 36% 50%,#E2452E 50% 58%,#8FA86A 58% 70%,#F26FA6 70% 76%,#F08A24 76%)}
+.btn-end{display:inline-block;font:inherit;font-size:1rem;background:var(--ink);color:var(--paper);padding:.8rem 1.2rem;border-radius:6px;text-decoration:none}
+.btn-end:focus-visible{outline:3px solid var(--note);outline-offset:3px}
+</style>
+<style>:root{--dorrie:#7A4A3A;--sal:#2F4B6E;--pim:#D9A441;--memory:#7A4A3A;}[data-who=dorrie]{--c:var(--dorrie)}[data-who=sal]{--c:var(--sal)}[data-who=pim]{--c:var(--pim)}</style>
+<meta name="theme-color" content="#2A2255">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Turned Pillow">
+<meta name="description" content="Nobody has slept here in a month. Read chapter one of The Turned Pillow free: a cosy fantasy that teaches sleep.">
+<link rel="canonical" href="https://learnedbyheart.com/library/the-turned-pillow/">
+<meta property="og:type" content="book">
+<meta property="og:title" content="The Turned Pillow">
+<meta property="og:description" content="Nobody has slept here in a month. Read chapter one of The Turned Pillow free: a cosy fantasy that teaches sleep.">
+<meta property="og:url" content="https://learnedbyheart.com/library/the-turned-pillow/">
+<meta property="og:image" content="https://learnedbyheart.com/img/library/the-turned-pillow.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,600,100&display=swap" rel="stylesheet">
+<style>
+.bc{position:relative;container-type:inline-size;aspect-ratio:2/3;border-radius:3px 6px 6px 3px;overflow:hidden;
+  box-shadow:0 1px 2px rgba(42,34,85,.2),0 18px 40px rgba(42,34,85,.35),inset 4px 0 0 rgba(255,255,255,.08);background:#2A2255}
+.bc img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.bc::after{content:"";position:absolute;inset:0 auto 0 0;width:3.5%;background:linear-gradient(90deg,rgba(0,0,0,.28),rgba(255,255,255,.12) 60%,transparent)}
+.bc-text{position:absolute;left:0;right:0;top:0;padding:calc(var(--top,9) * 1cqw) 8cqw 0;text-align:center;display:flex;flex-direction:column;align-items:center;
+  padding-bottom:6cqw;background:linear-gradient(rgba(10,8,30,.5),rgba(10,8,30,.32) 60%,rgba(10,8,30,0))}
+.bc-title{font-family:inherit;font-weight:400;font-size:12.5cqw;line-height:1;letter-spacing:-.01em;margin:0;text-wrap:balance;text-shadow:0 2px 14px rgba(0,0,0,.35)}
+.bc-line{color:var(--lc);font-family:Literata,Georgia,serif;font-style:italic;font-size:4.6cqw;line-height:1.35;text-wrap:balance;margin:calc(var(--gap,4) * 1cqw) auto 0;max-width:80cqw;text-shadow:0 1px 8px rgba(0,0,0,.5)}
+.bc-brand{position:absolute;left:0;right:0;bottom:0;padding:14cqw 0 5cqw;background:linear-gradient(rgba(10,8,30,0),rgba(10,8,30,.55));margin:0;display:flex;align-items:center;justify-content:center;gap:1.6cqw;font-family:Fraunces,Georgia,serif;font-weight:500;font-variation-settings:'SOFT' 100;font-size:4.4cqw;letter-spacing:.01em;color:#FFFCF2;text-shadow:0 1px 6px rgba(0,0,0,.6)}
+.bc-brand svg{width:5.6cqw;height:5.6cqw;filter:drop-shadow(0 1px 3px rgba(0,0,0,.5))}
+.bc.light .bc-text{background:linear-gradient(rgba(255,252,242,.7),rgba(255,252,242,.45) 60%,rgba(255,252,242,0))}
+.bc.light .bc-title{text-shadow:0 1px 12px rgba(255,252,242,.7)}
+.bc.light .bc-line{text-shadow:0 0 6px rgba(255,252,242,.95),0 0 16px rgba(255,252,242,.85)}
+
+/* tagline treatments: type only, set on the painting */
+.tag-face{font-family:inherit;font-size:5cqw;line-height:1.3;margin-top:4cqw}
+
+.tag-sans{font-family:inherit;font-style:normal;font-weight:500;font-size:4.5cqw;line-height:1.3;letter-spacing:.01em}
+.bc-line.above{order:-1;margin:0 auto calc(var(--gap,4) * 1cqw)}
+.bc-title.upper{text-transform:uppercase;letter-spacing:.02em}
+
+.tag-caps{font-family:inherit;font-style:normal;text-transform:uppercase;letter-spacing:.16em;font-size:calc(3.5cqw * var(--ts,1));line-height:1.45;max-width:78cqw;margin-top:5.5cqw;text-shadow:0 1px 8px rgba(0,0,0,.75)}
+
+.tag-rules{font-family:inherit;font-style:normal;font-variant:small-caps;letter-spacing:.06em;font-size:4.3cqw;line-height:1.4;max-width:76cqw;margin-top:5cqw}
+.tag-rules::before,.tag-rules::after{content:"";display:block;height:1px;width:34cqw;margin:0 auto 2.6cqw;background:linear-gradient(90deg,transparent,currentColor,transparent)}
+.tag-rules::after{margin:2.6cqw auto 0}
+
+.tag-fleuron{margin-top:2.5cqw}
+.tag-fleuron::before{content:"";display:block;width:30cqw;height:6cqw;margin:0 auto 2.4cqw;background:var(--lc);-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 120 24%27%3E%3Cpath d=%27M60 4c4 6 4 12 0 16-4-4-4-10 0-16zM56 12c-10-7-22-8-34-2 12 0 22 2 34 4zM64 12c10-7 22-8 34-2-12 0-22 2-34 4zM8 12h12M100 12h12%27 fill=%27none%27 stroke=%27black%27 stroke-width=%272.4%27 stroke-linecap=%27round%27/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 120 24%27%3E%3Cpath d=%27M60 4c4 6 4 12 0 16-4-4-4-10 0-16zM56 12c-10-7-22-8-34-2 12 0 22 2 34 4zM64 12c10-7 22-8 34-2-12 0-22 2-34 4zM8 12h12M100 12h12%27 fill=%27none%27 stroke=%27black%27 stroke-width=%272.4%27 stroke-linecap=%27round%27/%3E%3C/svg%3E") center/contain no-repeat;filter:drop-shadow(0 1px 3px rgba(0,0,0,.5))}
+
+.tag-deco{font-family:inherit;font-style:italic;font-size:4.6cqw;max-width:74cqw;margin-top:4cqw;padding:2cqw 1cqw}
+.tag-deco::before,.tag-deco::after{content:"";display:block;width:40cqw;height:.7cqw;margin:0 auto 2.4cqw;border-block:1px solid var(--lc)}
+.tag-deco::after{margin:2.4cqw auto 0}
+
+.tag-rule{margin-top:3cqw}
+.tag-rule::before{content:"";display:block;width:12cqw;height:1px;margin:0 auto 3cqw;background:currentColor;opacity:.7}
+
+.tag-glam{font-family:inherit;font-style:italic;font-size:5cqw;line-height:1.3;max-width:70cqw;margin-top:4cqw;letter-spacing:.005em;text-shadow:0 1px 10px rgba(0,0,0,.6)}
+.tag-glam::before{content:"\25C6";display:block;font-style:normal;font-size:2.6cqw;line-height:1;margin:0 auto 3cqw;width:44cqw;color:var(--lc);
+  background:linear-gradient(90deg,transparent,var(--lc) 30%,transparent 46%,transparent 54%,var(--lc) 70%,transparent) center/100% 1px no-repeat}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><filter id="rough" x="-15%" y="-15%" width="130%" height="130%"><feTurbulence type="fractalNoise" baseFrequency=".04" numOctaves="2" seed="4" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="5" xChannelSelector="R" yChannelSelector="G"/></filter></svg>
+
+<nav class="cast" aria-label="The people">
+  <button class="chip" data-who="dorrie" aria-expanded="false" aria-label="Dorrie"></button>
+  <button class="chip" data-who="sal" aria-expanded="false" aria-label="Sal"></button>
+  <button class="chip" data-who="pim" aria-expanded="false" aria-label="Pim"></button>
+</nav>
+<div class="card" id="card" hidden role="status"></div>
+<button id="listen" aria-label="Listen to this chapter" aria-pressed="false">
+  <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path class="i-play" d="M8 5v14l11-7z"/><path class="i-pause" d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>
+</button>
+<audio id="voice" preload="none"></audio>
+<button id="toc" aria-label="Chapters" aria-expanded="false" aria-controls="menu">
+  <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M4 6h16v2H4zM4 11h16v2H4zM4 16h10v2H4z"/></svg>
+</button>
+<div id="menu" hidden></div>
+
+<main><div id="stage"><div class="page" id="book"><div class="flow" id="flow">
+<section class="bookcover" data-noaudio>
+  <div class="bc" role="img" aria-label="Cover: The Turned Pillow" style="--lc:#F6EBD0;--ts:1;--top:5.5;--gap:2.5"><img src="art/cover.jpg" alt="" draggable="false"><div class="bc-text" style="color:#F3E6C8;font-family:'Fraunces',Georgia,serif"><h1 class="bc-title" style="font-weight:600">The Turned Pillow</h1><p class="bc-line tag-plain">Nobody has slept here in a month.</p></div><p class="bc-brand"><svg viewBox="0 0 100 100" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M50 86C31 73 9 58 9 36C9 20 24 12 37 18C44 21 48 26 50 32C52 26 56 21 63 18C76 12 91 20 91 36C91 58 69 73 50 86Z" stroke-width="4"/><path d="M50 32V86" stroke-width="3.2"/><g stroke-width="3"><path d="M50 44C42 33 27 29 18 38"/><path d="M50 56C42 45 29 42 21 50"/><path d="M50 44C58 33 73 29 82 38"/><path d="M50 56C58 45 71 42 79 50"/></g></g></svg><span>Learned by Heart</span></p></div>
+  <p class="note bc-hint">Tap the right side of the page to open the book.</p>
+</section>
+<section class="cold col">
+  <p class="first">On the high moor, a bed is paid for with sleep, and nobody had slept at the Turned Pillow for a month.</p>
+  <p>Dorrie Mossop had bought it by letter, with every coin she had.</p>
+  <p class="note hint">Tap the right side of the page to turn it.</p>
+</section>
+
+<header class="open col" style="max-width:var(--wide)">
+  <h1>The Turned Pillow</h1>
+  <p class="chapter">Chapter one. No Sleep, No Fee.</p>
+</header>
+
+<article>
+<div class="col">
+  <h2>The stick by the door</h2>
+  <p>The night coach set <span class="who" data-who="dorrie">Dorrie</span> down in the square at one in the morning, threw her bundle after her and went on without waiting to be thanked. She stood in the frost with the deed buttoned inside her coat and looked at what she owned.</p>
+  <p>It was three storeys of grey moor-stone with an arch for coaches, and every window in it was lit. Across the square, outside a smaller inn, a lamp with a great curved mirror behind its flame stood on an iron post and poured white light over the cobbles and over her. When nobody answered her knock, she knocked again with her boot.</p>
+  <p>The door was opened by a boy of about fifteen holding a candle. He wore a coat made for somebody twice his width.</p>
+  <p>"The house is delighted to receive you," he said. "The house regrets that there is no supper. The house regrets that the cook has gone, and the maids. You're the new one, you've got the paper, I can see it in your coat. The house is very glad, mistress, and please to mind the stone."</p>
+  <p>Just inside the door sat a lump of grey granite as high as her knee, its top worn into a smooth hollow by hands. Beside it, on a nail, hung a hazel stick with a small knife tied to it by a thong. Notches ran all the way down one side of the stick, so close they nearly touched.</p>
+  <p>"What's that for, then, that stick?"</p>
+  <p>"That's mine," said the boy. He took it down and held it so she could see. "Every morning, anyone who didn't sleep puts their hand in the stone and says so, and they don't pay, and I cut a notch. That's the road's law, it's older than the road. That's a month of nights. Master Florian used to cut them, and then he gave me the knife and said, Pim, you're the house's tally-man now. I'm Pim. I came with the house, it says so in your paper."</p>
+  <p>Dorrie had read the paper until the folds went soft, and she didn't remember a Pim. She remembered a line saying that the Turned Pillow was the busiest house on the moor road. Had Florian Tapp written that with this stick hanging by his door?</p>
+  <p>"Nobody has paid in a whole month?"</p>
+  <p>"The ones who've heard about the stick don't come any more," said <span class="who" data-who="pim">Pim</span>. "Mostly now it's people who want a free bed. May I see the paper, mistress? Master Florian taught me my letters on the bills. I read very well, he says it's my best thing." He had it out of her hand before she could say no, and found the place with his finger. "Half the price now, the other half from the takings by midwinter, or the house and the first half go back to the seller. That's forty days." He looked up. "And it says, all staff to be kept on at the keeper's pleasure. That's me. I'm all staff."</p>
+  <p>"Give it here," said Dorrie, and he did, slowly, watching her face to see what her pleasure was going to be.</p>
+
+  <h2>The guest</h2>
+  <p>The common room was long and low and bitterly cold. Every lamp was lit, the fire was dead in the grate, and a kettle the size of a bucket stood on the counter stinking of old black-bean. One person sat in the whole room, in a chair pulled up to the cold hearth: a broad woman of about forty in a fur hat and a driving coat, with her boots on and a cup in her hands and her eyes wide open.</p>
+  <p>"That's Sal," Pim said. "She drives the mail and stops here every other night between the runs. She doesn't sleep, so she doesn't pay, but she's very regular, she's our most regular. I cut her notch every other morning."</p>
+  <p>"Good evening to you," said Dorrie. "I'm the keeper here now."</p>
+  <p><span class="who" data-who="sal">Sal</span> looked at her for a while. "It's the morning, not the evening."</p>
+  <p>"Why are you sitting down here in the cold? There's eleven beds upstairs. Is something wrong with all of them?"</p>
+  <p>"No. The beds are good, Florian had new feathers put in them at harvest."</p>
+  <p>"Then why don't you go up and lie in one? I would, if I were you."</p>
+  <p>"I don't sleep here," said Sal. "Nobody sleeps here."</p>
+  <p>"So why stop here at all, if you can't sleep? There's another inn not fifty steps off."</p>
+  <p>Sal considered that and drank from her cup before she answered. "It's free, and it's on my road."</p>
+  <p>Dorrie felt her temper come up from her stomach. She had paid every coin she had for a clean house where she could lie down when it got dark and get up when it got light. The first person in it was this woman, drinking her black-bean and telling her it was free.</p>
+  <p>"How long have you been up, sitting there?"</p>
+  <p>"Since yesterday noon. The down mail goes at dawn." Sal looked into her cup. "It doesn't matter. The horses know the road, and so do I, every stone of it."</p>
+  <p>Dorrie went out of the room before she said something she couldn't take back to the only guest she had.</p>
+
+  <h2>The kitchen</h2>
+  <p>It was a good kitchen gone cold. She went round it the way she would go round a cart she was thinking of buying. The stove was big enough to roast a sheep and had a crack across its top plate. Two of the copper pans had holes in them. One flag of the floor rocked under her boot. The door at the far end, down to the cellar, had a latch hanging by a single nail, and somebody had tied it shut with a bit of string. In the larder she found a sack of oatmeal, a string of onions, salt in a crock and half a ham with the bone in.</p>
+  <p>She tipped her purse out on the table under the candle. Four coppers and a button.</p>
+  <p>"How much is the other half?" said Pim, behind her. "The midwinter half. You don't have to tell me. Is it a lot?"</p>
+  <p>"Six hundred silver."</p>
+  <p>Pim's mouth opened. "That's more money than there is," he said. "In the whole town, I mean, all of it put together. Is it? It might be."</p>
+  <p>Dorrie put her hands flat on the table to stop them shaking. Forty days, she thought, looking at the coppers and the button for a long time.</p>
+  <p>"I can't pay you, Pim," she said. "You may as well know now. I can't pay a pot-boy. Have you got people you can go to?"</p>
+  <p>"My mother, at Coldbeck, over the moor. She's got six without me." He said it very fast. "I don't want paying. I don't eat much. I'm awake all night, I can do the night door, I can do the lamps, I can read the bills. I can do the stick. Nobody else knows the stick. You'd have to learn it."</p>
+  <p>"It's a stick. You cut it with a knife."</p>
+  <p>"It's the law," said Pim, and held on to it with both hands.</p>
+  <p>She didn't have the heart to argue at two in the morning. She sent him for kindling and water instead, and got the stove lit, and fed it until the iron ticked and the cold went out of the corners. She shaved the fat off the ham into the big iron pan and sliced three onions into it. When they had gone soft and gold she worked in oatmeal and salt with her fingers until the whole mass held together, then pressed it flat into the pan with the back of a plate, and left it on the heat to crust. Pim came back with the buckets and stopped in the doorway with his nose up.</p>
+  <p>"That's a sod. That's a drover's sod! Nobody's made one of those here since Granny Lusk, and she put too much salt in. How do you know about sods? You're from the city."</p>
+  <p>"There's drovers in the city. They bring the cattle to market, and they eat."</p>
+  <p>The sod hissed and spat. When the edges came away from the pan and the smell of the bottom browning had filled the room, she slid a knife round it and turned it out whole onto a board, crust upward, as brown as a loaf. When Pim reached for it she smacked his hand.</p>
+  <p>"Bowls," she said. "On the shelf."</p>
+  <p>Under her feet the floor groaned, a long low sound that set the copper pans chiming on their hooks.</p>
+  <p>"That's the bear," said Pim. "He's meant to sleep till spring. It's in the deeds."</p>
+  <p>"The deeds said a lodger. I thought it meant a man."</p>
+  <p>"He is a lodger. He's lodged in the cellar since before the house had a roof on, Master Florian said. Moor-bears sleep the whole winter through, only he isn't sleeping. He's been up and walking about for weeks, same as everybody."</p>
+  <p>Pim was reaching up for the bowls when the string on the cellar door snapped. The door swung in, slowly, and something filled the doorway from side to side.</p>
+  <p>It was a grey striped thing the size of a pony, and it smelled of old hay. It stood blinking at the stove, and its nose worked at the onions.</p>
+  <p>Pim went up onto the table in one movement and stood on it with the stick held out in front of him. Dorrie stayed at the stove with the knife in her hand. Her heart was going so hard she could feel it in her teeth. She had met loose dogs in the dark in Harl, and once a bull, and she had never run from any of them.</p>
+  <p>"Go on back down," she said. "Go on with you. That's mine."</p>
+  <p>The bear came across the kitchen as if she wasn't there. It put its nose under the edge of the board and lifted. The board went over off the table, and the sod broke across the flags in a wide crumbling fan. The bear put its face to the floor and ate.</p>
+  <p>"That was my supper, you great thief," said Dorrie. "That was the only supper in the house."</p>
+  <p>It ate in rows. It started at the far edge of the spill and licked its way across in a straight line, then back along the next, like a man mowing a field, and it would not skip a row even when the best of the crust lay right under its nose. When the flags were clean it picked the empty pan off the stove by the handle in its teeth, very carefully, carried it to the hearth, and lay down along the warm stones with its chin resting inside the pan. It sighed into it, and the pan rang faintly. Once its eyes had closed, its great sides began after a while to rise and fall, and a little whistle came out of its nose with every breath.</p>
+  <p>Pim got down off the table. "He's asleep," he whispered. "Mistress, he's asleep, look at him. That's the first thing that's slept in this house in a month."</p>
+  <p>Dorrie laughed out loud for the first time since the coach left the city. A piece of the crust had skidded under the dresser, out of the bear's rows. She fished it out, broke it in two, and gave Pim the bigger half. They sat down on the warm flags with their backs against the bear's side, and ate. Under the coarse warm fur she could feel the bear's heart, much slower than her own.</p>
+  <p>"Why did they all go, the cook and the maids? Did he stop paying them?"</p>
+  <p>"He paid them in black-bean, mostly, at the end, and promises. The cook said he wasn't going to cook for people who sat up all night and paid nothing and then complained about the eggs. He said it to Master Florian's face in the yard. He said a lot of other things too, that the house wouldn't want me to repeat." Pim licked his fingers. "Then Master Florian sold up, to you. He went on the morning coach a week ago with his trunk, and he said, Pim, the new one will be very glad of you."</p>
+  <p>"Did he say why nobody sleeps? He must have had some notion."</p>
+  <p>"He said it was the moor. He said it was the bear, and the bad luck. He said the guests were all liars." Pim thought about it. "I don't think he knew. I sleep all right, only not at night. Is that wrong?"</p>
+  <p>"I don't know," said Dorrie. "I sleep all right in the day myself."</p>
+  <p>A cold breath came up the cellar steps, the sour dark smell of every deep place under every house. She got up and went down six steps without a candle, feeling each one with her boot, and stood at the bottom with her hand on the wall, breathing it in.</p>
+  <p>"How can you see anything down there, mistress? I can't even see you."</p>
+  <p>"I can't. You don't need to see to go down steps in the dark. You count them on the way down, and you count them back up." She came back up and wedged a chair under the broken latch, and sat on the chair, and stayed there with her eyes on the sleeping bear until Pim fell asleep against it too.</p>
+
+  <h2>The chair</h2>
+  <p>At four she went to the common room to tell Sal there was a warm kitchen. Sal was still in the chair by the dead fire. Her chin was on her chest and her mouth was open, and the cup was tipping slowly towards her knees. Dorrie took it out of her fingers before it spilled. Sal didn't move, but snored softly, with a catch at the back of the throat on every breath.</p>
+  <p>Was this what free looked like? When had Dorrie last slept like that herself, at night, with her mouth open? She put the cup on the mantel and left her there.</p>
+
+  <h2>The stone</h2>
+  <p>At first light the down mail came round under the arch with a fresh team steaming in the cold. Sal came to the door with her whip in her hand and her hat on, and put her other hand in the hollow of the stone.</p>
+  <p>"I didn't sleep here," she said.</p>
+  <p>Pim had the stick off its nail and the knife ready.</p>
+  <p>"Leave it," said Dorrie. "She slept, because I took the cup out of her hand at four o'clock and she never knew it, and she was snoring. You slept two hours in that chair, Sal Ambry. I stood there and watched you."</p>
+  <p>"I didn't sleep, I only shut my eyes for a bit."</p>
+  <p>"With your mouth open. You were snoring."</p>
+  <p>"I don't snore," said Sal, honestly puzzled. "I'd know if I'd been asleep, I always know. I've driven that road four years and I've never once been asleep on it."</p>
+  <p>"Well, you were asleep in my chair. Your cup was tipping into your lap, and I caught it. The room's two silver, and you can pay it."</p>
+  <p>"That's not the law," said Sal. "You know that isn't the law."</p>
+  <p>Sal had a leather purse on her belt. Dorrie reached out and unhooked it, and Sal let her. She stood with her hand still in the stone while Dorrie opened the purse, took out two silver, hooked the purse back on her belt and stepped away. The coins were warm from Sal's body.</p>
+  <p>Behind her Dorrie heard the knife go into the stick. When she turned round, Pim had cut the notch. He was white to the lips and he didn't look at her.</p>
+  <p>"I told you to leave it."</p>
+  <p>"She said it on the stone, mistress. The stone takes the guest's word. It doesn't take the keeper's. That's the law, and the stick's mine, Master Florian gave it me. I won't cut it wrong. You can send me home to Coldbeck if you want."</p>
+  <p>"I didn't sleep," Sal said again, quietly. "I'd have known." She went out to her coach and climbed up onto the box.</p>
+  <p>Dorrie stood in the doorway with the money shut in her fist. It was the first money the house had taken in a month, and her eyes stung. In the kitchen behind her the bear was still asleep with its chin in her pan.</p>
+  <p>"Why are you looking at me like that? Out with it, whatever it is, I can see it on you."</p>
+  <p>"The wardens can't take a house off its keeper for much, mistress. Not for rats, not for bad beds. Master Florian said there was only one thing they'd take a licence for."</p>
+  <p>"What thing would that be?"</p>
+  <p>The coach went out of the square at a walk, past the cross, onto the road for Harl, where the wardens sat.</p>
+  <p>"Taking money off the stone," said Pim.</p>
+</div>
+</article>
+<article data-noaudio>
+<section class="chap">
+  <p class="chapno">End of chapter one</p>
+  <h2>To be continued.</h2>
+</section>
+<div class="col">
+  <p>That&rsquo;s the first chapter of The Turned Pillow. We finish the books readers ask for first.</p>
+  <p><a class="btn-end" href="mailto:hello@learnedbyheart.com?subject=Tell%20me%20when%20The%20Turned%20Pillow%20is%20finished">Tell me when it&rsquo;s finished</a></p>
+  <p>That opens an email to us. Just press send. If nothing opens, write to hello@learnedbyheart.com with the book&rsquo;s name.</p>
+  <p>Every book we write is made for one reader, in the style they love, with the thing they&rsquo;ve always meant to learn inside it. <a href="../../#prices">Have one written for you</a>, or go <a href="../../#library">back to the library</a>.</p>
+</div>
+</article>
+</div></div></div><div id="bar"></div></main>
+
+<script>
+const BOOK = {"id":"second-sleep","title":"The Turned Pillow","firstChapter":{"no":"Chapter one","title":"No Sleep, No Fee"},"memoryColour":"#7A4A3A","cast":{"dorrie":{"name":"Dorrie","colour":"#7A4A3A","line":"Dorrie Mossop. Forty-six. New keeper of the Turned Pillow. In carting before, she says."},"sal":{"name":"Sal","colour":"#2F4B6E","line":"Sal Ambry. Drives the night mail over the moor. Answers exactly what you ask her."},"pim":{"name":"Pim","colour":"#D9A441","line":"Pim Lusk. Fifteen. Pot-boy, came with the inn. Wide awake at one in the morning, dead to the world at noon."}},"lockMessage":"Someone at the Pillow has a question for you.","lockLabel":" (answer the question first)","epub":"The-Turned-Pillow.epub"};
+const P = BOOK.id;
+
+// ---- paint: everything is built from dabs of broken colour ----
+function rng(seed){ return () => (seed = (seed * 1664525 + 1013904223) >>> 0) / 4294967296; }
+function dab(ctx, x, y, len, w, ang, h, s, l, a = .9){
+  ctx.save(); ctx.translate(x, y); ctx.rotate(ang);
+  ctx.fillStyle = `hsla(${h},${s}%,${l}%,${a})`;
+  ctx.beginPath(); ctx.ellipse(0, 0, len / 2, w / 2, 0, 0, 7); ctx.fill(); ctx.restore();
+}
+function hexToHsl(hex){
+  const [r, g, b] = [1, 3, 5].map(i => parseInt(hex.slice(i, i + 2), 16) / 255);
+  const mx = Math.max(r, g, b), mn = Math.min(r, g, b), l = (mx + mn) / 2, d = mx - mn;
+  let h = 0; const s = d ? d / (1 - Math.abs(2 * l - 1)) : 0;
+  if (d) h = mx === r ? ((g - b) / d) % 6 : mx === g ? (b - r) / d + 2 : (r - g) / d + 4;
+  return [(h * 60 + 360) % 360, s * 100, l * 100];
+}
+// one painted swatch per person, used for their chip and their colour sample
+const css = getComputedStyle(document.documentElement);
+let rules = '';
+Object.keys(BOOK.cast).forEach((id, n) => {
+  const [h, s, l] = hexToHsl(css.getPropertyValue('--' + id).trim());
+  const c = document.createElement('canvas'); c.width = c.height = 160;
+  const ctx = c.getContext('2d'), r = rng(11 + n * 97);
+  ctx.fillStyle = `hsl(${h},${s}%,${l}%)`; ctx.fillRect(0, 0, 160, 160);
+  for (let i = 0; i < 240; i++)
+    dab(ctx, r() * 160, r() * 160, 22 + r() * 30, 7 + r() * 8, -.5 + (r() - .5) * 1.1,
+        h + (r() - .5) * 34, Math.min(100, s + (r() - .5) * 20), l + (r() - .5) * 26);
+  rules += `[data-who=${id}]{--tex:url(${c.toDataURL()})}`;
+});
+document.head.appendChild(Object.assign(document.createElement('style'), {textContent: rules}));
+
+
+function toImage(cv, cls){
+  const im = new Image(cv.width, cv.height);
+  im.className = cls; im.alt = cv.getAttribute('aria-label') || ''; im.draggable = false;
+  im.src = cv.toDataURL('image/jpeg', .9); cv.replaceWith(im);
+}
+
+
+const cast = Object.fromEntries(Object.entries(BOOK.cast).map(([k, v]) => [k, [v.name, v.colourName, v.line]]));
+const card = document.getElementById('card');
+const chips = [...document.querySelectorAll('.chip')];
+const chipFor = id => chips.find(c => c.dataset.who === id);
+
+function closeCard(){ card.hidden = true; chips.forEach(c => c.setAttribute('aria-expanded','false')); }
+chips.forEach(chip => chip.addEventListener('click', e => {
+  e.stopPropagation();
+  if (!chip.classList.contains('met')) return;
+  const open = chip.getAttribute('aria-expanded') === 'true';
+  closeCard();
+  if (open) return;
+  const [name, colour, line] = cast[chip.dataset.who];
+  card.dataset.who = chip.dataset.who;
+  card.innerHTML = `<strong>${name}</strong>${colour ? `<em>${colour}</em>` : ''}<p>${line}</p>`;
+  card.hidden = false;
+  chip.setAttribute('aria-expanded','true');
+}));
+document.addEventListener('click', closeCard);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeCard(); });
+
+// ---- pages ----
+const stage = document.getElementById('stage'), book = document.getElementById('book'),
+      flow = document.getElementById('flow'), bar = document.getElementById('bar'),
+      chart = document.getElementById('silences');
+const still = matchMedia('(prefers-reduced-motion: reduce)');
+let page = 0, pages = 1, step = 0, busy = false;
+let unmet = [...document.querySelectorAll('.who')];
+
+function arrive(){
+  // a chip fills in once that person's name has turned up on a page she has reached
+  unmet = unmet.filter(el => {
+    if (el.getBoundingClientRect().left > innerWidth - 1) return true;
+    const chip = chipFor(el.dataset.who);
+    chip.classList.add('met');
+    chip.setAttribute('aria-label', cast[el.dataset.who][0] + ', tap for who they are');
+    return false;
+  });
+  if (chart && chart.getBoundingClientRect().left < innerWidth - 1) chart.classList.add('seen');
+}
+function show(){
+  flow.style.transform = `translateX(${-page * step}px)`;
+  bar.style.width = (pages > 1 ? page / (pages - 1) * 100 : 0) + '%';
+  if (typeof booted !== 'undefined' && booted) try { localStorage.setItem(P + '.ch1.at', String(units.indexOf(firstOnPage()))); } catch (e) {}
+  arrive();
+  if (typeof units !== 'undefined' && typeof voice !== 'undefined') listen.hidden = firstOnPage().t < 0 && voice.paused;
+}
+function layout(){
+  // keep her place by paragraph while the pages are re-cut
+  const anchor = (typeof units !== 'undefined' && step) ? firstOnPage() : null;
+  const pad = parseFloat(getComputedStyle(book).paddingLeft), w = book.clientWidth - 2 * pad;
+  flow.style.columnWidth = w + 'px'; flow.style.columnGap = 2 * pad + 'px';
+  step = book.clientWidth; page = 0; flow.style.transform = 'translateX(0px)';
+  pages = Math.max(1, Math.round((flow.scrollWidth + 2 * pad) / step));
+  if (anchor) page = Math.min(pages - 1, pageOf(anchor.el));
+  if (typeof maxPage === 'function') page = Math.min(page, maxPage());
+  show();
+}
+function turn(dir, auto){
+  const to = page + dir;
+  if (busy || to < 0 || to >= pages) return;
+  if (dir > 0 && to > maxPage()){
+    const t = [...tests, ...Object.values(gates)].find(t => pageOf(t) === page);
+    if (t){ t.classList.remove('shake'); void t.offsetWidth; t.classList.add('shake'); t.querySelector('.say').textContent = t.querySelector('.say').textContent || BOOK.lockMessage; }
+    return;
+  }
+  closeCard(); if (typeof closeMenu === 'function') closeMenu();
+  if (!auto) setTimeout(() => window.seekToPage && seekToPage(), 0);
+  if (still.matches){ page = to; show(); return; }
+  busy = true;
+  const leaf = document.createElement('div'); leaf.className = 'page leaf';
+  const copy = flow.cloneNode(true);
+  copy.removeAttribute('id'); copy.querySelectorAll('[id]').forEach(e => e.removeAttribute('id'));
+  copy.style.transform = `translateX(${-(dir > 0 ? page : to) * step}px)`;
+  leaf.append(copy); stage.append(leaf);
+  const done = () => { leaf.remove(); busy = false; };
+  if (dir > 0){
+    page = to; show();
+    leaf.animate([{transform: 'rotateY(0)'}, {transform: 'rotateY(-90deg)'}], {duration: 480, easing: 'ease-in'}).onfinish = done;
+  } else {
+    leaf.animate([{transform: 'rotateY(-90deg)'}, {transform: 'rotateY(0)'}], {duration: 480, easing: 'ease-out'})
+      .onfinish = () => { page = to; show(); done(); };
+  }
+}
+stage.addEventListener('click', e => {
+  if (e.target.closest('button, a, input, form, label')) return;
+  turn(e.clientX < innerWidth * .3 ? -1 : 1);
+});
+let x0 = null;
+stage.addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, {passive: true});
+stage.addEventListener('touchend', e => {
+  if (x0 === null) return;
+  const dx = e.changedTouches[0].clientX - x0; x0 = null;
+  if (Math.abs(dx) > 45){ e.preventDefault(); turn(dx < 0 ? 1 : -1); }
+});
+addEventListener('keydown', e => {
+  if (e.target.matches && e.target.matches('input, textarea')) return;
+  if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown'){ e.preventDefault(); turn(1); }
+  if (e.key === 'ArrowLeft' || e.key === 'PageUp'){ e.preventDefault(); turn(-1); }
+});
+// ---- audiobook: six tracks with word timings; pages turn themselves, a hand turn moves the audio ----
+const WORDS = BOOK.audio ? BOOK.audio.words : [];
+const voice = document.getElementById('voice'), listen = document.getElementById('listen');
+const TRACKS = BOOK.audio ? BOOK.audio.tracks : [];
+const units = []; let track = -1, nowReading = null, raf = 0;
+(function(){
+  const norm = s => s.toLowerCase().replace(/’/g, "'").replace(/[^a-z0-9']+/g, ' ').trim().split(' ').filter(Boolean);
+  let t = 0; const at = {};
+  flow.querySelectorAll('.bookcover .bc, .brief h2, .brief h3, .brief .slip, .guess .ask, .bridge p, .cold p:not(.note), .open h1, .open .chapter, .memory p, article h2, article .col > p, article .col > .doc, article .col > ul').forEach(el => {
+    if (!BOOK.audio || el.closest('[data-noaudio]')){ units.push({el, t: -1, start: 0, end: 0}); return; }
+    if (el.closest('.memory')) t = 1; else if (el.tagName === 'H2') t = t < 2 ? 2 : t + 1;
+    const said = norm(el.textContent), script = WORDS[t]; let i = at[t] || 0;
+    // line the paragraph up with the recording by its first word, tolerating small slips
+    for (let k = 0; k < 8 && script[i + k]; k++) if (script[i + k][0] === said[0]){ i += k; break; }
+    const last = Math.min(script.length - 1, i + said.length - 1);
+    units.push({el, t, start: script[i] ? script[i][1] : 0, end: script[last] ? script[last][2] : 0});
+    at[t] = last + 1;
+  });
+})();
+const pageOf = el => Math.floor((el.getBoundingClientRect().left + page * step) / step);
+const firstOnPage = () => units.find(u => pageOf(u.el) >= page) || units[units.length - 1];
+function mark(u){
+  if (nowReading === u) return;
+  if (nowReading) nowReading.el.classList.remove('reading');
+  nowReading = u; if (u) u.el.classList.add('reading');
+}
+// Tracks are fetched whole and played from memory, so jumping around works on any host.
+const blobs = {};
+async function load(t, at, play){
+  track = t;
+  try {
+    if (!blobs[t]) blobs[t] = URL.createObjectURL(await (await fetch(TRACKS[t])).blob());
+  } catch (e) { voice.dispatchEvent(new Event('error')); return; }
+  if (track !== t) return;
+  voice.src = blobs[t];
+  voice.addEventListener('loadedmetadata', () => { voice.currentTime = at; if (play) voice.play(); }, {once: true});
+  voice.load();
+}
+function seekToPage(){
+  if (voice.paused && track < 0) return;
+  const u = firstOnPage(), playing = !voice.paused, at = Math.max(0, u.start - .15);
+  if (u.t < 0){ voice.pause(); stopUi(); track = -1; listen.hidden = true; return; }
+  if (u.t === track && voice.duration) voice.currentTime = at; else load(u.t, at, playing);
+  mark(playing ? u : null);
+}
+function follow(){ raf = requestAnimationFrame(follow); sync(); }
+voice.addEventListener('timeupdate', () => sync());
+function sync(){
+  if (voice.paused || !voice.duration) return;
+  const now = voice.currentTime + .12;
+  let u = null;
+  for (const x of units) if (x.t === track && x.start <= now) u = x;
+  if (!u) return;
+  mark(u);
+  const p = pageOf(u.el);
+  if (p !== page && !busy){
+    if (Math.abs(p - page) === 1) turn(p - page, true); else { page = p; show(); }
+  }
+}
+function stopUi(){ listen.setAttribute('aria-pressed', 'false'); listen.setAttribute('aria-label', 'Listen to this chapter'); mark(null); cancelAnimationFrame(raf); }
+voice.addEventListener('ended', () => {
+  if (track < TRACKS.length - 1) load(track + 1, 0, true); else { stopUi(); track = -1; }
+});
+voice.addEventListener('error', stopUi);
+listen.addEventListener('click', e => {
+  e.stopPropagation();
+  if (!voice.paused){ voice.pause(); stopUi(); return; }
+  listen.setAttribute('aria-pressed', 'true'); listen.setAttribute('aria-label', 'Pause');
+  cancelAnimationFrame(raf); follow();
+  const u = firstOnPage(), at = Math.max(0, u.start - .15);
+  if (u.t === track && voice.duration){ voice.currentTime = at; voice.play(); } else load(u.t, at, true);
+});
+
+// ---- the biscuit test: one question at a chapter's end; the pages after it stay shut until it's answered ----
+const tests = [...flow.querySelectorAll('.test')];
+let passed = {};
+try { passed = JSON.parse(localStorage.getItem(P + '.tests') || '{}'); } catch (e) {}
+// Optional daily writing check (off unless book.json has "writing"): a word goal before the next chapter opens.
+const W = BOOK.writing || null;
+const GOAL = W ? W.goal : 0;
+const today = () => new Date().toLocaleDateString('en-CA');
+let words = {}, wrote = {};
+try { words = JSON.parse(localStorage.getItem(P + '.words') || '{}'); wrote = JSON.parse(localStorage.getItem(P + '.wrote') || '{}'); } catch (e) {}
+try { // chapters she had already unlocked before this was added stay unlocked
+  if (!localStorage.getItem(P + '.wordsOn')){ Object.keys(passed).forEach(k => wrote[k] = true); localStorage.setItem(P + '.wordsOn', '1'); }
+} catch (e) {}
+const saveWords = () => { try { localStorage.setItem(P + '.words', JSON.stringify(words)); localStorage.setItem(P + '.wrote', JSON.stringify(wrote)); } catch (e) {} };
+function streak(){
+  let n = 0; const d = new Date();
+  if ((words[today()] || 0) < GOAL) d.setDate(d.getDate() - 1);
+  while ((words[d.toLocaleDateString('en-CA')] || 0) >= GOAL){ n++; d.setDate(d.getDate() - 1); }
+  return n;
+}
+const pick = (list, n) => list[Math.abs(n) % list.length];
+const fill = (s, n, r) => s.replace(/\{n\}/g, n).replace(/\{r\}/g, r);
+const cheers = (W ? W.cheers : []).map(s => n => fill(s, n));
+const nudges = (W ? W.nudges : []).map(s => (n, r) => fill(s, n, r));
+const gates = {};
+tests.forEach(t => {
+  const id = t.dataset.test;
+  if (!W || (passed[id] && wrote[id])) return;
+  const g = document.createElement('section');
+  g.className = 'wgate'; g.dataset.for = id;
+  g.innerHTML = `
+    <p class="who-to">${W.intro}</p>
+    <p class="ask">${W.ask}</p>
+    <p class="sub">${W.sub}</p>
+    <form class="wform"><input type="number" inputmode="numeric" min="0" max="50000" id="words-${id}" aria-label="Words written today" placeholder="0"><button type="submit">${W.button}</button></form>
+    <p class="say" aria-live="polite"></p>
+    <div class="wbar"><i></i></div><div class="wlabel"><span class="wn">0 today</span><span>${GOAL}</span></div>
+    <div class="won" hidden><p class="streak"></p></div>`;
+  t.after(g); gates[id] = g;
+  g.querySelector('form').addEventListener('submit', e => {
+    e.preventDefault(); e.stopPropagation();
+    const n = Math.max(0, Math.min(50000, parseInt(g.querySelector('input').value, 10) || 0));
+    words[today()] = n;
+    if (n >= GOAL) wrote[id] = true;
+    saveWords();
+    g.querySelector('.say').textContent = n >= GOAL ? pick(cheers, n)(n) : n === 0
+      ? W.zero
+      : pick(nudges, n)(n, GOAL - n);
+    drawGate(id, true);
+  });
+});
+function drawGate(id, spoken){
+  const g = gates[id]; if (!g) return;
+  const n = words[today()] || 0;
+  if (passed[id] && !wrote[id] && n >= GOAL){ wrote[id] = true; saveWords(); }
+  g.querySelector('.wbar i').style.setProperty('--w', Math.min(100, n / GOAL * 100) + '%');
+  g.querySelector('.wbar').classList.toggle('full', n >= GOAL);
+  g.querySelector('.wn').textContent = `${n} today`;
+  const done = !!wrote[id];
+  g.querySelector('.won').hidden = !done;
+  if (done){
+    const s = streak();
+    g.querySelector('.streak').textContent = (s > 1 ? `${s} days in a row. ` : '') + 'Turn the page.';
+    if (!spoken && !g.querySelector('.say').textContent) g.querySelector('.say').textContent = fill(W.already, n);
+    g.querySelector('form').hidden = true;
+  }
+}
+function maxPage(){
+  for (const t of tests){
+    const id = t.dataset.test;
+    if (!passed[id]) return pageOf(t);
+    if (gates[id] && !wrote[id]) return pageOf(gates[id]);
+  }
+  return pages - 1;
+}
+tests.forEach(t => {
+  const say = t.querySelector('.say'), won = t.querySelector('.won'), opts = [...t.querySelectorAll('.opts button')];
+  const right = opts.find(b => b.dataset.opt === t.dataset.answer); right.dataset.right = '';
+  let wrong = 0;
+  const finish = () => {
+    say.textContent = right.dataset.say; won.hidden = false; t.classList.remove('hint');
+    opts.forEach(b => { b.disabled = true; b.classList.add(b === right ? 'yes' : 'no'); });
+  };
+  if (passed[t.dataset.test]) finish();
+  opts.forEach(b => b.addEventListener('click', e => {
+    e.stopPropagation();
+    say.textContent = b.dataset.say;
+    if (b === right){
+      passed[t.dataset.test] = true;
+      try { localStorage.setItem(P + '.tests', JSON.stringify(passed)); } catch (e) {}
+      finish(); drawGate(t.dataset.test);
+    } else {
+      b.classList.add('no'); b.disabled = true;
+      if (++wrong >= 2) t.classList.add('hint');
+    }
+  }));
+});
+
+Object.keys(gates).forEach(id => drawGate(id));
+
+// ---- guess first (tasters): pick an answer before reading the scene, find out after ----
+const guesses = {};
+flow.querySelectorAll('.guess').forEach(g => {
+  const opts = [...g.querySelectorAll('.opts button')], say = g.querySelector('.say');
+  opts.forEach(b => b.addEventListener('click', e => {
+    e.stopPropagation();
+    opts.forEach(o => { o.disabled = true; o.classList.add(o === b ? 'picked' : 'other'); });
+    guesses[g.dataset.for] = b;
+    say.textContent = g.dataset.reply;
+  }));
+});
+tests.forEach(t => t.querySelectorAll('.opts button').forEach(b => b.addEventListener('click', () => {
+  const g = guesses[t.dataset.test];
+  if (!g || b.dataset.opt !== t.dataset.answer || t.querySelector('.guessed')) return;
+  const p = document.createElement('p'); p.className = 'guessed';
+  p.textContent = g.dataset.opt === t.dataset.answer
+    ? 'You guessed that before you read it. Good instincts.'
+    : `Before the scene, you guessed “${g.textContent.trim()}”. Now you know.`;
+  t.querySelector('.won').before(p);
+})));
+
+// ---- chapters menu ----
+const toc = document.getElementById('toc'), menu = document.getElementById('menu');
+const chapters = [...(flow.querySelector('.brief') ? [{no: 'Before you start', title: 'How this book was made', el: flow.querySelector('.brief')}] : []),
+  {no: BOOK.firstChapter.no, title: BOOK.firstChapter.title, el: flow.querySelector('.cold')},
+  ...[...flow.querySelectorAll('.chap')].map(c => ({no: c.querySelector('.chapno').textContent, title: c.querySelector('h2').textContent, el: c}))];
+function closeMenu(){ menu.hidden = true; toc.setAttribute('aria-expanded', 'false'); }
+function openMenu(){
+  const here = chapters.filter(c => pageOf(c.el) <= page).pop();
+  menu.innerHTML = '';
+  if (hasLessons){
+    const t = document.createElement('button');
+    t.className = 'teach-toggle'; t.setAttribute('aria-pressed', String(teach));
+    t.innerHTML = '<span>Show the teaching</span><span class="state"></span>';
+    t.addEventListener('click', e => { e.stopPropagation(); setTeach(!teach, true); });
+    menu.append(t); paintTeach();
+  }
+  chapters.forEach(c => {
+    const b = document.createElement('button');
+    b.innerHTML = `<small>${c.no}</small><b>${c.title}</b>`;
+    if (c === here) b.setAttribute('aria-current', 'true');
+    if (pageOf(c.el) > maxPage()){ b.disabled = true; b.querySelector('small').textContent += BOOK.lockLabel; }
+    b.addEventListener('click', e => {
+      e.stopPropagation(); closeMenu(); closeCard();
+      page = pageOf(c.el); show(); seekToPage();
+    });
+    menu.append(b);
+  });
+  if (BOOK.epub) {
+    const a = document.createElement('a');
+    a.className = 'dl'; a.href = encodeURI(BOOK.epub); a.setAttribute('download', '');
+    a.innerHTML = '<small>For Apple Books, Kindle, Kobo or Google Play Books</small><b>Download the ebook</b>';
+    a.addEventListener('click', e => e.stopPropagation());
+    menu.append(a);
+  }
+  menu.hidden = false; toc.setAttribute('aria-expanded', 'true');
+  const cur = menu.querySelector('[aria-current=true]');
+  menu.scrollTop = cur ? cur.offsetTop - (menu.clientHeight - cur.offsetHeight) / 2 : 0;
+}
+toc.addEventListener('click', e => { e.stopPropagation(); closeCard(); menu.hidden ? openMenu() : closeMenu(); });
+document.addEventListener('click', closeMenu);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+
+// ---- show the teaching ----
+const hasLessons = !!flow.querySelector('.lesson');
+let teach = !!BOOK.teachDefault;
+try { const s = localStorage.getItem(P + '.teach'); if (s !== null) teach = s === '1'; } catch (e) {}
+function paintTeach(){
+  document.querySelectorAll('.teach-toggle').forEach(b => {
+    b.setAttribute('aria-pressed', String(teach));
+    b.querySelector('.state').textContent = teach ? 'On' : 'Off';
+  });
+}
+function setTeach(on, save){
+  teach = on && hasLessons;
+  document.body.classList.toggle('teach', teach);
+  paintTeach();
+  if (save) try { localStorage.setItem(P + '.teach', teach ? '1' : '0'); } catch (e) {}
+  if (step) layout();
+}
+document.querySelectorAll('.flow .teach-toggle').forEach(b => {
+  if (!hasLessons){ b.remove(); return; }
+  b.addEventListener('click', e => { e.stopPropagation(); setTeach(!teach, true); });
+});
+setTeach(teach, false);
+
+// ---- start up: come back to the paragraph she was on ----
+let booted = false;
+addEventListener('resize', layout);
+layout();
+try {
+  const i = parseInt(localStorage.getItem(P + '.ch1.at'), 10);
+  if (i > 0 && units[i]){ page = Math.min(pageOf(units[i].el), maxPage()); show(); }
+} catch (e) {}
+booted = true;
+document.fonts && document.fonts.ready.then(layout);
+</script>
+<script>
+// Installable app: save pages, pictures and played audio on the phone so the book opens offline.
+if ('serviceWorker' in navigator && location.protocol !== 'file:') navigator.serviceWorker.register('sw.js').catch(() => {});
+</script>
+</body>
+</html>

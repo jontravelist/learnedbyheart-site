@@ -1,0 +1,1033 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Inflation, Darling</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500&family=Fraunces:opsz,wght,SOFT@9..144,500,100&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=Young+Serif&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F6F2FA;      /* lilac white: impressionist shadows are violet, never black */
+  --paper-deep:#E7DFF0;
+  --ink:#2A2255;        /* petrol */
+  --ink-soft:#5F5A85;
+  --line:#CFC6E0;
+  --sheet:#FFFCF2;      /* letter paper */
+
+  --mum:#EBA91A;    /* curry sauce */
+  --nan:#5DA24F;    /* mushy pea */
+  --danny:#E2452E;  /* saveloy */
+  --carol:#F26FA6;  /* seaside rock */
+  --dad:#7A4A2E;    /* gravy */
+  --jo:#2E73C8;
+  --sam:#2FA39A;  /* verdigris */
+  --nell:#2E73C8;   /* the sea, half past three */
+  --giles:#EFD98F;  /* double cream */
+  --dev:#F27A1A;    /* traffic cone */
+  --note:#8A5BB5;   /* a twenty */     /* the sea */
+
+  --read:34rem;
+  --wide:46rem;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:Literata,Georgia,serif;font-size:1.125rem;line-height:1.7;
+  font-optical-sizing:auto;
+}
+main{padding:0 1.25rem 6rem}
+.col{max-width:var(--read);margin:0 auto}
+.fig{max-width:var(--wide);margin:3.5rem auto}
+p{margin:0 0 1.25em}
+h1,h2{font-family:"Young Serif",Georgia,serif;font-weight:400;line-height:1.08;margin:0}
+h1{font-size:clamp(3.2rem,13vw,6.5rem);letter-spacing:-.02em}
+h2{font-size:clamp(1.7rem,5vw,2.3rem);margin:4.5rem 0 1.4rem}
+.chapter{font-size:1.05rem;color:var(--ink-soft);margin:.9rem 0 0}
+figcaption,.note{font-size:.95rem;line-height:1.5;color:var(--ink-soft)}
+figure{margin:0}
+figcaption{margin-top:.9rem;max-width:var(--read)}
+
+/* cold open: the first screen is only her voice */
+.cold{min-height:100svh;display:grid;align-content:center;padding:3rem 0 6rem}
+.cold .first{font-family:"Young Serif",Georgia,serif;font-size:clamp(2.1rem,8vw,3.5rem);line-height:1.12;letter-spacing:-.01em;margin-bottom:.9em}
+.cold p:last-child{margin-bottom:0}
+@media (max-height:900px){.cold .first{font-size:clamp(1.8rem,6.6vw,2.6rem)}.flow .cold .hint{margin-top:1.2rem}}
+
+/* a childhood memory opens the chapter */
+.memory{font-style:italic;margin:3.5rem 0 0;padding-left:1.1rem;border-left:.35rem solid var(--memory,var(--mum))}
+.memory p:last-child{margin-bottom:0}
+
+/* opening */
+.open{padding:2rem 0 0}
+.sea{display:block;width:100%;height:auto;margin-top:2.5rem;border-radius:4px}
+
+/* character names in the text */
+.who{
+  text-decoration:underline;text-decoration-thickness:.22em;text-underline-offset:.16em;
+  text-decoration-color:var(--c);text-decoration-skip-ink:none;
+}
+[data-who=mum]{--c:var(--mum)}[data-who=nan]{--c:var(--nan)}[data-who=danny]{--c:var(--danny)}
+[data-who=carol]{--c:var(--carol)}[data-who=dad]{--c:var(--dad)}[data-who=jo]{--c:var(--jo)}[data-who=sam]{--c:var(--sam)}[data-who=nell]{--c:var(--nell)}[data-who=giles]{--c:var(--giles)}[data-who=dev]{--c:var(--dev)}
+
+/* the cast: paint chips that fill in as people arrive */
+.cast{
+  position:fixed;z-index:5;left:0;right:0;bottom:0;
+  display:flex;justify-content:center;gap:.5rem;padding:.6rem .75rem calc(.6rem + env(safe-area-inset-bottom));
+  background:color-mix(in srgb,var(--paper) 88%,transparent);backdrop-filter:blur(6px);
+  border-top:1px solid var(--line);
+}
+.chip{
+  width:2.2rem;height:2.2rem;flex:none;border-radius:3px;border:1.5px dashed var(--line);background:transparent;
+  padding:0;cursor:pointer;transition:transform .2s;
+}
+.chip.met{background:var(--c) var(--tex) center/cover;border-color:transparent;border-radius:5px 3px 6px 3px}
+.chip[aria-expanded=true]{transform:translateY(-4px)}
+.chip:focus-visible,.next:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.chip:not(.met){cursor:default}
+.card{
+  position:fixed;z-index:6;left:50%;bottom:4.6rem;transform:translateX(-50%);
+  width:min(22rem,calc(100vw - 2rem));background:var(--sheet);border-radius:4px;
+  border-left:.6rem solid var(--c);padding:1rem 1.1rem;box-shadow:0 10px 30px rgba(42,34,85,.25);
+  font-size:1rem;line-height:1.5;
+}
+.card[hidden]{display:none}
+.card strong{font-family:"Young Serif",serif;font-weight:400;font-size:1.25rem;display:block}
+.card em{color:var(--ink-soft);font-style:normal;font-size:.9rem}
+.card p{margin:.5rem 0 0}
+@media (min-width:64rem){
+  .cast{left:1.5rem;right:auto;top:50%;bottom:auto;transform:translateY(-50%);flex-direction:column;
+    border:0;background:none;backdrop-filter:none;padding:0}
+  .chip[aria-expanded=true]{transform:translateX(4px)}
+  .card{left:5rem;bottom:auto;top:50%;transform:translateY(-50%)}
+}
+
+/* colour definitions list */
+.swatches{list-style:none;padding:0;margin:2rem 0;display:grid;gap:1.4rem}
+.swatches li{display:grid;grid-template-columns:4.5rem 1fr;gap:1.1rem;align-items:start}
+.swatches i{display:block;height:4.5rem;border-radius:3px;background:var(--c) var(--tex) center/cover;filter:url(#rough)}
+.swatches b{font-family:"Young Serif",serif;font-weight:400;font-size:1.2rem;display:block;line-height:1.3}
+.swatches small{display:block;color:var(--ink-soft);font-size:.9rem;margin-bottom:.25rem}
+
+svg{display:block;width:100%;height:auto}
+.fig svg rect,.fig svg path,.fig svg circle,.bar{filter:url(#rough)}
+svg text{font-family:Literata,Georgia,serif;fill:var(--ink)}
+.map{position:relative;border-radius:4px;overflow:hidden}
+.map canvas{position:absolute;inset:0;width:100%;height:100%}
+.map svg{position:relative}
+.legend{list-style:none;padding:0;margin:1.2rem 0 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(13rem,1fr));gap:.5rem 1.5rem;font-size:.95rem;line-height:1.4}
+.legend li{display:flex;gap:.6rem;align-items:baseline}
+.legend i{flex:none;width:.8rem;height:.8rem;border-radius:50%;background:var(--c);transform:translateY(.05rem)}
+
+/* silences chart */
+.silences{display:grid;gap:1.1rem;margin-top:.5rem}
+.row{display:grid;gap:.3rem}
+.row .names{font-size:.98rem}
+.track{position:relative;height:1.5rem;background:var(--paper-deep);border-radius:2px}
+.bar{position:absolute;top:0;bottom:0;left:var(--from);right:var(--to,0%);
+  background:linear-gradient(var(--a) 50%,var(--b) 50%);border-radius:2px;
+  transform-origin:left;transform:scaleX(0);transition:transform 1.4s cubic-bezier(.2,.7,.2,1)}
+.bar.faint{opacity:.45}
+.seen .bar{transform:scaleX(1)}
+.axis{display:flex;justify-content:space-between;font-size:.85rem;color:var(--ink-soft);
+  font-variant-numeric:tabular-nums;border-top:1px solid var(--line);padding-top:.3rem}
+.row .note{font-size:.88rem}
+
+/* the letter */
+.letter{background:var(--sheet);padding:clamp(1.4rem,5vw,2.6rem);border-radius:2px;
+  box-shadow:0 1px 0 #fff inset,0 14px 34px rgba(42,34,85,.18);transform:rotate(-.6deg);
+  font-size:1rem;line-height:1.6;position:relative;max-width:36rem;margin:0 auto}
+.letter .head{font-family:"Young Serif",serif;font-size:1.3rem;border-bottom:2px solid var(--ink);padding-bottom:.5rem;margin-bottom:1.2rem}
+.letter .head small{display:block;font-family:Literata,serif;font-size:.8rem;color:var(--ink-soft)}
+.hand{font-family:Caveat,cursive;color:var(--jo);font-size:1.7rem;line-height:1.1;
+  position:absolute;right:1rem;bottom:1.1rem;transform:rotate(-5deg)}
+.letter mark{background:linear-gradient(transparent 55%,color-mix(in srgb,var(--mum) 55%,transparent) 55%);color:inherit}
+
+.end{margin-top:4rem;padding-top:1.5rem;border-top:1px solid var(--line)}
+.next{font:inherit;font-size:1rem;background:var(--ink);color:var(--paper);border:0;border-radius:3px;padding:.8rem 1.2rem;opacity:.5}
+
+@media (prefers-reduced-motion:reduce){
+  .bar{transition:none;transform:none}.chip{transition:none}
+}
+
+/* ---- the book: fixed pages that turn ---- */
+html,body{height:100%;overflow:hidden}
+main{padding:0}
+#stage{position:fixed;inset:0 0 calc(3.6rem + env(safe-area-inset-bottom,0px)) 0;perspective:2200px;cursor:pointer}
+@media (min-width:64rem){#stage{inset:0}}
+.page{position:absolute;inset:0;overflow:hidden;background:var(--paper);
+  padding-block:calc(1.75rem + env(safe-area-inset-top,0px)) 1.75rem;
+  padding-left:max(1.25rem,env(safe-area-inset-left,0px),calc((100% - 36rem)/2));
+  padding-right:max(1.25rem,env(safe-area-inset-right,0px),calc((100% - 36rem)/2))}
+.leaf{transform-origin:left center;backface-visibility:hidden;pointer-events:none;will-change:transform;
+  box-shadow:18px 0 40px rgba(42,34,85,.22)}
+.leaf::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(90deg,transparent 55%,rgba(42,34,85,.16))}
+.flow{height:100%;column-fill:auto}
+.flow .col,.flow .fig{max-width:none}
+.flow .fig{margin:1.5rem 0}
+.flow h2{margin:2.2rem 0 1rem;break-after:avoid}
+.flow .cold{min-height:100%;height:auto;padding:0;break-after:column}
+.flow .open{padding:0;break-after:column}
+.flow .memory{margin-top:0}
+.flow .end{margin-top:2.5rem}
+.flow p{orphans:2;widows:2}
+.map,.legend li,.row,.axis,.letter,.swatches li,.flow svg,.sea,figcaption{break-inside:avoid}
+.map canvas,.map .town{position:absolute;inset:0;width:100%;height:100%}
+.hint{margin-top:2rem}
+#bar{position:fixed;z-index:7;top:0;left:0;height:3px;width:0;background:var(--ink);transition:width .3s}
+
+.painting{display:block;width:100%;height:auto;border-radius:3px;break-inside:avoid;box-shadow:0 12px 30px rgba(42,34,85,.25)}
+/* the paint card */
+.card-strip{break-inside:avoid;border-radius:3px;overflow:hidden;box-shadow:0 10px 26px rgba(42,34,85,.16)}
+.card-strip div{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;padding:.7rem .9rem;border-bottom:1px solid rgba(42,34,85,.08)}
+.card-strip b{font-family:Caveat,cursive;font-weight:500;font-size:1.45rem;line-height:1;color:var(--nell)}
+.card-strip s{font-size:.8rem;color:var(--ink-soft);white-space:nowrap}
+
+/* the audiobook */
+#listen{position:fixed;z-index:8;bottom:calc(.5rem + env(safe-area-inset-bottom,0px));right:calc(.75rem + env(safe-area-inset-right,0px));width:2.4rem;height:2.4rem;border-radius:50%;border:0;
+  background:var(--ink);color:var(--paper);display:grid;place-items:center;cursor:pointer;
+  box-shadow:0 6px 18px rgba(42,34,85,.3)}
+#listen svg{fill:currentColor;width:18px;height:18px}
+@media (min-width:64rem){#listen{bottom:auto;top:1.2rem;right:1.5rem;width:2.9rem;height:2.9rem}#listen svg{width:22px;height:22px}}
+#listen .i-pause,#listen[aria-pressed=true] .i-play{display:none}
+#listen[aria-pressed=true] .i-pause{display:block}
+#listen:focus-visible{outline:3px solid var(--note);outline-offset:3px}
+.reading{background:color-mix(in srgb,var(--giles) 45%,transparent);box-shadow:0 0 0 .35rem color-mix(in srgb,var(--giles) 45%,transparent);border-radius:2px}
+
+/* chapter openers */
+.flow .chap{break-before:column;break-after:column;height:100%;display:grid;align-content:center}
+.chapno{color:var(--ink-soft);margin:0}
+.flow .chap h2{font-size:clamp(2.4rem,10vw,3.8rem);margin:.4rem 0 0}
+/* the envelope flap */
+.flap{position:relative;background:#EFE3C8;color:#B9A37A;border-radius:2px;aspect-ratio:400/210;break-inside:avoid;
+  box-shadow:0 10px 26px rgba(42,34,85,.18);font-family:Caveat,cursive;transform:rotate(.8deg)}
+.flap svg{position:absolute;inset:0;width:100%;height:100%}
+.flap span{position:absolute;left:0;right:0;text-align:center;color:#2B4FB3}
+.flap .l1{top:6%;font-size:clamp(2rem,9vw,3rem);transform:rotate(-2deg)}
+.flap .l2{top:33%;font-size:clamp(1.2rem,5.2vw,1.7rem);transform:rotate(-1deg)}
+/* her mother's ledger */
+.ledger{background:var(--sheet);padding:1.1rem 1.1rem 1rem;border-radius:2px;break-inside:avoid;box-shadow:0 12px 30px rgba(42,34,85,.2);
+  background-image:repeating-linear-gradient(transparent 0 1.9rem,rgba(46,115,200,.14) 1.9rem calc(1.9rem + 1px))}
+.lrow{display:grid;grid-template-columns:7.2rem 1fr;align-items:center;gap:.6rem;height:1.9rem}
+.lrow span,.ltotal span{font-family:Caveat,cursive;font-size:1.25rem;color:#2B4FB3;white-space:nowrap}
+.lrow i{height:1.05rem;width:var(--w);border-radius:2px;filter:url(#rough);
+  background:repeating-linear-gradient(115deg,var(--c) 0 2px,color-mix(in srgb,var(--c) 62%,transparent) 2px 4px)}
+.ltotal{display:flex;justify-content:space-between;align-items:baseline;margin-top:.9rem;padding-top:.5rem;border-top:3px double #2B4FB3}
+.ltotal b{font-family:Caveat,cursive;font-weight:500;font-size:2rem;color:#2B4FB3}
+#listen[hidden]{display:none}
+@media (max-width:63.99rem){.cast{padding-right:3.6rem}}
+
+/* the front cover */
+.flow .bookcover{break-after:column;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem}
+.flow .bookcover .bc{width:min(100%,calc((100svh - 10rem) * .6667))}
+.bc-hint{margin:0;text-align:center}
+.col .doc{margin:1.2em 0;padding:.9em 1.1em;border:1px solid var(--line,#d9d2c3);border-left:4px solid var(--ink,#33287A);background:var(--paper2,rgba(0,0,0,.025));font-size:.94em;border-radius:3px}
+.col .doc p{margin:.35em 0;text-indent:0}
+.col ul.list{margin:.8em 0 1em;padding-left:1.3em}
+.col ul.list li{margin:.25em 0}
+/* how this book was made */
+.flow .brief{break-before:column;break-after:column}
+.brief h2{margin:.3rem 0 .4rem}
+.brief-kind{color:var(--ink-soft);font-size:.95rem;margin:0 0 1rem}
+.slip{background:var(--sheet);border-radius:4px;padding:.8rem 1rem;box-shadow:0 8px 22px rgba(42,34,85,.14);margin-bottom:1rem;
+  background-image:repeating-linear-gradient(transparent 0 1.6rem,rgba(46,115,200,.10) 1.6rem calc(1.6rem + 1px))}
+.slip dl{margin:0;display:grid;gap:.55rem}
+.slip dt{font-size:.78rem;color:var(--ink-soft);letter-spacing:.04em}
+.slip dd{margin:0;font-family:Caveat,cursive;font-size:1.35rem;line-height:1.15;color:#2B4FB3}
+.brief h3{font-family:"Young Serif",Georgia,serif;font-weight:400;font-size:1.1rem;margin:.8rem 0 .25rem}
+.brief p{font-size:.95rem;line-height:1.45;margin:0}
+.brief2 h3:first-child{margin-top:0}
+.ideas{list-style:none;padding:0;margin:0;display:grid;gap:.3rem;font-size:.92rem;line-height:1.28}
+.ideas li{display:grid;grid-template-columns:4.6rem 1fr;gap:.6rem}
+.ideas span{color:var(--ink-soft);font-size:.85rem;padding-top:.1rem;font-variant-numeric:tabular-nums}
+/* tasters: a guess before the scene, and a bridge between the opening and the scene */
+.flow .guess{break-before:column;break-after:column;break-inside:avoid}
+.guess .ask{font-family:"Young Serif",Georgia,serif;font-size:1.4rem;line-height:1.2;margin:.3rem 0 .8rem}
+.guess-lead{margin:.2rem 0 .6rem}
+.guess .say{font-style:italic;line-height:1.4;margin:.8rem 0 0}
+.guess .opts button.other{opacity:.4}
+.guess .opts button.picked::before{box-shadow:0 0 0 3px var(--paper),0 0 0 6px var(--ink)}
+.guess .opts.text button.picked{border-color:var(--ink);box-shadow:0 0 0 1.5px var(--ink)}
+.flow .bridge{break-before:column;break-after:column;height:100%;display:flex;flex-direction:column;justify-content:center}
+.bridge p:last-child{font-family:"Young Serif",Georgia,serif;font-size:1.35rem;line-height:1.35;margin:.5rem 0 0}
+.guessed{font-style:italic;color:var(--ink-soft);margin:.6rem 0 0}
+/* show the teaching: the lesson lines highlighted, with a pencil note under each */
+body.teach .lesson{background:linear-gradient(transparent 56%,rgba(255,206,84,.7) 56%);-webkit-box-decoration-break:clone;box-decoration-break:clone}
+body.teach .lesson::after{content:"\21B3\00A0" attr(data-note);display:block;font-family:Caveat,cursive;font-size:1.3rem;line-height:1.1;color:#B4321F;
+  margin:.2rem 0 .45rem;font-style:normal;background:none}
+.teach-toggle{font:inherit;display:flex;align-items:center;justify-content:space-between;gap:1rem;width:100%;margin-top:.8rem;padding:.55rem .85rem;
+  border:1.5px solid var(--ink);border-radius:8px;background:var(--sheet);color:var(--ink);cursor:pointer;text-align:left;font-size:1rem;line-height:1.25}
+.teach-toggle .state{flex:none;font-size:.85rem;padding:.15rem .6rem;border-radius:99px;background:var(--paper-deep)}
+.teach-toggle[aria-pressed=true] .state{background:#FFD45E}
+.teach-toggle:focus-visible{outline:3px solid var(--note);outline-offset:2px}
+#menu .teach-toggle{display:flex;margin:0 0 .3rem;border:1px solid var(--line);padding:.6rem .8rem;font-size:1rem}
+#menu .teach-toggle .state{font-size:.8rem}
+/* chapters menu */
+#toc{position:fixed;z-index:8;bottom:calc(.5rem + env(safe-area-inset-bottom,0px));left:calc(.75rem + env(safe-area-inset-left,0px));
+  width:2.4rem;height:2.4rem;border-radius:50%;border:1.5px solid var(--ink);background:var(--paper);color:var(--ink);
+  display:grid;place-items:center;cursor:pointer}
+#toc svg{fill:currentColor}
+#toc:focus-visible{outline:3px solid var(--note);outline-offset:3px}
+#menu{position:fixed;z-index:9;left:.75rem;bottom:calc(3.9rem + env(safe-area-inset-bottom,0px));width:min(20rem,calc(100vw - 1.5rem));
+  background:var(--sheet);border-radius:6px;padding:.4rem;box-shadow:0 14px 40px rgba(42,34,85,.3);display:grid;gap:.15rem;
+  max-height:calc(100svh - 5.2rem - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px));overflow-y:auto;overscroll-behavior:contain}
+#menu[hidden]{display:none}
+#menu button{font:inherit;text-align:left;background:none;border:0;border-radius:4px;padding:.6rem .8rem;cursor:pointer;color:var(--ink);
+  display:grid;gap:.05rem;line-height:1.25}
+#menu button small{font-size:.8rem;color:var(--ink-soft)}
+#menu button b{font-family:"Young Serif",Georgia,serif;font-weight:400;font-size:1.15rem}
+#menu button[aria-current=true]{background:color-mix(in srgb,var(--giles) 45%,transparent)}
+#menu button:focus-visible{outline:3px solid var(--note);outline-offset:-3px}
+@media (max-width:63.99rem){.cast{padding-left:3.6rem;gap:.4rem}.cast .chip{width:1.9rem;height:1.9rem}}
+@media (min-width:64rem){#toc{bottom:auto;top:1.2rem;left:auto;right:5.2rem;width:2.9rem;height:2.9rem}
+  #menu{left:auto;right:1.5rem;bottom:auto;top:4.8rem;max-height:calc(100svh - 6.3rem)}}
+
+/* the biscuit test */
+.flow .test{break-before:column;break-after:column;break-inside:avoid}
+.test .ask{font-family:"Young Serif",Georgia,serif;font-size:1.5rem;line-height:1.2;margin:.2rem 0 .8rem}
+.test > p{margin-bottom:.8em}
+.opts{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:.8rem}
+.opts button{font:inherit;border:0;padding:0;background:none;cursor:pointer;display:block;min-width:0;width:100%;color:var(--ink);text-align:left}
+.opts button span{display:block;margin-top:.3rem}
+.opts button::before{content:"";display:block;aspect-ratio:2.1;border-radius:7px 4px 8px 4px;background:var(--c) var(--tex, none) center/cover;transition:opacity .3s,transform .2s}
+.opts button span{font-family:Caveat,cursive;font-size:1.25rem;line-height:1.1}
+.opts button:focus-visible{outline:3px solid var(--note);outline-offset:3px}
+.opts button.no::before{opacity:.25}
+.opts button.no span{text-decoration:line-through;opacity:.5}
+.opts button.yes::before{box-shadow:0 0 0 3px var(--paper),0 0 0 6px var(--ink)}
+.test.hint .opts button:not(.no):not(.yes)[data-right]::before{animation:nudge 1s ease-in-out infinite}
+.test .say{min-height:2.6em;margin:.7rem 0 .3rem;font-style:italic;line-height:1.4}
+.won{display:flex;align-items:center;gap:.9rem;break-before:avoid;break-inside:avoid}
+.won[hidden]{display:none}
+.won svg{width:3.2rem;height:3.2rem;flex:none}
+.won p{margin:0;font-family:"Young Serif",Georgia,serif;font-size:1.1rem}
+.test.shake{animation:shake .35s}
+@keyframes nudge{50%{transform:scale(1.06)}}
+@keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+#menu button:disabled{opacity:.45;cursor:default}
+#menu a.dl{display:grid;gap:.05rem;line-height:1.25;padding:.7rem .8rem .6rem;margin-top:.3rem;border-top:1px solid var(--line);color:var(--ink);text-decoration:none;border-radius:0 0 4px 4px}
+#menu a.dl small{font-size:.8rem;color:var(--ink-soft)}
+#menu a.dl b{font-family:"Young Serif",Georgia,serif;font-weight:400;font-size:1.15rem}
+#menu a.dl:focus-visible{outline:3px solid var(--note);outline-offset:-3px}
+@media (prefers-reduced-motion:reduce){.test.shake,.test.hint .opts button::before{animation:none}}
+
+/* ledger variations */
+.lhead{font-family:Caveat,cursive;font-size:1.45rem;color:#2B4FB3;line-height:1.9rem;border-bottom:2px solid #2B4FB3;margin-bottom:.4rem}
+.ledger.wide .lrow{grid-template-columns:9.4rem 1fr}
+.lnote{font-family:Caveat,cursive;font-size:1.15rem;color:#C0392B;text-align:right;line-height:1.9rem;transform:rotate(-1.5deg)}
+.lkey{display:grid;grid-template-columns:2.6rem 1fr;gap:.7rem;align-items:start;min-height:1.9rem;padding:.25rem 0}
+.lkey i{height:1.2rem;margin-top:.25rem;border-radius:2px;filter:url(#rough);background:repeating-linear-gradient(115deg,var(--c) 0 2px,color-mix(in srgb,var(--c) 62%,transparent) 2px 4px)}
+.lkey span{font-family:Caveat,cursive;font-size:1.25rem;line-height:1.25;color:#2B4FB3}
+.lkey b{font-weight:500;display:block;color:var(--ink)}
+.lline{display:grid;grid-template-columns:1.5fr .7fr 1fr 1fr;gap:.4rem;font-family:Caveat,cursive;font-size:1.3rem;line-height:1.9rem;color:#6C6A8C}
+.lline.red{color:#C0392B;font-size:1.55rem;font-weight:500;transform:rotate(-.6deg)}
+.lline em{font-style:normal;color:#D9A21A}
+/* text messages */
+.txt,.sms .say:not(:empty),.msg{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;font-size:.95rem;line-height:1.4;font-style:normal;
+  background:var(--paper-deep);border-radius:14px 14px 14px 3px;padding:.6rem .85rem;max-width:88%;width:fit-content}
+.sms .say{min-height:0}
+.sms .say:empty{display:none}
+.msg{background:color-mix(in srgb,var(--giles) 55%,var(--paper))}
+.opts button span{line-height:1.05}
+.note.small{font-size:.8rem;margin-top:1.2rem}
+
+/* keep a whole test on one page */
+.test.sms .opts button::before{aspect-ratio:3.1}
+/* questions answered in words, not colours */
+.opts.text{grid-template-columns:minmax(0,1fr);gap:.45rem}
+.opts.text button{border:1.5px solid var(--line);border-radius:8px;padding:.5rem .75rem;background:var(--sheet);transition:opacity .3s}
+.opts.text button::before{display:none}
+.opts.text button span{font-family:inherit;font-size:.98rem;line-height:1.3;margin:0}
+.opts.text button.no{opacity:.45}
+.opts.text button.yes{border-color:var(--ink);box-shadow:0 0 0 1.5px var(--ink)}
+.test.sms .ask{font-size:1.3rem;margin:.1rem 0 .6rem}
+.test.sms > p{margin-bottom:.55em}
+.test .say{break-inside:avoid}
+.test.sms .won p{font-size:1rem}
+.test.sms .won svg{width:2.4rem;height:2.4rem}
+
+/* seven colours in one bar */
+.lrow i.multi,.opts button.rainbow::before{background:linear-gradient(90deg,#2E73C8 0 22%,#2FA39A 22% 36%,#E9C95A 36% 50%,#E2452E 50% 58%,#8FA86A 58% 70%,#F26FA6 70% 76%,#F08A24 76%)}
+.lrow i{max-width:100%}
+
+/* the tin of everything */
+.tin{display:grid;grid-template-columns:repeat(18,1fr);gap:2px;padding:.6rem;background:#2B2A5C;border-radius:50%/12%;break-inside:avoid;
+  box-shadow:inset 0 0 0 5px #C9A64B,0 12px 30px rgba(42,34,85,.25)}
+.tin i{aspect-ratio:1;border-radius:2px 1px 3px 1px}
+/* the ticket */
+.ticket{position:relative;background:#FBF3E4;border-radius:6px;padding:1rem 1.1rem;break-inside:avoid;transform:rotate(-1.2deg);
+  box-shadow:0 10px 26px rgba(42,34,85,.2);border-top:.55rem solid #E1772A;font-family:system-ui,-apple-system,sans-serif;color:#3A2E2A}
+.trow{display:flex;justify-content:space-between;align-items:baseline;gap:.5rem}
+.trow b{font-size:1.35rem;letter-spacing:.04em}
+.trow.sm{margin-top:.7rem;font-size:.8rem;letter-spacing:.06em;color:#6E5E55}
+.tstamp{position:absolute;right:1rem;bottom:-.6rem;font-family:Caveat,cursive;font-size:1.5rem;color:#C0392B;transform:rotate(-8deg)}
+/* her letter */
+.bluepaper{background:#DCE8F7;color:#1F3A8A;font-family:Caveat,cursive;font-size:1.32rem;line-height:1.55rem;padding:1.1rem 1.2rem 1.3rem;break-inside:avoid;
+  background-image:repeating-linear-gradient(transparent 0 1.5rem,rgba(31,58,138,.18) 1.5rem calc(1.5rem + 1px));border-radius:2px;
+  box-shadow:0 12px 30px rgba(42,34,85,.22);transform:rotate(.5deg)}
+.bluepaper p{margin:0 0 .35rem}
+/* the writing check */
+.flow .wgate{break-before:column;break-after:column;break-inside:avoid}
+.wgate .who-to{color:var(--ink-soft);margin:0 0 .3rem}
+.wgate .ask{font-family:"Young Serif",Georgia,serif;font-size:1.45rem;line-height:1.2;margin:0 0 .5rem}
+.wgate .sub{font-size:.95rem;color:var(--ink-soft);margin:0 0 1rem}
+.wform{display:flex;gap:.6rem;align-items:stretch}
+.wform[hidden]{display:none}
+.wform input{font:inherit;font-size:1.4rem;width:7.5rem;padding:.45rem .7rem;border:2px solid var(--ink);border-radius:6px;background:var(--sheet);color:var(--ink)}
+.wform button{font:inherit;font-size:1rem;border:0;border-radius:6px;padding:.5rem 1rem;background:var(--ink);color:var(--paper);cursor:pointer}
+.wform input:focus-visible,.wform button:focus-visible{outline:3px solid var(--note);outline-offset:2px}
+.wgate .say{font-style:italic;min-height:2.4em;margin:.9rem 0 .6rem}
+.wbar{height:1.3rem;background:var(--paper-deep);border-radius:3px;overflow:hidden;filter:url(#rough)}
+.wbar i{display:block;height:100%;width:var(--w,0%);transition:width .6s;
+  background:repeating-linear-gradient(115deg,#EBA91A 0 2px,color-mix(in srgb,#EBA91A 62%,transparent) 2px 4px)}
+.wbar.full i{background:repeating-linear-gradient(115deg,#5DA24F 0 2px,color-mix(in srgb,#5DA24F 62%,transparent) 2px 4px)}
+.wlabel{display:flex;justify-content:space-between;font-size:.85rem;color:var(--ink-soft);margin-top:.3rem;font-variant-numeric:tabular-nums}
+.wgate .won{margin-top:1rem}
+
+/* fact sheet */
+.factsheet{background:#FFFFFF;color:#2A2A33;border-radius:3px;padding:1rem;break-inside:avoid;box-shadow:0 12px 30px rgba(42,34,85,.2);
+  font-family:system-ui,-apple-system,"Segoe UI",sans-serif;font-size:.82rem;line-height:1.3}
+.fsh{display:flex;justify-content:space-between;align-items:baseline;gap:.5rem;border-bottom:2px solid #2A2A33;padding-bottom:.4rem;margin-bottom:.5rem}
+.fsh b{font-size:.98rem}
+.fsh span{font-size:.72rem;color:#6B6B78;white-space:nowrap}
+.fsrow{display:grid;grid-template-columns:6.4rem 1fr;gap:.5rem;padding:.4rem .5rem;margin:.25rem 0;border-radius:40% 30% 45% 35%/60% 50% 60% 45%}
+.fsrow span{color:#6B6B78}
+.fsrow b{font-weight:600}
+.fsrow.c1{box-shadow:0 0 0 2px #2E73C8}.fsrow.c2{box-shadow:0 0 0 2px #F08A24}.fsrow.c3{box-shadow:0 0 0 2px #D9A21A}.fsrow.c4{box-shadow:0 0 0 2px #5DA24F}
+.fsrow.dim{opacity:.4}
+.fsgraph{position:relative;margin-top:.5rem;color:#9A9AA8}
+.fsgraph svg{width:100%;height:2.4rem}
+.fsgraph i{position:absolute;right:0;top:-.2rem;font-family:Caveat,cursive;font-style:normal;font-size:1.15rem;color:#C0392B;transform:rotate(-3deg)}
+/* inside back cover */
+.flow .backcover{break-before:column;break-inside:avoid}
+.backcover h2{margin:.3rem 0 1rem}
+.ledger.rules .lkey{min-height:0;padding:.3rem 0}
+.ledger.rules .lkey span{font-size:1.15rem}
+.lkey i.multi{background:linear-gradient(90deg,#2E73C8 0 22%,#2FA39A 22% 36%,#E9C95A 36% 50%,#E2452E 50% 58%,#8FA86A 58% 70%,#F26FA6 70% 76%,#F08A24 76%)}
+.btn-end{display:inline-block;font:inherit;font-size:1rem;background:var(--ink);color:var(--paper);padding:.8rem 1.2rem;border-radius:6px;text-decoration:none}
+.btn-end:focus-visible{outline:3px solid var(--note);outline-offset:3px}
+</style>
+<style>:root{--gail:#D1495B;--maurice:#8C1C13;--rupert:#6D597A;--celia:#C9A227;--terry:#2F6F4F;--joan:#B5838D;--tull:#7A8B99;--dominic:#1D3557;--memory:#D1495B;}[data-who=gail]{--c:var(--gail)}[data-who=maurice]{--c:var(--maurice)}[data-who=rupert]{--c:var(--rupert)}[data-who=celia]{--c:var(--celia)}[data-who=terry]{--c:var(--terry)}[data-who=joan]{--c:var(--joan)}[data-who=tull]{--c:var(--tull)}[data-who=dominic]{--c:var(--dominic)}</style>
+<meta name="theme-color" content="#2A2255">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Inflation, Darling">
+<meta name="description" content="She knew what everything cost, and what it would cost next year. Read chapter one of Inflation, Darling free: a glossy 1970s saga that teaches inflation and how economies work.">
+<link rel="canonical" href="https://learnedbyheart.com/library/inflation-darling/">
+<meta property="og:type" content="book">
+<meta property="og:title" content="Inflation, Darling">
+<meta property="og:description" content="She knew what everything cost, and what it would cost next year. Read chapter one of Inflation, Darling free: a glossy 1970s saga that teaches inflation and how economies work.">
+<meta property="og:url" content="https://learnedbyheart.com/library/inflation-darling/">
+<meta property="og:image" content="https://learnedbyheart.com/img/library/inflation-darling.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap" rel="stylesheet">
+<style>
+.bc{position:relative;container-type:inline-size;aspect-ratio:2/3;border-radius:3px 6px 6px 3px;overflow:hidden;
+  box-shadow:0 1px 2px rgba(42,34,85,.2),0 18px 40px rgba(42,34,85,.35),inset 4px 0 0 rgba(255,255,255,.08);background:#2A2255}
+.bc img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.bc::after{content:"";position:absolute;inset:0 auto 0 0;width:3.5%;background:linear-gradient(90deg,rgba(0,0,0,.28),rgba(255,255,255,.12) 60%,transparent)}
+.bc-text{position:absolute;left:0;right:0;top:0;padding:calc(var(--top,9) * 1cqw) 8cqw 0;text-align:center;display:flex;flex-direction:column;align-items:center;
+  padding-bottom:6cqw;background:linear-gradient(rgba(10,8,30,.5),rgba(10,8,30,.32) 60%,rgba(10,8,30,0))}
+.bc-title{font-family:inherit;font-weight:400;font-size:12.5cqw;line-height:1;letter-spacing:-.01em;margin:0;text-wrap:balance;text-shadow:0 2px 14px rgba(0,0,0,.35)}
+.bc-line{color:var(--lc);font-family:Literata,Georgia,serif;font-style:italic;font-size:4.6cqw;line-height:1.35;text-wrap:balance;margin:calc(var(--gap,4) * 1cqw) auto 0;max-width:80cqw;text-shadow:0 1px 8px rgba(0,0,0,.5)}
+.bc-brand{position:absolute;left:0;right:0;bottom:0;padding:14cqw 0 5cqw;background:linear-gradient(rgba(10,8,30,0),rgba(10,8,30,.55));margin:0;display:flex;align-items:center;justify-content:center;gap:1.6cqw;font-family:Fraunces,Georgia,serif;font-weight:500;font-variation-settings:'SOFT' 100;font-size:4.4cqw;letter-spacing:.01em;color:#FFFCF2;text-shadow:0 1px 6px rgba(0,0,0,.6)}
+.bc-brand svg{width:5.6cqw;height:5.6cqw;filter:drop-shadow(0 1px 3px rgba(0,0,0,.5))}
+.bc.light .bc-text{background:linear-gradient(rgba(255,252,242,.7),rgba(255,252,242,.45) 60%,rgba(255,252,242,0))}
+.bc.light .bc-title{text-shadow:0 1px 12px rgba(255,252,242,.7)}
+.bc.light .bc-line{text-shadow:0 0 6px rgba(255,252,242,.95),0 0 16px rgba(255,252,242,.85)}
+
+/* tagline treatments: type only, set on the painting */
+.tag-face{font-family:inherit;font-size:5cqw;line-height:1.3;margin-top:4cqw}
+
+.tag-sans{font-family:inherit;font-style:normal;font-weight:500;font-size:4.5cqw;line-height:1.3;letter-spacing:.01em}
+.bc-line.above{order:-1;margin:0 auto calc(var(--gap,4) * 1cqw)}
+.bc-title.upper{text-transform:uppercase;letter-spacing:.02em}
+
+.tag-caps{font-family:inherit;font-style:normal;text-transform:uppercase;letter-spacing:.16em;font-size:calc(3.5cqw * var(--ts,1));line-height:1.45;max-width:78cqw;margin-top:5.5cqw;text-shadow:0 1px 8px rgba(0,0,0,.75)}
+
+.tag-rules{font-family:inherit;font-style:normal;font-variant:small-caps;letter-spacing:.06em;font-size:4.3cqw;line-height:1.4;max-width:76cqw;margin-top:5cqw}
+.tag-rules::before,.tag-rules::after{content:"";display:block;height:1px;width:34cqw;margin:0 auto 2.6cqw;background:linear-gradient(90deg,transparent,currentColor,transparent)}
+.tag-rules::after{margin:2.6cqw auto 0}
+
+.tag-fleuron{margin-top:2.5cqw}
+.tag-fleuron::before{content:"";display:block;width:30cqw;height:6cqw;margin:0 auto 2.4cqw;background:var(--lc);-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 120 24%27%3E%3Cpath d=%27M60 4c4 6 4 12 0 16-4-4-4-10 0-16zM56 12c-10-7-22-8-34-2 12 0 22 2 34 4zM64 12c10-7 22-8 34-2-12 0-22 2-34 4zM8 12h12M100 12h12%27 fill=%27none%27 stroke=%27black%27 stroke-width=%272.4%27 stroke-linecap=%27round%27/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 120 24%27%3E%3Cpath d=%27M60 4c4 6 4 12 0 16-4-4-4-10 0-16zM56 12c-10-7-22-8-34-2 12 0 22 2 34 4zM64 12c10-7 22-8 34-2-12 0-22 2-34 4zM8 12h12M100 12h12%27 fill=%27none%27 stroke=%27black%27 stroke-width=%272.4%27 stroke-linecap=%27round%27/%3E%3C/svg%3E") center/contain no-repeat;filter:drop-shadow(0 1px 3px rgba(0,0,0,.5))}
+
+.tag-deco{font-family:inherit;font-style:italic;font-size:4.6cqw;max-width:74cqw;margin-top:4cqw;padding:2cqw 1cqw}
+.tag-deco::before,.tag-deco::after{content:"";display:block;width:40cqw;height:.7cqw;margin:0 auto 2.4cqw;border-block:1px solid var(--lc)}
+.tag-deco::after{margin:2.4cqw auto 0}
+
+.tag-rule{margin-top:3cqw}
+.tag-rule::before{content:"";display:block;width:12cqw;height:1px;margin:0 auto 3cqw;background:currentColor;opacity:.7}
+
+.tag-glam{font-family:inherit;font-style:italic;font-size:5cqw;line-height:1.3;max-width:70cqw;margin-top:4cqw;letter-spacing:.005em;text-shadow:0 1px 10px rgba(0,0,0,.6)}
+.tag-glam::before{content:"\25C6";display:block;font-style:normal;font-size:2.6cqw;line-height:1;margin:0 auto 3cqw;width:44cqw;color:var(--lc);
+  background:linear-gradient(90deg,transparent,var(--lc) 30%,transparent 46%,transparent 54%,var(--lc) 70%,transparent) center/100% 1px no-repeat}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><filter id="rough" x="-15%" y="-15%" width="130%" height="130%"><feTurbulence type="fractalNoise" baseFrequency=".04" numOctaves="2" seed="4" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="5" xChannelSelector="R" yChannelSelector="G"/></filter></svg>
+
+<nav class="cast" aria-label="The people">
+  <button class="chip" data-who="gail" aria-expanded="false" aria-label="Gail"></button>
+  <button class="chip" data-who="maurice" aria-expanded="false" aria-label="Maurice"></button>
+  <button class="chip" data-who="rupert" aria-expanded="false" aria-label="Rupert"></button>
+  <button class="chip" data-who="celia" aria-expanded="false" aria-label="Celia"></button>
+  <button class="chip" data-who="terry" aria-expanded="false" aria-label="Terry"></button>
+  <button class="chip" data-who="joan" aria-expanded="false" aria-label="Joan"></button>
+  <button class="chip" data-who="tull" aria-expanded="false" aria-label="Mr Tull"></button>
+  <button class="chip" data-who="dominic" aria-expanded="false" aria-label="Dominic"></button>
+</nav>
+<div class="card" id="card" hidden role="status"></div>
+<button id="listen" aria-label="Listen to this chapter" aria-pressed="false">
+  <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path class="i-play" d="M8 5v14l11-7z"/><path class="i-pause" d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>
+</button>
+<audio id="voice" preload="none"></audio>
+<button id="toc" aria-label="Chapters" aria-expanded="false" aria-controls="menu">
+  <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M4 6h16v2H4zM4 11h16v2H4zM4 16h10v2H4z"/></svg>
+</button>
+<div id="menu" hidden></div>
+
+<main><div id="stage"><div class="page" id="book"><div class="flow" id="flow">
+<section class="bookcover" data-noaudio>
+  <div class="bc" role="img" aria-label="Cover: Inflation, Darling" style="--lc:#FFF3D6;--ts:1;--top:5.5;--gap:2.5"><img src="art/cover.jpg" alt="" draggable="false"><div class="bc-text" style="color:#F6E7C4;font-family:'Abril Fatface',Georgia,serif"><h1 class="bc-title">Inflation, Darling</h1><p class="bc-line tag-face">She knew what everything cost, and what it would cost next year.</p></div><p class="bc-brand"><svg viewBox="0 0 100 100" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M50 86C31 73 9 58 9 36C9 20 24 12 37 18C44 21 48 26 50 32C52 26 56 21 63 18C76 12 91 20 91 36C91 58 69 73 50 86Z" stroke-width="4"/><path d="M50 32V86" stroke-width="3.2"/><g stroke-width="3"><path d="M50 44C42 33 27 29 18 38"/><path d="M50 56C42 45 29 42 21 50"/><path d="M50 44C58 33 73 29 82 38"/><path d="M50 56C58 45 71 42 79 50"/></g></g></svg><span>Learned by Heart</span></p></div>
+  <p class="note bc-hint">Tap the right side of the page to open the book.</p>
+</section>
+<section class="cold col">
+  <p class="first">Brightwen's of London went under the hammer on a wet Tuesday in October 1981, lot by lot, from the chandeliers in the Palm Room down to the brass hooks in the staff cloakroom, and the auctioneer's man had to stand on a glove counter to make himself heard.</p>
+  <p>The building had been sold the week before, privately, to a buyer whose name the evening papers spelled three different ways. Any woman who had ever worked in the basement could have spelled it for them, and several rang the papers to do so.</p>
+  <p class="note hint">Tap the right side of the page to turn it.</p>
+</section>
+
+<header class="open col" style="max-width:var(--wide)">
+  <h1>Inflation, Darling</h1>
+  <p class="chapter">Chapter one. Round It Up.</p>
+</header>
+
+<article>
+<div class="col">
+  <h2>The marking room, Sunday 14 February 1971, eight in the evening</h2>
+  <p>On the last night of the old money the marking room smelled of paraffin and hot rubber type, and nine women in brown overalls sat along a zinc table changing the price of everything in Brightwen's into a currency none of them had ever spent. Six floors above their heads, in the Palm Room, sixty people in evening dress were drinking to its memory.</p>
+  <p>The order had come down on Friday, typed and signed by Mr Rupert Brightwen: all prices to be converted to new pence and rounded, where there was any doubt, in the store's favour. <span class="who" data-who="gail">Gail Purdy</span> had read it once and pinned it over the glue pot herself, with the drawing pin straight through his signature.</p>
+  <p>She sat at the end by the ticket press, because the press was warm and because she was fast enough to be left alone. She was twenty, with legs she had priced long ago at somewhere above the store's best nylons, a south London voice she was rubbing down at night with elocution records from the library, and her eye on a dress for the party that still belonged to Model Gowns.</p>
+  <p>"Gail," said Brenda Gaffney, holding up a cardigan. "It says round it in the store's favour. Which way is the store's favour?"</p>
+  <p>"Up, Brenda, the store's favour is always up, same as a man's."</p>
+  <p>Brenda thought about it, turned the cardigan over to look at the label, as though the answer might be sewn in, and rounded it up.</p>
+  <p>Lorraine Sixsmith had not stopped talking since half past five. "My dad says it's a fiddle, he says they've changed the money so the shops can put everything up and nobody'll be able to count it, and my mum says if you can't count it you can't spend it, and he says that's women's logic, and she says it's the only logic in this house that's ever paid the gas, and then they had a row about the gas. What are you smiling at?"</p>
+  <p>"Your dad's right," Gail said. "And by Wednesday nobody will remember what anything used to cost except us, and we'll be the only people in London who know exactly how much they've been robbed."</p>
+  <p>Twelve years later Lorraine sold her account of that night to a Sunday paper. She said Gail had sat there plotting all evening with a face like a cat's. Gail had been plotting, though getting into the Palm Room was the easy part: she had volunteered for the night shift weeks ago, as soon as the party was announced. She was plotting what to say once she was there, and had been saying it under her breath since six o'clock in the voice off the library records while her hands did the tickets.</p>
+</div>
+
+<div class="col">
+  <h2>School shoes</h2>
+  <p>At ten Miss Ockenden, who ran the marking room in the manner of a nun who has seen worse, took an armful of tickets up to Linens, and Gail pulled the box of children's school shoes off the trolley.</p>
+  <p>Black lace-ups, room to grow, the sort the women on her estate saved for from Easter. She set the press, ran off a sheaf of tickets at a figure well below anything the store's favour had in mind, and pinned them on with her back to the room. Then she ran off a second batch for the cut-glass decanters in Gifts, and made those a good deal dearer. Men buying decanters for their mothers-in-law had never in the history of trade looked at a ticket.</p>
+  <p>"Those shoes are wrong," said Brenda, who had seen.</p>
+  <p>"They're Footwear's mistake. Mr Collis, extension two-one-four, memo of the ninth, I'll show you if you like, it's in my bag under my sandwiches."</p>
+  <p>"I don't want to see your sandwiches."</p>
+  <p>"Then we're both happy," said Gail. Behind her the goods lift came down through the ceiling with its gate rattling, and a man in a dinner jacket was already talking inside it before it stopped, an empty ice bucket under his arm.</p>
+</div>
+
+<div class="col">
+  <h2>The goods lift</h2>
+  <p><span class="who" data-who="rupert">Rupert Brightwen</span> was thirty-one, handsome in a well-used way that women liked better than new, and the only son. Gail had made a study of him from the far end of the staff canteen for two years: shoes made on a last with his name on it, his mother's cufflinks, a wife with a first-class degree she never mentioned. She had added him up, standing, at a great deal of money with a department store on top. Nobody had told her that the bank had stopped his cheques on Wednesday afternoon, an hour before it shut for the changeover. Nobody had told his father either.</p>
+  <p>"I've been sent for champagne," he said to the room in general. "It's the only job in the building I'm trusted with, and I've lost the cellar. My father thinks I do it on purpose. I don't, I'm just bad at basements." He looked down the table at the brown overalls. "You're all working on a Sunday night. I'd organise a strike for you, but it would mean getting up in the morning."</p>
+  <p>"It's through there and down, and nobody ever finds it," said Gail, standing up. "I'll take you."</p>
+  <p>The cellar was the old coal store, a floor further down behind a steel door, and he could not read the labels without the glasses he would not wear in front of a woman. Gail read them to him in the voice off the elocution records. She told him which vintage was good, which his grandfather had bought in a panic, and which bottle the head of Accounts had been working his way through since the autumn.</p>
+  <p>"Where did you get that voice?"</p>
+  <p>"The library."</p>
+  <p>"Do they lend them out? I'd like to borrow a new one. Mine was my father's, and he keeps asking for it back." He took two bottles off the rack without looking at them. "Don't tell him about Accounts. Don't tell him anything, actually. It's my whole philosophy of life, and it's gone very badly."</p>
+  <p>In the goods lift he pulled the gate across, and the bulb in its cage gave them a dirty yellow light that made everything look like an old photograph. She had planned this part. She had planned to kiss him between the basement and the ground floor, to do it well and briefly, and to step out at the top with him wanting more. He put the bottles down by his feet. He put his thumb at the corner of her mouth and kept it there, waiting for her to decide.</p>
+  <p>The waiting undid her. He took her right hand off his lapel, the one with the ticket ink worked into the creases, turned it over and put his mouth to the stained side of her fingers, one knuckle and then the next, as if the ink were the part of her worth having. That hand had spent two years behind her back. The ink tasted, he said into her fingers, like the inside of a piggy bank. She felt the words on her knuckles before she heard them, and her other hand, without consulting her, undid the top button of her overall. Then she pulled her fingers free, dragged him down by the collar and kissed him with no plan left at all. He tasted of cigars, of somebody else's lipstick, and now of her ink. His cufflink caught in the mesh of the gate and tore loose with a little shriek of metal, and neither of them looked. His shoulder knocked the lever; the motor died with a cough, and the cage swung a little on its cables in the dark between two lots of brick while she pressed him back against the gate until its diamond pattern was printed through his shirt.</p>
+  <p>Afterwards, leaning on the cold mesh with her lipstick on his collar, she was frightened, and she counted quickly to get her footing back: the house in the country his wife talked about, the name over the door, the tailor, the view from the fourth floor. By the time he found the lever again she was steady.</p>
+  <p>"Come up to the party," he said. He sounded less sure of himself than he had in the cellar. "Please. If you're there I'll have one person to talk to who doesn't know what I owe."</p>
+  <p>"What do you owe?"</p>
+  <p>"Nothing I'd care to discuss in front of the champagne. Have you got a frock?"</p>
+  <p>"I work in a department store, Mr Brightwen. I have all the frocks."</p>
+</div>
+
+<div class="col">
+  <h2>Model Gowns</h2>
+  <p>She chose it in the dark, by touch. It hung on a headless mannequin under a dust sheet on the second floor: silk jersey that ran through her fingers heavy and cold, like the sealed bags of new coins the bank had delivered to the cash office on Wednesday, cut on the bias so that it moved half a second after the body inside it, with a halter at the throat and nothing at all at the back until the very last moment. A young designer the buyer had found sewing in a basement had made only a handful. Gail lifted it off the mannequin's shoulders, stepped out of her overall in the middle of Model Gowns and into the silk, and stood barefoot in front of the long glass with the dust sheet round her ankles. She turned on the spot to watch the silk arrive a beat behind her, and turned again, and the woman in the glass did it with her as if she had been born upstairs.</p>
+</div>
+
+<div class="col">
+  <h2>The Palm Room, a quarter to midnight</h2>
+  <p>Old Maurice Brightwen had built his farewell to the shilling as he built his Christmas windows, generously and a little too high. Sixty guests sat at three long tables under the palms, and a cake shaped like a shilling stood on a silver stand with the Queen's head piped on it in chocolate. A dance band from the hotel over the road was playing something to foxtrot to. There was lobster, and a fountain of the pre-war fizz, and under the music the low steady sound of rich people telling each other what things had cost.</p>
+  <p>The women were a decade in silk: chiffon in smoke and plum on the mothers, kaftans heavy with mirror-work on daughters who had come from a better party and would leave for a worse one. The men, in their identical black, were all looking at somebody else's wife.</p>
+  <p>Gail walked in as if she had been asked, and the waiter who saw her in the canteen every day gave her a glass without knowing her. Before the band had finished the number she had been taken for a debutante by a stockbroker, for a stockbroker's girlfriend by his wife, and for a journalist by a fat man in shipping who told her more about his tax than he had ever told his accountant. She lied to all of them, beautifully and in detail. It was the best quarter of an hour of her life so far, and she knew it while it was happening.</p>
+  <p>Rupert was at the far end with his wife. <span class="who" data-who="celia">Celia Brightwen</span> was tall and fair and very still, in grey crêpe so plain it could only have cost a fortune, and she was listening to her friend Arabella Fane-Petrie tell a long story about a pony. When Rupert saw Gail his face lit up, did a quick sum and settled into polite blankness, and he turned his shoulder.</p>
+  <p>Arabella saw her too and stopped talking about the pony (which nobody at that table had ever managed); she came round behind Gail on a cloud of scent with her hand already out.</p>
+  <p>"Oh, but that's the Haldane," Arabella said. "That's the Haldane from downstairs, I tried it on on Thursday and the girl wouldn't hold it for me. Celia, look, it's the one I wanted. And darling, you've still got the..."</p>
+  <p>Gail felt fingers at the back of her neck, and something on a string that she had not known was there.</p>
+  <p>She got there first. She reached behind her, caught the ticket before Arabella could, snapped the string and held the little card up to the chandelier so the whole end of the table could see it. She read it as Rupert might have read a menu, which was the voice she had been practising for two years.</p>
+  <p>"Thirty-eight guineas," said Gail. "But that was before you wanted it."</p>
+  <p>The end of the table laughed. Toby, who made films about birds, laughed so hard he had to put his glass down. Arabella stared at her with her lovely mouth open.</p>
+  <p>"Mr Brightwen's had a memo out," Gail said. "Everything rounded up in the store's favour, from midnight. So that's forty pounds to you, Miss Fane-Petrie, and I'll throw in the gloves for another five, because they've been on me and you'll want to know where they've been."</p>
+  <p>"You're the shop girl," said Arabella.</p>
+  <p>"Which is how I know it fits you better than me. You've got the shoulders. I'll have it off in the powder room in two minutes, and you can give me the cheque now."</p>
+  <p>Arabella wrote the cheque, the only thing she had ever done quickly in her life, and she did it because sixty people were watching and because the dress was, as she said for years afterwards, absolutely the one. The room applauded, and Rupert laughed loudest, with a tight face, because the joke was his own memo and the whole table knew it.</p>
+  <p>Celia didn't laugh but watched Gail fold the cheque into one long glove, and said, "Well done," in a voice so cool that it took Gail some hours to feel the burn.</p>
+  <p>At the head of the middle table Maurice Brightwen put his glass down, very slowly, and looked at the girl in the Haldane gown as if she were a building he was thinking of buying.</p>
+</div>
+
+<div class="col">
+  <h2>The marking room, four in the morning</h2>
+  <p>She was back in her overall, the Haldane gone home with Arabella and the cheque in the till upstairs, when Rupert came down in the goods lift. He had lost his tie, and found a good deal more fizz, and he had a piece of paper in his hand with the store's crest at the top.</p>
+  <p>"I've come to sack you," he said. "I've written it out. It's rather good, I used the word gross, I don't often get to use it about anyone but myself." He held it up. "You took a dress off a dummy and sold it to Arabella in my father's restaurant, and you did it with my memo."</p>
+  <p>"For a cheque, not cash. It's in the till drawer in Model Gowns with a sales slip on it. Full price and five pounds over, which makes it the best sale that department's had since Christmas."</p>
+  <p>"You made a fool of me, and in front of Arabella, which takes some doing. She's usually so far ahead."</p>
+  <p>"You were halfway there, Mr Brightwen. I just carried the bags."</p>
+  <p>She had not heard the passenger lift. Maurice Brightwen was in the doorway behind his son, short and wide and white-haired in his dinner jacket, with a child's black school shoe in one hand and its ticket in the other. He had been walking the floors since three, as he did on any night that mattered, and he had the ticket turned to the light and was saving it for later.</p>
+  <p>"What's this, Rupert, a dismissal? Who for? The girl who sold the Haldane at a profit, in the middle of a party, in my store? On my son's orders? You see my difficulty."</p>
+  <p>"She took a dress off a dummy and sold it at your party, Father. If I'd done that you'd have had me certified."</p>
+  <p>Gail had perhaps a second, and she used it, in a pleasant, helpful voice, the one for customers.</p>
+  <p>"Mr Rupert's cheques were stopped on Wednesday, Mr Brightwen. The bank rang Accounts about the wine merchant's bill an hour before it closed. And the man from his tailor's has been at the staff door twice this month, asking for him by name."</p>
+  <p>Half of it she had overheard on the back stairs and the other half was a guess. Rupert's face told his father it was all true before she had finished. She watched it happen, steadily, and earlier that night she had forgotten her own name in a lift with that man and meant to do it again.</p>
+  <p>"Go to bed, Rupert," said Maurice.</p>
+  <p>Rupert looked at Gail. He looked at her for long enough that she understood he would never forget it, and that this, too, had a price, and would be sent to her one day with interest. Then he got back into the goods lift and took the piece of paper with him.</p>
+  <p>Maurice sat down on Brenda's stool. He put the school shoe on the zinc between them.</p>
+  <p>"Is this Footwear's mistake, Collis on extension two-one-four? Collis retired at Christmas. So whose mistake is it, and whose decanters are paying for it? Yours and mine." He picked up a pair of kid gloves from the trolley and turned them over. "Never mind that for now, and tell me what these ought to be."</p>
+  <p>She told him, and why. She told him what the shop over the road charged for worse ones and which of his umbrellas people picked up and put back all morning; she told him his lobster had been bought dear and his son's wine dearer. He listened to all of it with his eyes half shut, like a man listening to a band he used to dance to.</p>
+  <p>"Walk the ground floor with me at seven," he said at last, "before the doors open. Tell me what everything ought to cost, and leave the shoes as they are."</p>
+  <p>She walked it with him at seven that morning, and every morning for four months.</p>
+  <p>In June she married him.</p>
+</div>
+</article>
+<article data-noaudio>
+<section class="chap">
+  <p class="chapno">End of chapter one</p>
+  <h2>To be continued.</h2>
+</section>
+<div class="col">
+  <p>That&rsquo;s the first chapter of Inflation, Darling. We finish the books readers ask for first.</p>
+  <p><a class="btn-end" href="mailto:hello@learnedbyheart.com?subject=Tell%20me%20when%20Inflation%2C%20Darling%20is%20finished">Tell me when it&rsquo;s finished</a></p>
+  <p>That opens an email to us. Just press send. If nothing opens, write to hello@learnedbyheart.com with the book&rsquo;s name.</p>
+  <p>Every book we write is made for one reader, in the style they love, with the thing they&rsquo;ve always meant to learn inside it. <a href="../../#prices">Have one written for you</a>, or go <a href="../../#library">back to the library</a>.</p>
+</div>
+</article>
+</div></div></div><div id="bar"></div></main>
+
+<script>
+const BOOK = {"id":"inflation","title":"Inflation, Darling","firstChapter":{"no":"Chapter one","title":"Round It Up"},"memoryColour":"#D1495B","cast":{"gail":{"name":"Gail","colour":"#D1495B","line":"Gail Purdy. Twenty. The fastest pair of hands in the marking room, and she knows what you paid for those shoes."},"maurice":{"name":"Maurice","colour":"#8C1C13","line":"Maurice Brightwen. Sixty-seven. Owns the store, and has outlived most of the people who thought they would get it."},"rupert":{"name":"Rupert","colour":"#6D597A","line":"Rupert Brightwen. Thirty-one. The heir. Owes money in places his father has never heard of."},"celia":{"name":"Celia","colour":"#C9A227","line":"Celia Brightwen. Rupert's wife. A first in economics from Cambridge, and nobody has ever asked her a single question about it."},"terry":{"name":"Terry","colour":"#2F6F4F","line":"Terry Purdy. Gail's brother. Drives the store's van and believes every word anyone tells him."},"joan":{"name":"Joan","colour":"#B5838D","line":"Joan Purdy. Gail's mother. Has never owed anyone a penny, and has a building society book to prove it."},"tull":{"name":"Mr Tull","colour":"#7A8B99","line":"Leonard Tull. Comes in once a month with a clipboard to write down what everything costs, for the government."},"dominic":{"name":"Dominic","colour":"#1D3557","line":"Dominic Shale. An economist in the City. Clever enough to be dangerous, and he would tell you so."}},"lockMessage":"Someone has a question for you.","lockLabel":" (answer the question first)","epub":"Inflation-Darling.epub"};
+const P = BOOK.id;
+
+// ---- paint: everything is built from dabs of broken colour ----
+function rng(seed){ return () => (seed = (seed * 1664525 + 1013904223) >>> 0) / 4294967296; }
+function dab(ctx, x, y, len, w, ang, h, s, l, a = .9){
+  ctx.save(); ctx.translate(x, y); ctx.rotate(ang);
+  ctx.fillStyle = `hsla(${h},${s}%,${l}%,${a})`;
+  ctx.beginPath(); ctx.ellipse(0, 0, len / 2, w / 2, 0, 0, 7); ctx.fill(); ctx.restore();
+}
+function hexToHsl(hex){
+  const [r, g, b] = [1, 3, 5].map(i => parseInt(hex.slice(i, i + 2), 16) / 255);
+  const mx = Math.max(r, g, b), mn = Math.min(r, g, b), l = (mx + mn) / 2, d = mx - mn;
+  let h = 0; const s = d ? d / (1 - Math.abs(2 * l - 1)) : 0;
+  if (d) h = mx === r ? ((g - b) / d) % 6 : mx === g ? (b - r) / d + 2 : (r - g) / d + 4;
+  return [(h * 60 + 360) % 360, s * 100, l * 100];
+}
+// one painted swatch per person, used for their chip and their colour sample
+const css = getComputedStyle(document.documentElement);
+let rules = '';
+Object.keys(BOOK.cast).forEach((id, n) => {
+  const [h, s, l] = hexToHsl(css.getPropertyValue('--' + id).trim());
+  const c = document.createElement('canvas'); c.width = c.height = 160;
+  const ctx = c.getContext('2d'), r = rng(11 + n * 97);
+  ctx.fillStyle = `hsl(${h},${s}%,${l}%)`; ctx.fillRect(0, 0, 160, 160);
+  for (let i = 0; i < 240; i++)
+    dab(ctx, r() * 160, r() * 160, 22 + r() * 30, 7 + r() * 8, -.5 + (r() - .5) * 1.1,
+        h + (r() - .5) * 34, Math.min(100, s + (r() - .5) * 20), l + (r() - .5) * 26);
+  rules += `[data-who=${id}]{--tex:url(${c.toDataURL()})}`;
+});
+document.head.appendChild(Object.assign(document.createElement('style'), {textContent: rules}));
+
+
+function toImage(cv, cls){
+  const im = new Image(cv.width, cv.height);
+  im.className = cls; im.alt = cv.getAttribute('aria-label') || ''; im.draggable = false;
+  im.src = cv.toDataURL('image/jpeg', .9); cv.replaceWith(im);
+}
+
+
+const cast = Object.fromEntries(Object.entries(BOOK.cast).map(([k, v]) => [k, [v.name, v.colourName, v.line]]));
+const card = document.getElementById('card');
+const chips = [...document.querySelectorAll('.chip')];
+const chipFor = id => chips.find(c => c.dataset.who === id);
+
+function closeCard(){ card.hidden = true; chips.forEach(c => c.setAttribute('aria-expanded','false')); }
+chips.forEach(chip => chip.addEventListener('click', e => {
+  e.stopPropagation();
+  if (!chip.classList.contains('met')) return;
+  const open = chip.getAttribute('aria-expanded') === 'true';
+  closeCard();
+  if (open) return;
+  const [name, colour, line] = cast[chip.dataset.who];
+  card.dataset.who = chip.dataset.who;
+  card.innerHTML = `<strong>${name}</strong>${colour ? `<em>${colour}</em>` : ''}<p>${line}</p>`;
+  card.hidden = false;
+  chip.setAttribute('aria-expanded','true');
+}));
+document.addEventListener('click', closeCard);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeCard(); });
+
+// ---- pages ----
+const stage = document.getElementById('stage'), book = document.getElementById('book'),
+      flow = document.getElementById('flow'), bar = document.getElementById('bar'),
+      chart = document.getElementById('silences');
+const still = matchMedia('(prefers-reduced-motion: reduce)');
+let page = 0, pages = 1, step = 0, busy = false;
+let unmet = [...document.querySelectorAll('.who')];
+
+function arrive(){
+  // a chip fills in once that person's name has turned up on a page she has reached
+  unmet = unmet.filter(el => {
+    if (el.getBoundingClientRect().left > innerWidth - 1) return true;
+    const chip = chipFor(el.dataset.who);
+    chip.classList.add('met');
+    chip.setAttribute('aria-label', cast[el.dataset.who][0] + ', tap for who they are');
+    return false;
+  });
+  if (chart && chart.getBoundingClientRect().left < innerWidth - 1) chart.classList.add('seen');
+}
+function show(){
+  flow.style.transform = `translateX(${-page * step}px)`;
+  bar.style.width = (pages > 1 ? page / (pages - 1) * 100 : 0) + '%';
+  if (typeof booted !== 'undefined' && booted) try { localStorage.setItem(P + '.ch1.at', String(units.indexOf(firstOnPage()))); } catch (e) {}
+  arrive();
+  if (typeof units !== 'undefined' && typeof voice !== 'undefined') listen.hidden = firstOnPage().t < 0 && voice.paused;
+}
+function layout(){
+  // keep her place by paragraph while the pages are re-cut
+  const anchor = (typeof units !== 'undefined' && step) ? firstOnPage() : null;
+  const pad = parseFloat(getComputedStyle(book).paddingLeft), w = book.clientWidth - 2 * pad;
+  flow.style.columnWidth = w + 'px'; flow.style.columnGap = 2 * pad + 'px';
+  step = book.clientWidth; page = 0; flow.style.transform = 'translateX(0px)';
+  pages = Math.max(1, Math.round((flow.scrollWidth + 2 * pad) / step));
+  if (anchor) page = Math.min(pages - 1, pageOf(anchor.el));
+  if (typeof maxPage === 'function') page = Math.min(page, maxPage());
+  show();
+}
+function turn(dir, auto){
+  const to = page + dir;
+  if (busy || to < 0 || to >= pages) return;
+  if (dir > 0 && to > maxPage()){
+    const t = [...tests, ...Object.values(gates)].find(t => pageOf(t) === page);
+    if (t){ t.classList.remove('shake'); void t.offsetWidth; t.classList.add('shake'); t.querySelector('.say').textContent = t.querySelector('.say').textContent || BOOK.lockMessage; }
+    return;
+  }
+  closeCard(); if (typeof closeMenu === 'function') closeMenu();
+  if (!auto) setTimeout(() => window.seekToPage && seekToPage(), 0);
+  if (still.matches){ page = to; show(); return; }
+  busy = true;
+  const leaf = document.createElement('div'); leaf.className = 'page leaf';
+  const copy = flow.cloneNode(true);
+  copy.removeAttribute('id'); copy.querySelectorAll('[id]').forEach(e => e.removeAttribute('id'));
+  copy.style.transform = `translateX(${-(dir > 0 ? page : to) * step}px)`;
+  leaf.append(copy); stage.append(leaf);
+  const done = () => { leaf.remove(); busy = false; };
+  if (dir > 0){
+    page = to; show();
+    leaf.animate([{transform: 'rotateY(0)'}, {transform: 'rotateY(-90deg)'}], {duration: 480, easing: 'ease-in'}).onfinish = done;
+  } else {
+    leaf.animate([{transform: 'rotateY(-90deg)'}, {transform: 'rotateY(0)'}], {duration: 480, easing: 'ease-out'})
+      .onfinish = () => { page = to; show(); done(); };
+  }
+}
+stage.addEventListener('click', e => {
+  if (e.target.closest('button, a, input, form, label')) return;
+  turn(e.clientX < innerWidth * .3 ? -1 : 1);
+});
+let x0 = null;
+stage.addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, {passive: true});
+stage.addEventListener('touchend', e => {
+  if (x0 === null) return;
+  const dx = e.changedTouches[0].clientX - x0; x0 = null;
+  if (Math.abs(dx) > 45){ e.preventDefault(); turn(dx < 0 ? 1 : -1); }
+});
+addEventListener('keydown', e => {
+  if (e.target.matches && e.target.matches('input, textarea')) return;
+  if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown'){ e.preventDefault(); turn(1); }
+  if (e.key === 'ArrowLeft' || e.key === 'PageUp'){ e.preventDefault(); turn(-1); }
+});
+// ---- audiobook: six tracks with word timings; pages turn themselves, a hand turn moves the audio ----
+const WORDS = BOOK.audio ? BOOK.audio.words : [];
+const voice = document.getElementById('voice'), listen = document.getElementById('listen');
+const TRACKS = BOOK.audio ? BOOK.audio.tracks : [];
+const units = []; let track = -1, nowReading = null, raf = 0;
+(function(){
+  const norm = s => s.toLowerCase().replace(/’/g, "'").replace(/[^a-z0-9']+/g, ' ').trim().split(' ').filter(Boolean);
+  let t = 0; const at = {};
+  flow.querySelectorAll('.bookcover .bc, .brief h2, .brief h3, .brief .slip, .guess .ask, .bridge p, .cold p:not(.note), .open h1, .open .chapter, .memory p, article h2, article .col > p, article .col > .doc, article .col > ul').forEach(el => {
+    if (!BOOK.audio || el.closest('[data-noaudio]')){ units.push({el, t: -1, start: 0, end: 0}); return; }
+    if (el.closest('.memory')) t = 1; else if (el.tagName === 'H2') t = t < 2 ? 2 : t + 1;
+    const said = norm(el.textContent), script = WORDS[t]; let i = at[t] || 0;
+    // line the paragraph up with the recording by its first word, tolerating small slips
+    for (let k = 0; k < 8 && script[i + k]; k++) if (script[i + k][0] === said[0]){ i += k; break; }
+    const last = Math.min(script.length - 1, i + said.length - 1);
+    units.push({el, t, start: script[i] ? script[i][1] : 0, end: script[last] ? script[last][2] : 0});
+    at[t] = last + 1;
+  });
+})();
+const pageOf = el => Math.floor((el.getBoundingClientRect().left + page * step) / step);
+const firstOnPage = () => units.find(u => pageOf(u.el) >= page) || units[units.length - 1];
+function mark(u){
+  if (nowReading === u) return;
+  if (nowReading) nowReading.el.classList.remove('reading');
+  nowReading = u; if (u) u.el.classList.add('reading');
+}
+// Tracks are fetched whole and played from memory, so jumping around works on any host.
+const blobs = {};
+async function load(t, at, play){
+  track = t;
+  try {
+    if (!blobs[t]) blobs[t] = URL.createObjectURL(await (await fetch(TRACKS[t])).blob());
+  } catch (e) { voice.dispatchEvent(new Event('error')); return; }
+  if (track !== t) return;
+  voice.src = blobs[t];
+  voice.addEventListener('loadedmetadata', () => { voice.currentTime = at; if (play) voice.play(); }, {once: true});
+  voice.load();
+}
+function seekToPage(){
+  if (voice.paused && track < 0) return;
+  const u = firstOnPage(), playing = !voice.paused, at = Math.max(0, u.start - .15);
+  if (u.t < 0){ voice.pause(); stopUi(); track = -1; listen.hidden = true; return; }
+  if (u.t === track && voice.duration) voice.currentTime = at; else load(u.t, at, playing);
+  mark(playing ? u : null);
+}
+function follow(){ raf = requestAnimationFrame(follow); sync(); }
+voice.addEventListener('timeupdate', () => sync());
+function sync(){
+  if (voice.paused || !voice.duration) return;
+  const now = voice.currentTime + .12;
+  let u = null;
+  for (const x of units) if (x.t === track && x.start <= now) u = x;
+  if (!u) return;
+  mark(u);
+  const p = pageOf(u.el);
+  if (p !== page && !busy){
+    if (Math.abs(p - page) === 1) turn(p - page, true); else { page = p; show(); }
+  }
+}
+function stopUi(){ listen.setAttribute('aria-pressed', 'false'); listen.setAttribute('aria-label', 'Listen to this chapter'); mark(null); cancelAnimationFrame(raf); }
+voice.addEventListener('ended', () => {
+  if (track < TRACKS.length - 1) load(track + 1, 0, true); else { stopUi(); track = -1; }
+});
+voice.addEventListener('error', stopUi);
+listen.addEventListener('click', e => {
+  e.stopPropagation();
+  if (!voice.paused){ voice.pause(); stopUi(); return; }
+  listen.setAttribute('aria-pressed', 'true'); listen.setAttribute('aria-label', 'Pause');
+  cancelAnimationFrame(raf); follow();
+  const u = firstOnPage(), at = Math.max(0, u.start - .15);
+  if (u.t === track && voice.duration){ voice.currentTime = at; voice.play(); } else load(u.t, at, true);
+});
+
+// ---- the biscuit test: one question at a chapter's end; the pages after it stay shut until it's answered ----
+const tests = [...flow.querySelectorAll('.test')];
+let passed = {};
+try { passed = JSON.parse(localStorage.getItem(P + '.tests') || '{}'); } catch (e) {}
+// Optional daily writing check (off unless book.json has "writing"): a word goal before the next chapter opens.
+const W = BOOK.writing || null;
+const GOAL = W ? W.goal : 0;
+const today = () => new Date().toLocaleDateString('en-CA');
+let words = {}, wrote = {};
+try { words = JSON.parse(localStorage.getItem(P + '.words') || '{}'); wrote = JSON.parse(localStorage.getItem(P + '.wrote') || '{}'); } catch (e) {}
+try { // chapters she had already unlocked before this was added stay unlocked
+  if (!localStorage.getItem(P + '.wordsOn')){ Object.keys(passed).forEach(k => wrote[k] = true); localStorage.setItem(P + '.wordsOn', '1'); }
+} catch (e) {}
+const saveWords = () => { try { localStorage.setItem(P + '.words', JSON.stringify(words)); localStorage.setItem(P + '.wrote', JSON.stringify(wrote)); } catch (e) {} };
+function streak(){
+  let n = 0; const d = new Date();
+  if ((words[today()] || 0) < GOAL) d.setDate(d.getDate() - 1);
+  while ((words[d.toLocaleDateString('en-CA')] || 0) >= GOAL){ n++; d.setDate(d.getDate() - 1); }
+  return n;
+}
+const pick = (list, n) => list[Math.abs(n) % list.length];
+const fill = (s, n, r) => s.replace(/\{n\}/g, n).replace(/\{r\}/g, r);
+const cheers = (W ? W.cheers : []).map(s => n => fill(s, n));
+const nudges = (W ? W.nudges : []).map(s => (n, r) => fill(s, n, r));
+const gates = {};
+tests.forEach(t => {
+  const id = t.dataset.test;
+  if (!W || (passed[id] && wrote[id])) return;
+  const g = document.createElement('section');
+  g.className = 'wgate'; g.dataset.for = id;
+  g.innerHTML = `
+    <p class="who-to">${W.intro}</p>
+    <p class="ask">${W.ask}</p>
+    <p class="sub">${W.sub}</p>
+    <form class="wform"><input type="number" inputmode="numeric" min="0" max="50000" id="words-${id}" aria-label="Words written today" placeholder="0"><button type="submit">${W.button}</button></form>
+    <p class="say" aria-live="polite"></p>
+    <div class="wbar"><i></i></div><div class="wlabel"><span class="wn">0 today</span><span>${GOAL}</span></div>
+    <div class="won" hidden><p class="streak"></p></div>`;
+  t.after(g); gates[id] = g;
+  g.querySelector('form').addEventListener('submit', e => {
+    e.preventDefault(); e.stopPropagation();
+    const n = Math.max(0, Math.min(50000, parseInt(g.querySelector('input').value, 10) || 0));
+    words[today()] = n;
+    if (n >= GOAL) wrote[id] = true;
+    saveWords();
+    g.querySelector('.say').textContent = n >= GOAL ? pick(cheers, n)(n) : n === 0
+      ? W.zero
+      : pick(nudges, n)(n, GOAL - n);
+    drawGate(id, true);
+  });
+});
+function drawGate(id, spoken){
+  const g = gates[id]; if (!g) return;
+  const n = words[today()] || 0;
+  if (passed[id] && !wrote[id] && n >= GOAL){ wrote[id] = true; saveWords(); }
+  g.querySelector('.wbar i').style.setProperty('--w', Math.min(100, n / GOAL * 100) + '%');
+  g.querySelector('.wbar').classList.toggle('full', n >= GOAL);
+  g.querySelector('.wn').textContent = `${n} today`;
+  const done = !!wrote[id];
+  g.querySelector('.won').hidden = !done;
+  if (done){
+    const s = streak();
+    g.querySelector('.streak').textContent = (s > 1 ? `${s} days in a row. ` : '') + 'Turn the page.';
+    if (!spoken && !g.querySelector('.say').textContent) g.querySelector('.say').textContent = fill(W.already, n);
+    g.querySelector('form').hidden = true;
+  }
+}
+function maxPage(){
+  for (const t of tests){
+    const id = t.dataset.test;
+    if (!passed[id]) return pageOf(t);
+    if (gates[id] && !wrote[id]) return pageOf(gates[id]);
+  }
+  return pages - 1;
+}
+tests.forEach(t => {
+  const say = t.querySelector('.say'), won = t.querySelector('.won'), opts = [...t.querySelectorAll('.opts button')];
+  const right = opts.find(b => b.dataset.opt === t.dataset.answer); right.dataset.right = '';
+  let wrong = 0;
+  const finish = () => {
+    say.textContent = right.dataset.say; won.hidden = false; t.classList.remove('hint');
+    opts.forEach(b => { b.disabled = true; b.classList.add(b === right ? 'yes' : 'no'); });
+  };
+  if (passed[t.dataset.test]) finish();
+  opts.forEach(b => b.addEventListener('click', e => {
+    e.stopPropagation();
+    say.textContent = b.dataset.say;
+    if (b === right){
+      passed[t.dataset.test] = true;
+      try { localStorage.setItem(P + '.tests', JSON.stringify(passed)); } catch (e) {}
+      finish(); drawGate(t.dataset.test);
+    } else {
+      b.classList.add('no'); b.disabled = true;
+      if (++wrong >= 2) t.classList.add('hint');
+    }
+  }));
+});
+
+Object.keys(gates).forEach(id => drawGate(id));
+
+// ---- guess first (tasters): pick an answer before reading the scene, find out after ----
+const guesses = {};
+flow.querySelectorAll('.guess').forEach(g => {
+  const opts = [...g.querySelectorAll('.opts button')], say = g.querySelector('.say');
+  opts.forEach(b => b.addEventListener('click', e => {
+    e.stopPropagation();
+    opts.forEach(o => { o.disabled = true; o.classList.add(o === b ? 'picked' : 'other'); });
+    guesses[g.dataset.for] = b;
+    say.textContent = g.dataset.reply;
+  }));
+});
+tests.forEach(t => t.querySelectorAll('.opts button').forEach(b => b.addEventListener('click', () => {
+  const g = guesses[t.dataset.test];
+  if (!g || b.dataset.opt !== t.dataset.answer || t.querySelector('.guessed')) return;
+  const p = document.createElement('p'); p.className = 'guessed';
+  p.textContent = g.dataset.opt === t.dataset.answer
+    ? 'You guessed that before you read it. Good instincts.'
+    : `Before the scene, you guessed “${g.textContent.trim()}”. Now you know.`;
+  t.querySelector('.won').before(p);
+})));
+
+// ---- chapters menu ----
+const toc = document.getElementById('toc'), menu = document.getElementById('menu');
+const chapters = [...(flow.querySelector('.brief') ? [{no: 'Before you start', title: 'How this book was made', el: flow.querySelector('.brief')}] : []),
+  {no: BOOK.firstChapter.no, title: BOOK.firstChapter.title, el: flow.querySelector('.cold')},
+  ...[...flow.querySelectorAll('.chap')].map(c => ({no: c.querySelector('.chapno').textContent, title: c.querySelector('h2').textContent, el: c}))];
+function closeMenu(){ menu.hidden = true; toc.setAttribute('aria-expanded', 'false'); }
+function openMenu(){
+  const here = chapters.filter(c => pageOf(c.el) <= page).pop();
+  menu.innerHTML = '';
+  if (hasLessons){
+    const t = document.createElement('button');
+    t.className = 'teach-toggle'; t.setAttribute('aria-pressed', String(teach));
+    t.innerHTML = '<span>Show the teaching</span><span class="state"></span>';
+    t.addEventListener('click', e => { e.stopPropagation(); setTeach(!teach, true); });
+    menu.append(t); paintTeach();
+  }
+  chapters.forEach(c => {
+    const b = document.createElement('button');
+    b.innerHTML = `<small>${c.no}</small><b>${c.title}</b>`;
+    if (c === here) b.setAttribute('aria-current', 'true');
+    if (pageOf(c.el) > maxPage()){ b.disabled = true; b.querySelector('small').textContent += BOOK.lockLabel; }
+    b.addEventListener('click', e => {
+      e.stopPropagation(); closeMenu(); closeCard();
+      page = pageOf(c.el); show(); seekToPage();
+    });
+    menu.append(b);
+  });
+  if (BOOK.epub) {
+    const a = document.createElement('a');
+    a.className = 'dl'; a.href = encodeURI(BOOK.epub); a.setAttribute('download', '');
+    a.innerHTML = '<small>For Apple Books, Kindle, Kobo or Google Play Books</small><b>Download the ebook</b>';
+    a.addEventListener('click', e => e.stopPropagation());
+    menu.append(a);
+  }
+  menu.hidden = false; toc.setAttribute('aria-expanded', 'true');
+  const cur = menu.querySelector('[aria-current=true]');
+  menu.scrollTop = cur ? cur.offsetTop - (menu.clientHeight - cur.offsetHeight) / 2 : 0;
+}
+toc.addEventListener('click', e => { e.stopPropagation(); closeCard(); menu.hidden ? openMenu() : closeMenu(); });
+document.addEventListener('click', closeMenu);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+
+// ---- show the teaching ----
+const hasLessons = !!flow.querySelector('.lesson');
+let teach = !!BOOK.teachDefault;
+try { const s = localStorage.getItem(P + '.teach'); if (s !== null) teach = s === '1'; } catch (e) {}
+function paintTeach(){
+  document.querySelectorAll('.teach-toggle').forEach(b => {
+    b.setAttribute('aria-pressed', String(teach));
+    b.querySelector('.state').textContent = teach ? 'On' : 'Off';
+  });
+}
+function setTeach(on, save){
+  teach = on && hasLessons;
+  document.body.classList.toggle('teach', teach);
+  paintTeach();
+  if (save) try { localStorage.setItem(P + '.teach', teach ? '1' : '0'); } catch (e) {}
+  if (step) layout();
+}
+document.querySelectorAll('.flow .teach-toggle').forEach(b => {
+  if (!hasLessons){ b.remove(); return; }
+  b.addEventListener('click', e => { e.stopPropagation(); setTeach(!teach, true); });
+});
+setTeach(teach, false);
+
+// ---- start up: come back to the paragraph she was on ----
+let booted = false;
+addEventListener('resize', layout);
+layout();
+try {
+  const i = parseInt(localStorage.getItem(P + '.ch1.at'), 10);
+  if (i > 0 && units[i]){ page = Math.min(pageOf(units[i].el), maxPage()); show(); }
+} catch (e) {}
+booted = true;
+document.fonts && document.fonts.ready.then(layout);
+</script>
+<script>
+// Installable app: save pages, pictures and played audio on the phone so the book opens offline.
+if ('serviceWorker' in navigator && location.protocol !== 'file:') navigator.serviceWorker.register('sw.js').catch(() => {});
+</script>
+</body>
+</html>
