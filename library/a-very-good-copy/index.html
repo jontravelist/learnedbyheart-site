@@ -1,0 +1,1150 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A Very Good Copy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500&family=Fraunces:opsz,wght,SOFT@9..144,500,100&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=Young+Serif&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F6F2FA;      /* lilac white: impressionist shadows are violet, never black */
+  --paper-deep:#E7DFF0;
+  --ink:#2A2255;        /* petrol */
+  --ink-soft:#5F5A85;
+  --line:#CFC6E0;
+  --sheet:#FFFCF2;      /* letter paper */
+
+  --mum:#EBA91A;    /* curry sauce */
+  --nan:#5DA24F;    /* mushy pea */
+  --danny:#E2452E;  /* saveloy */
+  --carol:#F26FA6;  /* seaside rock */
+  --dad:#7A4A2E;    /* gravy */
+  --jo:#2E73C8;
+  --sam:#2FA39A;  /* verdigris */
+  --nell:#2E73C8;   /* the sea, half past three */
+  --giles:#EFD98F;  /* double cream */
+  --dev:#F27A1A;    /* traffic cone */
+  --note:#8A5BB5;   /* a twenty */     /* the sea */
+
+  --read:34rem;
+  --wide:46rem;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:Literata,Georgia,serif;font-size:1.125rem;line-height:1.7;
+  font-optical-sizing:auto;
+}
+main{padding:0 1.25rem 6rem}
+.col{max-width:var(--read);margin:0 auto}
+.fig{max-width:var(--wide);margin:3.5rem auto}
+p{margin:0 0 1.25em}
+h1,h2{font-family:"Young Serif",Georgia,serif;font-weight:400;line-height:1.08;margin:0}
+h1{font-size:clamp(3.2rem,13vw,6.5rem);letter-spacing:-.02em}
+h2{font-size:clamp(1.7rem,5vw,2.3rem);margin:4.5rem 0 1.4rem}
+.chapter{font-size:1.05rem;color:var(--ink-soft);margin:.9rem 0 0}
+figcaption,.note{font-size:.95rem;line-height:1.5;color:var(--ink-soft)}
+figure{margin:0}
+figcaption{margin-top:.9rem;max-width:var(--read)}
+
+/* cold open: the first screen is only her voice */
+.cold{min-height:100svh;display:grid;align-content:center;padding:3rem 0 6rem}
+.cold .first{font-family:"Young Serif",Georgia,serif;font-size:clamp(2.1rem,8vw,3.5rem);line-height:1.12;letter-spacing:-.01em;margin-bottom:.9em}
+.cold p:last-child{margin-bottom:0}
+@media (max-height:900px){.cold .first{font-size:clamp(1.8rem,6.6vw,2.6rem)}.flow .cold .hint{margin-top:1.2rem}}
+
+/* a childhood memory opens the chapter */
+.memory{font-style:italic;margin:3.5rem 0 0;padding-left:1.1rem;border-left:.35rem solid var(--memory,var(--mum))}
+.memory p:last-child{margin-bottom:0}
+
+/* opening */
+.open{padding:2rem 0 0}
+.sea{display:block;width:100%;height:auto;margin-top:2.5rem;border-radius:4px}
+
+/* character names in the text */
+.who{
+  text-decoration:underline;text-decoration-thickness:.22em;text-underline-offset:.16em;
+  text-decoration-color:var(--c);text-decoration-skip-ink:none;
+}
+[data-who=mum]{--c:var(--mum)}[data-who=nan]{--c:var(--nan)}[data-who=danny]{--c:var(--danny)}
+[data-who=carol]{--c:var(--carol)}[data-who=dad]{--c:var(--dad)}[data-who=jo]{--c:var(--jo)}[data-who=sam]{--c:var(--sam)}[data-who=nell]{--c:var(--nell)}[data-who=giles]{--c:var(--giles)}[data-who=dev]{--c:var(--dev)}
+
+/* the cast: paint chips that fill in as people arrive */
+.cast{
+  position:fixed;z-index:5;left:0;right:0;bottom:0;
+  display:flex;justify-content:center;gap:.5rem;padding:.6rem .75rem calc(.6rem + env(safe-area-inset-bottom));
+  background:color-mix(in srgb,var(--paper) 88%,transparent);backdrop-filter:blur(6px);
+  border-top:1px solid var(--line);
+}
+.chip{
+  width:2.2rem;height:2.2rem;flex:none;border-radius:3px;border:1.5px dashed var(--line);background:transparent;
+  padding:0;cursor:pointer;transition:transform .2s;
+}
+.chip.met{background:var(--c) var(--tex) center/cover;border-color:transparent;border-radius:5px 3px 6px 3px}
+.chip[aria-expanded=true]{transform:translateY(-4px)}
+.chip:focus-visible,.next:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.chip:not(.met){cursor:default}
+.card{
+  position:fixed;z-index:6;left:50%;bottom:4.6rem;transform:translateX(-50%);
+  width:min(22rem,calc(100vw - 2rem));background:var(--sheet);border-radius:4px;
+  border-left:.6rem solid var(--c);padding:1rem 1.1rem;box-shadow:0 10px 30px rgba(42,34,85,.25);
+  font-size:1rem;line-height:1.5;
+}
+.card[hidden]{display:none}
+.card strong{font-family:"Young Serif",serif;font-weight:400;font-size:1.25rem;display:block}
+.card em{color:var(--ink-soft);font-style:normal;font-size:.9rem}
+.card p{margin:.5rem 0 0}
+@media (min-width:64rem){
+  .cast{left:1.5rem;right:auto;top:50%;bottom:auto;transform:translateY(-50%);flex-direction:column;
+    border:0;background:none;backdrop-filter:none;padding:0}
+  .chip[aria-expanded=true]{transform:translateX(4px)}
+  .card{left:5rem;bottom:auto;top:50%;transform:translateY(-50%)}
+}
+
+/* colour definitions list */
+.swatches{list-style:none;padding:0;margin:2rem 0;display:grid;gap:1.4rem}
+.swatches li{display:grid;grid-template-columns:4.5rem 1fr;gap:1.1rem;align-items:start}
+.swatches i{display:block;height:4.5rem;border-radius:3px;background:var(--c) var(--tex) center/cover;filter:url(#rough)}
+.swatches b{font-family:"Young Serif",serif;font-weight:400;font-size:1.2rem;display:block;line-height:1.3}
+.swatches small{display:block;color:var(--ink-soft);font-size:.9rem;margin-bottom:.25rem}
+
+svg{display:block;width:100%;height:auto}
+.fig svg rect,.fig svg path,.fig svg circle,.bar{filter:url(#rough)}
+svg text{font-family:Literata,Georgia,serif;fill:var(--ink)}
+.map{position:relative;border-radius:4px;overflow:hidden}
+.map canvas{position:absolute;inset:0;width:100%;height:100%}
+.map svg{position:relative}
+.legend{list-style:none;padding:0;margin:1.2rem 0 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(13rem,1fr));gap:.5rem 1.5rem;font-size:.95rem;line-height:1.4}
+.legend li{display:flex;gap:.6rem;align-items:baseline}
+.legend i{flex:none;width:.8rem;height:.8rem;border-radius:50%;background:var(--c);transform:translateY(.05rem)}
+
+/* silences chart */
+.silences{display:grid;gap:1.1rem;margin-top:.5rem}
+.row{display:grid;gap:.3rem}
+.row .names{font-size:.98rem}
+.track{position:relative;height:1.5rem;background:var(--paper-deep);border-radius:2px}
+.bar{position:absolute;top:0;bottom:0;left:var(--from);right:var(--to,0%);
+  background:linear-gradient(var(--a) 50%,var(--b) 50%);border-radius:2px;
+  transform-origin:left;transform:scaleX(0);transition:transform 1.4s cubic-bezier(.2,.7,.2,1)}
+.bar.faint{opacity:.45}
+.seen .bar{transform:scaleX(1)}
+.axis{display:flex;justify-content:space-between;font-size:.85rem;color:var(--ink-soft);
+  font-variant-numeric:tabular-nums;border-top:1px solid var(--line);padding-top:.3rem}
+.row .note{font-size:.88rem}
+
+/* the letter */
+.letter{background:var(--sheet);padding:clamp(1.4rem,5vw,2.6rem);border-radius:2px;
+  box-shadow:0 1px 0 #fff inset,0 14px 34px rgba(42,34,85,.18);transform:rotate(-.6deg);
+  font-size:1rem;line-height:1.6;position:relative;max-width:36rem;margin:0 auto}
+.letter .head{font-family:"Young Serif",serif;font-size:1.3rem;border-bottom:2px solid var(--ink);padding-bottom:.5rem;margin-bottom:1.2rem}
+.letter .head small{display:block;font-family:Literata,serif;font-size:.8rem;color:var(--ink-soft)}
+.hand{font-family:Caveat,cursive;color:var(--jo);font-size:1.7rem;line-height:1.1;
+  position:absolute;right:1rem;bottom:1.1rem;transform:rotate(-5deg)}
+.letter mark{background:linear-gradient(transparent 55%,color-mix(in srgb,var(--mum) 55%,transparent) 55%);color:inherit}
+
+.end{margin-top:4rem;padding-top:1.5rem;border-top:1px solid var(--line)}
+.next{font:inherit;font-size:1rem;background:var(--ink);color:var(--paper);border:0;border-radius:3px;padding:.8rem 1.2rem;opacity:.5}
+
+@media (prefers-reduced-motion:reduce){
+  .bar{transition:none;transform:none}.chip{transition:none}
+}
+
+/* ---- the book: fixed pages that turn ---- */
+html,body{height:100%;overflow:hidden}
+main{padding:0}
+#stage{position:fixed;inset:0 0 calc(3.6rem + env(safe-area-inset-bottom,0px)) 0;perspective:2200px;cursor:pointer}
+@media (min-width:64rem){#stage{inset:0}}
+.page{position:absolute;inset:0;overflow:hidden;background:var(--paper);
+  padding-block:calc(1.75rem + env(safe-area-inset-top,0px)) 1.75rem;
+  padding-left:max(1.25rem,env(safe-area-inset-left,0px),calc((100% - 36rem)/2));
+  padding-right:max(1.25rem,env(safe-area-inset-right,0px),calc((100% - 36rem)/2))}
+.btn-share{font:inherit;font-size:.95rem;background:none;border:1.5px solid var(--line);color:var(--ink);border-radius:8px;padding:.55rem .9rem;cursor:pointer}
+.leaf{pointer-events:none;will-change:clip-path}
+/* a turning page folds back from its edge: the leaf is cut along the fold, the flap is the back of the paper */
+.turn-shade,.turn-flap{position:absolute;inset:0;pointer-events:none}
+.turn-shade{background-repeat:no-repeat;background-image:linear-gradient(90deg,rgba(42,34,85,.30),rgba(42,34,85,0))}
+.turn-flap{filter:drop-shadow(-8px 0 12px rgba(42,34,85,.24))}
+.turn-flap i{position:absolute;inset:0;background-color:var(--paper);background-repeat:no-repeat;will-change:clip-path;
+  background-image:linear-gradient(90deg,rgba(42,34,85,.10),rgba(255,255,255,.55) 38%,rgba(255,255,255,0) 62%,rgba(42,34,85,.20))}
+.flow{height:100%;column-fill:auto}
+.flow .col,.flow .fig{max-width:none}
+.flow .fig{margin:1.5rem 0}
+.flow h2{margin:2.2rem 0 1rem;break-after:avoid}
+.flow .cold{min-height:100%;height:auto;padding:0;break-after:column}
+.flow .open{padding:0;break-after:column}
+.flow .memory{margin-top:0}
+.flow .end{margin-top:2.5rem}
+.flow p{orphans:2;widows:2}
+.map,.legend li,.row,.axis,.letter,.swatches li,.flow svg,.sea,figcaption{break-inside:avoid}
+.map canvas,.map .town{position:absolute;inset:0;width:100%;height:100%}
+.hint{margin-top:2rem}
+#bar{position:fixed;z-index:7;top:0;left:0;height:3px;width:0;background:var(--ink);transition:width .3s}
+
+.painting{display:block;width:100%;height:auto;border-radius:3px;break-inside:avoid;box-shadow:0 12px 30px rgba(42,34,85,.25)}
+/* the paint card */
+.card-strip{break-inside:avoid;border-radius:3px;overflow:hidden;box-shadow:0 10px 26px rgba(42,34,85,.16)}
+.card-strip div{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;padding:.7rem .9rem;border-bottom:1px solid rgba(42,34,85,.08)}
+.card-strip b{font-family:Caveat,cursive;font-weight:500;font-size:1.45rem;line-height:1;color:var(--nell)}
+.card-strip s{font-size:.8rem;color:var(--ink-soft);white-space:nowrap}
+
+/* the audiobook */
+#listen{position:fixed;z-index:8;bottom:calc(.5rem + env(safe-area-inset-bottom,0px));right:calc(.75rem + env(safe-area-inset-right,0px));width:2.4rem;height:2.4rem;border-radius:50%;border:0;
+  background:var(--ink);color:var(--paper);display:grid;place-items:center;cursor:pointer;
+  box-shadow:0 6px 18px rgba(42,34,85,.3)}
+#listen svg{fill:currentColor;width:18px;height:18px}
+@media (min-width:64rem){#listen{bottom:auto;top:1.2rem;right:1.5rem;width:2.9rem;height:2.9rem}#listen svg{width:22px;height:22px}}
+#listen .i-pause,#listen[aria-pressed=true] .i-play{display:none}
+#listen[aria-pressed=true] .i-pause{display:block}
+#listen:focus-visible{outline:3px solid var(--note);outline-offset:3px}
+.reading{background:color-mix(in srgb,var(--giles) 45%,transparent);box-shadow:0 0 0 .35rem color-mix(in srgb,var(--giles) 45%,transparent);border-radius:2px}
+
+/* chapter openers */
+.flow .chap{break-before:column;break-after:column;height:100%;display:grid;align-content:center}
+.chapno{color:var(--ink-soft);margin:0}
+.flow .chap h2{font-size:clamp(2.4rem,10vw,3.8rem);margin:.4rem 0 0}
+/* the envelope flap */
+.flap{position:relative;background:#EFE3C8;color:#B9A37A;border-radius:2px;aspect-ratio:400/210;break-inside:avoid;
+  box-shadow:0 10px 26px rgba(42,34,85,.18);font-family:Caveat,cursive;transform:rotate(.8deg)}
+.flap svg{position:absolute;inset:0;width:100%;height:100%}
+.flap span{position:absolute;left:0;right:0;text-align:center;color:#2B4FB3}
+.flap .l1{top:6%;font-size:clamp(2rem,9vw,3rem);transform:rotate(-2deg)}
+.flap .l2{top:33%;font-size:clamp(1.2rem,5.2vw,1.7rem);transform:rotate(-1deg)}
+/* her mother's ledger */
+.ledger{background:var(--sheet);padding:1.1rem 1.1rem 1rem;border-radius:2px;break-inside:avoid;box-shadow:0 12px 30px rgba(42,34,85,.2);
+  background-image:repeating-linear-gradient(transparent 0 1.9rem,rgba(46,115,200,.14) 1.9rem calc(1.9rem + 1px))}
+.lrow{display:grid;grid-template-columns:7.2rem 1fr;align-items:center;gap:.6rem;height:1.9rem}
+.lrow span,.ltotal span{font-family:Caveat,cursive;font-size:1.25rem;color:#2B4FB3;white-space:nowrap}
+.lrow i{height:1.05rem;width:var(--w);border-radius:2px;filter:url(#rough);
+  background:repeating-linear-gradient(115deg,var(--c) 0 2px,color-mix(in srgb,var(--c) 62%,transparent) 2px 4px)}
+.ltotal{display:flex;justify-content:space-between;align-items:baseline;margin-top:.9rem;padding-top:.5rem;border-top:3px double #2B4FB3}
+.ltotal b{font-family:Caveat,cursive;font-weight:500;font-size:2rem;color:#2B4FB3}
+#listen[hidden]{display:none}
+@media (max-width:63.99rem){.cast{padding-right:3.6rem}}
+
+/* the front cover */
+.flow .bookcover{break-after:column;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem}
+.flow .bookcover .bc{width:min(100%,calc((100svh - 10rem) * .6667))}
+.bc-hint{margin:0;text-align:center}
+.col .doc{margin:1.2em 0;padding:.9em 1.1em;border:1px solid var(--line,#d9d2c3);border-left:4px solid var(--ink,#33287A);background:var(--paper2,rgba(0,0,0,.025));font-size:.94em;border-radius:3px}
+.col .doc p{margin:.35em 0;text-indent:0}
+.col ul.list{margin:.8em 0 1em;padding-left:1.3em}
+.col ul.list li{margin:.25em 0}
+/* how this book was made */
+.flow .brief{break-before:column;break-after:column}
+.brief h2{margin:.3rem 0 .4rem}
+.brief-kind{color:var(--ink-soft);font-size:.95rem;margin:0 0 1rem}
+.slip{background:var(--sheet);border-radius:4px;padding:.8rem 1rem;box-shadow:0 8px 22px rgba(42,34,85,.14);margin-bottom:1rem;
+  background-image:repeating-linear-gradient(transparent 0 1.6rem,rgba(46,115,200,.10) 1.6rem calc(1.6rem + 1px))}
+.slip dl{margin:0;display:grid;gap:.55rem}
+.slip dt{font-size:.78rem;color:var(--ink-soft);letter-spacing:.04em}
+.slip dd{margin:0;font-family:Caveat,cursive;font-size:1.35rem;line-height:1.15;color:#2B4FB3}
+.brief h3{font-family:"Young Serif",Georgia,serif;font-weight:400;font-size:1.1rem;margin:.8rem 0 .25rem}
+.brief p{font-size:.95rem;line-height:1.45;margin:0}
+.brief2 h3:first-child{margin-top:0}
+.ideas{list-style:none;padding:0;margin:0;display:grid;gap:.3rem;font-size:.92rem;line-height:1.28}
+.ideas li{display:grid;grid-template-columns:4.6rem 1fr;gap:.6rem}
+.ideas span{color:var(--ink-soft);font-size:.85rem;padding-top:.1rem;font-variant-numeric:tabular-nums}
+/* tasters: a guess before the scene, and a bridge between the opening and the scene */
+.flow .guess{break-before:column;break-after:column;break-inside:avoid}
+.guess .ask{font-family:"Young Serif",Georgia,serif;font-size:1.4rem;line-height:1.2;margin:.3rem 0 .8rem}
+.guess-lead{margin:.2rem 0 .6rem}
+.guess .say{font-style:italic;line-height:1.4;margin:.8rem 0 0}
+.guess .opts button.other{opacity:.4}
+.guess .opts button.picked::before{box-shadow:0 0 0 3px var(--paper),0 0 0 6px var(--ink)}
+.guess .opts.text button.picked{border-color:var(--ink);box-shadow:0 0 0 1.5px var(--ink)}
+.flow .bridge{break-before:column;break-after:column;height:100%;display:flex;flex-direction:column;justify-content:center}
+.bridge p:last-child{font-family:"Young Serif",Georgia,serif;font-size:1.35rem;line-height:1.35;margin:.5rem 0 0}
+.guessed{font-style:italic;color:var(--ink-soft);margin:.6rem 0 0}
+/* show the teaching: the lesson lines highlighted, with a pencil note under each */
+body.teach .lesson{background:linear-gradient(transparent 56%,rgba(255,206,84,.7) 56%);-webkit-box-decoration-break:clone;box-decoration-break:clone}
+body.teach .lesson::after{content:"\21B3\00A0" attr(data-note);display:block;font-family:Caveat,cursive;font-size:1.3rem;line-height:1.1;color:#B4321F;
+  margin:.2rem 0 .45rem;font-style:normal;background:none}
+.teach-toggle{font:inherit;display:flex;align-items:center;justify-content:space-between;gap:1rem;width:100%;margin-top:.8rem;padding:.55rem .85rem;
+  border:1.5px solid var(--ink);border-radius:8px;background:var(--sheet);color:var(--ink);cursor:pointer;text-align:left;font-size:1rem;line-height:1.25}
+.teach-toggle .state{flex:none;font-size:.85rem;padding:.15rem .6rem;border-radius:99px;background:var(--paper-deep)}
+.teach-toggle[aria-pressed=true] .state{background:#FFD45E}
+.teach-toggle:focus-visible{outline:3px solid var(--note);outline-offset:2px}
+#menu .teach-toggle{display:flex;margin:0 0 .3rem;border:1px solid var(--line);padding:.6rem .8rem;font-size:1rem}
+#menu .teach-toggle .state{font-size:.8rem}
+/* chapters menu */
+#toc{position:fixed;z-index:8;bottom:calc(.5rem + env(safe-area-inset-bottom,0px));left:calc(.75rem + env(safe-area-inset-left,0px));
+  width:2.4rem;height:2.4rem;border-radius:50%;border:1.5px solid var(--ink);background:var(--paper);color:var(--ink);
+  display:grid;place-items:center;cursor:pointer}
+#toc svg{fill:currentColor}
+#toc:focus-visible{outline:3px solid var(--note);outline-offset:3px}
+#menu{position:fixed;z-index:9;left:.75rem;bottom:calc(3.9rem + env(safe-area-inset-bottom,0px));width:min(20rem,calc(100vw - 1.5rem));
+  background:var(--sheet);border-radius:6px;padding:.4rem;box-shadow:0 14px 40px rgba(42,34,85,.3);display:grid;gap:.15rem;
+  max-height:calc(100svh - 5.2rem - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px));overflow-y:auto;overscroll-behavior:contain}
+#menu[hidden]{display:none}
+#menu button{font:inherit;text-align:left;background:none;border:0;border-radius:4px;padding:.6rem .8rem;cursor:pointer;color:var(--ink);
+  display:grid;gap:.05rem;line-height:1.25}
+#menu button small{font-size:.8rem;color:var(--ink-soft)}
+#menu button b{font-family:"Young Serif",Georgia,serif;font-weight:400;font-size:1.15rem}
+#menu button[aria-current=true]{background:color-mix(in srgb,var(--giles) 45%,transparent)}
+#menu button:focus-visible{outline:3px solid var(--note);outline-offset:-3px}
+@media (max-width:63.99rem){.cast{padding-left:3.6rem;gap:.4rem}.cast .chip{width:1.9rem;height:1.9rem}}
+@media (min-width:64rem){#toc{bottom:auto;top:1.2rem;left:auto;right:5.2rem;width:2.9rem;height:2.9rem}
+  #menu{left:auto;right:1.5rem;bottom:auto;top:4.8rem;max-height:calc(100svh - 6.3rem)}}
+
+/* the biscuit test */
+.flow .test{break-before:column;break-after:column;break-inside:avoid}
+.test .ask{font-family:"Young Serif",Georgia,serif;font-size:1.5rem;line-height:1.2;margin:.2rem 0 .8rem}
+.test > p{margin-bottom:.8em}
+.opts{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:.8rem}
+.opts button{font:inherit;border:0;padding:0;background:none;cursor:pointer;display:block;min-width:0;width:100%;color:var(--ink);text-align:left}
+.opts button span{display:block;margin-top:.3rem}
+.opts button::before{content:"";display:block;aspect-ratio:2.1;border-radius:7px 4px 8px 4px;background:var(--c) var(--tex, none) center/cover;transition:opacity .3s,transform .2s}
+.opts button span{font-family:Caveat,cursive;font-size:1.25rem;line-height:1.1}
+.opts button:focus-visible{outline:3px solid var(--note);outline-offset:3px}
+.opts button.no::before{opacity:.25}
+.opts button.no span{text-decoration:line-through;opacity:.5}
+.opts button.yes::before{box-shadow:0 0 0 3px var(--paper),0 0 0 6px var(--ink)}
+.test.hint .opts button:not(.no):not(.yes)[data-right]::before{animation:nudge 1s ease-in-out infinite}
+.test .say{min-height:2.6em;margin:.7rem 0 .3rem;font-style:italic;line-height:1.4}
+.won{display:flex;align-items:center;gap:.9rem;break-before:avoid;break-inside:avoid}
+.won[hidden]{display:none}
+.won svg{width:3.2rem;height:3.2rem;flex:none}
+.won p{margin:0;font-family:"Young Serif",Georgia,serif;font-size:1.1rem}
+.test.shake{animation:shake .35s}
+@keyframes nudge{50%{transform:scale(1.06)}}
+@keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+#menu button:disabled{opacity:.45;cursor:default}
+#menu a.dl{display:grid;gap:.05rem;line-height:1.25;padding:.7rem .8rem .6rem;margin-top:.3rem;border-top:1px solid var(--line);color:var(--ink);text-decoration:none;border-radius:0 0 4px 4px}
+#menu a.dl small{font-size:.8rem;color:var(--ink-soft)}
+#menu a.dl b{font-family:"Young Serif",Georgia,serif;font-weight:400;font-size:1.15rem}
+#menu a.dl:focus-visible{outline:3px solid var(--note);outline-offset:-3px}
+@media (prefers-reduced-motion:reduce){.test.shake,.test.hint .opts button::before{animation:none}}
+
+/* ledger variations */
+.lhead{font-family:Caveat,cursive;font-size:1.45rem;color:#2B4FB3;line-height:1.9rem;border-bottom:2px solid #2B4FB3;margin-bottom:.4rem}
+.ledger.wide .lrow{grid-template-columns:9.4rem 1fr}
+.lnote{font-family:Caveat,cursive;font-size:1.15rem;color:#C0392B;text-align:right;line-height:1.9rem;transform:rotate(-1.5deg)}
+.lkey{display:grid;grid-template-columns:2.6rem 1fr;gap:.7rem;align-items:start;min-height:1.9rem;padding:.25rem 0}
+.lkey i{height:1.2rem;margin-top:.25rem;border-radius:2px;filter:url(#rough);background:repeating-linear-gradient(115deg,var(--c) 0 2px,color-mix(in srgb,var(--c) 62%,transparent) 2px 4px)}
+.lkey span{font-family:Caveat,cursive;font-size:1.25rem;line-height:1.25;color:#2B4FB3}
+.lkey b{font-weight:500;display:block;color:var(--ink)}
+.lline{display:grid;grid-template-columns:1.5fr .7fr 1fr 1fr;gap:.4rem;font-family:Caveat,cursive;font-size:1.3rem;line-height:1.9rem;color:#6C6A8C}
+.lline.red{color:#C0392B;font-size:1.55rem;font-weight:500;transform:rotate(-.6deg)}
+.lline em{font-style:normal;color:#D9A21A}
+/* text messages */
+.txt,.sms .say:not(:empty),.msg{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;font-size:.95rem;line-height:1.4;font-style:normal;
+  background:var(--paper-deep);border-radius:14px 14px 14px 3px;padding:.6rem .85rem;max-width:88%;width:fit-content}
+.sms .say{min-height:0}
+.sms .say:empty{display:none}
+.msg{background:color-mix(in srgb,var(--giles) 55%,var(--paper))}
+.opts button span{line-height:1.05}
+.note.small{font-size:.8rem;margin-top:1.2rem}
+
+/* keep a whole test on one page */
+.test.sms .opts button::before{aspect-ratio:3.1}
+/* questions answered in words, not colours */
+.opts.text{grid-template-columns:minmax(0,1fr);gap:.45rem}
+.opts.text button{border:1.5px solid var(--line);border-radius:8px;padding:.5rem .75rem;background:var(--sheet);transition:opacity .3s}
+.opts.text button::before{display:none}
+.opts.text button span{font-family:inherit;font-size:.98rem;line-height:1.3;margin:0}
+.opts.text button.no{opacity:.45}
+.opts.text button.yes{border-color:var(--ink);box-shadow:0 0 0 1.5px var(--ink)}
+.test.sms .ask{font-size:1.3rem;margin:.1rem 0 .6rem}
+.test.sms > p{margin-bottom:.55em}
+.test .say{break-inside:avoid}
+.test.sms .won p{font-size:1rem}
+.test.sms .won svg{width:2.4rem;height:2.4rem}
+
+/* seven colours in one bar */
+.lrow i.multi,.opts button.rainbow::before{background:linear-gradient(90deg,#2E73C8 0 22%,#2FA39A 22% 36%,#E9C95A 36% 50%,#E2452E 50% 58%,#8FA86A 58% 70%,#F26FA6 70% 76%,#F08A24 76%)}
+.lrow i{max-width:100%}
+
+/* the tin of everything */
+.tin{display:grid;grid-template-columns:repeat(18,1fr);gap:2px;padding:.6rem;background:#2B2A5C;border-radius:50%/12%;break-inside:avoid;
+  box-shadow:inset 0 0 0 5px #C9A64B,0 12px 30px rgba(42,34,85,.25)}
+.tin i{aspect-ratio:1;border-radius:2px 1px 3px 1px}
+/* the ticket */
+.ticket{position:relative;background:#FBF3E4;border-radius:6px;padding:1rem 1.1rem;break-inside:avoid;transform:rotate(-1.2deg);
+  box-shadow:0 10px 26px rgba(42,34,85,.2);border-top:.55rem solid #E1772A;font-family:system-ui,-apple-system,sans-serif;color:#3A2E2A}
+.trow{display:flex;justify-content:space-between;align-items:baseline;gap:.5rem}
+.trow b{font-size:1.35rem;letter-spacing:.04em}
+.trow.sm{margin-top:.7rem;font-size:.8rem;letter-spacing:.06em;color:#6E5E55}
+.tstamp{position:absolute;right:1rem;bottom:-.6rem;font-family:Caveat,cursive;font-size:1.5rem;color:#C0392B;transform:rotate(-8deg)}
+/* her letter */
+.bluepaper{background:#DCE8F7;color:#1F3A8A;font-family:Caveat,cursive;font-size:1.32rem;line-height:1.55rem;padding:1.1rem 1.2rem 1.3rem;break-inside:avoid;
+  background-image:repeating-linear-gradient(transparent 0 1.5rem,rgba(31,58,138,.18) 1.5rem calc(1.5rem + 1px));border-radius:2px;
+  box-shadow:0 12px 30px rgba(42,34,85,.22);transform:rotate(.5deg)}
+.bluepaper p{margin:0 0 .35rem}
+/* the writing check */
+.flow .wgate{break-before:column;break-after:column;break-inside:avoid}
+.wgate .who-to{color:var(--ink-soft);margin:0 0 .3rem}
+.wgate .ask{font-family:"Young Serif",Georgia,serif;font-size:1.45rem;line-height:1.2;margin:0 0 .5rem}
+.wgate .sub{font-size:.95rem;color:var(--ink-soft);margin:0 0 1rem}
+.wform{display:flex;gap:.6rem;align-items:stretch}
+.wform[hidden]{display:none}
+.wform input{font:inherit;font-size:1.4rem;width:7.5rem;padding:.45rem .7rem;border:2px solid var(--ink);border-radius:6px;background:var(--sheet);color:var(--ink)}
+.wform button{font:inherit;font-size:1rem;border:0;border-radius:6px;padding:.5rem 1rem;background:var(--ink);color:var(--paper);cursor:pointer}
+.wform input:focus-visible,.wform button:focus-visible{outline:3px solid var(--note);outline-offset:2px}
+.wgate .say{font-style:italic;min-height:2.4em;margin:.9rem 0 .6rem}
+.wbar{height:1.3rem;background:var(--paper-deep);border-radius:3px;overflow:hidden;filter:url(#rough)}
+.wbar i{display:block;height:100%;width:var(--w,0%);transition:width .6s;
+  background:repeating-linear-gradient(115deg,#EBA91A 0 2px,color-mix(in srgb,#EBA91A 62%,transparent) 2px 4px)}
+.wbar.full i{background:repeating-linear-gradient(115deg,#5DA24F 0 2px,color-mix(in srgb,#5DA24F 62%,transparent) 2px 4px)}
+.wlabel{display:flex;justify-content:space-between;font-size:.85rem;color:var(--ink-soft);margin-top:.3rem;font-variant-numeric:tabular-nums}
+.wgate .won{margin-top:1rem}
+
+/* fact sheet */
+.factsheet{background:#FFFFFF;color:#2A2A33;border-radius:3px;padding:1rem;break-inside:avoid;box-shadow:0 12px 30px rgba(42,34,85,.2);
+  font-family:system-ui,-apple-system,"Segoe UI",sans-serif;font-size:.82rem;line-height:1.3}
+.fsh{display:flex;justify-content:space-between;align-items:baseline;gap:.5rem;border-bottom:2px solid #2A2A33;padding-bottom:.4rem;margin-bottom:.5rem}
+.fsh b{font-size:.98rem}
+.fsh span{font-size:.72rem;color:#6B6B78;white-space:nowrap}
+.fsrow{display:grid;grid-template-columns:6.4rem 1fr;gap:.5rem;padding:.4rem .5rem;margin:.25rem 0;border-radius:40% 30% 45% 35%/60% 50% 60% 45%}
+.fsrow span{color:#6B6B78}
+.fsrow b{font-weight:600}
+.fsrow.c1{box-shadow:0 0 0 2px #2E73C8}.fsrow.c2{box-shadow:0 0 0 2px #F08A24}.fsrow.c3{box-shadow:0 0 0 2px #D9A21A}.fsrow.c4{box-shadow:0 0 0 2px #5DA24F}
+.fsrow.dim{opacity:.4}
+.fsgraph{position:relative;margin-top:.5rem;color:#9A9AA8}
+.fsgraph svg{width:100%;height:2.4rem}
+.fsgraph i{position:absolute;right:0;top:-.2rem;font-family:Caveat,cursive;font-style:normal;font-size:1.15rem;color:#C0392B;transform:rotate(-3deg)}
+/* inside back cover */
+.flow .backcover{break-before:column;break-inside:avoid}
+.backcover h2{margin:.3rem 0 1rem}
+.ledger.rules .lkey{min-height:0;padding:.3rem 0}
+.ledger.rules .lkey span{font-size:1.15rem}
+.lkey i.multi{background:linear-gradient(90deg,#2E73C8 0 22%,#2FA39A 22% 36%,#E9C95A 36% 50%,#E2452E 50% 58%,#8FA86A 58% 70%,#F26FA6 70% 76%,#F08A24 76%)}
+.btn-end{display:inline-block;font:inherit;font-size:1rem;background:var(--ink);color:var(--paper);padding:.8rem 1.2rem;border-radius:6px;text-decoration:none}
+.btn-end:focus-visible{outline:3px solid var(--note);outline-offset:3px}
+</style>
+<style>:root{--lettice:#7A2E3A;--gervase:#2F4A6B;--bel:#C98A2B;--honoria:#B65E7C;--dorcas:#5E7D4F;--marchbank:#6B5B4B;--lucius:#8C8C7A;--memory:#7A2E3A;}[data-who=lettice]{--c:var(--lettice)}[data-who=gervase]{--c:var(--gervase)}[data-who=bel]{--c:var(--bel)}[data-who=honoria]{--c:var(--honoria)}[data-who=dorcas]{--c:var(--dorcas)}[data-who=marchbank]{--c:var(--marchbank)}[data-who=lucius]{--c:var(--lucius)}</style>
+<meta name="theme-color" content="#2A2255">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="A Good Copy">
+<meta name="description" content="The duke’s priceless Titian has one flaw. Her hand. Read chapter one of A Very Good Copy free: a Regency romance that teaches how to look at a painting.">
+<link rel="canonical" href="https://learnedbyheart.com/library/a-very-good-copy/">
+<meta property="og:type" content="book">
+<meta property="og:title" content="A Very Good Copy">
+<meta property="og:description" content="The duke’s priceless Titian has one flaw. Her hand. Read chapter one of A Very Good Copy free: a Regency romance that teaches how to look at a painting.">
+<meta property="og:url" content="https://learnedbyheart.com/library/a-very-good-copy/">
+<meta property="og:image" content="https://learnedbyheart.com/img/library/a-very-good-copy.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,500&display=swap" rel="stylesheet">
+<style>
+.bc{position:relative;container-type:inline-size;aspect-ratio:2/3;border-radius:3px 6px 6px 3px;overflow:hidden;
+  box-shadow:0 1px 2px rgba(42,34,85,.2),0 18px 40px rgba(42,34,85,.35),inset 4px 0 0 rgba(255,255,255,.08);background:#2A2255}
+.bc img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.bc::after{content:"";position:absolute;inset:0 auto 0 0;width:3.5%;background:linear-gradient(90deg,rgba(0,0,0,.28),rgba(255,255,255,.12) 60%,transparent)}
+.bc-text{position:absolute;left:0;right:0;top:0;padding:calc(var(--top,9) * 1cqw) 8cqw 0;text-align:center;display:flex;flex-direction:column;align-items:center;
+  padding-bottom:6cqw;background:linear-gradient(rgba(10,8,30,.5),rgba(10,8,30,.32) 60%,rgba(10,8,30,0))}
+.bc-title{font-family:inherit;font-weight:400;font-size:calc(12.5cqw * var(--tsz,1));line-height:1;letter-spacing:-.01em;margin:0;text-wrap:balance;text-shadow:0 2px 14px rgba(0,0,0,.35)}
+.bc-line{color:var(--lc);font-family:Literata,Georgia,serif;font-style:italic;font-size:4.6cqw;line-height:1.35;text-wrap:balance;margin:calc(var(--gap,4) * 1cqw) auto 0;max-width:80cqw;text-shadow:0 1px 8px rgba(0,0,0,.5)}
+.bc-brand{position:absolute;left:0;right:0;bottom:0;padding:14cqw 0 5cqw;background:linear-gradient(rgba(10,8,30,0),rgba(10,8,30,.55));margin:0;display:flex;align-items:center;justify-content:center;gap:1.6cqw;font-family:Fraunces,Georgia,serif;font-weight:500;font-variation-settings:'SOFT' 100;font-size:4.4cqw;letter-spacing:.01em;color:#FFFCF2;text-shadow:0 1px 6px rgba(0,0,0,.6)}
+.bc-brand svg{width:5.6cqw;height:5.6cqw;filter:drop-shadow(0 1px 3px rgba(0,0,0,.5))}
+.bc.light .bc-text{background:linear-gradient(rgba(255,252,242,.7),rgba(255,252,242,.45) 60%,rgba(255,252,242,0))}
+.bc.light .bc-title{text-shadow:0 1px 12px rgba(255,252,242,.7)}
+.bc.light .bc-line{text-shadow:0 0 6px rgba(255,252,242,.95),0 0 16px rgba(255,252,242,.85)}
+
+/* tagline treatments: type only, set on the painting */
+.tag-face{font-family:inherit;font-size:5cqw;line-height:1.3;margin-top:4cqw}
+
+.tag-sans{font-family:inherit;font-style:normal;font-weight:500;font-size:4.5cqw;line-height:1.3;letter-spacing:.01em}
+.bc-line.above{order:-1;margin:0 auto calc(var(--gap,4) * 1cqw)}
+.bc-title.upper{text-transform:uppercase;letter-spacing:.02em}
+
+.tag-caps{font-family:inherit;font-style:normal;text-transform:uppercase;letter-spacing:.16em;font-size:calc(3.5cqw * var(--ts,1));line-height:1.45;max-width:78cqw;margin-top:5.5cqw;text-shadow:0 1px 8px rgba(0,0,0,.75)}
+
+.tag-rules{font-family:inherit;font-style:normal;font-variant:small-caps;letter-spacing:.06em;font-size:4.3cqw;line-height:1.4;max-width:76cqw;margin-top:5cqw}
+.tag-rules::before,.tag-rules::after{content:"";display:block;height:1px;width:34cqw;margin:0 auto 2.6cqw;background:linear-gradient(90deg,transparent,currentColor,transparent)}
+.tag-rules::after{margin:2.6cqw auto 0}
+
+.tag-fleuron{margin-top:2.5cqw}
+.tag-fleuron::before{content:"";display:block;width:30cqw;height:6cqw;margin:0 auto 2.4cqw;background:var(--lc);-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 120 24%27%3E%3Cpath d=%27M60 4c4 6 4 12 0 16-4-4-4-10 0-16zM56 12c-10-7-22-8-34-2 12 0 22 2 34 4zM64 12c10-7 22-8 34-2-12 0-22 2-34 4zM8 12h12M100 12h12%27 fill=%27none%27 stroke=%27black%27 stroke-width=%272.4%27 stroke-linecap=%27round%27/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 120 24%27%3E%3Cpath d=%27M60 4c4 6 4 12 0 16-4-4-4-10 0-16zM56 12c-10-7-22-8-34-2 12 0 22 2 34 4zM64 12c10-7 22-8 34-2-12 0-22 2-34 4zM8 12h12M100 12h12%27 fill=%27none%27 stroke=%27black%27 stroke-width=%272.4%27 stroke-linecap=%27round%27/%3E%3C/svg%3E") center/contain no-repeat;filter:drop-shadow(0 1px 3px rgba(0,0,0,.5))}
+
+.tag-deco{font-family:inherit;font-style:italic;font-size:4.6cqw;max-width:74cqw;margin-top:4cqw;padding:2cqw 1cqw}
+.tag-deco::before,.tag-deco::after{content:"";display:block;width:40cqw;height:.7cqw;margin:0 auto 2.4cqw;border-block:1px solid var(--lc)}
+.tag-deco::after{margin:2.4cqw auto 0}
+
+.tag-rule{margin-top:3cqw}
+.tag-rule::before{content:"";display:block;width:12cqw;height:1px;margin:0 auto 3cqw;background:currentColor;opacity:.7}
+
+.tag-glam{font-family:inherit;font-style:italic;font-size:5cqw;line-height:1.3;max-width:70cqw;margin-top:4cqw;letter-spacing:.005em;text-shadow:0 1px 10px rgba(0,0,0,.6)}
+.tag-glam::before{content:"\25C6";display:block;font-style:normal;font-size:2.6cqw;line-height:1;margin:0 auto 3cqw;width:44cqw;color:var(--lc);
+  background:linear-gradient(90deg,transparent,var(--lc) 30%,transparent 46%,transparent 54%,var(--lc) 70%,transparent) center/100% 1px no-repeat}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><filter id="rough" x="-15%" y="-15%" width="130%" height="130%"><feTurbulence type="fractalNoise" baseFrequency=".04" numOctaves="2" seed="4" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="5" xChannelSelector="R" yChannelSelector="G"/></filter></svg>
+
+<nav class="cast" aria-label="The people">
+  <button class="chip" data-who="lettice" aria-expanded="false" aria-label="Lettice"></button>
+  <button class="chip" data-who="gervase" aria-expanded="false" aria-label="Gervase"></button>
+  <button class="chip" data-who="bel" aria-expanded="false" aria-label="Bel"></button>
+  <button class="chip" data-who="honoria" aria-expanded="false" aria-label="Honoria"></button>
+  <button class="chip" data-who="dorcas" aria-expanded="false" aria-label="Dorcas"></button>
+  <button class="chip" data-who="marchbank" aria-expanded="false" aria-label="Marchbank"></button>
+  <button class="chip" data-who="lucius" aria-expanded="false" aria-label="Sir Lucius"></button>
+</nav>
+<div class="card" id="card" hidden role="status"></div>
+<button id="listen" aria-label="Listen to this chapter" aria-pressed="false">
+  <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path class="i-play" d="M8 5v14l11-7z"/><path class="i-pause" d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>
+</button>
+<audio id="voice" preload="none"></audio>
+<button id="toc" aria-label="Chapters" aria-expanded="false" aria-controls="menu">
+  <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M4 6h16v2H4zM4 11h16v2H4zM4 16h10v2H4z"/></svg>
+</button>
+<div id="menu" hidden></div>
+
+<main><div id="stage"><div class="page" id="book"><div class="flow" id="flow">
+<section class="bookcover" data-noaudio>
+  <div class="bc" role="img" aria-label="Cover: A Very Good Copy" style="--lc:#E2C38A;--ts:1;--top:5;--gap:2.2;--tsz:0.88"><img src="art/cover.jpg" alt="" draggable="false"><div class="bc-text" style="color:#F3E9D6;font-family:'Playfair Display',Georgia,serif"><h1 class="bc-title" style="font-weight:600">A Very Good Copy</h1><p class="bc-line tag-face">The duke’s priceless Titian has one flaw. Her hand.</p></div><p class="bc-brand"><svg viewBox="0 0 100 100" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M50 86C31 73 9 58 9 36C9 20 24 12 37 18C44 21 48 26 50 32C52 26 56 21 63 18C76 12 91 20 91 36C91 58 69 73 50 86Z" stroke-width="4"/><path d="M50 32V86" stroke-width="3.2"/><g stroke-width="3"><path d="M50 44C42 33 27 29 18 38"/><path d="M50 56C42 45 29 42 21 50"/><path d="M50 44C58 33 73 29 82 38"/><path d="M50 56C58 45 71 42 79 50"/></g></g></svg><span>Learned by Heart</span></p></div>
+  <p class="note bc-hint">Tap the right side of the page to open the book.</p>
+</section>
+<section class="cold col">
+  <p class="first">Lettice Darrow had come to London to find her sister a husband, and on a wet afternoon in June she found her own hand instead, hanging at eye height in the best room in St James's with a duke's name under it.</p>
+  <p>It lay pressed to the bare breast of a weeping saint, and half of London was looking at it.</p>
+  <p class="note hint">Tap the right side of the page to turn it.</p>
+</section>
+
+<header class="open col" style="max-width:var(--wide)">
+  <h1>A Very Good Copy</h1>
+  <p class="chapter">Chapter one. Her Own Hand.</p>
+</header>
+
+<article>
+<div class="col">
+  <h2>The Patrons' Gallery</h2>
+  <p>It had rained every day since they arrived, and the Patrons' Gallery smelled of it. Half the Season had come in out of the wet to look at old masters, and the long room steamed.</p>
+  <p>The pictures climbed the red walls to the ceiling, frame against frame. The proudest hung on the line, at the height of a standing person's eyes.</p>
+  <p><span class="who" data-who="lettice">Lettice</span> loved it from the doorway. How had she forgotten this? Forty faces looking down at once, every one painted by somebody long dead, and every one more alive than the crowd.</p>
+  <p>"I can't see anything," <span class="who" data-who="bel">Bel</span> said. "There's a man's back in front of everything."</p>
+  <p>"Then look at the man's back. Somebody tailored it with great love."</p>
+  <p>"It's wet. It's got rain all down it in a sort of shape. Like Norfolk." Bel was nineteen and had been told all her life that she was the beauty of the family, and took it as a plain fact of no interest. "Sir Lucius said there'd be gentlemen. Where are they?"</p>
+  <p>"They're here. They're looking at pictures."</p>
+  <p>"Why?"</p>
+  <p>"Because it's the fashion. You stand beside one in front of a Rubens and say something clever about the flesh."</p>
+  <p>"I don't know anything about flesh," Bel said, so clearly that a lady in a turban turned round.</p>
+  <p><span class="who" data-who="lucius">Sir Lucius Pettigrew</span>, who was paying for Bel's Season, had found the only bench and fallen asleep on it with his chin in his cravat. Somebody had propped a wet umbrella against his knee.</p>
+  <p>Then the crowd shifted, and a gap opened along the line, and Lettice saw the Magdalen.</p>
+  <p>The saint sat half turned to the light, her eyes lifted and full of tears, her hair coming down over her bare shoulders in a great loose fall. One hand lay on her breast. The other rested beside an alabaster jar.</p>
+  <p>Lettice knew the tear on the lower lid that had taken a whole afternoon. And she knew the hand on the breast, because it was hers. The little finger bent outwards at the top joint, where the vestry door had shut on it when she was eight.</p>
+  <p>Under the frame a card was pinned to the wall.</p>
+  <p class="msg">TITIAN. The Penitent Magdalen. Lent by His Grace the Duke of Mardale.</p>
+  <p><em>That's mine.</em></p>
+  <p>She sat down without meaning to, on the end of Sir Lucius's bench, and on the umbrella. It folded under her with a crack of whalebone and a gush of cold water that went straight through her petticoat.</p>
+  <p>She had painted it the winter she was nineteen, in the long gallery at Wrensham Hall, where the housekeeper let her in when the family was away. She had finished the hand at home in the attic, holding her own hand to her chest in front of the looking-glass, because Titian's wouldn't come right and hers was the only one in the house that would sit still. A man from London had paid her five guineas. That winter they had eaten meat on Sundays.</p>
+  <p>Over the next five years the man from London had bought eleven more.</p>
+  <p><em>Get up and walk out. Who else in this room knows that hand?</em></p>
+  <p>She got up. Then she went and stood in front of it, because it was the first time anyone had hung a thing she'd made on a wall.</p>
+
+  <h2>The Umbrella</h2>
+  <p>"Oh, no," she said aloud. "Oh, no, no."</p>
+  <p>"You don't care for it."</p>
+  <p>The man beside her had a cold and a dripping umbrella. He was tall enough to see over the ostrich feathers and was choosing to look at her instead.</p>
+  <p>His coat was brown and had been good ten years ago, and there was ink on his cuff. The rain had made his dark hair curl against his collar, and he held his jaw a little to one side. She could smell cloves. <em>Toothache. A tutor, or some lord's secretary, sent to look at the pictures his master is too idle to look at himself.</em></p>
+  <p>"I care for it enormously," she said. "That's the difficulty."</p>
+  <p>"It's considered the best thing in the room."</p>
+  <p>"Is it?"</p>
+  <p>"The newspapers are expected to say so." He put two fingers to his jaw and pressed, hard, as though he could push the tooth back where it belonged. "I've never seen what's good about it. A great many people have explained it to me. One of them used a stick."</p>
+  <p>"Then you haven't looked at it. Look at her. She's been crying so long she's tired of it. She's lifting her eyes because there's nowhere else left to look. And somebody painted that. Somebody sat in front of the most beautiful picture they'd ever seen and tried so hard. It's a very good copy."</p>
+  <p>The man stopped moving entirely.</p>
+  <p>"It's a Titian," he said.</p>
+  <p>"Yes. Of course. I mean only that it's very like. My father has a print of a Saint Jerome in the vestry, and the damp has got into it, and when I said copy I meant it has the same feeling as his print." She heard how that sounded. "We're from Norfolk."</p>
+  <p>"Titian didn't paint in Norfolk."</p>
+  <p>"More's the pity. He'd have liked the skies."</p>
+  <p>"And I have looked at her, madam." His voice had an edge on it now, and his ears had gone red under the wet hair. "I have looked at her across my breakfast since I was ten years old. She has watched me eat several thousand eggs. If she's tired of anything, it's me."</p>
+  <p><em>The duke's secretary, then, or some poor tutor kept on after the boys grew up.</em> It explained the coat.</p>
+  <p>"If she were in Ovid," he said, more quietly, frowning at the saint, "she'd have been turned into something by now. A spring, most likely. They always become springs when they cry that much. Byblis did. Niobe became a rock that wept, which is worse, because a rock can't go anywhere."</p>
+  <p>A large party came through from the next room, and the crowd folded inwards, and she was pressed against the front of him from shoulder to knee. He put out his free hand to steady her. It didn't find her waist. It found her bare left hand, and his thumb came to rest on the bent joint of her little finger. It moved over the joint once, slowly, testing it. The crowd eased. He didn't let go. She could smell cloves on his breath and wet wool, and there was nowhere at all to put her face.</p>
+  <p>She looked at his mouth, and then, very firmly, at the saint.</p>
+  <p><em>I am twenty-seven years old. I am a chaperon. I came here to look at the pictures.</em></p>
+  <p>She pulled her hand away. His fingers closed on nothing, slowly, as though she were still in them.</p>
+  <p>"You've seen the original," he said.</p>
+  <p>"I'd never been out of Norfolk in my life until Tuesday. I wouldn't know an original if it bit me. I'm told they don't, generally. Excuse me. My sister is being looked at."</p>
+
+  <h2>The Back Stairs</h2>
+  <p>Bel was reading the catalogue. Lettice took her arm and steered her towards the far end of the room, away from the saint, and that was when she saw the waistcoat.</p>
+  <p>It was under a great dark battle full of horses. It was striped, cream and plum, and it was stretched over a stomach that had not been there eight years ago, when it had stood in her father's hall dripping on the flags and its owner had counted five guineas onto the hall table, one at a time, so she could watch each one land.</p>
+  <p>Mr <span class="who" data-who="marchbank">Josiah Marchbank</span> laughed at something, and she knew the laugh too.</p>
+  <p>"Bel. Stay here. Stay by Sir Lucius."</p>
+  <p>"He's asleep."</p>
+  <p>"Then stay by him asleep."</p>
+  <p>She went along the wall with her back to the pictures and waited by a pillar while he bowed a young lady in an enormous bonnet on towards the next room. Then he looked at his watch, put it away, and slipped out through a small door at the end that she would have taken for a cupboard.</p>
+  <p>Lettice counted to ten and opened it.</p>
+  <p>It was a service stair, narrow and cold and smelling of lamp oil. He was halfway down. She said his name, and it came out much too loud, and it went bouncing down the stairwell ahead of him.</p>
+  <p>He stopped. He turned. For a long moment he looked up at her with his head on one side and no idea at all who she was, and she thought, <em>He's forgotten. He's sold so many that he's forgotten me.</em> Then his eyes went down to her hands.</p>
+  <p>"Miss Darrow. Miss Darrow of the vicarage. Well, here's a happy thing. In town for the Season? And looking so well."</p>
+  <p>"You sold it as a Titian."</p>
+  <p>"I sold a very great gentleman a very great pleasure. He loved that picture, God rest him. He'd sit in front of it of an evening with his port."</p>
+  <p>"You told me it was for an old man in the north who couldn't travel."</p>
+  <p>"Northamptonshire is the north, from where I stand." He came up a step, and another, until their faces were level. "My dear lady. You did a charming thing, once, for a very fair price. Your little studies gave a great deal of joy. Let's leave it there, shall we, and you enjoy your Season."</p>
+  <p>"I'll go to the duke."</p>
+  <p>"And tell him what? That a parson's girl in Norfolk painted his Titian?" He smiled. "He'll laugh. And then, being a careful sort of young man, he'll ask how many. And I'll have to tell him. A dozen, wasn't it? And I'll have to show him the receipts, in your own lovely hand. 'Received of Mr J. Marchbank, five guineas, for a Magdalen.' Did you ever once write the word copy? I've looked, dear lady. You never did. Not once in five years. I'd call that a very trusting nature, and a lovely thing to find in a young woman, and I'd be sorry, very sorry, to see it held against you."</p>
+  <p>She hadn't. She had been so proud of her handwriting.</p>
+  <p>"Your father's bishop is a great man for pictures. Did you know? He has a sweet little Saint Cecilia from me. He'd be heartbroken. And your sister, a lovely girl. Lovely girls have such delicate Seasons. One word, and it's all over by July."</p>
+  <p>She caught hold of his sleeve. What did she mean to do with it? He looked down at her hand on his cloth and took it off, one finger at a time, gently, until he got to the last.</p>
+  <p>"Such a distinctive little hand," he said, and let it go, and went back up past her into the light.</p>
+  <p>She stayed on the step. She was frightened, more frightened than she had been since the night the bailiff's letter came. She pressed her hand flat against the cold wall until it stopped shaking, and then she pressed it harder.</p>
+
+  <h2>His Grace</h2>
+  <p><span class="who" data-who="gervase">Gervase Keverne</span>, fourth Duke of Mardale, hated the Patrons' Gallery and the Magdalen hanging in it, and he had a tooth with a nail in it that somebody was driving home with great patience.</p>
+  <p>He had lent the picture because the bank had asked him to. His father had borrowed against the collection, and the bank's senior partner liked to see his security admired in public before he renewed a loan. He had offered, in writing, to lend the bank the picture outright, so its clerks could admire it all day over their desks, and the senior partner had written back at great length on the subject of interest.</p>
+  <p>His father used to sit in front of her for an hour after dinner. At ten, Gervase had been fetched down in his nightshirt to sit beside him and say what he saw. <em>A lady crying,</em> he had said, and been sent back to bed.</p>
+  <p>Today a woman in a wet dress had told him what the lady was feeling, and for half a minute he had seen it. Then she'd called it a copy. She had looked like somebody who'd been struck.</p>
+  <p>He ought to have told her who he was. But then she would have started calling him "Your Grace" and stopped saying things like <em>she's tired of crying</em>, and was it so very wicked to want one more minute of that? He wanted to stand in a crush beside her again. He wanted it more plainly than he had wanted anything since the funeral, and he could still feel the bent joint of her finger under his thumb. He had not meant to do that. He had meant it entirely. He went on wanting it while he watched her come back through the far door with a face like paper.</p>
+  <p>Marchbank had come through that door a minute before her, smoothing his waistcoat.</p>
+
+  <h2>The Easel</h2>
+  <p>In the corner by the window a young woman was working at a small easel. She was perhaps twenty-four, in a brown stuff dress with the sleeves pinned up, and she was copying the Magdalen's head on a canvas no bigger than a tea tray.</p>
+  <p>The young lady in the enormous bonnet had found her.</p>
+  <p>"Oh, look, she's doing Papa's Magdalen, isn't that killing? Is it the Venetian manner? Mr Fosse says the Venetian manner is all in the, the impasting, the warm grounds and the, he says everything is grounds with the Venetians, I've no idea what he means." She saw Lettice and seized her arm. "Mr Marchbank says you have the most extraordinary eye. A clergyman's daughter from Norfolk with an eye, he says, he's been telling everyone. I'm <span class="who" data-who="honoria">Honoria Keverne</span>. You must tell us."</p>
+  <p>Lettice looked at Marchbank, and he bowed.</p>
+  <p>"The papers say half the old masters in England were painted last year in Soho," said one of the young gentlemen, a Mr Pargeter. "By starving girls exactly like this one. Is that true, miss? Did you paint Lady Honoria's papa's Titian?"</p>
+  <p>Everyone laughed. The young woman went on painting.</p>
+  <p>"Well, then, Miss Darrow," said Lady Honoria. "Is my brother's Titian a Titian? Or did she paint it?"</p>
+  <p>They were all looking at her. Marchbank was looking at her. And at the edge of the group, holding a dripping umbrella, the man with the toothache was looking at her too.</p>
+  <p>"Of course it's a Titian," Lettice said.</p>
+  <p>It wasn't enough. She could see that in Marchbank's pleasant face. So she stepped up beside the young woman's shoulder and said the rest.</p>
+  <p>"This is what a copy looks like. Look at it. She's counted every hair. She's so frightened of getting it wrong there isn't a breath of life on it anywhere. It's a sign for a coaching inn. It's a very careful sign for a coaching inn." The young gentlemen laughed, and that made it easier. "You can tell from the door, can't you? Anyone could. Poor thing, it died on the easel. I'm sorry, but it did."</p>
+  <p>The young woman put her brush down.</p>
+  <p>"It ain't finished," she said.</p>
+  <p>"Ain't it?" said Mr Pargeter, and the bonnets shook.</p>
+  <p>"You don't know nothing about it, miss."</p>
+  <p>She said it to Lettice, not loudly, and began to pack up. Her hands shook. She had trouble with the lid of her paint box, and when she lifted her jar of turpentine it slipped and went down her skirt in a dark stain.</p>
+  <p>"Mind the floor," said Mr Pargeter. "It's the society's floor."</p>
+  <p>Lettice didn't help her.</p>
+  <p>She stood with her hands folded, the left one under the right, while the young woman picked up her wet canvas and carried it out through the crowd, holding it away from her body so it wouldn't smear, and people stepped back from it as from something dirty.</p>
+  <p>The man with the umbrella looked at Lettice for a while, with no expression she could read. Then he turned and went into the crowd. She didn't even know his name.</p>
+  <p>In the carriage, with Sir Lucius snoring between them, Bel said, "Why did you say it was real?"</p>
+  <p>"Bel, please."</p>
+  <p>"It's the one with your hand on it. I was there. I held the candle."</p>
+  <p>"Never say that again. Not to anyone. Not to God."</p>
+  <p>"God knows already," Bel said. "It's your hand." She looked out at the rain. "I don't like it when you lie, Letty. You go on and on. And that girl's skirt is ruined, and she's only got the one, you could tell, it was the same as Mrs Plaskett's Sunday one and she's had that since before the war."</p>
+  <p>Lettice held her left hand in her right all the way home.</p>
+
+  <h2>Thursday</h2>
+  <p>On Thursday it rained harder. Sir Lucius read the newspaper aloud at breakfast while Bel ate toast.</p>
+  <p>Lettice had slept badly for two nights. Had anyone seen?</p>
+  <p>"Ha," said Sir Lucius. "Here's a bit of mischief. Mardale, that's the young one, the son, the father was the one with the pictures, I knew the father, I sat next to him at a dinner once in, it was either Bath or it was Brighton, and he talked the whole of the fish course about a nose. A nose in a painting. I thought it was his own nose for a good while. Where was I? Here. 'To the Editor. Sir, the picture lent this summer to the Patrons' Gallery by the Duke of Mardale, and hung there as a Titian, is no such thing.' Well! Who says so? It isn't signed. 'It is a copy. It was painted in a house in Norfolk, over one winter, mostly by candlelight.' Norfolk! Did you girls see it? Was it any good?"</p>
+  <p>Lettice couldn't speak.</p>
+  <p>"Is there any more of the orange kind?" Bel said. "Not the lemon. The lemon's got bits in it that look like fingernails."</p>
+  <p>Sir Lucius cleared his throat for the last line. "I know it is a copy," he read, "because I watched her paint it."</p>
+</div>
+</article>
+<article data-noaudio>
+<section class="chap">
+  <p class="chapno">End of chapter one</p>
+  <h2>To be continued.</h2>
+</section>
+<div class="col">
+  <p>That&rsquo;s the first chapter of A Very Good Copy. We finish the books readers ask for first.</p>
+  <p><a class="btn-end" href="mailto:hello@learnedbyheart.com?subject=Tell%20me%20when%20A%20Very%20Good%20Copy%20is%20finished">Tell me when it&rsquo;s finished</a></p>
+  <p>That opens an email to us. Just press send. If nothing opens, write to hello@learnedbyheart.com with the book&rsquo;s name.</p>
+  <p>Every book we write is made for one reader, in the style they love, with the thing they&rsquo;ve always meant to learn inside it. <a href="../../?ref=library#prices">Have one written for you</a>, or go <a href="../../#library">back to the library</a>.</p>
+</div>
+</article>
+</div></div></div><div id="bar"></div></main>
+
+<script>
+const BOOK = {"id":"regency","title":"A Very Good Copy","firstChapter":{"no":"Chapter one","title":"Her Own Hand"},"memoryColour":"#7A2E3A","cast":{"lettice":{"name":"Lettice","colour":"#7A2E3A","line":"Lettice Darrow. Twenty-seven, a Norfolk vicar's eldest daughter, in London as her sister's chaperon. Knows far too much about paint."},"gervase":{"name":"Gervase","colour":"#2F4A6B","line":"Gervase Keverne, Duke of Mardale. Thirty-three. Can read every story in a picture and has never once seen what's good about one."},"bel":{"name":"Bel","colour":"#C98A2B","line":"Isabel Darrow. Nineteen, the beauty of the family, and unable to tell a lie or see the point of one."},"honoria":{"name":"Honoria","colour":"#B65E7C","line":"Lady Honoria Keverne. Twenty-two, the duke's sister. Sketches out of doors and talks about it at length."},"dorcas":{"name":"Dorcas","colour":"#5E7D4F","line":"A frame-maker's daughter who copies old masters at an easel for a living."},"marchbank":{"name":"Marchbank","colour":"#6B5B4B","line":"Mr Josiah Marchbank, picture dealer. Sold the old duke most of his collection, and never says the word copy."},"lucius":{"name":"Sir Lucius","colour":"#8C8C7A","line":"Sir Lucius Pettigrew. Bel's godfather, paying for her Season. Asleep."}},"lockMessage":"Someone has passed you a note.","lockLabel":" (answer the note first)","epub":"A-Very-Good-Copy.epub"};
+const P = BOOK.id;
+
+// ---- paint: everything is built from dabs of broken colour ----
+function rng(seed){ return () => (seed = (seed * 1664525 + 1013904223) >>> 0) / 4294967296; }
+function dab(ctx, x, y, len, w, ang, h, s, l, a = .9){
+  ctx.save(); ctx.translate(x, y); ctx.rotate(ang);
+  ctx.fillStyle = `hsla(${h},${s}%,${l}%,${a})`;
+  ctx.beginPath(); ctx.ellipse(0, 0, len / 2, w / 2, 0, 0, 7); ctx.fill(); ctx.restore();
+}
+function hexToHsl(hex){
+  const [r, g, b] = [1, 3, 5].map(i => parseInt(hex.slice(i, i + 2), 16) / 255);
+  const mx = Math.max(r, g, b), mn = Math.min(r, g, b), l = (mx + mn) / 2, d = mx - mn;
+  let h = 0; const s = d ? d / (1 - Math.abs(2 * l - 1)) : 0;
+  if (d) h = mx === r ? ((g - b) / d) % 6 : mx === g ? (b - r) / d + 2 : (r - g) / d + 4;
+  return [(h * 60 + 360) % 360, s * 100, l * 100];
+}
+// one painted swatch per person, used for their chip and their colour sample
+const css = getComputedStyle(document.documentElement);
+let rules = '';
+Object.keys(BOOK.cast).forEach((id, n) => {
+  const [h, s, l] = hexToHsl(css.getPropertyValue('--' + id).trim());
+  const c = document.createElement('canvas'); c.width = c.height = 160;
+  const ctx = c.getContext('2d'), r = rng(11 + n * 97);
+  ctx.fillStyle = `hsl(${h},${s}%,${l}%)`; ctx.fillRect(0, 0, 160, 160);
+  for (let i = 0; i < 240; i++)
+    dab(ctx, r() * 160, r() * 160, 22 + r() * 30, 7 + r() * 8, -.5 + (r() - .5) * 1.1,
+        h + (r() - .5) * 34, Math.min(100, s + (r() - .5) * 20), l + (r() - .5) * 26);
+  rules += `[data-who=${id}]{--tex:url(${c.toDataURL()})}`;
+});
+document.head.appendChild(Object.assign(document.createElement('style'), {textContent: rules}));
+
+
+function toImage(cv, cls){
+  const im = new Image(cv.width, cv.height);
+  im.className = cls; im.alt = cv.getAttribute('aria-label') || ''; im.draggable = false;
+  im.src = cv.toDataURL('image/jpeg', .9); cv.replaceWith(im);
+}
+
+
+const cast = Object.fromEntries(Object.entries(BOOK.cast).map(([k, v]) => [k, [v.name, v.colourName, v.line]]));
+const card = document.getElementById('card');
+const chips = [...document.querySelectorAll('.chip')];
+const chipFor = id => chips.find(c => c.dataset.who === id);
+
+function closeCard(){ card.hidden = true; chips.forEach(c => c.setAttribute('aria-expanded','false')); }
+chips.forEach(chip => chip.addEventListener('click', e => {
+  e.stopPropagation();
+  if (!chip.classList.contains('met')) return;
+  const open = chip.getAttribute('aria-expanded') === 'true';
+  closeCard();
+  if (open) return;
+  const [name, colour, line] = cast[chip.dataset.who];
+  card.dataset.who = chip.dataset.who;
+  card.innerHTML = `<strong>${name}</strong>${colour ? `<em>${colour}</em>` : ''}<p>${line}</p>`;
+  card.hidden = false;
+  chip.setAttribute('aria-expanded','true');
+}));
+document.addEventListener('click', closeCard);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeCard(); });
+
+// ---- pages ----
+const stage = document.getElementById('stage'), book = document.getElementById('book'),
+      flow = document.getElementById('flow'), bar = document.getElementById('bar'),
+      chart = document.getElementById('silences');
+const still = matchMedia('(prefers-reduced-motion: reduce)');
+let page = 0, pages = 1, step = 0, busy = false;
+let unmet = [...document.querySelectorAll('.who')];
+
+function arrive(){
+  // a chip fills in once that person's name has turned up on a page she has reached
+  unmet = unmet.filter(el => {
+    if (el.getBoundingClientRect().left > innerWidth - 1) return true;
+    const chip = chipFor(el.dataset.who);
+    chip.classList.add('met');
+    chip.setAttribute('aria-label', cast[el.dataset.who][0] + ', tap for who they are');
+    return false;
+  });
+  if (chart && chart.getBoundingClientRect().left < innerWidth - 1) chart.classList.add('seen');
+}
+function show(){
+  flow.style.transform = `translateX(${-page * step}px)`;
+  bar.style.width = (pages > 1 ? page / (pages - 1) * 100 : 0) + '%';
+  if (typeof booted !== 'undefined' && booted) try { localStorage.setItem(P + '.ch1.at', String(units.indexOf(firstOnPage()))); } catch (e) {}
+  arrive();
+  if (typeof units !== 'undefined' && typeof voice !== 'undefined') listen.hidden = firstOnPage().t < 0 && voice.paused;
+}
+function layout(){
+  // keep her place by paragraph while the pages are re-cut
+  const anchor = (typeof units !== 'undefined' && step) ? firstOnPage() : null;
+  const pad = parseFloat(getComputedStyle(book).paddingLeft), w = book.clientWidth - 2 * pad;
+  flow.style.columnWidth = w + 'px'; flow.style.columnGap = 2 * pad + 'px';
+  step = book.clientWidth; page = 0; flow.style.transform = 'translateX(0px)';
+  pages = Math.max(1, Math.round((flow.scrollWidth + 2 * pad) / step));
+  if (anchor) page = Math.min(pages - 1, pageOf(anchor.el));
+  if (typeof maxPage === 'function') page = Math.min(page, maxPage());
+  show();
+}
+// A page turn is a fold that travels across the page: p runs from 0 (flat) to 1 (turned).
+function leafFor(shown){
+  const shade = document.createElement('div'); shade.className = 'turn-shade';
+  const leaf = document.createElement('div'); leaf.className = 'page leaf';
+  const copy = flow.cloneNode(true);
+  copy.removeAttribute('id'); copy.querySelectorAll('[id]').forEach(e => e.removeAttribute('id'));
+  copy.style.transform = `translateX(${-shown * step}px)`;
+  leaf.append(copy);
+  const wrap = document.createElement('div'); wrap.className = 'turn-flap';
+  const flap = document.createElement('i'); wrap.append(flap);
+  stage.append(shade, leaf, wrap);
+  return {
+    set(p){
+      const W = stage.clientWidth, f = W * (1 - p);
+      const tilt = Math.sin(Math.PI * p) * W * .075;      // the fold leans, most in the middle of the turn
+      const ft = f + tilt, fb = f - tilt, back = W - f;
+      leaf.style.clipPath = `polygon(0 0, ${ft}px 0, ${fb}px 100%, 0 100%)`;
+      flap.style.clipPath = `polygon(${ft}px 0, ${fb}px 100%, ${2 * fb - W}px 100%, ${2 * ft - W}px 0)`;
+      flap.style.backgroundSize = `${back + 2 * tilt}px 100%`;
+      flap.style.backgroundPosition = `${f - back - tilt}px 0`;
+      const lift = Math.sin(Math.PI * Math.min(1, p * 1.15));
+      shade.style.backgroundSize = `${Math.min(W * .16, back * .6) + 8}px 100%`;
+      shade.style.backgroundPosition = `${fb}px 0`;
+      shade.style.opacity = lift; wrap.style.opacity = p > .995 ? 0 : 1;
+    },
+    remove(){ shade.remove(); leaf.remove(); wrap.remove(); }
+  };
+}
+function glide(L, a, b, ms, done){
+  const t0 = performance.now();
+  const ease = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  (function tick(now){
+    const t = Math.min(1, (now - t0) / ms);
+    L.set(a + (b - a) * ease(t));
+    if (t < 1) requestAnimationFrame(tick); else done();
+  })(t0);
+}
+function blocked(dir){
+  const to = page + dir;
+  if (to < 0 || to >= pages) return true;
+  if (dir > 0 && to > maxPage()){
+    const t = [...tests, ...Object.values(gates)].find(t => pageOf(t) === page);
+    if (t){ t.classList.remove('shake'); void t.offsetWidth; t.classList.add('shake'); t.querySelector('.say').textContent = t.querySelector('.say').textContent || BOOK.lockMessage; }
+    return true;
+  }
+  return false;
+}
+function turn(dir, auto){
+  const to = page + dir;
+  if (busy || blocked(dir)) return;
+  closeCard(); if (typeof closeMenu === 'function') closeMenu();
+  if (!auto) setTimeout(() => window.seekToPage && seekToPage(), 0);
+  if (still.matches){ page = to; show(); return; }
+  busy = true;
+  const L = leafFor(dir > 0 ? page : to);
+  if (dir > 0){
+    page = to; show(); L.set(0);
+    glide(L, 0, 1, 620, () => { L.remove(); busy = false; });
+  } else {
+    L.set(1);
+    glide(L, 1, 0, 620, () => { page = to; show(); L.remove(); busy = false; });
+  }
+}
+stage.addEventListener('click', e => {
+  if (e.target.closest('button, a, input, form, label')) return;
+  turn(e.clientX < innerWidth * .3 ? -1 : 1);
+});
+// On a touch screen the page follows the finger, and settles or springs back on release.
+let x0 = null, y0 = 0, drag = null;
+stage.addEventListener('touchstart', e => {
+  if (e.touches.length !== 1 || e.target.closest('button, a, input, form, label')){ x0 = null; return; }
+  x0 = e.touches[0].clientX; y0 = e.touches[0].clientY;
+}, {passive: true});
+stage.addEventListener('touchmove', e => {
+  if (x0 === null || still.matches) return;
+  const dx = e.touches[0].clientX - x0, dy = e.touches[0].clientY - y0;
+  if (!drag){
+    if (busy || Math.abs(dx) < 12 || Math.abs(dx) < Math.abs(dy) * 1.2) return;
+    const dir = dx < 0 ? 1 : -1, from = page, to = page + dir;
+    if (to < 0 || to >= pages || (dir > 0 && to > maxPage())) return;      // the tap handler shows why
+    closeCard(); if (typeof closeMenu === 'function') closeMenu();
+    busy = true;
+    drag = {dir, from, to, L: leafFor(dir > 0 ? from : to), p: dir > 0 ? 0 : 1, t: performance.now(), x: e.touches[0].clientX, v: 0};
+    if (dir > 0){ page = to; show(); }
+  }
+  e.preventDefault();
+  const W = stage.clientWidth, now = performance.now(), x = e.touches[0].clientX;
+  drag.v = (x - drag.x) / Math.max(1, now - drag.t); drag.x = x; drag.t = now;
+  const travel = Math.max(0, Math.min(1, Math.abs(dx) / W * 1.2));
+  drag.p = drag.dir > 0 ? (dx < 0 ? travel : 0) : (dx > 0 ? 1 - travel : 1);
+  drag.L.set(drag.p);
+}, {passive: false});
+function release(e){
+  if (drag){
+    const d = drag; drag = null; x0 = null;
+    const flick = Math.abs(d.v) > .45 && (d.v < 0) === (d.dir > 0);
+    const go = flick || (d.dir > 0 ? d.p > .3 : d.p < .7);
+    const end = d.dir > 0 ? (go ? 1 : 0) : (go ? 0 : 1);
+    glide(d.L, d.p, end, 180 + 320 * Math.abs(end - d.p), () => {
+      page = go ? d.to : d.from; show(); d.L.remove(); busy = false;
+      if (go) setTimeout(() => window.seekToPage && seekToPage(), 0);
+    });
+    if (e.cancelable) e.preventDefault();
+    return;
+  }
+  if (x0 === null) return;
+  const dx = e.changedTouches[0].clientX - x0; x0 = null;
+  if (Math.abs(dx) > 45){ e.preventDefault(); turn(dx < 0 ? 1 : -1); }
+}
+stage.addEventListener('touchend', release);
+stage.addEventListener('touchcancel', release);
+// "Tell a friend" on the last page: the phone's own share sheet, or copy the link where there isn't one.
+document.addEventListener('click', e => {
+  const b = e.target.closest('.btn-share'); if (!b) return;
+  e.stopPropagation();
+  const url = b.dataset.share, text = 'Novels written for one reader, in the style they love, that teach the thing they always meant to learn.';
+  if (navigator.share){ navigator.share({title: 'Learned by Heart', text, url}).catch(() => {}); return; }
+  const done = () => { b.textContent = 'Link copied'; };
+  if (navigator.clipboard) navigator.clipboard.writeText(url).then(done, () => { b.textContent = url; });
+  else b.textContent = url;
+}, true);
+addEventListener('keydown', e => {
+  if (e.target.matches && e.target.matches('input, textarea')) return;
+  if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown'){ e.preventDefault(); turn(1); }
+  if (e.key === 'ArrowLeft' || e.key === 'PageUp'){ e.preventDefault(); turn(-1); }
+});
+// ---- audiobook: six tracks with word timings; pages turn themselves, a hand turn moves the audio ----
+const WORDS = BOOK.audio ? BOOK.audio.words : [];
+const voice = document.getElementById('voice'), listen = document.getElementById('listen');
+const TRACKS = BOOK.audio ? BOOK.audio.tracks : [];
+const units = []; let track = -1, nowReading = null, raf = 0;
+(function(){
+  const norm = s => s.toLowerCase().replace(/’/g, "'").replace(/[^a-z0-9']+/g, ' ').trim().split(' ').filter(Boolean);
+  let t = 0; const at = {};
+  flow.querySelectorAll('.bookcover .bc, .brief h2, .brief h3, .brief .slip, .guess .ask, .bridge p, .cold p:not(.note), .open h1, .open .chapter, .memory p, article h2, article .col > p, article .col > .doc, article .col > ul').forEach(el => {
+    if (!BOOK.audio || el.closest('[data-noaudio]')){ units.push({el, t: -1, start: 0, end: 0}); return; }
+    if (el.closest('.memory')) t = 1; else if (el.tagName === 'H2') t = t < 2 ? 2 : t + 1;
+    const said = norm(el.textContent), script = WORDS[t]; let i = at[t] || 0;
+    // line the paragraph up with the recording by its first word, tolerating small slips
+    for (let k = 0; k < 8 && script[i + k]; k++) if (script[i + k][0] === said[0]){ i += k; break; }
+    const last = Math.min(script.length - 1, i + said.length - 1);
+    units.push({el, t, start: script[i] ? script[i][1] : 0, end: script[last] ? script[last][2] : 0});
+    at[t] = last + 1;
+  });
+})();
+const pageOf = el => Math.floor((el.getBoundingClientRect().left + page * step) / step);
+const firstOnPage = () => units.find(u => pageOf(u.el) >= page) || units[units.length - 1];
+function mark(u){
+  if (nowReading === u) return;
+  if (nowReading) nowReading.el.classList.remove('reading');
+  nowReading = u; if (u) u.el.classList.add('reading');
+}
+// Tracks are fetched whole and played from memory, so jumping around works on any host.
+const blobs = {};
+async function load(t, at, play){
+  track = t;
+  try {
+    if (!blobs[t]) blobs[t] = URL.createObjectURL(await (await fetch(TRACKS[t])).blob());
+  } catch (e) { voice.dispatchEvent(new Event('error')); return; }
+  if (track !== t) return;
+  voice.src = blobs[t];
+  voice.addEventListener('loadedmetadata', () => { voice.currentTime = at; if (play) voice.play(); }, {once: true});
+  voice.load();
+}
+function seekToPage(){
+  if (voice.paused && track < 0) return;
+  const u = firstOnPage(), playing = !voice.paused, at = Math.max(0, u.start - .15);
+  if (u.t < 0){ voice.pause(); stopUi(); track = -1; listen.hidden = true; return; }
+  if (u.t === track && voice.duration) voice.currentTime = at; else load(u.t, at, playing);
+  mark(playing ? u : null);
+}
+function follow(){ raf = requestAnimationFrame(follow); sync(); }
+voice.addEventListener('timeupdate', () => sync());
+function sync(){
+  if (voice.paused || !voice.duration) return;
+  const now = voice.currentTime + .12;
+  let u = null;
+  for (const x of units) if (x.t === track && x.start <= now) u = x;
+  if (!u) return;
+  mark(u);
+  const p = pageOf(u.el);
+  if (p !== page && !busy){
+    if (Math.abs(p - page) === 1) turn(p - page, true); else { page = p; show(); }
+  }
+}
+function stopUi(){ listen.setAttribute('aria-pressed', 'false'); listen.setAttribute('aria-label', 'Listen to this chapter'); mark(null); cancelAnimationFrame(raf); }
+voice.addEventListener('ended', () => {
+  if (track < TRACKS.length - 1) load(track + 1, 0, true); else { stopUi(); track = -1; }
+});
+voice.addEventListener('error', stopUi);
+listen.addEventListener('click', e => {
+  e.stopPropagation();
+  if (!voice.paused){ voice.pause(); stopUi(); return; }
+  listen.setAttribute('aria-pressed', 'true'); listen.setAttribute('aria-label', 'Pause');
+  cancelAnimationFrame(raf); follow();
+  const u = firstOnPage(), at = Math.max(0, u.start - .15);
+  if (u.t === track && voice.duration){ voice.currentTime = at; voice.play(); } else load(u.t, at, true);
+});
+
+// ---- the biscuit test: one question at a chapter's end; the pages after it stay shut until it's answered ----
+const tests = [...flow.querySelectorAll('.test')];
+let passed = {};
+try { passed = JSON.parse(localStorage.getItem(P + '.tests') || '{}'); } catch (e) {}
+// Optional daily writing check (off unless book.json has "writing"): a word goal before the next chapter opens.
+const W = BOOK.writing || null;
+const GOAL = W ? W.goal : 0;
+const today = () => new Date().toLocaleDateString('en-CA');
+let words = {}, wrote = {};
+try { words = JSON.parse(localStorage.getItem(P + '.words') || '{}'); wrote = JSON.parse(localStorage.getItem(P + '.wrote') || '{}'); } catch (e) {}
+try { // chapters she had already unlocked before this was added stay unlocked
+  if (!localStorage.getItem(P + '.wordsOn')){ Object.keys(passed).forEach(k => wrote[k] = true); localStorage.setItem(P + '.wordsOn', '1'); }
+} catch (e) {}
+const saveWords = () => { try { localStorage.setItem(P + '.words', JSON.stringify(words)); localStorage.setItem(P + '.wrote', JSON.stringify(wrote)); } catch (e) {} };
+function streak(){
+  let n = 0; const d = new Date();
+  if ((words[today()] || 0) < GOAL) d.setDate(d.getDate() - 1);
+  while ((words[d.toLocaleDateString('en-CA')] || 0) >= GOAL){ n++; d.setDate(d.getDate() - 1); }
+  return n;
+}
+const pick = (list, n) => list[Math.abs(n) % list.length];
+const fill = (s, n, r) => s.replace(/\{n\}/g, n).replace(/\{r\}/g, r);
+const cheers = (W ? W.cheers : []).map(s => n => fill(s, n));
+const nudges = (W ? W.nudges : []).map(s => (n, r) => fill(s, n, r));
+const gates = {};
+tests.forEach(t => {
+  const id = t.dataset.test;
+  if (!W || (passed[id] && wrote[id])) return;
+  const g = document.createElement('section');
+  g.className = 'wgate'; g.dataset.for = id;
+  g.innerHTML = `
+    <p class="who-to">${W.intro}</p>
+    <p class="ask">${W.ask}</p>
+    <p class="sub">${W.sub}</p>
+    <form class="wform"><input type="number" inputmode="numeric" min="0" max="50000" id="words-${id}" aria-label="Words written today" placeholder="0"><button type="submit">${W.button}</button></form>
+    <p class="say" aria-live="polite"></p>
+    <div class="wbar"><i></i></div><div class="wlabel"><span class="wn">0 today</span><span>${GOAL}</span></div>
+    <div class="won" hidden><p class="streak"></p></div>`;
+  t.after(g); gates[id] = g;
+  g.querySelector('form').addEventListener('submit', e => {
+    e.preventDefault(); e.stopPropagation();
+    const n = Math.max(0, Math.min(50000, parseInt(g.querySelector('input').value, 10) || 0));
+    words[today()] = n;
+    if (n >= GOAL) wrote[id] = true;
+    saveWords();
+    g.querySelector('.say').textContent = n >= GOAL ? pick(cheers, n)(n) : n === 0
+      ? W.zero
+      : pick(nudges, n)(n, GOAL - n);
+    drawGate(id, true);
+  });
+});
+function drawGate(id, spoken){
+  const g = gates[id]; if (!g) return;
+  const n = words[today()] || 0;
+  if (passed[id] && !wrote[id] && n >= GOAL){ wrote[id] = true; saveWords(); }
+  g.querySelector('.wbar i').style.setProperty('--w', Math.min(100, n / GOAL * 100) + '%');
+  g.querySelector('.wbar').classList.toggle('full', n >= GOAL);
+  g.querySelector('.wn').textContent = `${n} today`;
+  const done = !!wrote[id];
+  g.querySelector('.won').hidden = !done;
+  if (done){
+    const s = streak();
+    g.querySelector('.streak').textContent = (s > 1 ? `${s} days in a row. ` : '') + 'Turn the page.';
+    if (!spoken && !g.querySelector('.say').textContent) g.querySelector('.say').textContent = fill(W.already, n);
+    g.querySelector('form').hidden = true;
+  }
+}
+function maxPage(){
+  for (const t of tests){
+    const id = t.dataset.test;
+    if (!passed[id]) return pageOf(t);
+    if (gates[id] && !wrote[id]) return pageOf(gates[id]);
+  }
+  return pages - 1;
+}
+tests.forEach(t => {
+  const say = t.querySelector('.say'), won = t.querySelector('.won'), opts = [...t.querySelectorAll('.opts button')];
+  const right = opts.find(b => b.dataset.opt === t.dataset.answer); right.dataset.right = '';
+  let wrong = 0;
+  const finish = () => {
+    say.textContent = right.dataset.say; won.hidden = false; t.classList.remove('hint');
+    opts.forEach(b => { b.disabled = true; b.classList.add(b === right ? 'yes' : 'no'); });
+  };
+  if (passed[t.dataset.test]) finish();
+  opts.forEach(b => b.addEventListener('click', e => {
+    e.stopPropagation();
+    say.textContent = b.dataset.say;
+    if (b === right){
+      passed[t.dataset.test] = true;
+      try { localStorage.setItem(P + '.tests', JSON.stringify(passed)); } catch (e) {}
+      finish(); drawGate(t.dataset.test);
+    } else {
+      b.classList.add('no'); b.disabled = true;
+      if (++wrong >= 2) t.classList.add('hint');
+    }
+  }));
+});
+
+Object.keys(gates).forEach(id => drawGate(id));
+
+// ---- guess first (tasters): pick an answer before reading the scene, find out after ----
+const guesses = {};
+flow.querySelectorAll('.guess').forEach(g => {
+  const opts = [...g.querySelectorAll('.opts button')], say = g.querySelector('.say');
+  opts.forEach(b => b.addEventListener('click', e => {
+    e.stopPropagation();
+    opts.forEach(o => { o.disabled = true; o.classList.add(o === b ? 'picked' : 'other'); });
+    guesses[g.dataset.for] = b;
+    say.textContent = g.dataset.reply;
+  }));
+});
+tests.forEach(t => t.querySelectorAll('.opts button').forEach(b => b.addEventListener('click', () => {
+  const g = guesses[t.dataset.test];
+  if (!g || b.dataset.opt !== t.dataset.answer || t.querySelector('.guessed')) return;
+  const p = document.createElement('p'); p.className = 'guessed';
+  p.textContent = g.dataset.opt === t.dataset.answer
+    ? 'You guessed that before you read it. Good instincts.'
+    : `Before the scene, you guessed “${g.textContent.trim()}”. Now you know.`;
+  t.querySelector('.won').before(p);
+})));
+
+// ---- chapters menu ----
+const toc = document.getElementById('toc'), menu = document.getElementById('menu');
+const chapters = [...(flow.querySelector('.brief') ? [{no: 'Before you start', title: 'How this book was made', el: flow.querySelector('.brief')}] : []),
+  {no: BOOK.firstChapter.no, title: BOOK.firstChapter.title, el: flow.querySelector('.cold')},
+  ...[...flow.querySelectorAll('.chap')].map(c => ({no: c.querySelector('.chapno').textContent, title: c.querySelector('h2').textContent, el: c}))];
+function closeMenu(){ menu.hidden = true; toc.setAttribute('aria-expanded', 'false'); }
+function openMenu(){
+  const here = chapters.filter(c => pageOf(c.el) <= page).pop();
+  menu.innerHTML = '';
+  if (hasLessons){
+    const t = document.createElement('button');
+    t.className = 'teach-toggle'; t.setAttribute('aria-pressed', String(teach));
+    t.innerHTML = '<span>Show the teaching</span><span class="state"></span>';
+    t.addEventListener('click', e => { e.stopPropagation(); setTeach(!teach, true); });
+    menu.append(t); paintTeach();
+  }
+  chapters.forEach(c => {
+    const b = document.createElement('button');
+    b.innerHTML = `<small>${c.no}</small><b>${c.title}</b>`;
+    if (c === here) b.setAttribute('aria-current', 'true');
+    if (pageOf(c.el) > maxPage()){ b.disabled = true; b.querySelector('small').textContent += BOOK.lockLabel; }
+    b.addEventListener('click', e => {
+      e.stopPropagation(); closeMenu(); closeCard();
+      page = pageOf(c.el); show(); seekToPage();
+    });
+    menu.append(b);
+  });
+  if (BOOK.epub) {
+    const a = document.createElement('a');
+    a.className = 'dl'; a.href = encodeURI(BOOK.epub); a.setAttribute('download', '');
+    a.innerHTML = '<small>For Apple Books, Kindle, Kobo or Google Play Books</small><b>Download the ebook</b>';
+    a.addEventListener('click', e => e.stopPropagation());
+    menu.append(a);
+  }
+  menu.hidden = false; toc.setAttribute('aria-expanded', 'true');
+  const cur = menu.querySelector('[aria-current=true]');
+  menu.scrollTop = cur ? cur.offsetTop - (menu.clientHeight - cur.offsetHeight) / 2 : 0;
+}
+toc.addEventListener('click', e => { e.stopPropagation(); closeCard(); menu.hidden ? openMenu() : closeMenu(); });
+document.addEventListener('click', closeMenu);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+
+// ---- show the teaching ----
+const hasLessons = !!flow.querySelector('.lesson');
+let teach = !!BOOK.teachDefault;
+try { const s = localStorage.getItem(P + '.teach'); if (s !== null) teach = s === '1'; } catch (e) {}
+function paintTeach(){
+  document.querySelectorAll('.teach-toggle').forEach(b => {
+    b.setAttribute('aria-pressed', String(teach));
+    b.querySelector('.state').textContent = teach ? 'On' : 'Off';
+  });
+}
+function setTeach(on, save){
+  teach = on && hasLessons;
+  document.body.classList.toggle('teach', teach);
+  paintTeach();
+  if (save) try { localStorage.setItem(P + '.teach', teach ? '1' : '0'); } catch (e) {}
+  if (step) layout();
+}
+document.querySelectorAll('.flow .teach-toggle').forEach(b => {
+  if (!hasLessons){ b.remove(); return; }
+  b.addEventListener('click', e => { e.stopPropagation(); setTeach(!teach, true); });
+});
+setTeach(teach, false);
+
+// ---- start up: come back to the paragraph she was on ----
+let booted = false;
+addEventListener('resize', layout);
+layout();
+try {
+  const i = parseInt(localStorage.getItem(P + '.ch1.at'), 10);
+  if (i > 0 && units[i]){ page = Math.min(pageOf(units[i].el), maxPage()); show(); }
+} catch (e) {}
+booted = true;
+document.fonts && document.fonts.ready.then(layout);
+</script>
+<script>
+// Installable app: save pages, pictures and played audio on the phone so the book opens offline.
+if ('serviceWorker' in navigator && location.protocol !== 'file:') navigator.serviceWorker.register('sw.js').catch(() => {});
+</script>
+</body>
+</html>
