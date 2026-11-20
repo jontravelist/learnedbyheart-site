@@ -161,6 +161,7 @@ main{padding:0}
   padding-block:calc(1.75rem + env(safe-area-inset-top,0px)) 1.75rem;
   padding-left:max(1.25rem,env(safe-area-inset-left,0px),calc((100% - 36rem)/2));
   padding-right:max(1.25rem,env(safe-area-inset-right,0px),calc((100% - 36rem)/2))}
+.btn-share{font:inherit;font-size:.95rem;background:none;border:1.5px solid var(--line);color:var(--ink);border-radius:8px;padding:.55rem .9rem;cursor:pointer}
 .leaf{pointer-events:none;will-change:clip-path}
 /* a turning page folds back from its edge: the leaf is cut along the fold, the flap is the back of the paper */
 .turn-shade,.turn-flap{position:absolute;inset:0;pointer-events:none}
@@ -580,7 +581,7 @@ body.teach .lesson::after{content:"\21B3\00A0" attr(data-note);display:block;fon
   <p>That&rsquo;s the first chapter of Water on the Wrong Side. We finish the books readers ask for first.</p>
   <p><a class="btn-end" href="mailto:hello@learnedbyheart.com?subject=Tell%20me%20when%20Water%20on%20the%20Wrong%20Side%20is%20finished">Tell me when it&rsquo;s finished</a></p>
   <p>That opens an email to us. Just press send. If nothing opens, write to hello@learnedbyheart.com with the book&rsquo;s name.</p>
-  <p>Every book we write is made for one reader, in the style they love, with the thing they&rsquo;ve always meant to learn inside it. <a href="../../#prices">Have one written for you</a>, or go <a href="../../#library">back to the library</a>.</p>
+  <p>Every book we write is made for one reader, in the style they love, with the thing they&rsquo;ve always meant to learn inside it. <a href="../../?ref=library#prices">Have one written for you</a>, or go <a href="../../#library">back to the library</a>.</p>
 </div>
 </article>
 </div></div></div><div id="bar"></div></main>
@@ -795,6 +796,16 @@ function release(e){
 }
 stage.addEventListener('touchend', release);
 stage.addEventListener('touchcancel', release);
+// "Tell a friend" on the last page: the phone's own share sheet, or copy the link where there isn't one.
+document.addEventListener('click', e => {
+  const b = e.target.closest('.btn-share'); if (!b) return;
+  e.stopPropagation();
+  const url = b.dataset.share, text = 'Novels written for one reader, in the style they love, that teach the thing they always meant to learn.';
+  if (navigator.share){ navigator.share({title: 'Learned by Heart', text, url}).catch(() => {}); return; }
+  const done = () => { b.textContent = 'Link copied'; };
+  if (navigator.clipboard) navigator.clipboard.writeText(url).then(done, () => { b.textContent = url; });
+  else b.textContent = url;
+}, true);
 addEventListener('keydown', e => {
   if (e.target.matches && e.target.matches('input, textarea')) return;
   if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown'){ e.preventDefault(); turn(1); }

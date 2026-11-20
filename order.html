@@ -83,6 +83,14 @@ a:focus-visible{outline:3px dashed var(--ink);outline-offset:4px}
 <script src="https://tally.so/widgets/embed.js" async onload="Tally.loadEmbeds()"></script>
 <script>
 // If Tally's script is blocked, load the form directly so the page still works.
+// Pass on where the visitor came from (?ref=gift, ?ref=find...) so the order form can record it in a hidden field called "ref".
+(() => {
+  const ref = new URLSearchParams(location.search).get('ref');
+  if (!ref || !/^[a-z0-9-]{1,30}$/.test(ref)) return;
+  const f = document.getElementById('order-form');
+  f.dataset.tallySrc += '&ref=' + ref;
+  document.querySelectorAll('a[href^="https://tally.so/r/"]').forEach(a => a.href += (a.href.includes('?') ? '&' : '?') + 'ref=' + ref);
+})();
 setTimeout(() => { const f = document.getElementById('order-form'); if (!f.src) f.src = f.dataset.tallySrc; }, 2500);
 </script>
 </body>

@@ -1,6 +1,6 @@
 // Offline helper for an installed book. The page itself is fetched fresh when there is a connection,
 // so corrections reach readers; pictures, fonts and audio are kept once seen or played.
-const CACHE = 'knife-table-1795106887';
+const CACHE = 'knife-table-1795136203';
 const CORE = ['./', 'index.html', 'manifest.webmanifest', 'icons/icon-192.png', 'icons/icon-512.png'];
 
 self.addEventListener('install', e => {
