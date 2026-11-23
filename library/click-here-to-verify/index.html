@@ -335,6 +335,9 @@ body.teach .lesson::after{content:"\21B3\00A0" attr(data-note);display:block;fon
 .sms .say{min-height:0}
 .sms .say:empty{display:none}
 .msg{background:color-mix(in srgb,var(--giles) 55%,var(--paper))}
+/* a message the narrator sends sits on the right, like a real messaging app */
+.msg.me{margin-left:auto;background:color-mix(in srgb,#3D7BE0 22%,var(--paper));border-radius:14px 14px 3px 14px}
+.msg + .msg{margin-top:.35rem}
 .opts button span{line-height:1.05}
 .note.small{font-size:.8rem;margin-top:1.2rem}
 
@@ -681,7 +684,7 @@ body.teach .lesson::after{content:"\21B3\00A0" attr(data-note);display:block;fon
   <p>I don't say it, because I've got my own reasons for not saying it.</p>
   <p>I'm not going to tell you them yet.</p>
   <p>Instead I text Rob.</p>
-  <p class="msg">At Mum's. She's ok. Bit of a mess with her bank. Tell you later x</p>
+  <p class="msg me">At Mum's. She's ok. Bit of a mess with her bank. Tell you later x</p>
   <p>I read it back with my thumb over the button. She isn't okay. It isn't a bit of a mess.</p>
   <p>I send it.</p>
   <p>I'm out of practice.</p>
@@ -693,15 +696,15 @@ body.teach .lesson::after{content:"\21B3\00A0" attr(data-note);display:block;fon
   <p>It's three in the morning and the car is the warmest room I've got.</p>
   <p>The screen lights up my hands. I've typed the same message and deleted it four times. Like a teenager.</p>
   <p class="msg">Callum: You're up late again</p>
-  <p class="msg">Me: I could say the same about you</p>
+  <p class="msg me">I could say the same about you</p>
   <p class="msg">Callum: I'm in a different time zone, what's your excuse?</p>
-  <p class="msg">Me: I don't sleep much</p>
+  <p class="msg me">I don't sleep much</p>
   <p>I don't tell him why. I don't tell him much at all. That's the nice thing about him.</p>
   <p>He never asks the question you're dreading. He asks what I had for tea, and whether the frost has come yet. He sends me a photo of a harbour at sunset somewhere hot.</p>
   <p>Which harbour, he never says. And I never ask.</p>
   <p>For twenty minutes I'm a person nobody needs anything from.</p>
   <p class="msg">Callum: Won't R mind you texting a strange man at 3am?</p>
-  <p class="msg">Me: R's asleep. He sleeps through anything.</p>
+  <p class="msg me">R's asleep. He sleeps through anything.</p>
   <p class="msg">Callum: Lucky R</p>
   <p>I put the phone face down on the passenger seat and hold the wheel with both hands, as if I'm going somewhere.</p>
   <p>I know how this looks.</p>
