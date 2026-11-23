@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Make a gift card · Learned by Heart</title>
+<link rel="icon" type="image/svg+xml" href="../img/logo/icon.svg">
+<link rel="apple-touch-icon" href="../img/logo/apple-touch-icon.png">
+<meta name="description" content="Giving a Learned by Heart novel? Make a card to print or send on the day, saying a novel is being written just for them. Free, and nothing you type leaves your phone.">
+<meta property="og:title" content="Make a gift card for a novel that's being written for them">
+<meta property="og:description" content="A card to print or send on the day. Free, and nothing you type leaves your phone.">
+<meta property="og:image" content="https://learnedbyheart.com/img/bookshelf.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Fraunces:opsz,wght,SOFT@9..144,400..650,100&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#F8F2F4;--page:#FFFDF8;--ink:#33287A;--soft:#6A6296;--line:#E6DBE4;--pink:#F7A8C4;--butter:#FBE38A;--mint:#A9DEC9;--berry:#B5384E;
+  --display:"Fraunces",Georgia,serif;--body:"Nunito",system-ui,sans-serif;--hand:"Caveat","Comic Sans MS",cursive}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:1.0625rem;line-height:1.6;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+a{color:inherit}
+.wrap{max-width:52rem;margin:0 auto}
+.top{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding-block:1.6rem 0}
+.brand{font-family:var(--display);font-weight:600;font-size:1.45rem;text-decoration:none;display:flex;align-items:center;gap:.4rem}
+.brand svg{width:1.9rem;height:1.9rem;flex:none}
+.top .small{font-size:.92rem;color:var(--soft);text-decoration:none}
+h1{font-family:var(--display);font-variation-settings:"SOFT" 100;font-weight:500;font-size:clamp(2rem,6vw,2.8rem);line-height:1.1;margin:2rem 0 .6rem;text-wrap:balance}
+.lead{max-width:36rem;margin:0 0 1.6rem}
+.grid{display:grid;gap:1.6rem;align-items:start;margin-bottom:2rem}
+@media (min-width:48rem){.grid{grid-template-columns:.9fr 1.1fr}}
+.grid>*{min-width:0}
+form{background:var(--page);border-radius:6px;padding:1.2rem;box-shadow:0 1px 0 var(--line),0 12px 30px rgba(51,40,122,.10);display:grid;gap:.9rem}
+label{display:grid;gap:.25rem;font-weight:700;font-size:.95rem}
+label span{font-weight:400;color:var(--soft);font-size:.88rem}
+input,textarea{font:inherit;color:var(--ink);border:1.5px solid var(--line);border-radius:6px;padding:.55rem .7rem;background:#fff;width:100%}
+input:focus,textarea:focus{outline:3px solid color-mix(in srgb,var(--pink) 60%,transparent);border-color:var(--ink)}
+.row{display:flex;flex-wrap:wrap;gap:.6rem}
+button{font:inherit;font-weight:700;border:0;border-radius:999px;padding:.6rem 1.2rem;cursor:pointer;background:var(--ink);color:#fff}
+button.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
+button:focus-visible{outline:3px dashed var(--ink);outline-offset:3px}
+.note{font-size:.88rem;color:var(--soft);margin:0}
+.card{position:relative;aspect-ratio:7/5;width:100%;background:var(--page);border-radius:6px;overflow:hidden;
+  box-shadow:0 18px 40px rgba(51,40,122,.18);display:flex;flex-direction:column;justify-content:center;padding:7% 9%;text-align:center}
+@media (max-width:34rem){.card{aspect-ratio:auto;padding:2.2rem 1.4rem}}
+.card::before{content:"";position:absolute;inset:12px;border:1.5px dashed color-mix(in srgb,var(--berry) 55%,transparent);border-radius:4px;pointer-events:none}
+.card svg{width:13%;height:auto;margin:0 auto 3%}
+.card .to{font-family:var(--hand);font-size:clamp(1.3rem,4.6vw,2rem);color:var(--berry);margin:0}
+.card .big{font-family:var(--display);font-variation-settings:"SOFT" 100;font-weight:500;font-size:clamp(1.15rem,4.2vw,1.9rem);line-height:1.15;margin:.3em 0;text-wrap:balance}
+.card .sub{font-size:clamp(.78rem,2.4vw,1rem);margin:.4em 0 0;color:var(--soft);text-wrap:balance}
+.card .from{font-family:var(--hand);font-size:clamp(1.1rem,3.8vw,1.6rem);margin:.6em 0 0}
+footer{padding-block:1rem 3rem;font-size:.92rem;color:var(--soft)}
+@media print{
+  body{background:#fff;padding:0}
+  .top,h1,.lead,form,footer{display:none!important}
+  .grid{display:block}
+  .card{box-shadow:none;width:100%;max-width:none;break-inside:avoid}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="../"><svg viewBox="0 0 100 100" aria-hidden="true"><path d="M50 86C31 73 9 58 9 36C9 20 24 12 37 18C44 21 48 26 50 32C52 26 56 21 63 18C76 12 91 20 91 36C91 58 69 73 50 86Z" fill="#F7A8C4" stroke="#33287A" stroke-width="4" stroke-linejoin="round"/><g fill="none" stroke="#33287A" stroke-linecap="round"><path d="M50 32V86" stroke-width="3.2"/><g stroke-width="3"><path d="M50 44C42 33 27 29 18 38"/><path d="M50 56C42 45 29 42 21 50"/><path d="M50 44C58 33 73 29 82 38"/><path d="M50 56C58 45 71 42 79 50"/></g></g></svg>Learned by Heart</a>
+    <a class="small" href="../?ref=giftcard#prices">Order a book</a>
+  </header>
+
+  <h1>Something to hand over on the day</h1>
+  <p class="lead">A book written for someone arrives as a link, so there's nothing to wrap. Make a card to print, or save as a picture and send, saying their novel is on its way. Nothing you type leaves your phone.</p>
+
+  <div class="grid">
+    <form id="f" autocomplete="off">
+      <label>Who is it for? <span>Their first name</span><input id="to" maxlength="40" value="Sam"></label>
+      <label>What will it teach them? <span>In a few words</span><input id="what" maxlength="70" value="how investing actually works"></label>
+      <label>In the style of <span>Optional: a book, author or show they love</span><input id="like" maxlength="60" value="the cosy crime they read on holiday"></label>
+      <label>From <span>Your name or names</span><input id="from" maxlength="40" value="Mum and Dad"></label>
+      <div class="row">
+        <button type="button" id="save">Save as a picture</button>
+        <button type="button" class="ghost" id="print">Print</button>
+      </div>
+      <p class="note">Haven't ordered yet? <a href="../?ref=giftcard#prices">Have their book written</a>. Christmas orders close 16 December.</p>
+    </form>
+
+    <div>
+      <div class="card" id="card" role="img" aria-label="Gift card preview">
+        <svg viewBox="0 0 100 100" aria-hidden="true"><path d="M50 86C31 73 9 58 9 36C9 20 24 12 37 18C44 21 48 26 50 32C52 26 56 21 63 18C76 12 91 20 91 36C91 58 69 73 50 86Z" fill="#F7A8C4" stroke="#33287A" stroke-width="4" stroke-linejoin="round"/><g fill="none" stroke="#33287A" stroke-linecap="round"><path d="M50 32V86" stroke-width="3.2"/><g stroke-width="3"><path d="M50 44C42 33 27 29 18 38"/><path d="M50 56C42 45 29 42 21 50"/><path d="M50 44C58 33 73 29 82 38"/><path d="M50 56C58 45 71 42 79 50"/></g></g></svg>
+        <p class="to" id="cTo"></p>
+        <p class="big" id="cBig"></p>
+        <p class="sub" id="cSub"></p>
+        <p class="from" id="cFrom"></p>
+      </div>
+    </div>
+  </div>
+
+  <footer><a href="../">learnedbyheart.com</a> · novels written for one reader, that teach what they've always meant to learn</footer>
+</div>
+<script>
+const $ = id => document.getElementById(id);
+const v = id => $(id).value.trim();
+function lines(){
+  const to = v('to') || 'you', what = v('what'), like = v('like'), from = v('from');
+  return {
+    to: 'For ' + to,
+    big: 'A novel is being written just for you',
+    sub: (like ? 'In the style of ' + like + '. ' : '') + (what ? 'By the last page, you’ll understand ' + what + '.' : ''),
+    from: from ? 'With love, ' + from : ''
+  };
+}
+function render(){
+  const l = lines();
+  $('cTo').textContent = l.to; $('cBig').textContent = l.big; $('cSub').textContent = l.sub; $('cFrom').textContent = l.from;
+}
+['to','what','like','from'].forEach(id => $(id).addEventListener('input', render));
+render();
+$('print').addEventListener('click', () => window.print());
+
+// Draw the card onto a canvas so it can be saved as a picture.
+function wrap(ctx, text, x, y, maxW, lh){
+  const words = text.split(' '); let line = '', out = [];
+  for (const w of words){ const t = line ? line + ' ' + w : w; if (ctx.measureText(t).width > maxW && line){ out.push(line); line = w; } else line = t; }
+  if (line) out.push(line);
+  out.forEach((ln, i) => ctx.fillText(ln, x, y + i * lh));
+  return out.length * lh;
+}
+$('save').addEventListener('click', async () => {
+  await document.fonts.ready;
+  const W = 1400, H = 1000, c = document.createElement('canvas'); c.width = W; c.height = H;
+  const ctx = c.getContext('2d'), l = lines();
+  ctx.fillStyle = '#FFFDF8'; ctx.fillRect(0, 0, W, H);
+  ctx.setLineDash([12, 10]); ctx.strokeStyle = 'rgba(181,56,78,.55)'; ctx.lineWidth = 3; ctx.strokeRect(28, 28, W - 56, H - 56); ctx.setLineDash([]);
+  const svg = new Blob([document.querySelector('#card svg').outerHTML.replace('<svg', '<svg xmlns="http://www.w3.org/2000/svg"')], {type: 'image/svg+xml'});
+  const img = new Image(); img.src = URL.createObjectURL(svg); await img.decode().catch(() => {});
+  ctx.textAlign = 'center';
+  let y = 150; try { ctx.drawImage(img, W / 2 - 80, y, 160, 160); } catch (e) {} y += 230;
+  ctx.fillStyle = '#B5384E'; ctx.font = '700 64px Caveat, cursive'; ctx.fillText(l.to, W / 2, y); y += 100;
+  ctx.fillStyle = '#33287A'; ctx.font = '500 72px Fraunces, Georgia, serif'; y += wrap(ctx, l.big, W / 2, y, W - 300, 86) + 20;
+  ctx.fillStyle = '#6A6296'; ctx.font = '400 36px Nunito, sans-serif'; y += wrap(ctx, l.sub, W / 2, y, W - 360, 50) + 40;
+  ctx.fillStyle = '#33287A'; ctx.font = '700 52px Caveat, cursive'; if (l.from) ctx.fillText(l.from, W / 2, Math.min(y, H - 90));
+  c.toBlob(b => {
+    const a = document.createElement('a'); a.href = URL.createObjectURL(b);
+    a.download = 'gift-card-' + (v('to') || 'card').replace(/[^\w-]+/g, '-').toLowerCase() + '.png';
+    document.body.appendChild(a); a.click(); a.remove();
+  }, 'image/png');
+});
+</script>
+</body>
+</html>
