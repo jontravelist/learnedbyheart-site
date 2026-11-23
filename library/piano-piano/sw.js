@@ -1,6 +1,6 @@
 // Offline helper for an installed book. The page itself is fetched fresh when there is a connection,
 // so corrections reach readers; pictures, fonts and audio are kept once seen or played.
-const CACHE = 'piano-piano-1795403700';
+const CACHE = 'piano-piano-1795405162';
 const CORE = ['./', 'index.html', 'manifest.webmanifest', 'icons/icon-192.png', 'icons/icon-512.png'];
 
 self.addEventListener('install', e => {
