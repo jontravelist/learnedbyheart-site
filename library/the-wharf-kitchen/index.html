@@ -1,0 +1,1158 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Wharf Kitchen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500&family=Fraunces:opsz,wght,SOFT@9..144,500,100&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=Young+Serif&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F6F2FA;      /* lilac white: impressionist shadows are violet, never black */
+  --paper-deep:#E7DFF0;
+  --ink:#2A2255;        /* petrol */
+  --ink-soft:#5F5A85;
+  --line:#CFC6E0;
+  --sheet:#FFFCF2;      /* letter paper */
+
+  --mum:#EBA91A;    /* curry sauce */
+  --nan:#5DA24F;    /* mushy pea */
+  --danny:#E2452E;  /* saveloy */
+  --carol:#F26FA6;  /* seaside rock */
+  --dad:#7A4A2E;    /* gravy */
+  --jo:#2E73C8;
+  --sam:#2FA39A;  /* verdigris */
+  --nell:#2E73C8;   /* the sea, half past three */
+  --giles:#EFD98F;  /* double cream */
+  --dev:#F27A1A;    /* traffic cone */
+  --note:#8A5BB5;   /* a twenty */     /* the sea */
+
+  --read:34rem;
+  --wide:46rem;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:Literata,Georgia,serif;font-size:1.125rem;line-height:1.7;
+  font-optical-sizing:auto;
+}
+main{padding:0 1.25rem 6rem}
+.col{max-width:var(--read);margin:0 auto}
+.fig{max-width:var(--wide);margin:3.5rem auto}
+p{margin:0 0 1.25em}
+h1,h2{font-family:"Young Serif",Georgia,serif;font-weight:400;line-height:1.08;margin:0}
+h1{font-size:clamp(3.2rem,13vw,6.5rem);letter-spacing:-.02em}
+h2{font-size:clamp(1.7rem,5vw,2.3rem);margin:4.5rem 0 1.4rem}
+.chapter{font-size:1.05rem;color:var(--ink-soft);margin:.9rem 0 0}
+figcaption,.note{font-size:.95rem;line-height:1.5;color:var(--ink-soft)}
+figure{margin:0}
+figcaption{margin-top:.9rem;max-width:var(--read)}
+
+/* cold open: the first screen is only her voice */
+.cold{min-height:100svh;display:grid;align-content:center;padding:3rem 0 6rem}
+.cold .first{font-family:"Young Serif",Georgia,serif;font-size:clamp(2.1rem,8vw,3.5rem);line-height:1.12;letter-spacing:-.01em;margin-bottom:.9em}
+.cold p:last-child{margin-bottom:0}
+@media (max-height:900px){.cold .first{font-size:clamp(1.8rem,6.6vw,2.6rem)}.flow .cold .hint{margin-top:1.2rem}}
+
+/* a childhood memory opens the chapter */
+.memory{font-style:italic;margin:3.5rem 0 0;padding-left:1.1rem;border-left:.35rem solid var(--memory,var(--mum))}
+.memory p:last-child{margin-bottom:0}
+
+/* opening */
+.open{padding:2rem 0 0}
+.sea{display:block;width:100%;height:auto;margin-top:2.5rem;border-radius:4px}
+
+/* character names in the text */
+.who{
+  text-decoration:underline;text-decoration-thickness:.22em;text-underline-offset:.16em;
+  text-decoration-color:var(--c);text-decoration-skip-ink:none;
+}
+[data-who=mum]{--c:var(--mum)}[data-who=nan]{--c:var(--nan)}[data-who=danny]{--c:var(--danny)}
+[data-who=carol]{--c:var(--carol)}[data-who=dad]{--c:var(--dad)}[data-who=jo]{--c:var(--jo)}[data-who=sam]{--c:var(--sam)}[data-who=nell]{--c:var(--nell)}[data-who=giles]{--c:var(--giles)}[data-who=dev]{--c:var(--dev)}
+
+/* the cast: paint chips that fill in as people arrive */
+.cast{
+  position:fixed;z-index:5;left:0;right:0;bottom:0;
+  display:flex;justify-content:center;gap:.5rem;padding:.6rem .75rem calc(.6rem + env(safe-area-inset-bottom));
+  background:color-mix(in srgb,var(--paper) 88%,transparent);backdrop-filter:blur(6px);
+  border-top:1px solid var(--line);
+}
+.chip{
+  width:2.2rem;height:2.2rem;flex:none;border-radius:3px;border:1.5px dashed var(--line);background:transparent;
+  padding:0;cursor:pointer;transition:transform .2s;
+}
+.chip.met{background:var(--c) var(--tex) center/cover;border-color:transparent;border-radius:5px 3px 6px 3px}
+.chip[aria-expanded=true]{transform:translateY(-4px)}
+.chip:focus-visible,.next:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.chip:not(.met){cursor:default}
+.card{
+  position:fixed;z-index:6;left:50%;bottom:4.6rem;transform:translateX(-50%);
+  width:min(22rem,calc(100vw - 2rem));background:var(--sheet);border-radius:4px;
+  border-left:.6rem solid var(--c);padding:1rem 1.1rem;box-shadow:0 10px 30px rgba(42,34,85,.25);
+  font-size:1rem;line-height:1.5;
+}
+.card[hidden]{display:none}
+.card strong{font-family:"Young Serif",serif;font-weight:400;font-size:1.25rem;display:block}
+.card em{color:var(--ink-soft);font-style:normal;font-size:.9rem}
+.card p{margin:.5rem 0 0}
+@media (min-width:64rem){
+  .cast{left:1.5rem;right:auto;top:50%;bottom:auto;transform:translateY(-50%);flex-direction:column;
+    border:0;background:none;backdrop-filter:none;padding:0}
+  .chip[aria-expanded=true]{transform:translateX(4px)}
+  .card{left:5rem;bottom:auto;top:50%;transform:translateY(-50%)}
+}
+
+/* colour definitions list */
+.swatches{list-style:none;padding:0;margin:2rem 0;display:grid;gap:1.4rem}
+.swatches li{display:grid;grid-template-columns:4.5rem 1fr;gap:1.1rem;align-items:start}
+.swatches i{display:block;height:4.5rem;border-radius:3px;background:var(--c) var(--tex) center/cover;filter:url(#rough)}
+.swatches b{font-family:"Young Serif",serif;font-weight:400;font-size:1.2rem;display:block;line-height:1.3}
+.swatches small{display:block;color:var(--ink-soft);font-size:.9rem;margin-bottom:.25rem}
+
+svg{display:block;width:100%;height:auto}
+.fig svg rect,.fig svg path,.fig svg circle,.bar{filter:url(#rough)}
+svg text{font-family:Literata,Georgia,serif;fill:var(--ink)}
+.map{position:relative;border-radius:4px;overflow:hidden}
+.map canvas{position:absolute;inset:0;width:100%;height:100%}
+.map svg{position:relative}
+.legend{list-style:none;padding:0;margin:1.2rem 0 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(13rem,1fr));gap:.5rem 1.5rem;font-size:.95rem;line-height:1.4}
+.legend li{display:flex;gap:.6rem;align-items:baseline}
+.legend i{flex:none;width:.8rem;height:.8rem;border-radius:50%;background:var(--c);transform:translateY(.05rem)}
+
+/* silences chart */
+.silences{display:grid;gap:1.1rem;margin-top:.5rem}
+.row{display:grid;gap:.3rem}
+.row .names{font-size:.98rem}
+.track{position:relative;height:1.5rem;background:var(--paper-deep);border-radius:2px}
+.bar{position:absolute;top:0;bottom:0;left:var(--from);right:var(--to,0%);
+  background:linear-gradient(var(--a) 50%,var(--b) 50%);border-radius:2px;
+  transform-origin:left;transform:scaleX(0);transition:transform 1.4s cubic-bezier(.2,.7,.2,1)}
+.bar.faint{opacity:.45}
+.seen .bar{transform:scaleX(1)}
+.axis{display:flex;justify-content:space-between;font-size:.85rem;color:var(--ink-soft);
+  font-variant-numeric:tabular-nums;border-top:1px solid var(--line);padding-top:.3rem}
+.row .note{font-size:.88rem}
+
+/* the letter */
+.letter{background:var(--sheet);padding:clamp(1.4rem,5vw,2.6rem);border-radius:2px;
+  box-shadow:0 1px 0 #fff inset,0 14px 34px rgba(42,34,85,.18);transform:rotate(-.6deg);
+  font-size:1rem;line-height:1.6;position:relative;max-width:36rem;margin:0 auto}
+.letter .head{font-family:"Young Serif",serif;font-size:1.3rem;border-bottom:2px solid var(--ink);padding-bottom:.5rem;margin-bottom:1.2rem}
+.letter .head small{display:block;font-family:Literata,serif;font-size:.8rem;color:var(--ink-soft)}
+.hand{font-family:Caveat,cursive;color:var(--jo);font-size:1.7rem;line-height:1.1;
+  position:absolute;right:1rem;bottom:1.1rem;transform:rotate(-5deg)}
+.letter mark{background:linear-gradient(transparent 55%,color-mix(in srgb,var(--mum) 55%,transparent) 55%);color:inherit}
+
+.end{margin-top:4rem;padding-top:1.5rem;border-top:1px solid var(--line)}
+.next{font:inherit;font-size:1rem;background:var(--ink);color:var(--paper);border:0;border-radius:3px;padding:.8rem 1.2rem;opacity:.5}
+
+@media (prefers-reduced-motion:reduce){
+  .bar{transition:none;transform:none}.chip{transition:none}
+}
+
+/* ---- the book: fixed pages that turn ---- */
+html,body{height:100%;overflow:hidden}
+main{padding:0}
+#stage{position:fixed;inset:0 0 calc(3.6rem + env(safe-area-inset-bottom,0px)) 0;perspective:2200px;cursor:pointer}
+@media (min-width:64rem){#stage{inset:0}}
+.page{position:absolute;inset:0;overflow:hidden;background:var(--paper);
+  padding-block:calc(1.75rem + env(safe-area-inset-top,0px)) 1.75rem;
+  padding-left:max(1.25rem,env(safe-area-inset-left,0px),calc((100% - 36rem)/2));
+  padding-right:max(1.25rem,env(safe-area-inset-right,0px),calc((100% - 36rem)/2))}
+.btn-share{font:inherit;font-size:.95rem;background:none;border:1.5px solid var(--line);color:var(--ink);border-radius:8px;padding:.55rem .9rem;cursor:pointer}
+.leaf{pointer-events:none;will-change:clip-path}
+/* a turning page folds back from its edge: the leaf is cut along the fold, the flap is the back of the paper */
+.turn-shade,.turn-flap{position:absolute;inset:0;pointer-events:none}
+.turn-shade{background-repeat:no-repeat;background-image:linear-gradient(90deg,rgba(42,34,85,.30),rgba(42,34,85,0))}
+.turn-flap{filter:drop-shadow(-8px 0 12px rgba(42,34,85,.24))}
+.turn-flap i{position:absolute;inset:0;background-color:var(--paper);background-repeat:no-repeat;will-change:clip-path;
+  background-image:linear-gradient(90deg,rgba(42,34,85,.10),rgba(255,255,255,.55) 38%,rgba(255,255,255,0) 62%,rgba(42,34,85,.20))}
+.flow{height:100%;column-fill:auto}
+.flow .col,.flow .fig{max-width:none}
+.flow .fig{margin:1.5rem 0}
+.flow h2{margin:2.2rem 0 1rem;break-after:avoid}
+.flow .cold{min-height:100%;height:auto;padding:0;break-after:column}
+.flow .open{padding:0;break-after:column}
+.flow .memory{margin-top:0}
+.flow .end{margin-top:2.5rem}
+.flow p{orphans:2;widows:2}
+.map,.legend li,.row,.axis,.letter,.swatches li,.flow svg,.sea,figcaption{break-inside:avoid}
+.map canvas,.map .town{position:absolute;inset:0;width:100%;height:100%}
+.hint{margin-top:2rem}
+#bar{position:fixed;z-index:7;top:0;left:0;height:3px;width:0;background:var(--ink);transition:width .3s}
+
+.painting{display:block;width:100%;height:auto;border-radius:3px;break-inside:avoid;box-shadow:0 12px 30px rgba(42,34,85,.25)}
+/* the paint card */
+.card-strip{break-inside:avoid;border-radius:3px;overflow:hidden;box-shadow:0 10px 26px rgba(42,34,85,.16)}
+.card-strip div{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;padding:.7rem .9rem;border-bottom:1px solid rgba(42,34,85,.08)}
+.card-strip b{font-family:Caveat,cursive;font-weight:500;font-size:1.45rem;line-height:1;color:var(--nell)}
+.card-strip s{font-size:.8rem;color:var(--ink-soft);white-space:nowrap}
+
+/* the audiobook */
+#listen{position:fixed;z-index:8;bottom:calc(.5rem + env(safe-area-inset-bottom,0px));right:calc(.75rem + env(safe-area-inset-right,0px));width:2.4rem;height:2.4rem;border-radius:50%;border:0;
+  background:var(--ink);color:var(--paper);display:grid;place-items:center;cursor:pointer;
+  box-shadow:0 6px 18px rgba(42,34,85,.3)}
+#listen svg{fill:currentColor;width:18px;height:18px}
+@media (min-width:64rem){#listen{bottom:auto;top:1.2rem;right:1.5rem;width:2.9rem;height:2.9rem}#listen svg{width:22px;height:22px}}
+#listen .i-pause,#listen[aria-pressed=true] .i-play{display:none}
+#listen[aria-pressed=true] .i-pause{display:block}
+#listen:focus-visible{outline:3px solid var(--note);outline-offset:3px}
+.reading{background:color-mix(in srgb,var(--giles) 45%,transparent);box-shadow:0 0 0 .35rem color-mix(in srgb,var(--giles) 45%,transparent);border-radius:2px}
+
+/* chapter openers */
+.flow .chap{break-before:column;break-after:column;height:100%;display:grid;align-content:center}
+.chapno{color:var(--ink-soft);margin:0}
+.flow .chap h2{font-size:clamp(2.4rem,10vw,3.8rem);margin:.4rem 0 0}
+/* the envelope flap */
+.flap{position:relative;background:#EFE3C8;color:#B9A37A;border-radius:2px;aspect-ratio:400/210;break-inside:avoid;
+  box-shadow:0 10px 26px rgba(42,34,85,.18);font-family:Caveat,cursive;transform:rotate(.8deg)}
+.flap svg{position:absolute;inset:0;width:100%;height:100%}
+.flap span{position:absolute;left:0;right:0;text-align:center;color:#2B4FB3}
+.flap .l1{top:6%;font-size:clamp(2rem,9vw,3rem);transform:rotate(-2deg)}
+.flap .l2{top:33%;font-size:clamp(1.2rem,5.2vw,1.7rem);transform:rotate(-1deg)}
+/* her mother's ledger */
+.ledger{background:var(--sheet);padding:1.1rem 1.1rem 1rem;border-radius:2px;break-inside:avoid;box-shadow:0 12px 30px rgba(42,34,85,.2);
+  background-image:repeating-linear-gradient(transparent 0 1.9rem,rgba(46,115,200,.14) 1.9rem calc(1.9rem + 1px))}
+.lrow{display:grid;grid-template-columns:7.2rem 1fr;align-items:center;gap:.6rem;height:1.9rem}
+.lrow span,.ltotal span{font-family:Caveat,cursive;font-size:1.25rem;color:#2B4FB3;white-space:nowrap}
+.lrow i{height:1.05rem;width:var(--w);border-radius:2px;filter:url(#rough);
+  background:repeating-linear-gradient(115deg,var(--c) 0 2px,color-mix(in srgb,var(--c) 62%,transparent) 2px 4px)}
+.ltotal{display:flex;justify-content:space-between;align-items:baseline;margin-top:.9rem;padding-top:.5rem;border-top:3px double #2B4FB3}
+.ltotal b{font-family:Caveat,cursive;font-weight:500;font-size:2rem;color:#2B4FB3}
+#listen[hidden]{display:none}
+@media (max-width:63.99rem){.cast{padding-right:3.6rem}}
+
+/* the front cover */
+.flow .bookcover{break-after:column;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem}
+.flow .bookcover .bc{width:min(100%,calc((100svh - 10rem) * .6667))}
+.bc-hint{margin:0;text-align:center}
+.col .doc{margin:1.2em 0;padding:.9em 1.1em;border:1px solid var(--line,#d9d2c3);border-left:4px solid var(--ink,#33287A);background:var(--paper2,rgba(0,0,0,.025));font-size:.94em;border-radius:3px}
+.col .doc p{margin:.35em 0;text-indent:0}
+.col ul.list{margin:.8em 0 1em;padding-left:1.3em}
+.col ul.list li{margin:.25em 0}
+/* how this book was made */
+.flow .brief{break-before:column;break-after:column}
+.brief h2{margin:.3rem 0 .4rem}
+.brief-kind{color:var(--ink-soft);font-size:.95rem;margin:0 0 1rem}
+.slip{background:var(--sheet);border-radius:4px;padding:.8rem 1rem;box-shadow:0 8px 22px rgba(42,34,85,.14);margin-bottom:1rem;
+  background-image:repeating-linear-gradient(transparent 0 1.6rem,rgba(46,115,200,.10) 1.6rem calc(1.6rem + 1px))}
+.slip dl{margin:0;display:grid;gap:.55rem}
+.slip dt{font-size:.78rem;color:var(--ink-soft);letter-spacing:.04em}
+.slip dd{margin:0;font-family:Caveat,cursive;font-size:1.35rem;line-height:1.15;color:#2B4FB3}
+.brief h3{font-family:"Young Serif",Georgia,serif;font-weight:400;font-size:1.1rem;margin:.8rem 0 .25rem}
+.brief p{font-size:.95rem;line-height:1.45;margin:0}
+.brief2 h3:first-child{margin-top:0}
+.ideas{list-style:none;padding:0;margin:0;display:grid;gap:.3rem;font-size:.92rem;line-height:1.28}
+.ideas li{display:grid;grid-template-columns:4.6rem 1fr;gap:.6rem}
+.ideas span{color:var(--ink-soft);font-size:.85rem;padding-top:.1rem;font-variant-numeric:tabular-nums}
+/* tasters: a guess before the scene, and a bridge between the opening and the scene */
+.flow .guess{break-before:column;break-after:column;break-inside:avoid}
+.guess .ask{font-family:"Young Serif",Georgia,serif;font-size:1.4rem;line-height:1.2;margin:.3rem 0 .8rem}
+.guess-lead{margin:.2rem 0 .6rem}
+.guess .say{font-style:italic;line-height:1.4;margin:.8rem 0 0}
+.guess .opts button.other{opacity:.4}
+.guess .opts button.picked::before{box-shadow:0 0 0 3px var(--paper),0 0 0 6px var(--ink)}
+.guess .opts.text button.picked{border-color:var(--ink);box-shadow:0 0 0 1.5px var(--ink)}
+.flow .bridge{break-before:column;break-after:column;height:100%;display:flex;flex-direction:column;justify-content:center}
+.bridge p:last-child{font-family:"Young Serif",Georgia,serif;font-size:1.35rem;line-height:1.35;margin:.5rem 0 0}
+.guessed{font-style:italic;color:var(--ink-soft);margin:.6rem 0 0}
+/* show the teaching: the lesson lines highlighted, with a pencil note under each */
+body.teach .lesson{background:linear-gradient(transparent 56%,rgba(255,206,84,.7) 56%);-webkit-box-decoration-break:clone;box-decoration-break:clone}
+body.teach .lesson::after{content:"\21B3\00A0" attr(data-note);display:block;font-family:Caveat,cursive;font-size:1.3rem;line-height:1.1;color:#B4321F;
+  margin:.2rem 0 .45rem;font-style:normal;background:none}
+.teach-toggle{font:inherit;display:flex;align-items:center;justify-content:space-between;gap:1rem;width:100%;margin-top:.8rem;padding:.55rem .85rem;
+  border:1.5px solid var(--ink);border-radius:8px;background:var(--sheet);color:var(--ink);cursor:pointer;text-align:left;font-size:1rem;line-height:1.25}
+.teach-toggle .state{flex:none;font-size:.85rem;padding:.15rem .6rem;border-radius:99px;background:var(--paper-deep)}
+.teach-toggle[aria-pressed=true] .state{background:#FFD45E}
+.teach-toggle:focus-visible{outline:3px solid var(--note);outline-offset:2px}
+#menu .teach-toggle{display:flex;margin:0 0 .3rem;border:1px solid var(--line);padding:.6rem .8rem;font-size:1rem}
+#menu .teach-toggle .state{font-size:.8rem}
+/* chapters menu */
+#toc{position:fixed;z-index:8;bottom:calc(.5rem + env(safe-area-inset-bottom,0px));left:calc(.75rem + env(safe-area-inset-left,0px));
+  width:2.4rem;height:2.4rem;border-radius:50%;border:1.5px solid var(--ink);background:var(--paper);color:var(--ink);
+  display:grid;place-items:center;cursor:pointer}
+#toc svg{fill:currentColor}
+#toc:focus-visible{outline:3px solid var(--note);outline-offset:3px}
+#menu{position:fixed;z-index:9;left:.75rem;bottom:calc(3.9rem + env(safe-area-inset-bottom,0px));width:min(20rem,calc(100vw - 1.5rem));
+  background:var(--sheet);border-radius:6px;padding:.4rem;box-shadow:0 14px 40px rgba(42,34,85,.3);display:grid;gap:.15rem;
+  max-height:calc(100svh - 5.2rem - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px));overflow-y:auto;overscroll-behavior:contain}
+#menu[hidden]{display:none}
+#menu button{font:inherit;text-align:left;background:none;border:0;border-radius:4px;padding:.6rem .8rem;cursor:pointer;color:var(--ink);
+  display:grid;gap:.05rem;line-height:1.25}
+#menu button small{font-size:.8rem;color:var(--ink-soft)}
+#menu button b{font-family:"Young Serif",Georgia,serif;font-weight:400;font-size:1.15rem}
+#menu button[aria-current=true]{background:color-mix(in srgb,var(--giles) 45%,transparent)}
+#menu button:focus-visible{outline:3px solid var(--note);outline-offset:-3px}
+@media (max-width:63.99rem){.cast{padding-left:3.6rem;gap:.4rem}.cast .chip{width:1.9rem;height:1.9rem}}
+@media (min-width:64rem){#toc{bottom:auto;top:1.2rem;left:auto;right:5.2rem;width:2.9rem;height:2.9rem}
+  #menu{left:auto;right:1.5rem;bottom:auto;top:4.8rem;max-height:calc(100svh - 6.3rem)}}
+
+/* the biscuit test */
+.flow .test{break-before:column;break-after:column;break-inside:avoid}
+.test .ask{font-family:"Young Serif",Georgia,serif;font-size:1.5rem;line-height:1.2;margin:.2rem 0 .8rem}
+.test > p{margin-bottom:.8em}
+.opts{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:.8rem}
+.opts button{font:inherit;border:0;padding:0;background:none;cursor:pointer;display:block;min-width:0;width:100%;color:var(--ink);text-align:left}
+.opts button span{display:block;margin-top:.3rem}
+.opts button::before{content:"";display:block;aspect-ratio:2.1;border-radius:7px 4px 8px 4px;background:var(--c) var(--tex, none) center/cover;transition:opacity .3s,transform .2s}
+.opts button span{font-family:Caveat,cursive;font-size:1.25rem;line-height:1.1}
+.opts button:focus-visible{outline:3px solid var(--note);outline-offset:3px}
+.opts button.no::before{opacity:.25}
+.opts button.no span{text-decoration:line-through;opacity:.5}
+.opts button.yes::before{box-shadow:0 0 0 3px var(--paper),0 0 0 6px var(--ink)}
+.test.hint .opts button:not(.no):not(.yes)[data-right]::before{animation:nudge 1s ease-in-out infinite}
+.test .say{min-height:2.6em;margin:.7rem 0 .3rem;font-style:italic;line-height:1.4}
+.won{display:flex;align-items:center;gap:.9rem;break-before:avoid;break-inside:avoid}
+.won[hidden]{display:none}
+.won svg{width:3.2rem;height:3.2rem;flex:none}
+.won p{margin:0;font-family:"Young Serif",Georgia,serif;font-size:1.1rem}
+.test.shake{animation:shake .35s}
+@keyframes nudge{50%{transform:scale(1.06)}}
+@keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+#menu button:disabled{opacity:.45;cursor:default}
+#menu a.dl{display:grid;gap:.05rem;line-height:1.25;padding:.7rem .8rem .6rem;margin-top:.3rem;border-top:1px solid var(--line);color:var(--ink);text-decoration:none;border-radius:0 0 4px 4px}
+#menu a.dl small{font-size:.8rem;color:var(--ink-soft)}
+#menu a.dl b{font-family:"Young Serif",Georgia,serif;font-weight:400;font-size:1.15rem}
+#menu a.dl:focus-visible{outline:3px solid var(--note);outline-offset:-3px}
+@media (prefers-reduced-motion:reduce){.test.shake,.test.hint .opts button::before{animation:none}}
+
+/* ledger variations */
+.lhead{font-family:Caveat,cursive;font-size:1.45rem;color:#2B4FB3;line-height:1.9rem;border-bottom:2px solid #2B4FB3;margin-bottom:.4rem}
+.ledger.wide .lrow{grid-template-columns:9.4rem 1fr}
+.lnote{font-family:Caveat,cursive;font-size:1.15rem;color:#C0392B;text-align:right;line-height:1.9rem;transform:rotate(-1.5deg)}
+.lkey{display:grid;grid-template-columns:2.6rem 1fr;gap:.7rem;align-items:start;min-height:1.9rem;padding:.25rem 0}
+.lkey i{height:1.2rem;margin-top:.25rem;border-radius:2px;filter:url(#rough);background:repeating-linear-gradient(115deg,var(--c) 0 2px,color-mix(in srgb,var(--c) 62%,transparent) 2px 4px)}
+.lkey span{font-family:Caveat,cursive;font-size:1.25rem;line-height:1.25;color:#2B4FB3}
+.lkey b{font-weight:500;display:block;color:var(--ink)}
+.lline{display:grid;grid-template-columns:1.5fr .7fr 1fr 1fr;gap:.4rem;font-family:Caveat,cursive;font-size:1.3rem;line-height:1.9rem;color:#6C6A8C}
+.lline.red{color:#C0392B;font-size:1.55rem;font-weight:500;transform:rotate(-.6deg)}
+.lline em{font-style:normal;color:#D9A21A}
+/* text messages */
+.txt,.sms .say:not(:empty),.msg{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;font-size:.95rem;line-height:1.4;font-style:normal;
+  background:var(--paper-deep);border-radius:14px 14px 14px 3px;padding:.6rem .85rem;max-width:88%;width:fit-content}
+.sms .say{min-height:0}
+.sms .say:empty{display:none}
+.msg{background:color-mix(in srgb,var(--giles) 55%,var(--paper))}
+.opts button span{line-height:1.05}
+.note.small{font-size:.8rem;margin-top:1.2rem}
+
+/* keep a whole test on one page */
+.test.sms .opts button::before{aspect-ratio:3.1}
+/* questions answered in words, not colours */
+.opts.text{grid-template-columns:minmax(0,1fr);gap:.45rem}
+.opts.text button{border:1.5px solid var(--line);border-radius:8px;padding:.5rem .75rem;background:var(--sheet);transition:opacity .3s}
+.opts.text button::before{display:none}
+.opts.text button span{font-family:inherit;font-size:.98rem;line-height:1.3;margin:0}
+.opts.text button.no{opacity:.45}
+.opts.text button.yes{border-color:var(--ink);box-shadow:0 0 0 1.5px var(--ink)}
+.test.sms .ask{font-size:1.3rem;margin:.1rem 0 .6rem}
+.test.sms > p{margin-bottom:.55em}
+.test .say{break-inside:avoid}
+.test.sms .won p{font-size:1rem}
+.test.sms .won svg{width:2.4rem;height:2.4rem}
+
+/* seven colours in one bar */
+.lrow i.multi,.opts button.rainbow::before{background:linear-gradient(90deg,#2E73C8 0 22%,#2FA39A 22% 36%,#E9C95A 36% 50%,#E2452E 50% 58%,#8FA86A 58% 70%,#F26FA6 70% 76%,#F08A24 76%)}
+.lrow i{max-width:100%}
+
+/* the tin of everything */
+.tin{display:grid;grid-template-columns:repeat(18,1fr);gap:2px;padding:.6rem;background:#2B2A5C;border-radius:50%/12%;break-inside:avoid;
+  box-shadow:inset 0 0 0 5px #C9A64B,0 12px 30px rgba(42,34,85,.25)}
+.tin i{aspect-ratio:1;border-radius:2px 1px 3px 1px}
+/* the ticket */
+.ticket{position:relative;background:#FBF3E4;border-radius:6px;padding:1rem 1.1rem;break-inside:avoid;transform:rotate(-1.2deg);
+  box-shadow:0 10px 26px rgba(42,34,85,.2);border-top:.55rem solid #E1772A;font-family:system-ui,-apple-system,sans-serif;color:#3A2E2A}
+.trow{display:flex;justify-content:space-between;align-items:baseline;gap:.5rem}
+.trow b{font-size:1.35rem;letter-spacing:.04em}
+.trow.sm{margin-top:.7rem;font-size:.8rem;letter-spacing:.06em;color:#6E5E55}
+.tstamp{position:absolute;right:1rem;bottom:-.6rem;font-family:Caveat,cursive;font-size:1.5rem;color:#C0392B;transform:rotate(-8deg)}
+/* her letter */
+.bluepaper{background:#DCE8F7;color:#1F3A8A;font-family:Caveat,cursive;font-size:1.32rem;line-height:1.55rem;padding:1.1rem 1.2rem 1.3rem;break-inside:avoid;
+  background-image:repeating-linear-gradient(transparent 0 1.5rem,rgba(31,58,138,.18) 1.5rem calc(1.5rem + 1px));border-radius:2px;
+  box-shadow:0 12px 30px rgba(42,34,85,.22);transform:rotate(.5deg)}
+.bluepaper p{margin:0 0 .35rem}
+/* the writing check */
+.flow .wgate{break-before:column;break-after:column;break-inside:avoid}
+.wgate .who-to{color:var(--ink-soft);margin:0 0 .3rem}
+.wgate .ask{font-family:"Young Serif",Georgia,serif;font-size:1.45rem;line-height:1.2;margin:0 0 .5rem}
+.wgate .sub{font-size:.95rem;color:var(--ink-soft);margin:0 0 1rem}
+.wform{display:flex;gap:.6rem;align-items:stretch}
+.wform[hidden]{display:none}
+.wform input{font:inherit;font-size:1.4rem;width:7.5rem;padding:.45rem .7rem;border:2px solid var(--ink);border-radius:6px;background:var(--sheet);color:var(--ink)}
+.wform button{font:inherit;font-size:1rem;border:0;border-radius:6px;padding:.5rem 1rem;background:var(--ink);color:var(--paper);cursor:pointer}
+.wform input:focus-visible,.wform button:focus-visible{outline:3px solid var(--note);outline-offset:2px}
+.wgate .say{font-style:italic;min-height:2.4em;margin:.9rem 0 .6rem}
+.wbar{height:1.3rem;background:var(--paper-deep);border-radius:3px;overflow:hidden;filter:url(#rough)}
+.wbar i{display:block;height:100%;width:var(--w,0%);transition:width .6s;
+  background:repeating-linear-gradient(115deg,#EBA91A 0 2px,color-mix(in srgb,#EBA91A 62%,transparent) 2px 4px)}
+.wbar.full i{background:repeating-linear-gradient(115deg,#5DA24F 0 2px,color-mix(in srgb,#5DA24F 62%,transparent) 2px 4px)}
+.wlabel{display:flex;justify-content:space-between;font-size:.85rem;color:var(--ink-soft);margin-top:.3rem;font-variant-numeric:tabular-nums}
+.wgate .won{margin-top:1rem}
+
+/* fact sheet */
+.factsheet{background:#FFFFFF;color:#2A2A33;border-radius:3px;padding:1rem;break-inside:avoid;box-shadow:0 12px 30px rgba(42,34,85,.2);
+  font-family:system-ui,-apple-system,"Segoe UI",sans-serif;font-size:.82rem;line-height:1.3}
+.fsh{display:flex;justify-content:space-between;align-items:baseline;gap:.5rem;border-bottom:2px solid #2A2A33;padding-bottom:.4rem;margin-bottom:.5rem}
+.fsh b{font-size:.98rem}
+.fsh span{font-size:.72rem;color:#6B6B78;white-space:nowrap}
+.fsrow{display:grid;grid-template-columns:6.4rem 1fr;gap:.5rem;padding:.4rem .5rem;margin:.25rem 0;border-radius:40% 30% 45% 35%/60% 50% 60% 45%}
+.fsrow span{color:#6B6B78}
+.fsrow b{font-weight:600}
+.fsrow.c1{box-shadow:0 0 0 2px #2E73C8}.fsrow.c2{box-shadow:0 0 0 2px #F08A24}.fsrow.c3{box-shadow:0 0 0 2px #D9A21A}.fsrow.c4{box-shadow:0 0 0 2px #5DA24F}
+.fsrow.dim{opacity:.4}
+.fsgraph{position:relative;margin-top:.5rem;color:#9A9AA8}
+.fsgraph svg{width:100%;height:2.4rem}
+.fsgraph i{position:absolute;right:0;top:-.2rem;font-family:Caveat,cursive;font-style:normal;font-size:1.15rem;color:#C0392B;transform:rotate(-3deg)}
+/* inside back cover */
+.flow .backcover{break-before:column;break-inside:avoid}
+.backcover h2{margin:.3rem 0 1rem}
+.ledger.rules .lkey{min-height:0;padding:.3rem 0}
+.ledger.rules .lkey span{font-size:1.15rem}
+.lkey i.multi{background:linear-gradient(90deg,#2E73C8 0 22%,#2FA39A 22% 36%,#E9C95A 36% 50%,#E2452E 50% 58%,#8FA86A 58% 70%,#F26FA6 70% 76%,#F08A24 76%)}
+.btn-end{display:inline-block;font:inherit;font-size:1rem;background:var(--ink);color:var(--paper);padding:.8rem 1.2rem;border-radius:6px;text-decoration:none}
+.btn-end:focus-visible{outline:3px solid var(--note);outline-offset:3px}
+</style>
+<style>:root{--margo:#E07A5F;--myrna:#C77DA3;--orv:#8C5A2B;--milo:#D98E04;--oona:#B23A48;--niall:#2F5D62;--noor:#6A4C93;--memory:#E07A5F;}[data-who=margo]{--c:var(--margo)}[data-who=myrna]{--c:var(--myrna)}[data-who=orv]{--c:var(--orv)}[data-who=milo]{--c:var(--milo)}[data-who=oona]{--c:var(--oona)}[data-who=niall]{--c:var(--niall)}[data-who=noor]{--c:var(--noor)}</style>
+<meta name="theme-color" content="#2A2255">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Wharf Kitchen">
+<meta name="description" content="If you can&#x27;t stand the heat, come home. Read chapter one of The Wharf Kitchen free: a small-town romance that teaches how to cook.">
+<link rel="canonical" href="https://learnedbyheart.com/library/the-wharf-kitchen/">
+<meta property="og:type" content="book">
+<meta property="og:title" content="The Wharf Kitchen">
+<meta property="og:description" content="If you can&#x27;t stand the heat, come home. Read chapter one of The Wharf Kitchen free: a small-town romance that teaches how to cook.">
+<meta property="og:url" content="https://learnedbyheart.com/library/the-wharf-kitchen/">
+<meta property="og:image" content="https://learnedbyheart.com/img/library/the-wharf-kitchen.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&display=swap" rel="stylesheet">
+<style>
+.bc{position:relative;container-type:inline-size;aspect-ratio:2/3;border-radius:3px 6px 6px 3px;overflow:hidden;
+  box-shadow:0 1px 2px rgba(42,34,85,.2),0 18px 40px rgba(42,34,85,.35),inset 4px 0 0 rgba(255,255,255,.08);background:#2A2255}
+.bc img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.bc::after{content:"";position:absolute;inset:0 auto 0 0;width:3.5%;background:linear-gradient(90deg,rgba(0,0,0,.28),rgba(255,255,255,.12) 60%,transparent)}
+.bc-text{position:absolute;left:0;right:0;top:0;padding:calc(var(--top,9) * 1cqw) 8cqw 0;text-align:center;display:flex;flex-direction:column;align-items:center;
+  padding-bottom:6cqw;background:linear-gradient(rgba(10,8,30,.5),rgba(10,8,30,.32) 60%,rgba(10,8,30,0))}
+.bc-title{font-family:inherit;font-weight:400;font-size:calc(12.5cqw * var(--tsz,1));line-height:1;letter-spacing:-.01em;margin:0;text-wrap:balance;text-shadow:0 2px 14px rgba(0,0,0,.35)}
+.bc-line{color:var(--lc);font-family:Literata,Georgia,serif;font-style:italic;font-size:4.6cqw;line-height:1.35;text-wrap:balance;margin:calc(var(--gap,4) * 1cqw) auto 0;max-width:80cqw;text-shadow:0 1px 8px rgba(0,0,0,.5)}
+.bc-brand{position:absolute;left:0;right:0;bottom:0;padding:14cqw 0 5cqw;background:linear-gradient(rgba(10,8,30,0),rgba(10,8,30,.55));margin:0;display:flex;align-items:center;justify-content:center;gap:1.6cqw;font-family:Fraunces,Georgia,serif;font-weight:500;font-variation-settings:'SOFT' 100;font-size:4.4cqw;letter-spacing:.01em;color:#FFFCF2;text-shadow:0 1px 6px rgba(0,0,0,.6)}
+.bc-brand svg{width:5.6cqw;height:5.6cqw;filter:drop-shadow(0 1px 3px rgba(0,0,0,.5))}
+.bc.light .bc-text{background:linear-gradient(rgba(255,252,242,.7),rgba(255,252,242,.45) 60%,rgba(255,252,242,0))}
+.bc.light .bc-title{text-shadow:0 1px 12px rgba(255,252,242,.7)}
+.bc.light .bc-line{text-shadow:0 0 6px rgba(255,252,242,.95),0 0 16px rgba(255,252,242,.85)}
+
+/* tagline treatments: type only, set on the painting */
+.tag-face{font-family:inherit;font-size:5cqw;line-height:1.3;margin-top:4cqw}
+
+.tag-sans{font-family:inherit;font-style:normal;font-weight:500;font-size:4.5cqw;line-height:1.3;letter-spacing:.01em}
+.bc-line.above{order:-1;margin:0 auto calc(var(--gap,4) * 1cqw)}
+.bc-title.upper{text-transform:uppercase;letter-spacing:.02em}
+
+.tag-caps{font-family:inherit;font-style:normal;text-transform:uppercase;letter-spacing:.16em;font-size:calc(3.5cqw * var(--ts,1));line-height:1.45;max-width:78cqw;margin-top:5.5cqw;text-shadow:0 1px 8px rgba(0,0,0,.75)}
+
+.tag-rules{font-family:inherit;font-style:normal;font-variant:small-caps;letter-spacing:.06em;font-size:4.3cqw;line-height:1.4;max-width:76cqw;margin-top:5cqw}
+.tag-rules::before,.tag-rules::after{content:"";display:block;height:1px;width:34cqw;margin:0 auto 2.6cqw;background:linear-gradient(90deg,transparent,currentColor,transparent)}
+.tag-rules::after{margin:2.6cqw auto 0}
+
+.tag-fleuron{margin-top:2.5cqw}
+.tag-fleuron::before{content:"";display:block;width:30cqw;height:6cqw;margin:0 auto 2.4cqw;background:var(--lc);-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 120 24%27%3E%3Cpath d=%27M60 4c4 6 4 12 0 16-4-4-4-10 0-16zM56 12c-10-7-22-8-34-2 12 0 22 2 34 4zM64 12c10-7 22-8 34-2-12 0-22 2-34 4zM8 12h12M100 12h12%27 fill=%27none%27 stroke=%27black%27 stroke-width=%272.4%27 stroke-linecap=%27round%27/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 120 24%27%3E%3Cpath d=%27M60 4c4 6 4 12 0 16-4-4-4-10 0-16zM56 12c-10-7-22-8-34-2 12 0 22 2 34 4zM64 12c10-7 22-8 34-2-12 0-22 2-34 4zM8 12h12M100 12h12%27 fill=%27none%27 stroke=%27black%27 stroke-width=%272.4%27 stroke-linecap=%27round%27/%3E%3C/svg%3E") center/contain no-repeat;filter:drop-shadow(0 1px 3px rgba(0,0,0,.5))}
+
+.tag-deco{font-family:inherit;font-style:italic;font-size:4.6cqw;max-width:74cqw;margin-top:4cqw;padding:2cqw 1cqw}
+.tag-deco::before,.tag-deco::after{content:"";display:block;width:40cqw;height:.7cqw;margin:0 auto 2.4cqw;border-block:1px solid var(--lc)}
+.tag-deco::after{margin:2.4cqw auto 0}
+
+.tag-rule{margin-top:3cqw}
+.tag-rule::before{content:"";display:block;width:12cqw;height:1px;margin:0 auto 3cqw;background:currentColor;opacity:.7}
+
+.tag-glam{font-family:inherit;font-style:italic;font-size:5cqw;line-height:1.3;max-width:70cqw;margin-top:4cqw;letter-spacing:.005em;text-shadow:0 1px 10px rgba(0,0,0,.6)}
+.tag-glam::before{content:"\25C6";display:block;font-style:normal;font-size:2.6cqw;line-height:1;margin:0 auto 3cqw;width:44cqw;color:var(--lc);
+  background:linear-gradient(90deg,transparent,var(--lc) 30%,transparent 46%,transparent 54%,var(--lc) 70%,transparent) center/100% 1px no-repeat}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><filter id="rough" x="-15%" y="-15%" width="130%" height="130%"><feTurbulence type="fractalNoise" baseFrequency=".04" numOctaves="2" seed="4" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="5" xChannelSelector="R" yChannelSelector="G"/></filter></svg>
+
+<nav class="cast" aria-label="The people">
+  <button class="chip" data-who="margo" aria-expanded="false" aria-label="Margo"></button>
+  <button class="chip" data-who="myrna" aria-expanded="false" aria-label="Myrna"></button>
+  <button class="chip" data-who="orv" aria-expanded="false" aria-label="Orv"></button>
+  <button class="chip" data-who="milo" aria-expanded="false" aria-label="Milo"></button>
+  <button class="chip" data-who="oona" aria-expanded="false" aria-label="Oona"></button>
+  <button class="chip" data-who="niall" aria-expanded="false" aria-label="Niall"></button>
+  <button class="chip" data-who="noor" aria-expanded="false" aria-label="Noor"></button>
+</nav>
+<div class="card" id="card" hidden role="status"></div>
+<button id="listen" aria-label="Listen to this chapter" aria-pressed="false">
+  <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path class="i-play" d="M8 5v14l11-7z"/><path class="i-pause" d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>
+</button>
+<audio id="voice" preload="none"></audio>
+<button id="toc" aria-label="Chapters" aria-expanded="false" aria-controls="menu">
+  <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M4 6h16v2H4zM4 11h16v2H4zM4 16h10v2H4z"/></svg>
+</button>
+<div id="menu" hidden></div>
+
+<main><div id="stage"><div class="page" id="book"><div class="flow" id="flow">
+<section class="bookcover" data-noaudio>
+  <div class="bc light" role="img" aria-label="Cover: The Wharf Kitchen" style="--lc:#3B4763;--ts:1"><img src="art/cover.jpg" alt="" draggable="false"><div class="bc-text" style="color:#2A3550;font-family:'Fraunces',Georgia,serif"><h1 class="bc-title" style="font-weight:700">The Wharf Kitchen</h1><p class="bc-line tag-plain">If you can&#x27;t stand the heat, come home.</p></div><p class="bc-brand"><svg viewBox="0 0 100 100" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M50 86C31 73 9 58 9 36C9 20 24 12 37 18C44 21 48 26 50 32C52 26 56 21 63 18C76 12 91 20 91 36C91 58 69 73 50 86Z" stroke-width="4"/><path d="M50 32V86" stroke-width="3.2"/><g stroke-width="3"><path d="M50 44C42 33 27 29 18 38"/><path d="M50 56C42 45 29 42 21 50"/><path d="M50 44C58 33 73 29 82 38"/><path d="M50 56C58 45 71 42 79 50"/></g></g></svg><span>Learned by Heart</span></p></div>
+  <p class="note bc-hint">Tap the right side of the page to open the book.</p>
+</section>
+<section class="cold col">
+  <p class="first">The haddock looked better than any haddock Margo had ever eaten, which was the point, because nobody was ever going to eat it.</p>
+  <p>She pushed one more fry onto its dressmaker's pin, so the pile would stand up proud of the paper boat, and stepped back. Under the lights the batter had the shine of a new car. Behind the fillet, where the camera couldn't see, a tampon she had soaked in water and microwaved let off a thin, steady thread of steam.</p>
+  <p class="note hint">Tap the right side of the page to turn it.</p>
+</section>
+
+<header class="open col" style="max-width:var(--wide)">
+  <h1>The Wharf Kitchen</h1>
+  <p class="chapter">Chapter one. Fish That Looks Like Fish.</p>
+</header>
+
+<article>
+<div class="col">
+  <h2>Toronto, Friday</h2>
+  <p>"Can I get more steam," the director said from behind the monitor. "It's reading cold, it's reading like a Thursday."</p>
+  <p>"Steam's coming," said <span class="who" data-who="margo">Margo</span>. She fished the old tampon out with the long tweezers and tucked a fresh one behind the fillet, straight out of the microwave and hot enough to sting through the steel. The fish was real, more or less. She had sawn it off a frozen block at dawn, glued the batter back where it cracked and painted it with motor oil. The vinegar in the little bottle was cold tea. Only the lemon was real, and under the lamps it kept sweating and losing its shine.</p>
+  <p>The woman from Saltcrest had been holding the same coffee since lunch. "Gorgeous, love it, but is it East Coast? The brief says East Coast, authentic, somebody's grandpa on a dock."</p>
+  <p>"I grew up on a wharf," Margo said, "and that's a wharf fish."</p>
+  <p>"Totally, a hundred percent." The woman stepped in close and lowered her voice. "So, full transparency, next year the campaign goes generated. No set, no stylist, no fish. Just a guy in Mississauga with a laptop. I flagged it, and I want that on the record, that I flagged it."</p>
+  <p>"Sure," Margo said. "Can we go again in ten minutes? The lemon is dying under the lamps."</p>
+  <p>Saltcrest had been half her year. Since September she had slept on the velvet sofa at the back of the studio, with her toothbrush in a box of plastic grapes, and the manager had started switching the heat off at night to make a point. Where was she going to sleep in January?</p>
+  <p>In Port Hallet it was an hour later, and the Friday rush would be at its loudest. Every Friday at this time she called the Kitchen. Her father answered "Yup," set the phone down by the till and left her there, and she worked to the sound of his fryers for an hour, the hatch slamming, Oona Hatt swearing at somebody about the slaw.</p>
+  <p>She pressed the number and laid the phone face down beside her glue gun.</p>
+  <p>"Wharf Kitchen."</p>
+  <p>It wasn't her father, and there was no fryer behind the voice, only wind. Margo picked the phone up. "Mom?"</p>
+  <p>"Oh, it's Margo. We're closed this evening, I'm afraid."</p>
+  <p>"Why are you closed on a Friday?"</p>
+  <p>"Your father came off the ladder at the fuel dock, the one with the bad rung," said <span class="who" data-who="myrna">Myrna</span>. "He landed on Oona's boat. He is in the hospital in Bridgewater. They've put him in with a man from Mahone Bay who sings."</p>
+  <p>"What do you mean, came off it? Is he okay?"</p>
+  <p>"It's his wrist. And three ribs according to the doctor, and two according to your father."</p>
+  <p>"Mom."</p>
+  <p>"He threw a butterscotch pudding cup at a nurse. She's one of the Publicovers from Blandford, and her mother had her hip done the same week as Nils's mother."</p>
+  <p>"So who's cooking for the boats?"</p>
+  <p>"There's a sign on the door."</p>
+  <p>"What about Monday? It's Dumping Day."</p>
+  <p>"I'll do sandwiches. Oona doesn't care for egg, but she can pick it out."</p>
+  <p>"Do you want me to come home?"</p>
+  <p>"No, there's no need. It's a long way, and you've got your shoots." The wind came down the line and dropped away again. "The parking at the hospital is eight dollars. I'm only telling you in case."</p>
+  <p>The woman from Saltcrest was photographing the haddock on her phone, close up, for herself.</p>
+  <p>"I'm booked right through to spring," Margo said. "But I can move some things around."</p>
+  <p>"Well," said Myrna, "only if it's no trouble. You'll want boots for the wharf."</p>
+</div>
+
+<div class="col">
+  <h2>Port Hallet, Saturday</h2>
+  <p>She put the flight on a credit card she had promised herself she would cut up, took the cheapest car at the Halifax airport and drove down the shore. The wharf at Port Hallet was walled with traps, green wire and yellow rope stacked higher than a man, each boat's buoys hung off its own stacks in bunches. She came down onto it too fast and clipped a corner with the wing mirror. A trap slid off the top and landed on the hood.</p>
+  <p>A man in a toque came out from between the stacks already shouting. "You blind or what? That's three days of rigging you're parked on."</p>
+  <p>"Then stack them so they don't fall on people," Margo said, and reversed over his rope. In the mirror he was still shouting, with the rope held up in both fists, and she had no idea who he was.</p>
+  <p>The Kitchen was at the far end, a grey shingled box with a red door, a hatch, and a haddock painted on the wall that had faded into the general idea of a fish. Had it always been this small? Inside it smelled of old fryer oil and coffee and diesel and wet wool, and her eyes stung.</p>
+  <p>A long boy in a hairnet unfolded from behind the fryers with a scraper in one hand. The last time she saw <span class="who" data-who="milo">Milo</span> Corkum he had been eating ketchup out of the packets. Now his head nearly touched the fryer hood and he was trying to grow a moustache.</p>
+  <p>"Hi, Margo, Myrna said you would come. She said you might not, and then later she said you would."</p>
+  <p>"Milo, hi. Look at you, you're enormous."</p>
+  <p>"I'm doing a boil-out on the fryers. You drain the oil when it's cold and fill them up with water and the cleaner, and then you bring it to the boil and the carbon comes off the walls. They show you a video on the safety course. The man's arm in the video is obviously fake."</p>
+  <p>"Great," said Margo. "Love that."</p>
+  <p>The door banged open and the wind came in with a woman in it, short and square, in orange bib pants and a toque pulled down to her eyebrows, and she smelled powerfully of herring.</p>
+  <p>"That Orv's girl." <span class="who" data-who="oona">Oona</span> looked her up and down, the good wool coat, the city boots. "Thought it was the bank come for the place. He come down that ladder arse first into my bait totes. Boys had to dig him out of the herring. Never spilled the chowder, the stubborn old bastard." She jerked her chin at the fryers. "Who's opening Monday."</p>
+  <p>"Mom says she's going to do sandwiches."</p>
+  <p>Oona looked at the ceiling. "Egg. Whole fleet going out at half four, loaded to the rails, in that sea, on egg." She turned back to Margo. "You do food up in Toronto, on the TV. Orv won't shut up about it."</p>
+  <p>Margo was holding a squeeze bottle of tartar sauce in both hands. At Christmas her father had asked her whether she was eating, and nothing else, and all this time he had been talking about her through the hatch to Oona Hatt, who would tell the whole shore.</p>
+  <p>"I do food," she said.</p>
+  <p>"Then do some. Me and the crew, seven o'clock, haddock and chips. Bring it down the boat, we're rigging till late. Fit to eat, you get Monday."</p>
+  <p>"I'd need your covers," Margo said. "Any allergies. Plated or family style."</p>
+  <p>"Jesus Murphy. There's four of us and nobody's allergic to shit. Plate it on the boat." Oona went back out and left the door for the wind to shut.</p>
+  <p>"The fryers are slow after a boil-out," Milo said to his scraper. "Because the oil's all new, and the thermostat..."</p>
+  <p>"Milo, it's going to be fine."</p>
+  <p>"I'm just saying. They're slow to come up."</p>
+</div>
+
+<div class="col">
+  <h2>Seven o'clock</h2>
+  <p>At six she had a clean apron and a hairnet, and on the steel a bag of flour, a carton of eggs, a can of beer from Orv's cooler and a white tub of haddock with its lid frozen on. She dug a thumbnail under the rim. The plastic split and the edge opened the side of her thumb, deep and clean, white until it filled.</p>
+  <p>She wrapped it in paper towel and kept going. The towel soaked through, so she added another and held it in her fist and cracked the eggs one-handed. A few dark drops got into the flour, and she stirred them in. She whisked until the batter was smooth enough to photograph and laid the fillets out on the steel to lose their chill.</p>
+  <p>"The light's still on, on the fryer," Milo said at her elbow. "When it's on, that means the element is still heating. When it goes off, it's at temperature. Except after a boil-out it goes off early, because new oil..."</p>
+  <p>"I can see the light, Milo."</p>
+  <p>He went back to the sink. He had stayed after his shift and he kept rinsing the same ladle.</p>
+  <p>The light was on when she lowered the first basket. The oil barely spoke when the fish touched it. A few lazy bubbles came up around the fish, the batter slumped and spread, and when she lifted the basket the fillets hung in it heavy and grey, their coats sliding off them in sheets of grease. She tipped the lot into the garbage.</p>
+  <p>She turned the dial as far as it went. The second basket hit the oil and the oil roared up and spat at her wrists, and a grey sheet of smoke lifted off it, and the extractor began to scream. The batter darkened fast, gold, then deep gold, then nearly black at the edges, and she pulled it. It looked like the photograph in her head. She trimmed the worst edges with the kitchen scissors and laid each fillet on a bed of chips in a paper boat, set a wedge of lemon against it and wiped the rims with a clean cloth. She packed the four boats into a cardboard box and stood back.</p>
+  <p>Milo picked one up and broke it open with his thumbs. She slapped at his wrist, too late.</p>
+  <p>The coat cracked, and inside it the fish was grey and glassy and wet, and it smelled of the cooler, and no steam came out of it at all.</p>
+  <p>"It's raw in the middle," Milo said. "You can't take that down to them. Haddock's supposed to be cooked right through, it should flake. If they eat that they could get sick, and Mona's pregnant, she told Oona on Thursday and Oona told everybody at the fuel dock."</p>
+  <p>"It's dark on that boat and they're frozen, they'll eat it."</p>
+  <p>"It's still raw, though, even in the dark."</p>
+  <p>"Then I'll put them back in for a minute."</p>
+  <p>"The outside's already burnt, so if you put it back in, the outside burns more and the middle still won't..."</p>
+  <p>"Did you touch the dial when I was in the cooler?"</p>
+  <p>He blinked at her. "What?"</p>
+  <p>"Did you touch it? Because it was fine, and then I come back and it's all over the place." Her voice was high and flat, and she let it. "You've been on my elbow all night going the light, the light. What does my dad pay you for, to stand there and narrate? No wonder you're still here."</p>
+  <p>Milo put the broken fillet back in its paper boat. He pulled the apron off over his head with the hairnet caught in the strap and let both of them drop on the floor, and he went out of the red door into the wind in his T-shirt. His coat stayed on its hook. She could have taken it to him. She stood with the scissors in her bad hand and listened to his boots go up the wharf, and the extractor screamed over the last of them.</p>
+  <p>Somebody knocked on the hatch, and when she slid it up there was a young man with frost in his eyebrows and a limp he was trying to hide, Oona's Nils.</p>
+  <p>"Oona wants to know where's the scoff."</p>
+  <p>"The fryer's down," Margo said. "Milo did a boil-out on it today and walked off before it came back up. I'm sorry, tell Oona I'm sorry."</p>
+  <p>"Milo did? He walked off on you?" Nils looked past her shoulder at the box on the steel. "Oona'll skin him for that. Is that not it, there on the counter?"</p>
+  <p>"Test batch."</p>
+  <p>"We'd eat a test batch. We're starved."</p>
+  <p>"No," said Margo. "Tell her it was Milo."</p>
+</div>
+
+<div class="col">
+  <h2>Half past nine</h2>
+  <p>The phone by the till rang while she was on her knees under the steel, picking chips out of the drain with a fork.</p>
+  <p>"Margo, this is your mother calling. They're keeping your father in until Tuesday, and he is furious about it."</p>
+  <p>"Is he in a lot of pain?"</p>
+  <p>"The man from Mahone Bay sang a hymn at him. Did Oona get her fish all right?"</p>
+  <p>"She got it. It all went fine."</p>
+  <p>"Good. And has Milo gone home?"</p>
+  <p>"I sent him home. He was dead on his feet."</p>
+  <p>"He's a good boy, that one. He's the only one your father lets near the fryer." A man's voice behind her, muffled and cross. "Your father says to tell you the fryer is slow after a boil-out. I told him you do this for a living."</p>
+  <p>"Tell him thanks," Margo said. Myrna told him, and laughed at whatever he said back, and was gone.</p>
+  <p>Margo was frightened. The one person in Port Hallet who had been glad to see her was out in a gale without a coat because of her. What was she doing here? What did she think would happen on Monday, at half past four in the dark, with the whole fleet at the hatch and nobody beside her?</p>
+  <p>She carried the box of raw fish out the back. The lid of the dumpster was frozen down and she couldn't shift it one-handed, so she left the box on the step with a fish tote upside down on top of it for the gulls, and stood in the wind until her ears hurt and then stopped hurting. Her thumb had soaked through the third towel. She put it in her mouth and tasted salt and iron, and wondered whether the man in the toque had found the end of his rope.</p>
+  <p>When she went back in, the fryer was off and the extractor had stopped. A man sat at the picnic table with the box from the step in front of him, eating the chips out of one of the paper boats.</p>
+  <p>He had to sit sideways to fit his knees under it, and he had grown a beard, with grey along the jaw. Under his open parka he wore a white jacket with the sleeves shoved up, and his forearms were spotted with small shiny burns, old and new. He smelled of woodsmoke and lemon. The last time she had touched those arms she had been sitting on an upturned bait tote on this wharf while he cut her hair with the kitchen scissors, and when he finished he had leaned down and blown the cut ends off the back of her neck.</p>
+  <p>She still wanted him. It was the first thing she knew, before his name, and she hated it.</p>
+  <p>"Niall."</p>
+  <p><span class="who" data-who="niall">Niall</span> Bezanson ate another of Oona's chips. "These were out on your back step." He took the fillet Milo had broken, pressed the grey middle with his thumb and watched it stay pressed.</p>
+  <p>"Don't," she said.</p>
+  <p>"Nils came down the fuel dock and told Oona your fryer's broke." He leaned across to the fryer and held his palm flat over the oil. She could hear it ticking as it cooled. "It isn't broke."</p>
+  <p>"It was."</p>
+  <p>He wiped his thumb on her clean cloth and dropped it back on the table. "How's he doing?"</p>
+  <p>"Who?"</p>
+  <p>"Your dad, Margo."</p>
+  <p>"He threw a pudding cup at a nurse." Why had she told him that, of everything she could have said? She pulled off the hairnet and her hair came with it, flat and damp against her skull, and she watched him see it. "How do you even know he's hurt?"</p>
+  <p>"He called me from the ambulance."</p>
+  <p>Her father had come off a ladder with his ribs broken and called the man his daughter had left nine days before their wedding. He had not called his daughter.</p>
+  <p>"Why would he call you, of all people?"</p>
+  <p>"Milo's sitting in his truck at the top of the wharf with the engine running and no coat on," Niall said.</p>
+  <p>"I didn't ask you about Milo."</p>
+  <p>"He'll sit there till you go up."</p>
+  <p>"You don't know what happened here tonight."</p>
+  <p>He got up, and had to duck his head under the order spike. He came around the end of the counter to where she stood by the till and reached past her, close enough that she felt the cold coming off his parka and, under it, the heat of him. She held her ground and let him reach. He took the keys off their hook, on the ring with the cork float so they wouldn't sink if somebody dropped them off the wharf.</p>
+  <p>"What are you doing with those?"</p>
+  <p>"Locking up."</p>
+  <p>"I'm opening Monday. The fleet's out at half four and somebody has to feed them, and it's going to be me."</p>
+  <p>"No."</p>
+  <p>"You don't get to decide that," Margo said. "It's not your Kitchen."</p>
+  <p>He weighed the keys in his burnt hand, and the cork float knocked against his wrist.</p>
+  <p>"Half of it is," Niall said. "Your dad sold me half the spring after you left. And I've come to close it."</p>
+</div>
+</article>
+<article data-noaudio>
+<section class="chap">
+  <p class="chapno">End of chapter one</p>
+  <h2>To be continued.</h2>
+</section>
+<div class="col">
+  <p>That&rsquo;s the first chapter of The Wharf Kitchen. We finish the books readers ask for first.</p>
+  <p><a class="btn-end" href="mailto:hello@learnedbyheart.com?subject=Tell%20me%20when%20The%20Wharf%20Kitchen%20is%20finished">Tell me when it&rsquo;s finished</a></p>
+  <p>That opens an email to us. Just press send. If nothing opens, write to hello@learnedbyheart.com with the book&rsquo;s name.</p>
+  <p>Every book we write is made for one reader, in the style they love, with the thing they&rsquo;ve always meant to learn inside it. <a href="../../?ref=library#prices">Have one written for you</a>, or go <a href="../../#library">back to the library</a>.</p>
+</div>
+</article>
+</div></div></div><div id="bar"></div></main>
+
+<script>
+const BOOK = {"id":"kitchen","title":"The Wharf Kitchen","firstChapter":{"no":"Chapter one","title":"Fish That Looks Like Fish"},"memoryColour":"#E07A5F","cast":{"margo":{"name":"Margo","colour":"#E07A5F","line":"Thirty-six. Makes food look perfect for adverts in Toronto. Has never cooked a meal anyone could eat."},"myrna":{"name":"Myrna","colour":"#C77DA3","line":"Margo's mother. Runs the counter, bakes the pies, and never says what she means."},"orv":{"name":"Orv","colour":"#8C5A2B","line":"Margo's father. Has cooked on the wharf all his life and never written down a single recipe."},"milo":{"name":"Milo","colour":"#D98E04","line":"Nineteen. Works the fryer. Explains everything, including things nobody asked about."},"oona":{"name":"Oona","colour":"#B23A48","line":"Captain of the Second Wind. Loud, rude, and first through the hatch every morning."},"niall":{"name":"Niall","colour":"#2F5D62","line":"Chef at the inn across the harbour. The man Margo left nine days before the wedding."},"noor":{"name":"Noor","colour":"#6A4C93","line":"Runs the grocery and its butcher counter. Sharpens every knife in Port Hallet, and tells you how to use it."}},"lockMessage":"Someone's waiting at the hatch for your answer.","lockLabel":" (answer first)","epub":"The-Wharf-Kitchen.epub"};
+const P = BOOK.id;
+
+// ---- paint: everything is built from dabs of broken colour ----
+function rng(seed){ return () => (seed = (seed * 1664525 + 1013904223) >>> 0) / 4294967296; }
+function dab(ctx, x, y, len, w, ang, h, s, l, a = .9){
+  ctx.save(); ctx.translate(x, y); ctx.rotate(ang);
+  ctx.fillStyle = `hsla(${h},${s}%,${l}%,${a})`;
+  ctx.beginPath(); ctx.ellipse(0, 0, len / 2, w / 2, 0, 0, 7); ctx.fill(); ctx.restore();
+}
+function hexToHsl(hex){
+  const [r, g, b] = [1, 3, 5].map(i => parseInt(hex.slice(i, i + 2), 16) / 255);
+  const mx = Math.max(r, g, b), mn = Math.min(r, g, b), l = (mx + mn) / 2, d = mx - mn;
+  let h = 0; const s = d ? d / (1 - Math.abs(2 * l - 1)) : 0;
+  if (d) h = mx === r ? ((g - b) / d) % 6 : mx === g ? (b - r) / d + 2 : (r - g) / d + 4;
+  return [(h * 60 + 360) % 360, s * 100, l * 100];
+}
+// one painted swatch per person, used for their chip and their colour sample
+const css = getComputedStyle(document.documentElement);
+let rules = '';
+Object.keys(BOOK.cast).forEach((id, n) => {
+  const [h, s, l] = hexToHsl(css.getPropertyValue('--' + id).trim());
+  const c = document.createElement('canvas'); c.width = c.height = 160;
+  const ctx = c.getContext('2d'), r = rng(11 + n * 97);
+  ctx.fillStyle = `hsl(${h},${s}%,${l}%)`; ctx.fillRect(0, 0, 160, 160);
+  for (let i = 0; i < 240; i++)
+    dab(ctx, r() * 160, r() * 160, 22 + r() * 30, 7 + r() * 8, -.5 + (r() - .5) * 1.1,
+        h + (r() - .5) * 34, Math.min(100, s + (r() - .5) * 20), l + (r() - .5) * 26);
+  rules += `[data-who=${id}]{--tex:url(${c.toDataURL()})}`;
+});
+document.head.appendChild(Object.assign(document.createElement('style'), {textContent: rules}));
+
+
+function toImage(cv, cls){
+  const im = new Image(cv.width, cv.height);
+  im.className = cls; im.alt = cv.getAttribute('aria-label') || ''; im.draggable = false;
+  im.src = cv.toDataURL('image/jpeg', .9); cv.replaceWith(im);
+}
+
+
+const cast = Object.fromEntries(Object.entries(BOOK.cast).map(([k, v]) => [k, [v.name, v.colourName, v.line]]));
+const card = document.getElementById('card');
+const chips = [...document.querySelectorAll('.chip')];
+const chipFor = id => chips.find(c => c.dataset.who === id);
+
+function closeCard(){ card.hidden = true; chips.forEach(c => c.setAttribute('aria-expanded','false')); }
+chips.forEach(chip => chip.addEventListener('click', e => {
+  e.stopPropagation();
+  if (!chip.classList.contains('met')) return;
+  const open = chip.getAttribute('aria-expanded') === 'true';
+  closeCard();
+  if (open) return;
+  const [name, colour, line] = cast[chip.dataset.who];
+  card.dataset.who = chip.dataset.who;
+  card.innerHTML = `<strong>${name}</strong>${colour ? `<em>${colour}</em>` : ''}<p>${line}</p>`;
+  card.hidden = false;
+  chip.setAttribute('aria-expanded','true');
+}));
+document.addEventListener('click', closeCard);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeCard(); });
+
+// ---- pages ----
+const stage = document.getElementById('stage'), book = document.getElementById('book'),
+      flow = document.getElementById('flow'), bar = document.getElementById('bar'),
+      chart = document.getElementById('silences');
+const still = matchMedia('(prefers-reduced-motion: reduce)');
+let page = 0, pages = 1, step = 0, busy = false;
+let unmet = [...document.querySelectorAll('.who')];
+
+function arrive(){
+  // a chip fills in once that person's name has turned up on a page she has reached
+  unmet = unmet.filter(el => {
+    if (el.getBoundingClientRect().left > innerWidth - 1) return true;
+    const chip = chipFor(el.dataset.who);
+    chip.classList.add('met');
+    chip.setAttribute('aria-label', cast[el.dataset.who][0] + ', tap for who they are');
+    return false;
+  });
+  if (chart && chart.getBoundingClientRect().left < innerWidth - 1) chart.classList.add('seen');
+}
+function show(){
+  flow.style.transform = `translateX(${-page * step}px)`;
+  bar.style.width = (pages > 1 ? page / (pages - 1) * 100 : 0) + '%';
+  if (typeof booted !== 'undefined' && booted) try { localStorage.setItem(P + '.ch1.at', String(units.indexOf(firstOnPage()))); } catch (e) {}
+  arrive();
+  if (typeof units !== 'undefined' && typeof voice !== 'undefined') listen.hidden = firstOnPage().t < 0 && voice.paused;
+}
+function layout(){
+  // keep her place by paragraph while the pages are re-cut
+  const anchor = (typeof units !== 'undefined' && step) ? firstOnPage() : null;
+  const pad = parseFloat(getComputedStyle(book).paddingLeft), w = book.clientWidth - 2 * pad;
+  flow.style.columnWidth = w + 'px'; flow.style.columnGap = 2 * pad + 'px';
+  step = book.clientWidth; page = 0; flow.style.transform = 'translateX(0px)';
+  pages = Math.max(1, Math.round((flow.scrollWidth + 2 * pad) / step));
+  if (anchor) page = Math.min(pages - 1, pageOf(anchor.el));
+  if (typeof maxPage === 'function') page = Math.min(page, maxPage());
+  show();
+}
+// A page turn is a fold that travels across the page: p runs from 0 (flat) to 1 (turned).
+function leafFor(shown){
+  const shade = document.createElement('div'); shade.className = 'turn-shade';
+  const leaf = document.createElement('div'); leaf.className = 'page leaf';
+  const copy = flow.cloneNode(true);
+  copy.removeAttribute('id'); copy.querySelectorAll('[id]').forEach(e => e.removeAttribute('id'));
+  copy.style.transform = `translateX(${-shown * step}px)`;
+  leaf.append(copy);
+  const wrap = document.createElement('div'); wrap.className = 'turn-flap';
+  const flap = document.createElement('i'); wrap.append(flap);
+  stage.append(shade, leaf, wrap);
+  return {
+    set(p){
+      const W = stage.clientWidth, f = W * (1 - p);
+      const tilt = Math.sin(Math.PI * p) * W * .075;      // the fold leans, most in the middle of the turn
+      const ft = f + tilt, fb = f - tilt, back = W - f;
+      leaf.style.clipPath = `polygon(0 0, ${ft}px 0, ${fb}px 100%, 0 100%)`;
+      flap.style.clipPath = `polygon(${ft}px 0, ${fb}px 100%, ${2 * fb - W}px 100%, ${2 * ft - W}px 0)`;
+      flap.style.backgroundSize = `${back + 2 * tilt}px 100%`;
+      flap.style.backgroundPosition = `${f - back - tilt}px 0`;
+      const lift = Math.sin(Math.PI * Math.min(1, p * 1.15));
+      shade.style.backgroundSize = `${Math.min(W * .16, back * .6) + 8}px 100%`;
+      shade.style.backgroundPosition = `${fb}px 0`;
+      shade.style.opacity = lift; wrap.style.opacity = p > .995 ? 0 : 1;
+    },
+    remove(){ shade.remove(); leaf.remove(); wrap.remove(); }
+  };
+}
+function glide(L, a, b, ms, done){
+  const t0 = performance.now();
+  const ease = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  (function tick(now){
+    const t = Math.min(1, (now - t0) / ms);
+    L.set(a + (b - a) * ease(t));
+    if (t < 1) requestAnimationFrame(tick); else done();
+  })(t0);
+}
+function blocked(dir){
+  const to = page + dir;
+  if (to < 0 || to >= pages) return true;
+  if (dir > 0 && to > maxPage()){
+    const t = [...tests, ...Object.values(gates)].find(t => pageOf(t) === page);
+    if (t){ t.classList.remove('shake'); void t.offsetWidth; t.classList.add('shake'); t.querySelector('.say').textContent = t.querySelector('.say').textContent || BOOK.lockMessage; }
+    return true;
+  }
+  return false;
+}
+function turn(dir, auto){
+  const to = page + dir;
+  if (busy || blocked(dir)) return;
+  closeCard(); if (typeof closeMenu === 'function') closeMenu();
+  if (!auto) setTimeout(() => window.seekToPage && seekToPage(), 0);
+  if (still.matches){ page = to; show(); return; }
+  busy = true;
+  const L = leafFor(dir > 0 ? page : to);
+  if (dir > 0){
+    page = to; show(); L.set(0);
+    glide(L, 0, 1, 620, () => { L.remove(); busy = false; });
+  } else {
+    L.set(1);
+    glide(L, 1, 0, 620, () => { page = to; show(); L.remove(); busy = false; });
+  }
+}
+stage.addEventListener('click', e => {
+  if (e.target.closest('button, a, input, form, label')) return;
+  turn(e.clientX < innerWidth * .3 ? -1 : 1);
+});
+// On a touch screen the page follows the finger, and settles or springs back on release.
+let x0 = null, y0 = 0, drag = null;
+stage.addEventListener('touchstart', e => {
+  if (e.touches.length !== 1 || e.target.closest('button, a, input, form, label')){ x0 = null; return; }
+  x0 = e.touches[0].clientX; y0 = e.touches[0].clientY;
+}, {passive: true});
+stage.addEventListener('touchmove', e => {
+  if (x0 === null || still.matches) return;
+  const dx = e.touches[0].clientX - x0, dy = e.touches[0].clientY - y0;
+  if (!drag){
+    if (busy || Math.abs(dx) < 12 || Math.abs(dx) < Math.abs(dy) * 1.2) return;
+    const dir = dx < 0 ? 1 : -1, from = page, to = page + dir;
+    if (to < 0 || to >= pages || (dir > 0 && to > maxPage())) return;      // the tap handler shows why
+    closeCard(); if (typeof closeMenu === 'function') closeMenu();
+    busy = true;
+    drag = {dir, from, to, L: leafFor(dir > 0 ? from : to), p: dir > 0 ? 0 : 1, t: performance.now(), x: e.touches[0].clientX, v: 0};
+    if (dir > 0){ page = to; show(); }
+  }
+  e.preventDefault();
+  const W = stage.clientWidth, now = performance.now(), x = e.touches[0].clientX;
+  drag.v = (x - drag.x) / Math.max(1, now - drag.t); drag.x = x; drag.t = now;
+  const travel = Math.max(0, Math.min(1, Math.abs(dx) / W * 1.2));
+  drag.p = drag.dir > 0 ? (dx < 0 ? travel : 0) : (dx > 0 ? 1 - travel : 1);
+  drag.L.set(drag.p);
+}, {passive: false});
+function release(e){
+  if (drag){
+    const d = drag; drag = null; x0 = null;
+    const flick = Math.abs(d.v) > .45 && (d.v < 0) === (d.dir > 0);
+    const go = flick || (d.dir > 0 ? d.p > .3 : d.p < .7);
+    const end = d.dir > 0 ? (go ? 1 : 0) : (go ? 0 : 1);
+    glide(d.L, d.p, end, 180 + 320 * Math.abs(end - d.p), () => {
+      page = go ? d.to : d.from; show(); d.L.remove(); busy = false;
+      if (go) setTimeout(() => window.seekToPage && seekToPage(), 0);
+    });
+    if (e.cancelable) e.preventDefault();
+    return;
+  }
+  if (x0 === null) return;
+  const dx = e.changedTouches[0].clientX - x0; x0 = null;
+  if (Math.abs(dx) > 45){ e.preventDefault(); turn(dx < 0 ? 1 : -1); }
+}
+stage.addEventListener('touchend', release);
+stage.addEventListener('touchcancel', release);
+// "Tell a friend" on the last page: the phone's own share sheet, or copy the link where there isn't one.
+document.addEventListener('click', e => {
+  const b = e.target.closest('.btn-share'); if (!b) return;
+  e.stopPropagation();
+  const url = b.dataset.share, text = 'Novels written for one reader, in the style they love, that teach the thing they always meant to learn.';
+  if (navigator.share){ navigator.share({title: 'Learned by Heart', text, url}).catch(() => {}); return; }
+  const done = () => { b.textContent = 'Link copied'; };
+  if (navigator.clipboard) navigator.clipboard.writeText(url).then(done, () => { b.textContent = url; });
+  else b.textContent = url;
+}, true);
+addEventListener('keydown', e => {
+  if (e.target.matches && e.target.matches('input, textarea')) return;
+  if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown'){ e.preventDefault(); turn(1); }
+  if (e.key === 'ArrowLeft' || e.key === 'PageUp'){ e.preventDefault(); turn(-1); }
+});
+// ---- audiobook: six tracks with word timings; pages turn themselves, a hand turn moves the audio ----
+const WORDS = BOOK.audio ? BOOK.audio.words : [];
+const voice = document.getElementById('voice'), listen = document.getElementById('listen');
+const TRACKS = BOOK.audio ? BOOK.audio.tracks : [];
+const units = []; let track = -1, nowReading = null, raf = 0;
+(function(){
+  const norm = s => s.toLowerCase().replace(/’/g, "'").replace(/[^a-z0-9']+/g, ' ').trim().split(' ').filter(Boolean);
+  let t = 0; const at = {};
+  flow.querySelectorAll('.bookcover .bc, .brief h2, .brief h3, .brief .slip, .guess .ask, .bridge p, .cold p:not(.note), .open h1, .open .chapter, .memory p, article h2, article .col > p, article .col > .doc, article .col > ul').forEach(el => {
+    if (!BOOK.audio || el.closest('[data-noaudio]')){ units.push({el, t: -1, start: 0, end: 0}); return; }
+    if (el.closest('.memory')) t = 1; else if (el.tagName === 'H2') t = t < 2 ? 2 : t + 1;
+    const said = norm(el.textContent), script = WORDS[t]; let i = at[t] || 0;
+    // line the paragraph up with the recording by its first word, tolerating small slips
+    for (let k = 0; k < 8 && script[i + k]; k++) if (script[i + k][0] === said[0]){ i += k; break; }
+    const last = Math.min(script.length - 1, i + said.length - 1);
+    units.push({el, t, start: script[i] ? script[i][1] : 0, end: script[last] ? script[last][2] : 0});
+    at[t] = last + 1;
+  });
+})();
+const pageOf = el => Math.floor((el.getBoundingClientRect().left + page * step) / step);
+const firstOnPage = () => units.find(u => pageOf(u.el) >= page) || units[units.length - 1];
+function mark(u){
+  if (nowReading === u) return;
+  if (nowReading) nowReading.el.classList.remove('reading');
+  nowReading = u; if (u) u.el.classList.add('reading');
+}
+// Tracks are fetched whole and played from memory, so jumping around works on any host.
+const blobs = {};
+async function load(t, at, play){
+  track = t;
+  try {
+    if (!blobs[t]) blobs[t] = URL.createObjectURL(await (await fetch(TRACKS[t])).blob());
+  } catch (e) { voice.dispatchEvent(new Event('error')); return; }
+  if (track !== t) return;
+  voice.src = blobs[t];
+  voice.addEventListener('loadedmetadata', () => { voice.currentTime = at; if (play) voice.play(); }, {once: true});
+  voice.load();
+}
+function seekToPage(){
+  if (voice.paused && track < 0) return;
+  const u = firstOnPage(), playing = !voice.paused, at = Math.max(0, u.start - .15);
+  if (u.t < 0){ voice.pause(); stopUi(); track = -1; listen.hidden = true; return; }
+  if (u.t === track && voice.duration) voice.currentTime = at; else load(u.t, at, playing);
+  mark(playing ? u : null);
+}
+function follow(){ raf = requestAnimationFrame(follow); sync(); }
+voice.addEventListener('timeupdate', () => sync());
+function sync(){
+  if (voice.paused || !voice.duration) return;
+  const now = voice.currentTime + .12;
+  let u = null;
+  for (const x of units) if (x.t === track && x.start <= now) u = x;
+  if (!u) return;
+  mark(u);
+  const p = pageOf(u.el);
+  if (p !== page && !busy){
+    if (Math.abs(p - page) === 1) turn(p - page, true); else { page = p; show(); }
+  }
+}
+function stopUi(){ listen.setAttribute('aria-pressed', 'false'); listen.setAttribute('aria-label', 'Listen to this chapter'); mark(null); cancelAnimationFrame(raf); }
+voice.addEventListener('ended', () => {
+  if (track < TRACKS.length - 1) load(track + 1, 0, true); else { stopUi(); track = -1; }
+});
+voice.addEventListener('error', stopUi);
+listen.addEventListener('click', e => {
+  e.stopPropagation();
+  if (!voice.paused){ voice.pause(); stopUi(); return; }
+  listen.setAttribute('aria-pressed', 'true'); listen.setAttribute('aria-label', 'Pause');
+  cancelAnimationFrame(raf); follow();
+  const u = firstOnPage(), at = Math.max(0, u.start - .15);
+  if (u.t === track && voice.duration){ voice.currentTime = at; voice.play(); } else load(u.t, at, true);
+});
+
+// ---- the biscuit test: one question at a chapter's end; the pages after it stay shut until it's answered ----
+const tests = [...flow.querySelectorAll('.test')];
+let passed = {};
+try { passed = JSON.parse(localStorage.getItem(P + '.tests') || '{}'); } catch (e) {}
+// Optional daily writing check (off unless book.json has "writing"): a word goal before the next chapter opens.
+const W = BOOK.writing || null;
+const GOAL = W ? W.goal : 0;
+const today = () => new Date().toLocaleDateString('en-CA');
+let words = {}, wrote = {};
+try { words = JSON.parse(localStorage.getItem(P + '.words') || '{}'); wrote = JSON.parse(localStorage.getItem(P + '.wrote') || '{}'); } catch (e) {}
+try { // chapters she had already unlocked before this was added stay unlocked
+  if (!localStorage.getItem(P + '.wordsOn')){ Object.keys(passed).forEach(k => wrote[k] = true); localStorage.setItem(P + '.wordsOn', '1'); }
+} catch (e) {}
+const saveWords = () => { try { localStorage.setItem(P + '.words', JSON.stringify(words)); localStorage.setItem(P + '.wrote', JSON.stringify(wrote)); } catch (e) {} };
+function streak(){
+  let n = 0; const d = new Date();
+  if ((words[today()] || 0) < GOAL) d.setDate(d.getDate() - 1);
+  while ((words[d.toLocaleDateString('en-CA')] || 0) >= GOAL){ n++; d.setDate(d.getDate() - 1); }
+  return n;
+}
+const pick = (list, n) => list[Math.abs(n) % list.length];
+const fill = (s, n, r) => s.replace(/\{n\}/g, n).replace(/\{r\}/g, r);
+const cheers = (W ? W.cheers : []).map(s => n => fill(s, n));
+const nudges = (W ? W.nudges : []).map(s => (n, r) => fill(s, n, r));
+const gates = {};
+tests.forEach(t => {
+  const id = t.dataset.test;
+  if (!W || (passed[id] && wrote[id])) return;
+  const g = document.createElement('section');
+  g.className = 'wgate'; g.dataset.for = id;
+  g.innerHTML = `
+    <p class="who-to">${W.intro}</p>
+    <p class="ask">${W.ask}</p>
+    <p class="sub">${W.sub}</p>
+    <form class="wform"><input type="number" inputmode="numeric" min="0" max="50000" id="words-${id}" aria-label="Words written today" placeholder="0"><button type="submit">${W.button}</button></form>
+    <p class="say" aria-live="polite"></p>
+    <div class="wbar"><i></i></div><div class="wlabel"><span class="wn">0 today</span><span>${GOAL}</span></div>
+    <div class="won" hidden><p class="streak"></p></div>`;
+  t.after(g); gates[id] = g;
+  g.querySelector('form').addEventListener('submit', e => {
+    e.preventDefault(); e.stopPropagation();
+    const n = Math.max(0, Math.min(50000, parseInt(g.querySelector('input').value, 10) || 0));
+    words[today()] = n;
+    if (n >= GOAL) wrote[id] = true;
+    saveWords();
+    g.querySelector('.say').textContent = n >= GOAL ? pick(cheers, n)(n) : n === 0
+      ? W.zero
+      : pick(nudges, n)(n, GOAL - n);
+    drawGate(id, true);
+  });
+});
+function drawGate(id, spoken){
+  const g = gates[id]; if (!g) return;
+  const n = words[today()] || 0;
+  if (passed[id] && !wrote[id] && n >= GOAL){ wrote[id] = true; saveWords(); }
+  g.querySelector('.wbar i').style.setProperty('--w', Math.min(100, n / GOAL * 100) + '%');
+  g.querySelector('.wbar').classList.toggle('full', n >= GOAL);
+  g.querySelector('.wn').textContent = `${n} today`;
+  const done = !!wrote[id];
+  g.querySelector('.won').hidden = !done;
+  if (done){
+    const s = streak();
+    g.querySelector('.streak').textContent = (s > 1 ? `${s} days in a row. ` : '') + 'Turn the page.';
+    if (!spoken && !g.querySelector('.say').textContent) g.querySelector('.say').textContent = fill(W.already, n);
+    g.querySelector('form').hidden = true;
+  }
+}
+function maxPage(){
+  for (const t of tests){
+    const id = t.dataset.test;
+    if (!passed[id]) return pageOf(t);
+    if (gates[id] && !wrote[id]) return pageOf(gates[id]);
+  }
+  return pages - 1;
+}
+tests.forEach(t => {
+  const say = t.querySelector('.say'), won = t.querySelector('.won'), opts = [...t.querySelectorAll('.opts button')];
+  const right = opts.find(b => b.dataset.opt === t.dataset.answer); right.dataset.right = '';
+  let wrong = 0;
+  const finish = () => {
+    say.textContent = right.dataset.say; won.hidden = false; t.classList.remove('hint');
+    opts.forEach(b => { b.disabled = true; b.classList.add(b === right ? 'yes' : 'no'); });
+  };
+  if (passed[t.dataset.test]) finish();
+  opts.forEach(b => b.addEventListener('click', e => {
+    e.stopPropagation();
+    say.textContent = b.dataset.say;
+    if (b === right){
+      passed[t.dataset.test] = true;
+      try { localStorage.setItem(P + '.tests', JSON.stringify(passed)); } catch (e) {}
+      finish(); drawGate(t.dataset.test);
+    } else {
+      b.classList.add('no'); b.disabled = true;
+      if (++wrong >= 2) t.classList.add('hint');
+    }
+  }));
+});
+
+Object.keys(gates).forEach(id => drawGate(id));
+
+// ---- guess first (tasters): pick an answer before reading the scene, find out after ----
+const guesses = {};
+flow.querySelectorAll('.guess').forEach(g => {
+  const opts = [...g.querySelectorAll('.opts button')], say = g.querySelector('.say');
+  opts.forEach(b => b.addEventListener('click', e => {
+    e.stopPropagation();
+    opts.forEach(o => { o.disabled = true; o.classList.add(o === b ? 'picked' : 'other'); });
+    guesses[g.dataset.for] = b;
+    say.textContent = g.dataset.reply;
+  }));
+});
+tests.forEach(t => t.querySelectorAll('.opts button').forEach(b => b.addEventListener('click', () => {
+  const g = guesses[t.dataset.test];
+  if (!g || b.dataset.opt !== t.dataset.answer || t.querySelector('.guessed')) return;
+  const p = document.createElement('p'); p.className = 'guessed';
+  p.textContent = g.dataset.opt === t.dataset.answer
+    ? 'You guessed that before you read it. Good instincts.'
+    : `Before the scene, you guessed “${g.textContent.trim()}”. Now you know.`;
+  t.querySelector('.won').before(p);
+})));
+
+// ---- chapters menu ----
+const toc = document.getElementById('toc'), menu = document.getElementById('menu');
+const chapters = [...(flow.querySelector('.brief') ? [{no: 'Before you start', title: 'How this book was made', el: flow.querySelector('.brief')}] : []),
+  {no: BOOK.firstChapter.no, title: BOOK.firstChapter.title, el: flow.querySelector('.cold')},
+  ...[...flow.querySelectorAll('.chap')].map(c => ({no: c.querySelector('.chapno').textContent, title: c.querySelector('h2').textContent, el: c}))];
+function closeMenu(){ menu.hidden = true; toc.setAttribute('aria-expanded', 'false'); }
+function openMenu(){
+  const here = chapters.filter(c => pageOf(c.el) <= page).pop();
+  menu.innerHTML = '';
+  if (hasLessons){
+    const t = document.createElement('button');
+    t.className = 'teach-toggle'; t.setAttribute('aria-pressed', String(teach));
+    t.innerHTML = '<span>Show the teaching</span><span class="state"></span>';
+    t.addEventListener('click', e => { e.stopPropagation(); setTeach(!teach, true); });
+    menu.append(t); paintTeach();
+  }
+  chapters.forEach(c => {
+    const b = document.createElement('button');
+    b.innerHTML = `<small>${c.no}</small><b>${c.title}</b>`;
+    if (c === here) b.setAttribute('aria-current', 'true');
+    if (pageOf(c.el) > maxPage()){ b.disabled = true; b.querySelector('small').textContent += BOOK.lockLabel; }
+    b.addEventListener('click', e => {
+      e.stopPropagation(); closeMenu(); closeCard();
+      page = pageOf(c.el); show(); seekToPage();
+    });
+    menu.append(b);
+  });
+  if (BOOK.epub) {
+    const a = document.createElement('a');
+    a.className = 'dl'; a.href = encodeURI(BOOK.epub); a.setAttribute('download', '');
+    a.innerHTML = '<small>For Apple Books, Kindle, Kobo or Google Play Books</small><b>Download the ebook</b>';
+    a.addEventListener('click', e => e.stopPropagation());
+    menu.append(a);
+  }
+  menu.hidden = false; toc.setAttribute('aria-expanded', 'true');
+  const cur = menu.querySelector('[aria-current=true]');
+  menu.scrollTop = cur ? cur.offsetTop - (menu.clientHeight - cur.offsetHeight) / 2 : 0;
+}
+toc.addEventListener('click', e => { e.stopPropagation(); closeCard(); menu.hidden ? openMenu() : closeMenu(); });
+document.addEventListener('click', closeMenu);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+
+// ---- show the teaching ----
+const hasLessons = !!flow.querySelector('.lesson');
+let teach = !!BOOK.teachDefault;
+try { const s = localStorage.getItem(P + '.teach'); if (s !== null) teach = s === '1'; } catch (e) {}
+function paintTeach(){
+  document.querySelectorAll('.teach-toggle').forEach(b => {
+    b.setAttribute('aria-pressed', String(teach));
+    b.querySelector('.state').textContent = teach ? 'On' : 'Off';
+  });
+}
+function setTeach(on, save){
+  teach = on && hasLessons;
+  document.body.classList.toggle('teach', teach);
+  paintTeach();
+  if (save) try { localStorage.setItem(P + '.teach', teach ? '1' : '0'); } catch (e) {}
+  if (step) layout();
+}
+document.querySelectorAll('.flow .teach-toggle').forEach(b => {
+  if (!hasLessons){ b.remove(); return; }
+  b.addEventListener('click', e => { e.stopPropagation(); setTeach(!teach, true); });
+});
+setTeach(teach, false);
+
+// ---- start up: come back to the paragraph she was on ----
+let booted = false;
+addEventListener('resize', layout);
+layout();
+try {
+  const i = parseInt(localStorage.getItem(P + '.ch1.at'), 10);
+  if (i > 0 && units[i]){ page = Math.min(pageOf(units[i].el), maxPage()); show(); }
+} catch (e) {}
+booted = true;
+document.fonts && document.fonts.ready.then(layout);
+</script>
+<script>
+// Installable app: save pages, pictures and played audio on the phone so the book opens offline.
+if ('serviceWorker' in navigator && location.protocol !== 'file:') navigator.serviceWorker.register('sw.js').catch(() => {});
+</script>
+</body>
+</html>
