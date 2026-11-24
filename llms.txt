@@ -3,10 +3,12 @@
 > Novels that teach. Each book is a real novel in a popular genre, written so the plot teaches one subject (money, science, history, how the mind works, practical skills) without feeling like a lesson. Chapter one of every library book is free to read online, no sign-up. Readers can also order a novel written for one person, in the style they love, about the thing they have always meant to learn.
 
 - [Home and prices](https://learnedbyheart.com/): how a personal novel works, prices, questions
+- [The library](https://learnedbyheart.com/library/): every book, by subject, with a free first chapter
 - [Find a book](https://learnedbyheart.com/find/): pick a genre and a subject, get matching free first chapters
 - [Order a personal novel](https://learnedbyheart.com/order.html)
 
 ## Money
+[Novels that teach money](https://learnedbyheart.com/library/money/)
 - [Click Here to Verify](https://learnedbyheart.com/library/click-here-to-verify/): a domestic thriller that teaches scams and fraud, for readers of Freida McFadden
 - [Reserve Price](https://learnedbyheart.com/library/reserve-price/): a film-star saga that teaches money across a lifetime, for readers of Taylor Jenkins Reid
 - [A Trade in Wind](https://learnedbyheart.com/library/a-trade-in-wind/): a Jazz Age novel that teaches bubbles and crashes, for readers of F. Scott Fitzgerald
@@ -18,6 +20,7 @@
 - [Proof of Reserve](https://learnedbyheart.com/library/proof-of-reserve/): a near-future thriller that teaches what money is, from banks to crypto, for readers of William Gibson and Black Mirror
 
 ## Life skills
+[Novels that teach life skills](https://learnedbyheart.com/library/life/)
 - [The Knife Table](https://learnedbyheart.com/library/the-knife-table/): a romantasy that teaches negotiation, for readers of Sarah J. Maas and Rebecca Yarros
 - [Hackles](https://learnedbyheart.com/library/hackles/): a small-town horror that teaches dog behaviour and training, for readers of Stephen King
 - [The Year of the Late Harvest](https://learnedbyheart.com/library/the-year-of-the-late-harvest/): a vineyard family saga that teaches wine, for readers of Liane Moriarty
@@ -28,6 +31,7 @@
 - [Re: Your Piano](https://learnedbyheart.com/library/re-your-piano/): a novel in letters that teaches how music works and how to listen, for readers of 84 Charing Cross Road and The Guernsey Literary and Potato Peel Pie Society
 
 ## Mind and thinking
+[Novels that teach how people think](https://learnedbyheart.com/library/mind/)
 - [Turn Towards Me](https://learnedbyheart.com/library/turn-towards-me/): a romantic comedy that teaches the science of relationships, for readers of Emily Henry
 - [The Lantern Hour](https://learnedbyheart.com/library/the-lantern-hour/): a dystopian adventure that teaches propaganda and misinformation, for readers of Suzanne Collins
 - [The Keeper's Hours](https://learnedbyheart.com/library/the-keepers-hours/): a quiet literary novel that teaches Stoic philosophy for everyday life, for readers of Kazuo Ishiguro
@@ -38,6 +42,7 @@
 - [The Other Chair](https://learnedbyheart.com/library/the-other-chair/): a psychological thriller that teaches how the mind works and what therapy does, for readers of Alex Michaelides and Liane Moriarty
 
 ## Science and the body
+[Novels that teach science](https://learnedbyheart.com/library/science/)
 - [Oxygen, Mostly](https://learnedbyheart.com/library/oxygen-mostly/): a funny science survival story that teaches how the body works, for readers of Andy Weir
 - [The Hedge-Cook's Daughter](https://learnedbyheart.com/library/the-hedge-cooks-daughter/): a storybook fantasy that teaches everyday chemistry, for readers of J.K. Rowling and J.R.R. Tolkien
 - [Water on the Wrong Side](https://learnedbyheart.com/library/water-on-the-wrong-side/): a marshland mystery that teaches wetlands, weather and climate, for readers of Delia Owens
@@ -55,12 +60,14 @@
 - [Show Your Working](https://learnedbyheart.com/library/show-your-working/): an epic fantasy that teaches maths: ratio, algebra, geometry and proof, for readers of Brandon Sanderson
 
 ## Technology
+[Novels that teach numbers and computers](https://learnedbyheart.com/library/tech/)
 - [The Chance Machine](https://learnedbyheart.com/library/the-chance-machine/): a gentle what-if story that teaches probability and decisions, for readers of Matt Haig
 - [Small Numbers, Big Lies](https://learnedbyheart.com/library/small-numbers-big-lies/): a suburban thriller that teaches statistics and how numbers mislead, for readers of Harlan Coben
 - [If, Then, Else](https://learnedbyheart.com/library/if-then-else/): a puzzle mystery that teaches how computers think, for readers of Janice Hallett and Stuart Turton
 - [Remember This Device](https://learnedbyheart.com/library/remember-this-device/): a spy thriller that teaches digital privacy and security, for readers of John le Carré and Mick Herron
 
 ## History
+[Novels that teach history](https://learnedbyheart.com/library/history/)
 - [Six Queens' Worth of Thread](https://learnedbyheart.com/library/six-queens-worth-of-thread/): a Tudor court drama that teaches the Tudors, for readers of Philippa Gregory
 - [The Cold War in Aunt Rita's Kitchen](https://learnedbyheart.com/library/the-cold-war-in-aunt-ritas-kitchen/): a family saga that teaches the Cold War, start to finish, for readers of Kristin Hannah
 - [The Drawing Office](https://learnedbyheart.com/library/the-drawing-office/): a wartime novel that teaches the Second World War, start to finish, for readers of Kate Quinn

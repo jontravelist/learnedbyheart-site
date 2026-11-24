@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://learnedbyheart.com/</loc></url>
+  <url><loc>https://learnedbyheart.com/library/</loc></url>
+  <url><loc>https://learnedbyheart.com/library/money/</loc></url>
+  <url><loc>https://learnedbyheart.com/library/science/</loc></url>
+  <url><loc>https://learnedbyheart.com/library/history/</loc></url>
+  <url><loc>https://learnedbyheart.com/library/mind/</loc></url>
+  <url><loc>https://learnedbyheart.com/library/tech/</loc></url>
+  <url><loc>https://learnedbyheart.com/library/life/</loc></url>
   <url><loc>https://learnedbyheart.com/find/</loc></url>
   <url><loc>https://learnedbyheart.com/gift-card/</loc></url>
   <url><loc>https://learnedbyheart.com/valentines/</loc></url>
