@@ -1,6 +1,6 @@
 {
-  "name": "Again, Tuesday",
-  "short_name": "Again, Tuesday",
+  "name": "Tuesday, Again",
+  "short_name": "Tuesday, Again",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

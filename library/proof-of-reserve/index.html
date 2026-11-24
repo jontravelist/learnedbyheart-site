@@ -601,6 +601,7 @@ body.teach .lesson::after{content:"\21B3\00A0" attr(data-note);display:block;fon
   <p>That&rsquo;s the first chapter of Proof of Reserve. We finish the books readers ask for first.</p>
   <p><a class="btn-end" href="https://tally.so/r/RWD2jl?book=proof-of-reserve">Tell me when it&rsquo;s finished</a></p>
   <p>Just your email address. You can also choose a weekly email when new books join the library, and stop either with one click.</p>
+  <p><button type="button" class="btn-share" data-share="https://learnedbyheart.com/library/proof-of-reserve/?ref=friend" data-text="I read the first chapter of Proof of Reserve and thought of you.">Send this chapter to a friend</button></p>
   <p>Every book we write is made for one reader, in the style they love, with the thing they&rsquo;ve always meant to learn inside it. <a href="../../?ref=library#prices">Have one written for you</a>, or go <a href="../../#library">back to the library</a>.</p>
 </div>
 </article>
@@ -820,7 +821,7 @@ stage.addEventListener('touchcancel', release);
 document.addEventListener('click', e => {
   const b = e.target.closest('.btn-share'); if (!b) return;
   e.stopPropagation();
-  const url = b.dataset.share, text = 'Novels written for one reader, in the style they love, that teach the thing they always meant to learn.';
+  const url = b.dataset.share, text = b.dataset.text || 'Novels written for one reader, in the style they love, that teach the thing they always meant to learn.';
   if (navigator.share){ navigator.share({title: 'Learned by Heart', text, url}).catch(() => {}); return; }
   const done = () => { b.textContent = 'Link copied'; };
   if (navigator.clipboard) navigator.clipboard.writeText(url).then(done, () => { b.textContent = url; });
