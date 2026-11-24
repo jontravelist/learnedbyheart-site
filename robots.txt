@@ -2,3 +2,13 @@ User-agent: *
 Allow: /
 
 Sitemap: https://learnedbyheart.com/sitemap.xml
+
+# AI assistants are welcome to read and cite the free chapters.
+User-agent: GPTBot
+Allow: /
+User-agent: ClaudeBot
+Allow: /
+User-agent: PerplexityBot
+Allow: /
+User-agent: Google-Extended
+Allow: /

@@ -335,6 +335,9 @@ body.teach .lesson::after{content:"\21B3\00A0" attr(data-note);display:block;fon
 .sms .say{min-height:0}
 .sms .say:empty{display:none}
 .msg{background:color-mix(in srgb,var(--giles) 55%,var(--paper))}
+/* a message the narrator sends sits on the right, like a real messaging app */
+.msg.me{margin-left:auto;background:color-mix(in srgb,#3D7BE0 22%,var(--paper));border-radius:14px 14px 3px 14px}
+.msg + .msg{margin-top:.35rem}
 .opts button span{line-height:1.05}
 .note.small{font-size:.8rem;margin-top:1.2rem}
 
@@ -430,6 +433,7 @@ body.teach .lesson::after{content:"\21B3\00A0" attr(data-note);display:block;fon
 <meta property="og:url" content="https://learnedbyheart.com/library/inflation-darling/">
 <meta property="og:image" content="https://learnedbyheart.com/img/library/inflation-darling.jpg">
 <meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Book", "name": "Inflation, Darling", "url": "https://learnedbyheart.com/library/inflation-darling/", "image": "https://learnedbyheart.com/img/library/inflation-darling.jpg", "genre": "glossy 1970s saga", "about": "inflation and how economies work", "inLanguage": "en", "description": "Everyone has a price. And it’s going up. A glossy 1970s saga that teaches inflation and how economies work, for readers of Jilly Cooper and Penny Vincenzi. Chapter one is free to read.", "publisher": {"@type": "Organization", "name": "Learned by Heart", "url": "https://learnedbyheart.com"}, "isAccessibleForFree": true, "educationalUse": "self-study", "learningResourceType": "novel"}</script>
 <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap" rel="stylesheet">
 <style>
 .bc{position:relative;container-type:inline-size;aspect-ratio:2/3;border-radius:3px 6px 6px 3px;overflow:hidden;
