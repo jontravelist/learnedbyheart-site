@@ -443,7 +443,7 @@ body.teach .lesson::after{content:"\21B3\00A0" attr(data-note);display:block;fon
 .bc-text{position:absolute;left:0;right:0;top:0;padding:calc(var(--top,9) * 1cqw) 8cqw 0;text-align:center;display:flex;flex-direction:column;align-items:center;
   padding-bottom:6cqw;background:linear-gradient(rgba(10,8,30,.5),rgba(10,8,30,.32) 60%,rgba(10,8,30,0))}
 .bc-title{font-family:inherit;font-weight:400;font-size:calc(12.5cqw * var(--tsz,1));line-height:1;letter-spacing:-.01em;margin:0;text-wrap:balance;text-shadow:0 2px 14px rgba(0,0,0,.35)}
-.bc-line{color:var(--lc);font-family:Literata,Georgia,serif;font-style:italic;font-size:4.6cqw;line-height:1.35;text-wrap:balance;margin:calc(var(--gap,4) * 1cqw) auto 0;max-width:80cqw;text-shadow:0 1px 8px rgba(0,0,0,.5)}
+.bc-line{color:var(--lc);font-family:Literata,Georgia,serif;font-style:italic;font-size:calc(4.6cqw * var(--ts,1));line-height:1.35;text-wrap:balance;margin:calc(var(--gap,4) * 1cqw) auto 0;max-width:80cqw;text-shadow:0 1px 8px rgba(0,0,0,.5)}
 .bc-brand{position:absolute;left:0;right:0;bottom:0;padding:14cqw 0 5cqw;background:linear-gradient(rgba(10,8,30,0),rgba(10,8,30,.55));margin:0;display:flex;align-items:center;justify-content:center;gap:1.6cqw;font-family:Fraunces,Georgia,serif;font-weight:500;font-variation-settings:'SOFT' 100;font-size:4.4cqw;letter-spacing:.01em;color:#FFFCF2;text-shadow:0 1px 6px rgba(0,0,0,.6)}
 .bc-brand svg{width:5.6cqw;height:5.6cqw;filter:drop-shadow(0 1px 3px rgba(0,0,0,.5))}
 .bc.light .bc-text{background:linear-gradient(rgba(255,252,242,.7),rgba(255,252,242,.45) 60%,rgba(255,252,242,0))}
@@ -596,6 +596,14 @@ body.teach .lesson::after{content:"\21B3\00A0" attr(data-note);display:block;fon
   <h2>To be continued.</h2>
 </section>
 <div class="col">
+  <div class="react" data-book="six-queens-worth-of-thread">
+  <p><strong>Did chapter one hook you?</strong></p>
+  <p class="react-btns"><button type="button" class="btn-react" data-hook="yes">Yes, I want more</button> <button type="button" class="btn-react" data-hook="no">Not really</button></p>
+  <div class="react-more" hidden><p><label for="react-note">What would make you buy it? (optional)</label></p>
+  <p><textarea id="react-note" maxlength="400" rows="3"></textarea></p>
+  <p><button type="button" class="btn-react react-send">Send</button></p></div>
+  <p class="react-thanks" hidden>Thank you. It helps us decide which books to finish first.</p>
+  </div>
   <p>That&rsquo;s the first chapter of Six Queens&#x27; Worth of Thread. We finish the books readers ask for first.</p>
   <p><a class="btn-end" href="https://tally.so/r/RWD2jl?book=six-queens-worth-of-thread">Tell me when it&rsquo;s finished</a></p>
   <p>Just your email address. You can also choose a weekly email when new books join the library, and stop either with one click.</p>
@@ -768,13 +776,13 @@ function turn(dir, auto){
   }
 }
 stage.addEventListener('click', e => {
-  if (e.target.closest('button, a, input, form, label')) return;
+  if (e.target.closest('button, a, input, textarea, form, label')) return;
   turn(e.clientX < innerWidth * .3 ? -1 : 1);
 });
 // On a touch screen the page follows the finger, and settles or springs back on release.
 let x0 = null, y0 = 0, drag = null;
 stage.addEventListener('touchstart', e => {
-  if (e.touches.length !== 1 || e.target.closest('button, a, input, form, label')){ x0 = null; return; }
+  if (e.touches.length !== 1 || e.target.closest('button, a, input, textarea, form, label')){ x0 = null; return; }
   x0 = e.touches[0].clientX; y0 = e.touches[0].clientY;
 }, {passive: true});
 stage.addEventListener('touchmove', e => {
@@ -1103,6 +1111,37 @@ document.fonts && document.fonts.ready.then(layout);
 <script>
 // Installable app: save pages, pictures and played audio on the phone so the book opens offline.
 if ('serviceWorker' in navigator && location.protocol !== 'file:') navigator.serviceWorker.register('sw.js').catch(() => {});
+</script>
+<style>.react textarea{width:100%;font:inherit;padding:.5rem;border:1.5px solid var(--line);border-radius:8px;background:transparent;color:inherit}
+.btn-react{font:inherit;font-size:.95rem;background:none;border:1.5px solid var(--line);color:var(--ink);border-radius:8px;padding:.55rem .9rem;cursor:pointer}
+.btn-react[aria-pressed="true"]{background:var(--ink);color:var(--paper)}</style>
+<script>
+(() => {
+  const URL_ = "https://lbh-first-page.listedcreative.workers.dev/react";
+  const post = (book, data) => fetch(URL_, {method: 'POST', headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(Object.assign({book}, data))}).catch(() => {});
+  const mark = (box) => { box.querySelector('.react-btns').hidden = true; box.querySelector('.react-more').hidden = true;
+    box.querySelector('.react-thanks').hidden = false; };
+  document.querySelectorAll('.react').forEach(box => {
+    try { if (localStorage.getItem('react:' + box.dataset.book)) mark(box); } catch (e) {}
+  });
+  document.addEventListener('click', e => {
+    const box = e.target.closest('.react'); if (!box) return;
+    const b = e.target.closest('[data-hook]');
+    if (b) {
+      box.dataset.hooked = b.dataset.hook;
+      box.querySelectorAll('[data-hook]').forEach(x => x.setAttribute('aria-pressed', x === b));
+      post(box.dataset.book, {hooked: b.dataset.hook});
+      box.querySelector('.react-more').hidden = false;
+      try { localStorage.setItem('react:' + box.dataset.book, b.dataset.hook); } catch (e) {}
+    }
+    if (e.target.closest('.react-send')) {
+      const note = box.querySelector('textarea').value.trim();
+      if (note) post(box.dataset.book, {hooked: box.dataset.hooked || '', note});
+      mark(box);
+    }
+  });
+})();
 </script>
 </body>
 </html>
