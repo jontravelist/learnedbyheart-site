@@ -260,6 +260,9 @@ details p{margin:.6rem 0 0}
 .count-note{text-align:left;margin:0 0 1rem}
 @media (min-width:56rem){.count-note{text-align:center}}
 .xmas .btn{background:var(--berry)}
+.xmas-card-link{margin-top:.9rem}
+.xmas-card-link a{font-family:var(--hand);font-size:1.45rem;color:var(--berry);text-decoration:none;border-bottom:1.5px dashed color-mix(in srgb,var(--berry) 55%,transparent);padding-bottom:.05rem}
+.xmas-card-link a:hover{border-bottom-style:solid}
 @media (min-width:56rem){.xmas-cta{text-align:center}}
 .xmas-closed .count,.xmas-closed .xmas-open{display:none}
 .xmas-closed-msg{display:none}
@@ -320,7 +323,7 @@ footer nav{display:flex;flex-wrap:wrap;gap:.4rem 1.4rem;margin-bottom:.6rem}
       <svg class="holly" viewBox="0 0 84 48" aria-hidden="true"><path d="M40 30 C 30 14, 14 18, 6 10 C 10 22, 2 26, 8 34 C 18 30, 26 38, 40 30 Z" fill="#7FB59A" stroke="#33287A" stroke-width="1.6" stroke-linejoin="round"/><path d="M44 30 C 54 14, 70 18, 78 10 C 74 22, 82 26, 76 34 C 66 30, 58 38, 44 30 Z" fill="#7FB59A" stroke="#33287A" stroke-width="1.6" stroke-linejoin="round"/><circle cx="38" cy="34" r="5.5" fill="#B5384E" stroke="#33287A" stroke-width="1.5"/><circle cx="47" cy="35" r="5.5" fill="#B5384E" stroke="#33287A" stroke-width="1.5"/><circle cx="42.5" cy="42" r="5.5" fill="#B5384E" stroke="#33287A" stroke-width="1.5"/></svg>
       <h2 id="xmas-h">A story under the tree</h2>
       <p class="lead">A novel written for one person, in the style of the authors they love, about the thing they've always meant to learn. You write the dedication, and we send you a gift card to print and wrap.</p>
-      <p class="hand xmas-open">We're only taking ten this Christmas. Each one takes us about a week.</p>
+      <p class="hand xmas-open">We're only taking ten this Christmas. Chapter one reaches you within a day.</p>
       <p class="xmas-closed-msg">Christmas orders have now closed. Thank you to everyone who ordered. We open again in January.</p>
     </div>
     <div>
@@ -334,7 +337,7 @@ footer nav{display:flex;flex-wrap:wrap;gap:.4rem 1.4rem;margin-bottom:.6rem}
       <div class="shelf xmas-open" data-shelf aria-hidden="true"></div>
       <p class="shelf-note xmas-open"><b><span data-left>10</span> of 10</b> Christmas books still to be written.</p>
       <p class="xmas-open xmas-cta"><a class="btn" href="#" data-link="form">Order a Christmas story, $12.99</a></p>
-      <p class="xmas-open" style="margin-top:.6rem;font-size:.95rem"><a href="gift-card/">Make a card to hand over on the day</a></p>
+      <p class="xmas-open xmas-cta xmas-card-link"><a href="gift-card/">or make a card to hand over on the day</a></p>
     </div>
   </div>
 </section>
