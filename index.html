@@ -654,6 +654,7 @@ footer nav{display:flex;flex-wrap:wrap;gap:.4rem 1.4rem;margin-bottom:.6rem}
         <li>Chapter one within 24 hours, the whole book three days later</li>
       </ul>
       <a class="btn" href="#" data-link="form">Start your story</a>
+      <p class="small" style="margin-top:.6rem"><b>Or three novels for $29.99</b>, to give or keep. <a href="#" data-link="bundle">Buy the three</a>, then tell us about each reader.</p>
       <p class="small">Answer the questions, then pay. Not happy with the book? Full refund within 30 days, no questions asked.</p>
     </div>
     <div class="price member">
@@ -703,7 +704,8 @@ footer nav{display:flex;flex-wrap:wrap;gap:.4rem 1.4rem;margin-bottom:.6rem}
 // Empty ones stay pointing at this page until the account or page exists.
 const LINKS = {
   form: 'order.html',     // our order page, with the Tally questions inside; it goes on to the $12.99 payment (audiobook optional, $6.99)
-  member: 'https://buy.stripe.com/28E4gA3vZ0jigOo5yjc3m01',   // $19 a month founding membership (live)
+  member: 'https://buy.stripe.com/28E4gA3vZ0jigOo5yjc3m01',
+  bundle: 'https://buy.stripe.com/eVq8wQ2rV1nmbu41i3c3m05',   // three novels, $29.99; after paying, buyers use the no-payment form tally.so/r/db9keV   // $19 a month founding membership (live)
   sample: 'what-she-left-behind/',   // free taster: opening page, one teaching scene and its question
   terms: 'terms.html', privacy: 'privacy.html', contact: 'mailto:hello@learnedbyheart.com'
 };
